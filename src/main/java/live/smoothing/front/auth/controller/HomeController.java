@@ -1,4 +1,4 @@
-package live.smoothing.front.controller;
+package live.smoothing.front.auth.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

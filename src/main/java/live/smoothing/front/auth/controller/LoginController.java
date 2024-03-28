@@ -1,7 +1,7 @@
-package live.smoothing.front.controller;
+package live.smoothing.front.auth.controller;
 
-import live.smoothing.front.adapter.LoginAdaptor;
-import live.smoothing.front.dto.LoginDto;
+import live.smoothing.front.adapter.AuthAdaptor;
+import live.smoothing.front.auth.dto.LoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
 
-    private final LoginAdaptor loginAdaptor;
+    private final AuthAdaptor authAdaptor;
 
     @Autowired
-    public LoginController(LoginAdaptor loginAdaptor) {
+    public LoginController(AuthAdaptor authAdaptor) {
 
-        this.loginAdaptor = loginAdaptor;
+        this.authAdaptor = authAdaptor;
     }
 
     @PostMapping("/login")
     public String doLogin(@RequestBody LoginDto loginDto) {
 
-        HttpStatus status = loginAdaptor.doLogin(loginDto).getStatusCode();
+        HttpStatus status = authAdaptor.doLogin(loginDto).getStatusCode();
 
         return (status == HttpStatus.OK) ? "redirect:/" : "redirect:/login";
     }
