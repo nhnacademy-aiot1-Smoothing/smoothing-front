@@ -1,10 +1,12 @@
 package live.smoothing.front.auth.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-public class ResponseDto {
+@AllArgsConstructor
+public class LoginResponse {
 
     @JsonProperty("accessToken")
     private String accessToken;

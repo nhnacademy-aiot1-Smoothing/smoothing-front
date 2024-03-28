@@ -2,9 +2,11 @@ package live.smoothing.front.auth.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-public class LoginDto {
+@NoArgsConstructor
+public class LoginRequest {
 
     @JsonProperty("userId")
     private String userId;
@@ -12,4 +14,8 @@ public class LoginDto {
     @JsonProperty("userPassword")
     private String userPassword;
 
+    public LoginRequest(String testId, String testPw) {
+        this.userId = testId;
+        this.userPassword = testPw;
+    }
 }
