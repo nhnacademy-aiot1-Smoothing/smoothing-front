@@ -1,6 +1,7 @@
 package live.smoothing.front.adapter;
 
-import live.smoothing.front.auth.dto.LoginDto;
+import live.smoothing.front.auth.dto.LoginRequest;
+import live.smoothing.front.auth.dto.LoginResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,5 +11,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface AuthAdaptor {
 
     @PostMapping("/login")
-    ResponseEntity<?> doLogin(@RequestBody LoginDto loginDto);
+    ResponseEntity<LoginResponse> doLogin(@RequestBody LoginRequest loginRequest);
 }
