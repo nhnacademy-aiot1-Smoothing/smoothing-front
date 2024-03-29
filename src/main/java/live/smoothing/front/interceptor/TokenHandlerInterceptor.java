@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class TokenHandlerInterceptor implements HandlerInterceptor {
+    private final String ACCESS_TOKEN = "smoothing-accessToken";
+    private final String REFRESH_TOKEN = "smoothing-refreshToken";
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -18,10 +20,10 @@ public class TokenHandlerInterceptor implements HandlerInterceptor {
         Cookie[] cookies = request.getCookies();
         if(cookies != null) {
             for(Cookie c : cookies) {
-                if("accessToken".equals(c.getName())) {
+                if(ACCESS_TOKEN.equals(c.getName())) {
                     response.addHeader(c.getName(), c.getValue());
                 }
-                if("refreshToken".equals(c.getName())) {
+                if(REFRESH_TOKEN.equals(c.getName())) {
                     response.addHeader(c.getName(), c.getValue());
                 }
             }
