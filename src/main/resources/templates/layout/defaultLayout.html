@@ -7,17 +7,19 @@
         <div th:insert="fragments/config::configFragment"></div>
     </head>
     <body>
-        <nav th:replace="fragments/sidebar::sidebarFragment"></nav>
-        
-        <div class="container-fluid page-body-wrapper pt-0 proBanner-padding-top">
-            <!-- partial:partials/_sidebar.html -->
+        <div class="container-scroller">
             <nav th:replace="fragments/topbar::topbarFragment"></nav>
-            <th:block layout:fragment="content"></th:block>
-            <!-- partial:partials/_footer.html -->
-            <footer class="footer" th:replace="fragments/footer::footerFragment"></footer>
+            <div class="container-fluid page-body-wrapper pt-0 proBanner-padding-top">
+                <nav th:replace="fragments/sidebar::sidebarFragment"></nav>
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        <th:block layout:fragment="content"></th:block>
+                    </div>
+                    <footer class="footer" th:replace="fragments/footer::footerFragment"></footer>
+                </div>
+            </div>
         </div>
-        
-
-        
     </body>
 </html>
+
+
