@@ -3,6 +3,7 @@ package live.smoothing.front.auth.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import live.smoothing.front.adapter.AuthAdaptor;
 import live.smoothing.front.auth.dto.LoginRequest;
+import live.smoothing.front.interceptor.ReissueJwtTokenInterceptor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -29,13 +31,16 @@ class LoginControllerTest {
     @MockBean
     private AuthAdaptor authAdaptor;
 
+    @MockBean
+    private ReissueJwtTokenInterceptor reissueJwtTokenInterceptor;
+
     @Autowired
     private ObjectMapper objectMapper;
 
     @BeforeEach
-    public void setUp() {
-
+    public void setUp() throws Exception {
         when(authAdaptor.doLogin(any())).thenReturn(new ResponseEntity<>(HttpStatus.OK));
+        given(reissueJwtTokenInterceptor.preHandle(any(), any(), any())).willReturn(true);
     }
 
     @Test
