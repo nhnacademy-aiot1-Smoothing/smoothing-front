@@ -6,7 +6,7 @@ function login() {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/login", true);
     xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
             if (response.result === "success") {
