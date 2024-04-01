@@ -62,7 +62,7 @@ public class CookieUtil {
         return URLEncoder.encode(tokenType + " " + token, StandardCharsets.UTF_8);
     }
 
-    private static TokenWithType decodeTokenWithType(String encodedTokenWithType) {
+    public static TokenWithType decodeTokenWithType(String encodedTokenWithType) {
         String tokenWithType = String.valueOf(URLDecoder.decode(encodedTokenWithType, StandardCharsets.UTF_8));
         String[] split = tokenWithType.split(" ");
         return new TokenWithType(split[0], split[1]);
