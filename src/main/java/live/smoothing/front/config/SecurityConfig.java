@@ -16,12 +16,26 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Security 설정 클래스
+ *
+ * @author 우혜승
+
+ */
 @Configuration
 @EnableWebSecurity(debug = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final AuthAdaptor authAdaptor;
 
+    /**
+     * SecurityFilterChain 빈 생성 메서드
+     * SecurityFilterChain 을 생성한다.
+     *
+     * @param http HttpSecurity
+     * @return SecurityFilterChain
+     * @throws Exception SecurityFilterChain 생성 실패 시 예외
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_THREADLOCAL);
@@ -47,16 +61,36 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * WebSecurityCustomizer 빈 생성 메서드
+     * Security Filter 적용을 제외할 URL 을 설정한다.
+     *
+     * @return WebSecurityCustomizer
+     */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().antMatchers("/assets/**", "/error", "/static/**");
     }
 
+    /**
+     * AuthenticationManager 빈 생성 메서드
+     * AuthenticationManager 를 생성한다.
+     *
+     * @param authenticationConfiguration AuthenticationConfiguration
+     * @return AuthenticationManager
+     * @throws Exception AuthenticationManager 생성 실패 시 예외
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    /**
+     * AuthenticationProvider 빈 생성 메서드
+     * CustomAuthenticationProvider 를 생성한다.
+     *
+     * @return AuthenticationProvider
+     */
     @Bean
     public AuthenticationProvider authenticationProvider(){
         return new CustomAuthenticationProvider(authAdaptor);
