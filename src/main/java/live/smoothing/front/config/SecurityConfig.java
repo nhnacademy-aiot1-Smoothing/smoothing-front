@@ -1,19 +1,36 @@
 package live.smoothing.front.config;
 
+import live.smoothing.front.adapter.AuthAdaptor;
+import live.smoothing.front.security.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableWebSecurity(debug = true)
+@RequiredArgsConstructor
+public class SecurityConfig {
+    private final AuthAdaptor authAdaptor;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_THREADLOCAL);
+
+        http.csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
+                .and()
+                .addFilterAt(new CustomLoginFilter(authenticationManager(null)), UsernamePasswordAuthenticationFilter.class)
+                .securityContext().securityContextRepository(new CustomSecurityContextRepository()).and()
+//                .addFilter(new CustomAuthenticationFilter(authenticationManager(null)))
                 .authorizeRequests()
                 .antMatchers("/assets/**").permitAll()
                 .anyRequest().authenticated()
@@ -23,12 +40,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
+
+        return http.build();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("admin").password("{noop}123").roles("ADMIN");
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider(){
+        return new CustomAuthenticationProvider(authAdaptor);
     }
 }
