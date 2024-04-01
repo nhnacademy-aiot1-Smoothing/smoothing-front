@@ -25,40 +25,32 @@ public class CustomSecurityContextRepository implements SecurityContextRepositor
 
         String accessToken = getAccessToken(requestResponseHolder.getRequest().getCookies());
 
-        if(isExpired(accessToken)){
-            accessToken = reIssueAccessToken(accessToken);
-        }
+        UsernamePasswordAuthenticationToken token = null;
 
-        UsernamePasswordAuthenticationToken token = getAuthenticationToken(accessToken);
+        try {
+            token = getAuthenticationToken(accessToken);
+        } catch (JsonProcessingException e) {
+            log.debug("Token Value Error");
+            Cookie expireCookie = new Cookie("smoothing_accessToken", null);
+            expireCookie.setMaxAge(0);
+            expireCookie.setPath("/");
+            requestResponseHolder.getResponse().addCookie(expireCookie);
+        }
 
         return new SecurityContextImpl(token);
     }
 
-    private UsernamePasswordAuthenticationToken getAuthenticationToken(String accessToken) {
+    private UsernamePasswordAuthenticationToken getAuthenticationToken(String accessToken) throws JsonProcessingException {
 
         UsernamePasswordAuthenticationToken authenticationToken = null;
-        if(accessToken==null){
+        if (accessToken == null) {
             return authenticationToken;
         }
 
 
-        try {
-            authenticationToken = new UsernamePasswordAuthenticationToken(JwtUtil.getUserId(accessToken), null, JwtUtil.getRoles(accessToken).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
-        } catch (Exception e){
-            log.debug("token Value error");
-        }
+        authenticationToken = new UsernamePasswordAuthenticationToken(JwtUtil.getUserId(accessToken), null, JwtUtil.getRoles(accessToken).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+
         return authenticationToken;
-    }
-
-    private String reIssueAccessToken(String accessToken) {
-
-        String reIssuedAccessToken = null;
-        if(accessToken==null){
-            return reIssuedAccessToken;
-        }
-
-
-        return null;
     }
 
     private String getAccessToken(Cookie[] cookies) {
@@ -72,10 +64,6 @@ public class CustomSecurityContextRepository implements SecurityContextRepositor
             }
         }
         return accessToken;
-    }
-
-    private boolean isExpired(String accessToken){
-        return false;
     }
 
     @Override
@@ -104,7 +92,7 @@ public class CustomSecurityContextRepository implements SecurityContextRepositor
 
     @Override
     public void saveContext(SecurityContext context, HttpServletRequest request, HttpServletResponse response) {
-
+        SecurityContextHolder.getContext().setAuthentication(context.getAuthentication());
     }
 
     @Override

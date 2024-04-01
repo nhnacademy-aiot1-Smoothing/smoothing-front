@@ -36,10 +36,15 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
         CustomAuthenticationToken token = (CustomAuthenticationToken) authResult;
         String accessToken = token.getLoginResponse().getAccessToken();
         String refreshToken = token.getLoginResponse().getRefreshToken();
-//        System.out.println("fsdfsdfsfsdf");
-//        System.out.println(Arrays.toString(Base64.getEncoder().encode(accessToken.getBytes()))); 이거 안 담김
         Cookie accessCookie = new Cookie("smoothing_accessToken", accessToken);
         Cookie refreshCookie = new Cookie("smoothing_refreshToken", refreshToken);
+//        accessCookie.setHttpOnly(true);
+//        accessCookie.setSecure(true);
+//        accessCookie.setPath("/");
+//        refreshCookie.setHttpOnly(true);
+//        refreshCookie.setSecure(true);
+//        refreshCookie.setPath("/");
+        //이거 하면 저장이 안 됨
         response.addCookie(accessCookie);
         response.addCookie(refreshCookie);
 
@@ -50,7 +55,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-
+        //todo 에러처리
         response.sendRedirect("/login");
     }
 }

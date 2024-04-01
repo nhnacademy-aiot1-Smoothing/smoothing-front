@@ -19,11 +19,11 @@ public class LoginController {
         this.authAdaptor = authAdaptor;
     }
 
-    @PostMapping("/login")
-    public String doLogin(@RequestBody LoginRequest loginRequest) {
-
-        HttpStatus status = authAdaptor.doLogin(loginRequest).getStatusCode();
-
-        return (status == HttpStatus.OK) ? "redirect:/" : "redirect:/login";
-    }
+//    @PostMapping("/login")
+//    public String doLogin(@RequestBody LoginRequest loginRequest) {
+//
+//        HttpStatus status = authAdaptor.doLogin(loginRequest).getStatusCode();
+//
+//        return (status == HttpStatus.OK) ? "redirect:/" : "redirect:/login";
+//    }
 }
