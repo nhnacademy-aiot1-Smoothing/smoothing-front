@@ -1,51 +1,45 @@
 package live.smoothing.front.interceptor;
 
+import feign.RequestTemplate;
+import live.smoothing.front.token.ThreadLocalToken;
+import live.smoothing.front.token.entity.TokenWithType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-
-import javax.servlet.http.Cookie;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TokenHandlerInterceptorTest {
+class TokenRequestInterceptorTest {
 
     private TokenRequestInterceptor interceptor;
-    private final String accessToken = "smoothing-accessToken";
-    private final String refreshToken = "smoothing-refreshToken";
+
     @BeforeEach
     void setUp() {
         interceptor = new TokenRequestInterceptor();
-
     }
 
     @Test
-    @DisplayName("쿠키에 토큰이 있으면 헤더에 추가한다.")
-    void addTokenHeaderWhenCookiesPresent() throws Exception {
+    @DisplayName("ThreadLocal에 토큰이 있으면 헤더에 추가한다.")
+    void addTokenHeaderWhenTokenPresent() {
 
+        TokenWithType token = new TokenWithType("Bearer", "123456");
+        ThreadLocalToken.TOKEN.set(token);
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        MockHttpServletResponse response = new MockHttpServletResponse();
+        RequestTemplate requestTemplate = new RequestTemplate();
 
-        request.setCookies(new Cookie(accessToken, "someAccessToken"), new Cookie(refreshToken, "someRefreshToken"));
+        interceptor.apply(requestTemplate);
 
-        interceptor.preHandle(request, response, null);
-
-        assertEquals("someAccessToken", response.getHeader(accessToken));
-        assertEquals("someRefreshToken", response.getHeader(refreshToken));
+        assertEquals("Bearer 123456", requestTemplate.headers().get("Authorization").iterator().next());
     }
 
     @Test
-    @DisplayName("쿠키에 토큰이 없으면 헤더에 추가하지 않는다.")
-    void doNotAddTokenHeaderWhenCookiesNotPresent() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        MockHttpServletResponse response = new MockHttpServletResponse();
+    @DisplayName("ThreadLocal에 토큰이 없으면 헤더에 추가하지 않는다.")
+    void addTokenHeaderWhenTokenNotPresent() {
 
-        interceptor.preHandle(request, response, null);
+        RequestTemplate requestTemplate = new RequestTemplate();
 
-        assertNull(response.getHeader(accessToken));
-        assertNull(response.getHeader(refreshToken));
+        interceptor.apply(requestTemplate);
+
+        assertFalse(requestTemplate.headers().containsKey("Authorization"));
     }
 }
