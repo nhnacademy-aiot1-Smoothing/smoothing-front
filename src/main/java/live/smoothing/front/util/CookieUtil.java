@@ -1,7 +1,15 @@
 package live.smoothing.front.util;
 
+import live.smoothing.front.token.entity.TokenWithType;
+
 import javax.servlet.http.Cookie;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Base64;
+
+import static java.util.Base64.getUrlEncoder;
 
 public class CookieUtil {
 
@@ -24,6 +32,12 @@ public class CookieUtil {
     }
 
     private static String createTokenWithType(String tokenType, String token) {
-        return tokenType + " " + token;
+        return URLEncoder.encode(tokenType + " " + token, StandardCharsets.UTF_8);
+    }
+
+    private static TokenWithType decodeTokenWithType(String encodedTokenWithType) {
+        String tokenWithType = String.valueOf(URLDecoder.decode(encodedTokenWithType, StandardCharsets.UTF_8));
+        String[] split = tokenWithType.split(" ");
+        return new TokenWithType(split[0], split[1]);
     }
 }
