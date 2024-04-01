@@ -2,7 +2,7 @@ package live.smoothing.front.config;
 
 import live.smoothing.front.adapter.AuthAdaptor;
 import live.smoothing.front.interceptor.ReissueJwtTokenInterceptor;
-import live.smoothing.front.interceptor.TokenHandlerInterceptor;
+import live.smoothing.front.interceptor.TokenRequestInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
@@ -37,8 +37,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
      * @return Jwt 토큰 재발급 인터셉터 객체
      */
     @Bean
-    public TokenHandlerInterceptor tokenHandlerInterceptor() {
-        return new TokenHandlerInterceptor();
+    public TokenRequestInterceptor tokenRequestInterceptor() {
+        return new TokenRequestInterceptor();
     }
 
     /**
@@ -49,6 +49,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(reissueJwtTokenInterceptor());
-        registry.addInterceptor(tokenHandlerInterceptor());
     }
 }
