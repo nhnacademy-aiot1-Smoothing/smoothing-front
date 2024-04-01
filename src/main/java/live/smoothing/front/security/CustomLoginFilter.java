@@ -34,6 +34,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
     /**
      * HttpServletRequest 에서 userId, userPassword 를 받아 CustomAuthenticationToken 을 생성하고
      * AuthenticationManager 를 통해 인증을 시도한다.
+     *
      * @param request HttpServletRequest
      * @param response HttpServletResponse
      * @return userId 와 userPassword 가 담긴 CustomAuthenticationToken
@@ -51,6 +52,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     /**
      * ProviderManager 에서 인증을 시도하고 성공시 accessToken, refreshToken 을 쿠키에 저장한다.
+     *
      * @param request HttpServletRequest
      * @param response HttpServletResponse
      * @param chain FilterChain
@@ -83,6 +85,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     /**
      * 인증 실패 시 로그인 페이지로 리다이렉트한다.
+     *
      * @param request HttpServletRequest
      * @param response HttpServletResponse
      * @param failed AuthenticationException

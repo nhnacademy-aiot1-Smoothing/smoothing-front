@@ -65,6 +65,11 @@ public class CookieUtil {
         return URLEncoder.encode(tokenType + " " + token, StandardCharsets.UTF_8);
     }
 
+    /**
+     * JWT Access Token을 디코딩하는 메서드
+     * @param encodedTokenWithType 인코딩된 JWT Access Token
+     * @return 디코딩된 JWT Access Token
+     */
     public static TokenWithType decodeTokenWithType(String encodedTokenWithType) {
         String tokenWithType = String.valueOf(URLDecoder.decode(encodedTokenWithType, StandardCharsets.UTF_8));
         String[] split = tokenWithType.split(" ");

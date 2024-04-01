@@ -26,6 +26,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     /**
      * @see CustomAuthenticationToken 를 받아서 인증을 시도한다.
+     *
      * @param authentication the inheritor of CustomAuthenticationToken
      * @return the inheritor of CustomAuthenticationToken
      * @throws AuthenticationException 인증 서버 에러, 로그인 실패 등의 예외
@@ -48,6 +49,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     /**
      * 인자로 받은 authentication 이 CustomAuthenticationToken 의 인스턴스인지 확인한다.
+     *
      * @param authentication the inheritor of CustomAuthenticationToken
      * @return true if the authentication is the inheritor of CustomAuthenticationToken
      */

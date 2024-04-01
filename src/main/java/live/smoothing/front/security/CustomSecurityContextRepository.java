@@ -30,9 +30,10 @@ public class CustomSecurityContextRepository implements SecurityContextRepositor
     private final static String ACCESS_TOKEN_COOKIE_NAME = "smoothing_accessToken";
 
     /**
+     * 사용자의 요청 쿠키에서 accessToken을 가져와서 CustomAuthenticationToken을 생성한다.
      *
      * @param requestResponseHolder HttpRequestResponseHolder
-     * @return
+     * @return UsernamePasswordAuthenticationToken
      */
     @Override
     public SecurityContext loadContext(HttpRequestResponseHolder requestResponseHolder) {
@@ -60,7 +61,15 @@ public class CustomSecurityContextRepository implements SecurityContextRepositor
         return new SecurityContextImpl(token);
     }
 
-    private UsernamePasswordAuthenticationToken getAuthenticationToken(String accessToken) throws JsonProcessingException {
+    /**
+     * accessToken을 통해 사용자의 id, 권한을 가져와서 UsernamePasswordAuthenticationToken을 생성한다.
+     *
+     * @param accessToken 사용자의 accessToken
+     * @return UsernamePasswordAuthenticationToken
+     * @throws RuntimeException CookieUtil.decodeTokenWithType 에서 발생하는 예외
+     * @throws JsonProcessingException accessToken을 decode할 때 예외
+     */
+    private UsernamePasswordAuthenticationToken getAuthenticationToken(String accessToken) throws RuntimeException, JsonProcessingException {
 
         UsernamePasswordAuthenticationToken authenticationToken = null;
         if (accessToken == null) {
@@ -75,6 +84,12 @@ public class CustomSecurityContextRepository implements SecurityContextRepositor
         return authenticationToken;
     }
 
+    /**
+     * 만들어 뒀지만 사용하지 않음
+     * @param request the {@link HttpServletRequest} to load the {@link SecurityContext}
+     *
+     * @return SecurityContext
+     */
     @Override
     public Supplier<SecurityContext> loadContext(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
@@ -93,6 +108,12 @@ public class CustomSecurityContextRepository implements SecurityContextRepositor
         return () -> new SecurityContextImpl(token);
     }
 
+    /**
+     * 요청 처리 후에 SecurityContext 를 저장한다.
+     * @param context SecurityContext
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     */
     @Override
     public void saveContext(SecurityContext context, HttpServletRequest request, HttpServletResponse response) {
         SecurityContextHolder.getContext().setAuthentication(context.getAuthentication());

@@ -33,9 +33,9 @@ public class SecurityConfig {
                 .securityContext().securityContextRepository(new CustomSecurityContextRepository()).and()
 //                .addFilter(new CustomAuthenticationFilter(authenticationManager(null)))
                 .authorizeRequests()
-                .antMatchers("/assets/**").permitAll()
-                .antMatchers("/error").permitAll()
-                .antMatchers("/static/**").permitAll()
+//                .antMatchers("/assets/**").permitAll()
+//                .antMatchers("/error").permitAll()
+//                .antMatchers("/static/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -47,10 +47,10 @@ public class SecurityConfig {
         return http.build();
     }
 
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring().antMatchers("/assets/**");
-//    }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().antMatchers("/assets/**", "/error", "/static/**");
+    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
