@@ -3,6 +3,7 @@ package live.smoothing.front.interceptor;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import live.smoothing.front.token.ThreadLocalToken;
+import live.smoothing.front.token.entity.TokenWithType;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,14 +25,16 @@ public class TokenRequestInterceptor implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate requestTemplate) {
 
-        String tokenType = ThreadLocalToken.TOKEN.get().getTokenType();
-        String token = ThreadLocalToken.TOKEN.get().getToken();
+        TokenWithType token = ThreadLocalToken.TOKEN.get();
+        if(token != null) {
+            String tokenType = token.getTokenType();
+            String tokenValue = token.getToken();
 
-        String authorizationToken = tokenType + " " + token;
+            String authorizationToken = tokenType + " " + tokenValue;
 
-        requestTemplate.header("Authorization", authorizationToken);
+            requestTemplate.header("Authorization", authorizationToken);
+        }
 
         ThreadLocalToken.TOKEN.remove();
     }
 }
-
