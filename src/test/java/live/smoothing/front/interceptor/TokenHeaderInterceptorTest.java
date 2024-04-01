@@ -12,12 +12,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TokenHandlerInterceptorTest {
 
-    private TokenHandlerInterceptor interceptor;
+    private TokenRequestInterceptor interceptor;
     private final String accessToken = "smoothing-accessToken";
     private final String refreshToken = "smoothing-refreshToken";
     @BeforeEach
     void setUp() {
-        interceptor = new TokenHandlerInterceptor();
+        interceptor = new TokenRequestInterceptor();
 
     }
 
