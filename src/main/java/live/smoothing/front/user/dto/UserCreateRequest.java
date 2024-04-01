@@ -3,6 +3,11 @@ package live.smoothing.front.user.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * 유저 생성 요청 DTO
+ *
+ * @author 박영준
+ */
 @Getter
 @AllArgsConstructor
 public class UserCreateRequest {

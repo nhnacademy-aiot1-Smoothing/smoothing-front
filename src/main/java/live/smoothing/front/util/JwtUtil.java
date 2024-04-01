@@ -4,13 +4,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.core.ParameterizedTypeReference;
 
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
 
+/**
+ *
+ *
+ * @author 박영준, 우혜승
+ */
 public class JwtUtil {
 
     private final static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
