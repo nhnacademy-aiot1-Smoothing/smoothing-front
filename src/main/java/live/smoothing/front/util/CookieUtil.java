@@ -30,6 +30,9 @@ public class CookieUtil {
      * @return 이름에 맞는 쿠키
      */
     public static Cookie getCookieByName(Cookie[] cookies, String name) {
+        if(cookies==null){
+            return null;
+        }
         return Arrays.stream(cookies)
                 .filter(cookie -> name.equals(cookie.getName()))
                 .findFirst()
@@ -62,9 +65,10 @@ public class CookieUtil {
         return URLEncoder.encode(tokenType + " " + token, StandardCharsets.UTF_8);
     }
 
-    private static TokenWithType decodeTokenWithType(String encodedTokenWithType) {
+    public static TokenWithType decodeTokenWithType(String encodedTokenWithType) {
         String tokenWithType = String.valueOf(URLDecoder.decode(encodedTokenWithType, StandardCharsets.UTF_8));
         String[] split = tokenWithType.split(" ");
         return new TokenWithType(split[0], split[1]);
     }
+
 }
