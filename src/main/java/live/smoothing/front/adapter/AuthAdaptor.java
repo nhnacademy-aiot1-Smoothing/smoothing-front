@@ -27,8 +27,6 @@ public interface AuthAdaptor {
     @PostMapping("/api/auth/login")
     ResponseEntity<LoginResponse> doLogin(@RequestBody LoginRequest loginRequest);
 
-    ResponseEntity<Void> test(@RequestHeader )
-
     /**
      * accessToken 재발급 요청 및 응답 반환 메서드
      *
