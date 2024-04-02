@@ -50,6 +50,7 @@ public class SecurityConfig {
 //                .antMatchers("/assets/**").permitAll()
 //                .antMatchers("/error").permitAll()
 //                .antMatchers("/static/**").permitAll()
+                .antMatchers("/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
