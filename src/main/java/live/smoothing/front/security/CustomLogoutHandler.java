@@ -11,10 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 public class CustomLogoutHandler implements LogoutHandler {
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        Cookie cookie = CookieUtil.getCookieByName(request.getCookies(), "smoothing_accessToken");
-        if (cookie != null) {
-            cookie.setMaxAge(0);
-            response.addCookie(cookie);
+        Cookie accessToken = CookieUtil.getCookieByName(request.getCookies(), "smoothing_accessToken");
+        Cookie refreshToken = CookieUtil.getCookieByName(request.getCookies(), "smoothing_refreshToken");
+        if(accessToken != null) {
+            accessToken.setMaxAge(0);
+            response.addCookie(accessToken);
+        }
+        if(refreshToken != null) {
+            refreshToken.setMaxAge(0);
+            response.addCookie(refreshToken);
         }
     }
 }
