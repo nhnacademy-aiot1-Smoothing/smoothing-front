@@ -13,6 +13,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -27,6 +32,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final AuthAdaptor authAdaptor;
+    private final AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository;
+    private final ClientRegistrationRepository clientRegistrationRepository;
 
     /**
      * SecurityFilterChain 빈 생성 메서드
@@ -51,6 +58,7 @@ public class SecurityConfig {
 //                .antMatchers("/error").permitAll()
 //                .antMatchers("/static/**").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/oauth").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -59,8 +67,19 @@ public class SecurityConfig {
                 .logout().addLogoutHandler(new CustomLogoutHandler())
                 .permitAll();
 
+        http.oauth2Login()
+                .userInfoEndpoint().userService(new CustomOAuth2Service())
+                .and()
+                .successHandler(new CustomOAuth2AuthenticationSuccessHandler());
         return http.build();
     }
+
+//    @Bean
+//    public OAuth2AuthorizationRequestRedirectFilter oAuth2AuthorizationRequestRedirectFilter() {
+//        OAuth2AuthorizationRequestRedirectFilter oAuth2AuthorizationRequestRedirectFilter = new OAuth2AuthorizationRequestRedirectFilter(clientRegistrationRepository);
+//        oAuth2AuthorizationRequestRedirectFilter.setAuthorizationRequestRepository(authorizationRequestRepository);
+//        return oAuth2AuthorizationRequestRedirectFilter;
+//    }
 
     /**
      * WebSecurityCustomizer 빈 생성 메서드
