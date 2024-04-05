@@ -6,6 +6,7 @@ import live.smoothing.front.dto.RefreshTokenRequest;
 import live.smoothing.front.dto.ReissueResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -35,4 +36,15 @@ public interface AuthAdaptor {
      */
     @PostMapping("/api/auth/refresh")
     ResponseEntity<ReissueResponse> refreshToken(@RequestBody RefreshTokenRequest tokenRequest);
+
+    /**
+     * 로그아웃 요청 메서드
+     *
+     * @param tokenRequest 삭제할 refreshToken 을 담은 요청 객체
+     * @return 없음
+     *
+     * @author 우혜승
+     */
+    @DeleteMapping("/api/auth/logout")
+    ResponseEntity<Void> logout(@RequestBody RefreshTokenRequest tokenRequest);
 }

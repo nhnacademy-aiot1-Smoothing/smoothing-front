@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .formLogin()
                 .permitAll()
                 .and()
-                .logout().addLogoutHandler(new CustomLogoutHandler())
+                .logout().addLogoutHandler(new CustomLogoutHandler(authAdaptor))
                 .permitAll();
 
         return http.build();
