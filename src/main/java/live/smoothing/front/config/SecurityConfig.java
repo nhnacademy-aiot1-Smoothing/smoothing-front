@@ -54,6 +54,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/login")
                 .permitAll()
                 .and()
                 .logout().addLogoutHandler(new CustomLogoutHandler())
