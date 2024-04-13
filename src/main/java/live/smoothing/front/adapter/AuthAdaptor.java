@@ -4,6 +4,9 @@ import live.smoothing.front.auth.dto.LoginRequest;
 import live.smoothing.front.auth.dto.LoginResponse;
 import live.smoothing.front.dto.RefreshTokenRequest;
 import live.smoothing.front.dto.ReissueResponse;
+import live.smoothing.front.email.dto.CertificationNumberResponse;
+import live.smoothing.front.email.dto.EmailCertificationRequest;
+import live.smoothing.front.email.dto.VerificationRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -47,4 +50,27 @@ public interface AuthAdaptor {
      */
     @DeleteMapping("/api/auth/logout")
     ResponseEntity<Void> logout(@RequestBody RefreshTokenRequest tokenRequest);
+
+    /**
+     * 이메일 인증 요청 메서드
+     *
+     * @param emailCertificationRequest 사용자의 이메일 인증 요청 객체
+     * @return 인증번호
+     *
+     * @author 김지윤
+     */
+    @PostMapping("/api/auth/email")
+    ResponseEntity<CertificationNumberResponse> requestCertificationNumber(@RequestBody EmailCertificationRequest emailCertificationRequest);
+
+    /**
+     * 인증번호 확인 요청 메서드
+     *
+     * @param verificationRequest 인증번호 확인 요청 객체
+     * @return 인증완료되면 true 실패하면 false
+     *
+     * @author 김지윤
+     */
+
+    @PostMapping("/api/auth/email/verify")
+    ResponseEntity<Boolean> verifyEmail(@RequestBody VerificationRequest verificationRequest);
 }
