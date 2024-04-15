@@ -1,4 +1,3 @@
-// loginForm.html 에서 id와 pwd 받아서 로그인 요청을 보내는 javascript
 function login() {
     var id = document.getElementById("loginId").value;
     var pwd = document.getElementById("loginPassword").value;
