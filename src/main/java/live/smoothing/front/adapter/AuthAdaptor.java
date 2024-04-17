@@ -42,7 +42,6 @@ public interface AuthAdaptor {
      *
      * @param tokenRequest 삭제할 refreshToken 을 담은 요청 객체
      * @return 없음
-     *
      * @author 우혜승
      */
     @DeleteMapping("/api/auth/logout")

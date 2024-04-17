@@ -1,4 +1,4 @@
-package live.smoothing.front.firebase;
+package live.smoothing.front.firebase.config;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
@@ -27,7 +27,7 @@ public class FcmInit {
             if(FirebaseApp.getApps().isEmpty()) {
                 FirebaseApp.initializeApp(options);
             }
-        } catch (IOException e) {
+        } catch(IOException e) {
             System.err.println("Failed to initialize FirebaseApp: " + e.getMessage());
             throw new RuntimeException("Failed to initialize FirebaseApp", e);
         }

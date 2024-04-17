@@ -11,28 +11,45 @@ let firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
-messaging.requestPermission().then(() => {
-    console.log('Notification permission granted.');
-    return messaging.getToken();
-}).then((token) => {
-    console.log('Token:', token);
-}).catch((err) => {
-    console.log('Unable to get permission to notify.', err);
-    if (Notification.permission === 'blocked') {
-        console.log('Notifications have been blocked by the user.');
-    } else {
-        console.log('Error getting permission:', err);
-    }
-});
+function handleToken(method) {
+    messaging.requestPermission().then(() => {
+        console.log('알림 권한이 허용되었습니다.');
+        return messaging.getToken();
+    }).then(token => {
+        console.log('토큰:', token);
+        sendTokenToServer(token, method);
+    }).catch(err => {
+        console.error('알림 권한을 얻을 수 없습니다.', err);
+    });
+}
 
-messaging.onMessage((payload) => {
-    console.log('Message received. ', payload);
-    let notificationTitle = payload.notification.title;
-    let notificationOptions = {
-        body: payload.notification.body,
-    };
+function sendTokenToServer(token, method) {
+    const data = JSON.stringify({ fcmToken: token });
+    fetch('/api/tokens', {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: data
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            } else {
+                throw new Error('Server responded with an error.');
+            }
+        })
+        .then(text => console.log('서버로부터의 응답:', text))
+        .catch(error => console.error('서버로부터 응답 오류:', error));
+}
 
-    let notification = new Notification(notificationTitle, notificationOptions);
+document.addEventListener('DOMContentLoaded', function() {
+    handleToken('POST');
+
+    const deleteTokenButton = document.getElementById('deleteTokenButton');
+    deleteTokenButton.addEventListener('click', () => {
+        handleToken('DELETE');
+    });
 });
 
 if ('serviceWorker' in navigator) {

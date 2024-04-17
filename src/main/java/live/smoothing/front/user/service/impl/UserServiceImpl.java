@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void createUser(UserCreateRequest userCreateRequest) {
+
         userAdapter.createUser(userCreateRequest);
     }
 }
