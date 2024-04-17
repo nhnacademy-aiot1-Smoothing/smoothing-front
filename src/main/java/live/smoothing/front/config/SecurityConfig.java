@@ -57,8 +57,10 @@ public class SecurityConfig {
                 .loginPage("/login")
                 .permitAll()
                 .and()
-                .logout().addLogoutHandler(new CustomLogoutHandler(authAdaptor))
-                .permitAll();
+                .logout()
+                .logoutUrl("/logout")
+                .addLogoutHandler(new CustomLogoutHandler(authAdaptor));
+
 
         return http.build();
     }
