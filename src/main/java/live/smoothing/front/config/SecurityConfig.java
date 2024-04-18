@@ -32,7 +32,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final AuthAdaptor authAdaptor;
-    private final AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository;
     private final ClientRegistrationRepository clientRegistrationRepository;
 
     /**
@@ -67,6 +66,7 @@ public class SecurityConfig {
                 .logout().addLogoutHandler(new CustomLogoutHandler())
                 .permitAll();
 
+        http.addFilterAt(oAuth2AuthorizationRequestRedirectFilter(), OAuth2AuthorizationRequestRedirectFilter.class);
         http.oauth2Login()
                 .userInfoEndpoint().userService(new CustomOAuth2Service())
                 .and()
@@ -74,12 +74,12 @@ public class SecurityConfig {
         return http.build();
     }
 
-//    @Bean
-//    public OAuth2AuthorizationRequestRedirectFilter oAuth2AuthorizationRequestRedirectFilter() {
-//        OAuth2AuthorizationRequestRedirectFilter oAuth2AuthorizationRequestRedirectFilter = new OAuth2AuthorizationRequestRedirectFilter(clientRegistrationRepository);
-//        oAuth2AuthorizationRequestRedirectFilter.setAuthorizationRequestRepository(authorizationRequestRepository);
-//        return oAuth2AuthorizationRequestRedirectFilter;
-//    }
+    @Bean
+    public OAuth2AuthorizationRequestRedirectFilter oAuth2AuthorizationRequestRedirectFilter() {
+        OAuth2AuthorizationRequestRedirectFilter oAuth2AuthorizationRequestRedirectFilter = new OAuth2AuthorizationRequestRedirectFilter(clientRegistrationRepository);
+        oAuth2AuthorizationRequestRedirectFilter.setAuthorizationRequestRepository(new CustomHttpSessionOAuth2AuthorizationRequestRepository());
+        return oAuth2AuthorizationRequestRedirectFilter;
+    }
 
     /**
      * WebSecurityCustomizer 빈 생성 메서드
