@@ -12,6 +12,7 @@ import java.util.Map;
 public class FcmNotificationService {
 
     public String sendDataMessage(String token, Map<String, String> data) throws FirebaseMessagingException {
+
         Message message = Message.builder()
                 .putAllData(data)
                 .setToken(token)

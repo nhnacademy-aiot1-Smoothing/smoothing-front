@@ -55,7 +55,6 @@ public interface AuthAdaptor {
      *
      * @param emailCertificationRequest 사용자의 이메일 인증 요청 객체
      * @return 인증번호
-     *
      * @author 김지윤
      */
     @PostMapping("/api/auth/email")
@@ -66,7 +65,6 @@ public interface AuthAdaptor {
      *
      * @param verificationRequest 인증번호 확인 요청 객체
      * @return 인증완료되면 true 실패하면 false
-     *
      * @author 김지윤
      */
 
