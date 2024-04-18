@@ -1,6 +1,6 @@
 package live.smoothing.front.config;
 
-import live.smoothing.front.adapter.AuthAdaptor;
+import live.smoothing.front.adapter.AuthAdapter;
 import live.smoothing.front.security.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity(debug = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final AuthAdaptor authAdaptor;
+    private final AuthAdapter authAdapter;
 
     /**
      * SecurityFilterChain 빈 생성 메서드
@@ -51,7 +51,7 @@ public class SecurityConfig {
 //                .antMatchers("/error").permitAll()
 //                .antMatchers("/static/**").permitAll()
                 .antMatchers("/register").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -59,7 +59,7 @@ public class SecurityConfig {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .addLogoutHandler(new CustomLogoutHandler(authAdaptor));
+                .addLogoutHandler(new CustomLogoutHandler(authAdapter));
 
 
         return http.build();
@@ -97,6 +97,6 @@ public class SecurityConfig {
      */
     @Bean
     public AuthenticationProvider authenticationProvider(){
-        return new CustomAuthenticationProvider(authAdaptor);
+        return new CustomAuthenticationProvider(authAdapter);
     }
 }

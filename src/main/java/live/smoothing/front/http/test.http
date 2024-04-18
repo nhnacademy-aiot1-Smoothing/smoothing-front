@@ -1,0 +1,8 @@
+POST http://localhost:8000/signup/email
+Content-Type: application/json
+
+{
+  "userEmail": "cs.smoothing@gmail.com"
+}
+
+###

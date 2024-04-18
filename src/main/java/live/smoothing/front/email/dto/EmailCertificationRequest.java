@@ -3,6 +3,7 @@ package live.smoothing.front.email.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 이메일 인증번호를 요청하는 DTO
@@ -10,9 +11,10 @@ import lombok.NoArgsConstructor;
  * @author 김지윤
  */
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmailCertificationRequest {
 
-    private String email;
+    private String userEmail;
 }
