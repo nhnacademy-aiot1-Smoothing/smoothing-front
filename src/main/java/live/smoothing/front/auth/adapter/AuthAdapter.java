@@ -1,4 +1,4 @@
-package live.smoothing.front.adapter;
+package live.smoothing.front.auth.adapter;
 
 import live.smoothing.front.auth.dto.LoginRequest;
 import live.smoothing.front.auth.dto.LoginResponse;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 /**
  * 유저 인증 관련 FeignClient
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
  * @author 박영준
  */
 @FeignClient("gateway")
-public interface AuthAdaptor {
+public interface AuthAdapter {
 
     /**
      * 로그인 요청 처리 및 로그인 응답 반환 메서드

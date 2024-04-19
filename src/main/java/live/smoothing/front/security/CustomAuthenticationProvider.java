@@ -1,6 +1,6 @@
 package live.smoothing.front.security;
 
-import live.smoothing.front.adapter.AuthAdaptor;
+import live.smoothing.front.auth.adapter.AuthAdapter;
 import live.smoothing.front.auth.dto.LoginRequest;
 import live.smoothing.front.auth.dto.LoginResponse;
 import lombok.RequiredArgsConstructor;
@@ -10,18 +10,17 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.stereotype.Component;
 
 /**
  * @author 우혜승
  * @see CustomAuthenticationToken 를 통해 인증을 진행하는 Provider
  * @see CustomAuthenticationToken 에서 userId, userPassword를 받아 인증을 진행하고
- * @see AuthAdaptor 를 통해 인증을 진행한다.
+ * @see AuthAdapter 를 통해 인증을 진행한다.
  */
 @RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    private final AuthAdaptor authAdaptor;
+    private final AuthAdapter authAdapter;
 
     /**
      * @param authentication the inheritor of CustomAuthenticationToken
@@ -34,7 +33,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         ResponseEntity<LoginResponse> response;
         try {
-            response = authAdaptor.doLogin(new LoginRequest(authentication.getName(), (String) authentication.getCredentials()));
+            response = authAdapter.doLogin(new LoginRequest(authentication.getName(), (String) authentication.getCredentials()));
         } catch(Exception e) {
             //todo feign 200 아닐 경우 에러 처리돼서 따로 뭔가 해줘야함
             throw new InternalAuthenticationServiceException("Internal Server Error");

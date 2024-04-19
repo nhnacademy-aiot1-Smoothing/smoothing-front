@@ -1,6 +1,6 @@
 package live.smoothing.front.config;
 
-import live.smoothing.front.adapter.AuthAdaptor;
+import live.smoothing.front.auth.adapter.AuthAdapter;
 import live.smoothing.front.interceptor.ReissueJwtTokenInterceptor;
 import live.smoothing.front.interceptor.TokenRequestInterceptor;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    private final ObjectProvider<AuthAdaptor> authAdaptorObjectProvider;
+    private final ObjectProvider<AuthAdapter> authAdaptorObjectProvider;
 
     /**
      * Jwt 토큰 재발급 인터셉터 빈 생성 메서드

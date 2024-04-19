@@ -1,6 +1,6 @@
 package live.smoothing.front.security;
 
-import live.smoothing.front.adapter.AuthAdaptor;
+import live.smoothing.front.auth.adapter.AuthAdapter;
 import live.smoothing.front.dto.RefreshTokenRequest;
 import live.smoothing.front.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class CustomLogoutHandler implements LogoutHandler {
 
-    private final AuthAdaptor authAdaptor;
+    private final AuthAdapter authAdapter;
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
@@ -30,7 +30,7 @@ public class CustomLogoutHandler implements LogoutHandler {
             response.addCookie(refreshToken);
         }
         if(refreshToken != null) {
-            authAdaptor.logout(new RefreshTokenRequest(refreshToken.getValue()));
+            authAdapter.logout(new RefreshTokenRequest(refreshToken.getValue()));
         }
     }
 }

@@ -1,9 +1,7 @@
 package live.smoothing.front.interceptor;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import feign.RequestInterceptor;
-import feign.RequestTemplate;
-import live.smoothing.front.adapter.AuthAdaptor;
+import live.smoothing.front.auth.adapter.AuthAdapter;
 import live.smoothing.front.dto.RefreshTokenRequest;
 import live.smoothing.front.dto.ReissueResponse;
 import live.smoothing.front.token.ThreadLocalToken;
@@ -33,7 +31,7 @@ public class ReissueJwtTokenInterceptor implements HandlerInterceptor {
     private static final String ACCESS_TOKEN_COOKIE_NAME = "smoothing_accessToken";
     private static final String REFRESH_TOKEN_COOKIE_NAME = "smoothing_refreshToken";
 
-    private final AuthAdaptor authAdaptor;
+    private final AuthAdapter authAdapter;
 
     /**
      * 사용자 요청 쿠키에서 Access Token을 꺼내와 만료시간 검사 후 토큰 재발급을 처리하는 메서드
@@ -60,7 +58,7 @@ public class ReissueJwtTokenInterceptor implements HandlerInterceptor {
         try {
             if(requireReissue(accessToken.getToken())) {
                 RefreshTokenRequest refreshTokenRequest = new RefreshTokenRequest(refreshToken.getToken());
-                ResponseEntity<ReissueResponse> tokenResponse = authAdaptor.refreshToken(refreshTokenRequest);
+                ResponseEntity<ReissueResponse> tokenResponse = authAdapter.refreshToken(refreshTokenRequest);
                 ReissueResponse responseBody = Objects.requireNonNull(tokenResponse.getBody());
 
                 ThreadLocalToken.TOKEN.set(new TokenWithType(responseBody.getTokenType(), responseBody.getAccessToken()));
