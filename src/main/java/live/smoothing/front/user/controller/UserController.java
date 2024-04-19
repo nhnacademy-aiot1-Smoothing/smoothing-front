@@ -28,6 +28,7 @@ public class UserController {
      */
     @PostMapping
     public String createUser(@ModelAttribute UserCreateRequest userCreateRequest) {
+
         userService.createUser(userCreateRequest);
         return "redirect:/";
     }

@@ -13,7 +13,7 @@ public class LoginController {
     }
 
     @GetMapping("/register")
-    public String register(){
+    public String register() {
 
         return "pages/register";
     }

@@ -26,6 +26,7 @@ public class JwtUtil {
      * @throws JsonProcessingException Json 파싱 중 오류 발생 예외
      */
     public static Long getExpireTime(String token) throws JsonProcessingException {
+
         String payload = token.split("\\.")[1];
         String payloadJson = new String(Base64.getDecoder().decode(payload));
         JsonNode jsonNode = OBJECT_MAPPER.readTree(payloadJson);
@@ -40,6 +41,7 @@ public class JwtUtil {
      * @throws JsonProcessingException Json 파싱 중 오류 발생 예외
      */
     public static List<String> getRoles(String token) throws JsonProcessingException {
+
         String payload = token.split("\\.")[1];
         String payloadJson = new String(Base64.getDecoder().decode(payload));
         JsonNode jsonNode = OBJECT_MAPPER.readTree(payloadJson);
@@ -55,6 +57,7 @@ public class JwtUtil {
      * @throws JsonProcessingException Json 파싱 중 오류 발생 예외
      */
     public static String getUserId(String token) throws JsonProcessingException {
+
         String payload = token.split("\\.")[1];
         String payloadJson = new String(Base64.getDecoder().decode(payload));
         JsonNode jsonNode = OBJECT_MAPPER.readTree(payloadJson);

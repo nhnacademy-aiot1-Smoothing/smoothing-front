@@ -15,6 +15,7 @@ public class LoginRequest {
     private String userPassword;
 
     public LoginRequest(String testId, String testPw) {
+
         this.userId = testId;
         this.userPassword = testPw;
     }

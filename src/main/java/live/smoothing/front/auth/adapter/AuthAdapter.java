@@ -1,4 +1,4 @@
-package live.smoothing.front.adapter;
+package live.smoothing.front.auth.adapter;
 
 import live.smoothing.front.auth.dto.LoginRequest;
 import live.smoothing.front.auth.dto.LoginResponse;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 /**
  * 유저 인증 관련 FeignClient
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
  * @author 박영준
  */
 @FeignClient("gateway")
-public interface AuthAdaptor {
+public interface AuthAdapter {
 
     /**
      * 로그인 요청 처리 및 로그인 응답 반환 메서드
@@ -45,7 +44,6 @@ public interface AuthAdaptor {
      *
      * @param tokenRequest 삭제할 refreshToken 을 담은 요청 객체
      * @return 없음
-     *
      * @author 우혜승
      */
     @DeleteMapping("/api/auth/logout")
@@ -56,7 +54,6 @@ public interface AuthAdaptor {
      *
      * @param emailCertificationRequest 사용자의 이메일 인증 요청 객체
      * @return 인증번호
-     *
      * @author 김지윤
      */
     @PostMapping("/api/auth/email")
@@ -67,7 +64,6 @@ public interface AuthAdaptor {
      *
      * @param verificationRequest 인증번호 확인 요청 객체
      * @return 인증완료되면 true 실패하면 false
-     *
      * @author 김지윤
      */
 
