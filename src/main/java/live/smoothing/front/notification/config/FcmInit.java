@@ -1,4 +1,4 @@
-package live.smoothing.front.firebase.config;
+package live.smoothing.front.notification.config;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;

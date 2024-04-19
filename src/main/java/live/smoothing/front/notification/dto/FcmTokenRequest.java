@@ -1,4 +1,4 @@
-package live.smoothing.front.firebase.dto;
+package live.smoothing.front.notification.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

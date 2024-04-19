@@ -1,7 +1,7 @@
-package live.smoothing.front.firebase.controller;
+package live.smoothing.front.notification.controller;
 
-import live.smoothing.front.firebase.dto.FcmTokenRequest;
-import live.smoothing.front.firebase.service.FcmTokenService;
+import live.smoothing.front.notification.dto.FcmTokenRequest;
+import live.smoothing.front.notification.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class FcmTokenController {
 
     @Autowired
-    private FcmTokenService fcmTokenService;
+    private NotificationService fcmTokenService;
 
     @PostMapping("/api/tokens")
     public ResponseEntity<?> saveToken(@RequestBody FcmTokenRequest request) {
