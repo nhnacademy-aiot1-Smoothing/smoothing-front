@@ -24,10 +24,11 @@ public class TokenRequestInterceptor implements RequestInterceptor {
      */
     @Override
     public void apply(RequestTemplate requestTemplate) {
+
         try {
             TokenWithType token = ThreadLocalToken.TOKEN.get();
 
-            if (token != null) {
+            if(token != null) {
                 String tokenType = token.getTokenType();
                 String tokenValue = token.getToken();
 

@@ -6,7 +6,11 @@
     <head></head>
     <body>
         <th:block layout:fragment="content">
-            home
+            <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-messaging.js"></script>
+            <script src="/assets/js/index.js"></script>
+            
+            <button id="deleteTokenButton">Send FCM Token to Server</button>
         </th:block>
     </body>
 </html>

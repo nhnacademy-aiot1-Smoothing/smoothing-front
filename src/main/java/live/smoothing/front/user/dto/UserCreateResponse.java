@@ -9,5 +9,6 @@ import lombok.Getter;
  */
 @Getter
 public class UserCreateResponse {
+
     private String message;
 }

@@ -20,13 +20,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * Security 설정 클래스
  *
  * @author 우혜승
-
  */
 @Configuration
 @EnableWebSecurity(debug = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final AuthAdapter authAdapter;
+
+  private final AuthAdapter authAdapter;
 
     /**
      * SecurityFilterChain 빈 생성 메서드
@@ -38,6 +38,7 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_THREADLOCAL);
 
         http.csrf().disable()
@@ -73,6 +74,7 @@ public class SecurityConfig {
      */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
+
         return (web) -> web.ignoring().antMatchers("/assets/**", "/error", "/static/**");
     }
 
@@ -86,6 +88,7 @@ public class SecurityConfig {
      */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+
         return authenticationConfiguration.getAuthenticationManager();
     }
 
