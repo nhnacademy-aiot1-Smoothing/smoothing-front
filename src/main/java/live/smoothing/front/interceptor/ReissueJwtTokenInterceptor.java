@@ -55,6 +55,8 @@ public class ReissueJwtTokenInterceptor implements HandlerInterceptor {
         TokenWithType accessToken = CookieUtil.decodeTokenWithType(encodedAccessToken.getValue());
         TokenWithType refreshToken = CookieUtil.decodeTokenWithType(encodedRefreshToken.getValue());
 
+        ThreadLocalToken.TOKEN.set(accessToken);
+
         try {
             if (requireReissue(accessToken.getToken())) {
                 RefreshTokenRequest refreshTokenRequest = new RefreshTokenRequest(refreshToken.getToken());
@@ -64,7 +66,7 @@ public class ReissueJwtTokenInterceptor implements HandlerInterceptor {
                 ThreadLocalToken.TOKEN.set(new TokenWithType(responseBody.getTokenType(), responseBody.getAccessToken()));
 
                 String newAccessToken = Objects.requireNonNull(responseBody).getAccessToken();
-                Cookie newAccessTokenCookie = new Cookie(ACCESS_TOKEN_COOKIE_NAME, newAccessToken);
+                Cookie newAccessTokenCookie = CookieUtil.createAccessTokenCookie(responseBody.getTokenType(), newAccessToken);
 
                 response.addCookie(newAccessTokenCookie);
             }
