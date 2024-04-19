@@ -1,6 +1,6 @@
 package live.smoothing.front.config;
 
-import live.smoothing.front.auth.adapter.AuthAdapter;
+import live.smoothing.front.adapter.AuthAdapter;
 import live.smoothing.front.interceptor.ReissueJwtTokenInterceptor;
 import live.smoothing.front.interceptor.TokenRequestInterceptor;
 import lombok.RequiredArgsConstructor;

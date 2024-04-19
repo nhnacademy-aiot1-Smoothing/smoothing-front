@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class VerificationRequest {
 
-    private String email;
+    private String userEmail;
     private String certificationNumber;
 }
