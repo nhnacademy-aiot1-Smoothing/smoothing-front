@@ -1,4 +1,4 @@
-package live.smoothing.front.adapter;
+package live.smoothing.front.user.adapter;
 
 import live.smoothing.front.user.dto.UserCreateRequest;
 import live.smoothing.front.user.dto.UserCreateResponse;

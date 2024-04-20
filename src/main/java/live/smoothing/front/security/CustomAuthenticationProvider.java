@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
 /**
+ * @author 우혜승
  * @see CustomAuthenticationToken 를 통해 인증을 진행하는 Provider
  * @see CustomAuthenticationToken 에서 userId, userPassword를 받아 인증을 진행하고
  * @see AuthAdapter 를 통해 인증을 진행한다.
@@ -24,11 +25,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private final AuthAdapter authAdapter;
 
     /**
-     * @see CustomAuthenticationToken 를 받아서 인증을 시도한다.
-     *
      * @param authentication the inheritor of CustomAuthenticationToken
      * @return the inheritor of CustomAuthenticationToken
      * @throws AuthenticationException 인증 서버 에러, 로그인 실패 등의 예외
+     * @see CustomAuthenticationToken 를 받아서 인증을 시도한다.
      */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -40,7 +40,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             //todo feign 200 아닐 경우 에러 처리돼서 따로 뭔가 해줘야함
             throw new InternalAuthenticationServiceException("Internal Server Error");
         }
-        if (!response.getStatusCode().is2xxSuccessful()) {
+        if(!response.getStatusCode().is2xxSuccessful()) {
             throw new BadCredentialsException("Fail to Login");
         }
         return new CustomAuthenticationToken(authentication.getName(), (String) authentication.getCredentials(), response.getBody());
@@ -54,6 +54,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
      */
     @Override
     public boolean supports(Class<?> authentication) {
+
         return CustomAuthenticationToken.class.isAssignableFrom(authentication);
     }
 }

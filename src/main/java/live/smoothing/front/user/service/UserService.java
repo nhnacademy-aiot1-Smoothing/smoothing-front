@@ -1,6 +1,7 @@
 package live.smoothing.front.user.service;
 
 import live.smoothing.front.user.dto.UserCreateRequest;
+import live.smoothing.front.user.dto.UserProfileResponse;
 
 /**
  * 유저 관련 서비스 인터페이스

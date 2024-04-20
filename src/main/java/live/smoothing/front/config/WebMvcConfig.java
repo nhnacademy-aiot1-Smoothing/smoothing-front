@@ -28,6 +28,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Bean
     public ReissueJwtTokenInterceptor reissueJwtTokenInterceptor() {
+
         return new ReissueJwtTokenInterceptor(authAdaptorObjectProvider.getIfAvailable());
     }
 
@@ -38,6 +39,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Bean
     public TokenRequestInterceptor tokenRequestInterceptor() {
+
         return new TokenRequestInterceptor();
     }
 
@@ -48,6 +50,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
         registry.addInterceptor(reissueJwtTokenInterceptor());
     }
 }

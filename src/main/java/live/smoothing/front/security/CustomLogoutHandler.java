@@ -16,17 +16,19 @@ import java.util.Objects;
 
 @RequiredArgsConstructor
 public class CustomLogoutHandler implements LogoutHandler {
+  
     private final AuthAdapter authAdapter;
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+
         Cookie accessToken = CookieUtil.getCookieByName(request.getCookies(), "smoothing_accessToken");
         Cookie refreshToken = CookieUtil.getCookieByName(request.getCookies(), "smoothing_refreshToken");
-        if (accessToken != null) {
+        if(accessToken != null) {
             accessToken.setMaxAge(0);
             response.addCookie(accessToken);
         }
-        if (refreshToken != null) {
+        if(refreshToken != null) {
             refreshToken.setMaxAge(0);
             response.addCookie(refreshToken);
         }

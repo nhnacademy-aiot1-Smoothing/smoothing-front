@@ -1,9 +1,9 @@
 package live.smoothing.front.controller;
 
 import live.smoothing.front.adapter.AuthAdapter;
-import live.smoothing.front.adapter.UserAdapter;
 import live.smoothing.front.email.dto.CertificationNumberResponse;
 import live.smoothing.front.email.dto.EmailCertificationRequest;
+import live.smoothing.front.user.adapter.UserAdapter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
