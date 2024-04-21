@@ -34,7 +34,7 @@ public class NotificationListener {
         data.put("title", title);
         data.put("body", body);
 
-        sendNotification(title, body);
+        sendNotification(message.getTitle(), message.getBody());
         saveNotification(data);
     }
 

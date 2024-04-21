@@ -52,6 +52,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+messaging.onMessage((payload) => {
+    console.log('Message received. ', payload);
+    let notificationTitle = payload.notification.title;
+    let notificationOptions = {
+        body: payload.notification.body,
+    };
+
+    let notification = new Notification(notificationTitle, notificationOptions);
+});
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('/firebase-messaging-sw.js')
