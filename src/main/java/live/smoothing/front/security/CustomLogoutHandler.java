@@ -1,7 +1,7 @@
 package live.smoothing.front.security;
 
 import live.smoothing.front.adapter.AuthAdapter;
-import live.smoothing.front.dto.RefreshTokenRequest;
+import live.smoothing.front.auth.dto.token.RefreshTokenRequest;
 import live.smoothing.front.token.ThreadLocalToken;
 import live.smoothing.front.token.entity.TokenWithType;
 import live.smoothing.front.util.CookieUtil;
