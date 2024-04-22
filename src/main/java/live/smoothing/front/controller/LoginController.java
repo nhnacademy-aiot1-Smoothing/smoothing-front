@@ -1,4 +1,4 @@
-package live.smoothing.front.auth.controller;
+package live.smoothing.front.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +10,5 @@ public class LoginController {
     public String login() {
 
         return "pages/login";
-    }
-
-    @GetMapping("/register")
-    public String register() {
-
-        return "pages/register";
     }
 }
