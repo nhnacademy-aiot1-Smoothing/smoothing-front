@@ -9,13 +9,13 @@ import java.util.Set;
 
 public interface NotificationService {
 
-    boolean saveToken(String fcmToken);
+    boolean saveToken(String userId, String fcmToken);
 
-    void deleteToken(String fcmToken);
+    void deleteToken(String userId, String fcmToken);
 
     Set<String> getTokens(String userId);
 
-    boolean saveMessage(Map<String, String> message);
+    boolean saveMessage(String userId, Map<String, String> message);
 
     List<NotificationMessage> getAllNotifications(String userId);
 

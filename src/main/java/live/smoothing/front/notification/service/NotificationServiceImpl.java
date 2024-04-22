@@ -16,16 +16,16 @@ public class NotificationServiceImpl implements NotificationService {
     private final NotificationRepository notificationRepository;
 
     @Override
-    public boolean saveToken(String fcmToken) {
+    public boolean saveToken(String userId, String fcmToken) {
 
-        notificationRepository.saveToken("user1", fcmToken);
+        notificationRepository.saveToken(userId, fcmToken);
         return true;
     }
 
     @Override
-    public void deleteToken(String fcmToken) {
+    public void deleteToken(String userId, String fcmToken) {
 
-        notificationRepository.deleteToken("user1", fcmToken);
+        notificationRepository.deleteToken(userId, fcmToken);
     }
 
     @Override
@@ -35,15 +35,15 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public boolean saveMessage(Map<String, String> message) {
-        notificationRepository.saveMessage("user1", message);
+    public boolean saveMessage(String userId, Map<String, String> message) {
+        notificationRepository.saveMessage(userId, message);
         return true;
     }
 
     @Override
     public List<NotificationMessage> getAllNotifications(String userId) {
 
-        return notificationRepository.getAllNotifications("user1");
+        return notificationRepository.getAllNotifications(userId);
     }
 
     @Override
