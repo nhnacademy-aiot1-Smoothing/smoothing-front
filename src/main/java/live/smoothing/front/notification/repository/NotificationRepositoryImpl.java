@@ -28,7 +28,7 @@ public class NotificationRepositoryImpl implements NotificationRepository {
     @Override
     public void deleteToken(String userId, String fcmToken) {
 
-        redisTemplate.opsForHash().delete("user1", fcmToken);
+        redisTemplate.opsForHash().delete(userId, fcmToken);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class NotificationRepositoryImpl implements NotificationRepository {
     @Override
     public List<NotificationMessage> getAllNotifications(String userId) {
 
-        Map<Object, Object> rawMessages = redisTemplate.opsForHash().entries("user1:message");
+        Map<Object, Object> rawMessages = redisTemplate.opsForHash().entries(userId + ":message");
 
         List<NotificationMessage> notifications = new ArrayList<>();
         rawMessages.forEach((key, value) -> {
@@ -56,7 +56,7 @@ public class NotificationRepositoryImpl implements NotificationRepository {
             String dateTimeString = key.toString().split("_")[1];
 
             LocalDateTime dateTime = LocalDateTime.parse(dateTimeString);
-            notifications.add(new NotificationMessage("user1", title, (String) value, dateTime));
+            notifications.add(new NotificationMessage(userId, title, (String) value, dateTime));
         });
 
         return notifications;

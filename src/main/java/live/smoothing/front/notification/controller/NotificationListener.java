@@ -40,7 +40,7 @@ public class NotificationListener {
 
     public void sendNotification(String title, String body) {
         try {
-            String userId = "user1";
+            String userId = "hozzi";
             Set<String> tokens = notificationService.getTokens(userId);
             for(String token : tokens) {
                 fcmNotificationService.sendNotification(token, title, body);
@@ -52,7 +52,7 @@ public class NotificationListener {
     }
 
     public void saveNotification(Map<String, String> data){
-        String userId = "user1";
-        notificationService.saveMessage(data);
+        String userId = "hozzi";
+        notificationService.saveMessage(userId, data);
     }
 }
