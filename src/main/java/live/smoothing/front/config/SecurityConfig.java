@@ -23,7 +23,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
  * @author 우혜승
  */
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 @RequiredArgsConstructor
 public class SecurityConfig {
 
