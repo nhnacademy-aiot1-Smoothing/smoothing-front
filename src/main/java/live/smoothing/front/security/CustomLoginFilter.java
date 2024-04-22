@@ -78,6 +78,11 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
         response.addCookie(accessCookie);
         response.addCookie(refreshCookie);
 
+//        Cookie cookie = new Cookie("JSSESSIONID", "1234");
+//        cookie.setPath("/");
+//        cookie.setMaxAge(0);
+//        response.addCookie(cookie);
+
         SecurityContext securityContext = new SecurityContextImpl(token);
         SecurityContextHolder.setContext(securityContext);
         response.sendRedirect("/");
