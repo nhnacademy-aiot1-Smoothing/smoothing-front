@@ -34,24 +34,25 @@ public class NotificationListener {
         data.put("title", title);
         data.put("body", body);
 
-        sendNotification(data);
+        sendNotification(message.getTitle(), message.getBody());
         saveNotification(data);
     }
 
-    public void sendNotification(Map<String, String> data) {
+    public void sendNotification(String title, String body) {
         try {
-            String userId = "user1";
+            String userId = "hozzi";
             Set<String> tokens = notificationService.getTokens(userId);
             for(String token : tokens) {
-                fcmNotificationService.sendDataMessage(token, data);
+                fcmNotificationService.sendNotification(token, title, body);
             }
         } catch(FirebaseMessagingException e) {
-            e.getMessage();
+            System.out.println("Error sending notification: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     public void saveNotification(Map<String, String> data){
-        String userId = "user1";
-        notificationService.saveMessage(data);
+        String userId = "hozzi";
+        notificationService.saveMessage(userId, data);
     }
 }
