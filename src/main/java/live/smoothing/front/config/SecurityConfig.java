@@ -15,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 /**
  * Security 설정 클래스
@@ -101,5 +102,12 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider(){
         return new CustomAuthenticationProvider(authAdapter);
+    }
+
+    @Bean
+    public HttpSessionRequestCache httpSessionRequestCache() {
+        HttpSessionRequestCache httpSessionRequestCache = new HttpSessionRequestCache();
+        httpSessionRequestCache.setCreateSessionAllowed(false);
+        return httpSessionRequestCache;
     }
 }
