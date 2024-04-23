@@ -1,8 +1,8 @@
 package live.smoothing.front.security;
 
 import live.smoothing.front.adapter.AuthAdapter;
-import live.smoothing.front.auth.dto.LoginRequest;
-import live.smoothing.front.auth.dto.LoginResponse;
+import live.smoothing.front.auth.dto.login.LoginRequest;
+import live.smoothing.front.auth.dto.login.LoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationProvider;

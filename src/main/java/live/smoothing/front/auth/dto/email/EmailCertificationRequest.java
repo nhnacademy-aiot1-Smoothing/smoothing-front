@@ -1,4 +1,4 @@
-package live.smoothing.front.email.dto;
+package live.smoothing.front.auth.dto.email;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

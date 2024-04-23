@@ -1,4 +1,4 @@
-package live.smoothing.front.auth.dto;
+package live.smoothing.front.auth.dto.login;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
