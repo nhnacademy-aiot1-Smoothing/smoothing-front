@@ -1,6 +1,6 @@
 package live.smoothing.front.user.service.impl;
 
-import live.smoothing.front.adapter.UserAdapter;
+import live.smoothing.front.adapter.UserApiAdapter;
 import live.smoothing.front.user.dto.UserCreateRequest;
 import live.smoothing.front.user.dto.UserCreateResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 class UserServiceImplTest {
 
     @Mock
-    UserAdapter userAdapter;
+    UserApiAdapter userApiAdapter;
 
     @InjectMocks
     UserServiceImpl userService;
@@ -30,10 +30,10 @@ class UserServiceImplTest {
         UserCreateResponse response = new UserCreateResponse();
         ReflectionTestUtils.setField(response, "message", "사용자 생성을 성공하였습니다.");
 
-        when(userAdapter.createUser(any())).thenReturn(response);
+        when(userApiAdapter.createUser(any())).thenReturn(response);
 
         userService.createUser(request);
 
-        verify(userAdapter, times(1)).createUser(any());
+        verify(userApiAdapter, times(1)).createUser(any());
     }
 }
