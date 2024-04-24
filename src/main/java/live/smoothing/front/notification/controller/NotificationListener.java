@@ -26,16 +26,19 @@ public class NotificationListener {
         this.userAdapter = userAdapter;
     }
 
-    @RabbitListener(queues = "${rabbitmq.queue-name}")
-    public void receiveNotification(@Payload RabbitMqMessage message) {
+    @RabbitListener(queues = "${rabbitmq.outlier-detection-queue}")
+    public void receiveOutlierDetection(@Payload RabbitMqMessage message) {
 
         Map<String, String> data = new HashMap<>();
         data.put("title", message.getTitle() + "_" + LocalDateTime.now());
         data.put("body", message.getBody());
 
-        for(Long roleId : message.getTarget()) {
+        List<Long> roleIds = new ArrayList<>();
+        roleIds.add(1L);
+        roleIds.add(2L);
+
+        for(Long roleId : roleIds) {
             List<String> userIds = userAdapter.getUserIds(roleId).getUserIds();
-            System.out.println(userIds.size());
 
             for(String userId : userIds) {
                 sendNotification(userId, message.getTitle(), message.getBody());
@@ -43,6 +46,22 @@ public class NotificationListener {
             }
         }
     }
+
+    @RabbitListener(queues = "${rabbitmq.approval-request-queue}")
+    public void receiveApprovalRequest(@Payload RabbitMqMessage message) {
+
+        Map<String, String> data = new HashMap<>();
+        data.put("title", message.getTitle() + "_" + LocalDateTime.now());
+        data.put("body", message.getBody());
+
+        List<String> userIds = userAdapter.getUserIds(1L).getUserIds();
+
+        for(String userId : userIds) {
+            sendNotification(userId, message.getTitle(), message.getBody());
+            saveNotification(userId, data);
+        }
+    }
+
 
     public void sendNotification(String userId, String title, String body) {
 
