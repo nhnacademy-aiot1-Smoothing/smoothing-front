@@ -3,7 +3,7 @@ package live.smoothing.front.controller;
 import live.smoothing.front.adapter.AuthAdapter;
 import live.smoothing.front.email.dto.CertificationNumberResponse;
 import live.smoothing.front.email.dto.EmailCertificationRequest;
-import live.smoothing.front.user.adapter.UserAdapter;
+import live.smoothing.front.user.adapter.UserApiAdapter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SignUpRestController {
 
     private final AuthAdapter authAdapter;
-    private final UserAdapter userAdapter;
+    private final UserApiAdapter userApiAdapter;
 
     @PostMapping("/email")
     public ResponseEntity<CertificationNumberResponse> requestCertificationNumber(@RequestBody EmailCertificationRequest request) {

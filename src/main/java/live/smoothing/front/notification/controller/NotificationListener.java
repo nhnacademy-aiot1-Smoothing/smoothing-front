@@ -1,6 +1,7 @@
 package live.smoothing.front.notification.controller;
 
 import com.google.firebase.messaging.FirebaseMessagingException;
+import live.smoothing.front.adapter.UserAdapter;
 import live.smoothing.front.notification.dto.RabbitMqMessage;
 import live.smoothing.front.notification.service.FcmNotificationService;
 import live.smoothing.front.notification.service.NotificationService;
@@ -9,38 +10,43 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class NotificationListener {
 
     private final NotificationService notificationService;
     private final FcmNotificationService fcmNotificationService;
+    private final UserAdapter userAdapter;
 
-    public NotificationListener(NotificationService notificationService, FcmNotificationService fcmNotificationService) {
+    public NotificationListener(NotificationService notificationService, FcmNotificationService fcmNotificationService, UserAdapter userAdapter) {
 
         this.notificationService = notificationService;
         this.fcmNotificationService = fcmNotificationService;
+        this.userAdapter = userAdapter;
     }
 
     @RabbitListener(queues = "${rabbitmq.queue-name}")
     public void receiveNotification(@Payload RabbitMqMessage message) {
-        String title = message.getTitle() + "_" + LocalDateTime.now();
-        String body = message.getBody();
 
         Map<String, String> data = new HashMap<>();
-        data.put("title", title);
-        data.put("body", body);
+        data.put("title", message.getTitle() + "_" + LocalDateTime.now());
+        data.put("body", message.getBody());
 
-        sendNotification(message.getTitle(), message.getBody());
-        saveNotification(data);
+        for(Long roleId : message.getTarget()) {
+            List<String> userIds = userAdapter.getUserIds(roleId).getUserIds();
+            System.out.println(userIds.size());
+
+            for(String userId : userIds) {
+                sendNotification(userId, message.getTitle(), message.getBody());
+                saveNotification(userId, data);
+            }
+        }
     }
 
-    public void sendNotification(String title, String body) {
+    public void sendNotification(String userId, String title, String body) {
+
         try {
-            String userId = "hozzi";
             Set<String> tokens = notificationService.getTokens(userId);
             for(String token : tokens) {
                 fcmNotificationService.sendNotification(token, title, body);
@@ -51,8 +57,8 @@ public class NotificationListener {
         }
     }
 
-    public void saveNotification(Map<String, String> data){
-        String userId = "hozzi";
+    public void saveNotification(String userId, Map<String, String> data) {
+
         notificationService.saveMessage(userId, data);
     }
 }

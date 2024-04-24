@@ -2,7 +2,10 @@ package live.smoothing.front.user.adapter;
 
 import live.smoothing.front.user.dto.UserCreateRequest;
 import live.smoothing.front.user.dto.UserCreateResponse;
+import live.smoothing.front.user.dto.UserIdListResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -11,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author 박영준
  */
 @FeignClient("gateway")
-public interface UserAdapter {
+public interface UserApiAdapter {
 
     /**
      * 유저 생성 요청 처리 및 응답 반환 메서드
