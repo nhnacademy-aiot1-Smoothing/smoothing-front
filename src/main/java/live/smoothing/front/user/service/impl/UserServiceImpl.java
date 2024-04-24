@@ -1,6 +1,7 @@
 package live.smoothing.front.user.service.impl;
 
-import live.smoothing.front.user.adapter.UserApiAdapter;
+
+import live.smoothing.front.adapter.UserApiAdapter;
 import live.smoothing.front.user.dto.UserCreateRequest;
 import live.smoothing.front.user.service.UserService;
 import lombok.RequiredArgsConstructor;

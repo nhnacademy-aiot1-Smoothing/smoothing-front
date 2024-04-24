@@ -1,7 +1,7 @@
 package live.smoothing.front.security;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import live.smoothing.front.auth.dto.LoginResponse;
+import live.smoothing.front.auth.dto.login.LoginResponse;
 import live.smoothing.front.util.JwtUtil;
 import lombok.Getter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
