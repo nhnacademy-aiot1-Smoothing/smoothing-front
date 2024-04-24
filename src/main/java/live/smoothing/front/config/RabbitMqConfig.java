@@ -17,14 +17,20 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMqConfig {
 
-    @Value("${rabbitmq.queue-name}")
-    private String queueName;
+    @Value("${rabbitmq.approval-request-queue}")
+    private String approvalRequestQueue;
+
+    @Value("${rabbitmq.outlier-detection-queue}")
+    private String outlierDetectionQueue;
 
     @Value("${rabbitmq.topic-exchange-name}")
     private String topicExchangeName;
 
-    @Value("${rabbitmq.routing-key}")
-    private String routingKey;
+    @Value("${rabbitmq.approval-request-routing-key}")
+    private String approvalRequestRoutingKey;
+
+    @Value("${rabbitmq.outlier-detection-routing-key}")
+    private String outlierDetectionRoutingKey;
 
     @Value("${spring.rabbitmq.port}")
     private int port;
@@ -43,9 +49,13 @@ public class RabbitMqConfig {
 
 
     @Bean
-    Queue queue() {
+    Queue approvalRequestQueue() {
+        return new Queue(approvalRequestQueue);
+    }
 
-        return new Queue(queueName);
+    @Bean
+    Queue outlierDetectionQueue() {
+        return new Queue(outlierDetectionQueue);
     }
 
     @Bean
@@ -54,10 +64,16 @@ public class RabbitMqConfig {
         return new TopicExchange(topicExchangeName);
     }
 
-    @Bean
-    Binding binding(Queue queue, TopicExchange exchange) {
 
-        return BindingBuilder.bind(queue).to(exchange).with(routingKey);
+
+    @Bean
+    Binding binding1(Queue approvalRequestQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(approvalRequestQueue).to(exchange).with(approvalRequestRoutingKey);
+    }
+
+    @Bean
+    Binding binding2(Queue outlierDetectionQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(outlierDetectionQueue).to(exchange).with(outlierDetectionRoutingKey);
     }
 
     @Bean

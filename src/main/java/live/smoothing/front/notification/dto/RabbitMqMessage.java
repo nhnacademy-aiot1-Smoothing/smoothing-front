@@ -13,5 +13,5 @@ public class RabbitMqMessage {
 
     private String title;
     private String body;
-    private String type;
+    private String eventType;
 }
