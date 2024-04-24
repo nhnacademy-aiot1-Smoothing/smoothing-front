@@ -33,9 +33,16 @@ public class NotificationListener {
         data.put("title", message.getTitle() + "_" + LocalDateTime.now());
         data.put("body", message.getBody());
 
-        for(Long roleId : message.getTarget()) {
+        List<Long> roleIds = new ArrayList<>();
+        if (message.getType().equals("approval_request")) {
+            roleIds.add(1L);
+        } else if (message.getType().equals("outlier_detection")) {
+            roleIds.add(1L);
+            roleIds.add(2L);
+        }
+
+        for (Long roleId : roleIds) {
             List<String> userIds = userAdapter.getUserIds(roleId).getUserIds();
-            System.out.println(userIds.size());
 
             for(String userId : userIds) {
                 sendNotification(userId, message.getTitle(), message.getBody());
