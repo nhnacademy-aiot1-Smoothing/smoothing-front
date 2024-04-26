@@ -20,7 +20,6 @@ public class TestRestController {
     @GetMapping
     ResponseEntity<UserAttendanceResponse> getAttendanceList(@RequestHeader("X-USER-ID") String userId) {
 
-        System.out.println(userService.getUserAttendance(userId).getAttendanceDate().get(0));
         return ResponseEntity.ok().body(userService.getUserAttendance(userId));
     }
 

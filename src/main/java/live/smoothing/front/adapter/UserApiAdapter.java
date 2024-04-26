@@ -26,7 +26,6 @@ public interface UserApiAdapter {
     @PostMapping("/api/user/signup")
     UserCreateResponse createUser(UserCreateRequest createRequest);
 
-    @Headers("Content-Type: application/json")
     @GetMapping("/api/user/attendance/list")
-    UserAttendanceResponse getAttendanceList(String userId);
+    UserAttendanceResponse getAttendanceList(@RequestHeader(name = "X-USER-ID") String userId);
 }
