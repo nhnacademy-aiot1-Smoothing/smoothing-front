@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserPointDetailResponse {
     private Long pointDetailId;
-    private String userId;
     private Long pointDetailAmount;
     private String pointDetailType;
     private LocalDateTime pointRecordDate;

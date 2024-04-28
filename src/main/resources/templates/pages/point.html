@@ -21,10 +21,6 @@
                         <td th:text="${pointDetail.pointDetailType == 'USAGE' ? '-' + pointDetail.pointDetailAmount : pointDetail.pointDetailAmount}"></td>
                         <td th:text="${#temporals.format(pointDetail.pointRecordDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     </tr>
-                    <tr>
-                        <td colspan="3"><strong>잔액:</strong></td>
-                        <td th:text="${pointBalance}"></td>
-                    </tr>
                 </tbody>
             </table>
         </th:block>
