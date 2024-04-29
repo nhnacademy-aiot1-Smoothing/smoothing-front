@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout/defaultLayout">
+    <head></head>
+    <body>
+        <th:block layout:fragment="content">
+            <h1>포인트 상세 내역</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>금액</th>
+                        <th>포인트 기록 일자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pointDetail : ${pointDetails}">
+                        <td th:text="${pointDetail.pointDetailId}"></td>
+                        <td th:text="${pointDetail.pointDetailAmount}"></td>
+                        <td th:text="${#temporals.format(pointDetail.pointRecordDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </th:block>
+    </body>
+</html>
