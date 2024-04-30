@@ -8,6 +8,10 @@
         <th:block layout:fragment="content">
             <p>mypage</p>
             <button type="button" onclick="location.href='/attendance'">출석페이지</button>
+            <div>
+                <h1>마이페이지</h1>
+                <p>포인트 잔액: <a href="/point-details" th:text="${pointBalance}"></a></p>
+            </div>
         </th:block>
     </body>
 </html>
