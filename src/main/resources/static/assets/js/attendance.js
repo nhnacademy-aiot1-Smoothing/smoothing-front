@@ -50,6 +50,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    var initialYear = today.getFullYear();
+    var initialMonth = today.getMonth() + 1;
+    fetchAttendanceDates(initialYear, initialMonth);
+
     calendar.on('datesSet', function (info) {
         var year = info.view.currentStart.getFullYear();
         var month = info.view.currentStart.getMonth() + 1;
