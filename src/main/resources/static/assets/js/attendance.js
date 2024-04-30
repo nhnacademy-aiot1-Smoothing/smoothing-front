@@ -14,64 +14,74 @@ document.addEventListener('DOMContentLoaded', function() {
             right: ''
         },
         initialDate: initialDate,
-        navLinks: false, // can click day/week names to navigate views
+        navLinks: false,
         selectable: true,
         selectMirror: true,
-        // select: function(arg) {
-        //   var title = prompt('Event Title:');
-        //   if (title) {
-        //     calendar.addEvent({
-        //       title: title,
-        //       start: arg.start,
-        //       end: arg.end,
-        //       allDay: arg.allDay
-        //     })
-        //   }
-        //   calendar.unselect()
-        // },
-        // eventClick: function(arg) {
-        //   if (confirm('Are you sure you want to delete this event?')) {
-        //     arg.event.remove()
-        //   }
-        // },
-        // editable: true,
-        // dayMaxEvents: true, // allow "more" link when too many events
         events: [
-
+            // {
+            //   title: '출석',
+            //   start: '2024-04-28'
+            // }
         ]
     });
 
     calendar.render();
 
+    function fetchAttendanceDates(year, month) {
+        fetch(`/attendance/list/${year}/${month}`, {
+            method: 'GET'
+        }).then(function (response) {
+            if (response.ok) {
+                return response.json();
+            }
+        }).then(function (data){
+            console.log(data.attendanceDate);
+
+            calendar.removeAllEvents();
+
+            data.attendanceDate.forEach(function (date) {
+                calendar.addEvent({
+                    title: '출석',
+                    start: date
+                });
+            });
+        }).catch(function (error) {
+            console.error("에러 발생", error);
+        });
+    }
+
+    calendar.on('datesSet', function (info) {
+        var year = info.view.currentStart.getFullYear();
+        var month = info.view.currentStart.getMonth() + 1;
+        fetchAttendanceDates(year, month);
+    });
 
     var checkButton = document.createElement('button');
     checkButton.innerHTML = '출석체크';
-    checkButton.classList.add('custom-button');
+    checkButton.classList.add('check-button');
+
     checkButton.addEventListener('click', function () {
-        var xhr = new XMLHttpRequest();
 
-        var url = "http://localhost:8003/api/user/attendance";
-
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-
-        var userId = 'user'
-        xhr.setRequestHeader('X-USER-ID', userId);
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200)  {
-                    console.log(xhr.responseText);
-                    alert("출석 체크되었습니다.");
-                } else if(xhr.status === 400) {
-                    alert("이미 출석체크 되었습니다.");
+        fetch('/attendance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
+            .then(function(response) {
+                if (response.ok) {
+                    alert('출석체크 되었습니다.');
                 } else {
-                    console.log("오류 발생");
+                    alert('이미 출석체크 되었습니다.');
                 }
-            }
-        };
-
-        xhr.send();
+            }).then(function (data) {
+            window.location.reload();
+        })
+            .catch(function(error) {
+                console.error('요청 실패:', error);
+                alert('요청에 문제가 발생했습니다.');
+            });
     });
 
     calendarEl.querySelector('.fc-header-toolbar').appendChild(checkButton);

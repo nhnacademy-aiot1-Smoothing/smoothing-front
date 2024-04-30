@@ -2,6 +2,7 @@ package live.smoothing.front.user.service.impl;
 
 
 import live.smoothing.front.adapter.UserApiAdapter;
+import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
 import live.smoothing.front.user.service.UserService;
@@ -29,8 +30,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserAttendanceResponse getUserAttendance(String userId) {
+    public UserAttendanceResponse getUserAttendance(int year, int month) {
 
-        return userApiAdapter.getAttendanceList(userId);
+        return userApiAdapter.getAttendanceList(year, month);
+    }
+
+    @Override
+    public MessageResponse doAttendanceCheck() {
+
+        return userApiAdapter.doAttendanceCheck();
     }
 }

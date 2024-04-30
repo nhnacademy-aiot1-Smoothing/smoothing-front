@@ -1,5 +1,6 @@
 package live.smoothing.front.user.service;
 
+import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
 
@@ -17,5 +18,7 @@ public interface UserService {
      */
     void createUser(UserCreateRequest userCreateRequest);
 
-    UserAttendanceResponse getUserAttendance(String userId);
+    UserAttendanceResponse getUserAttendance(int year, int month);
+
+    MessageResponse doAttendanceCheck();
 }

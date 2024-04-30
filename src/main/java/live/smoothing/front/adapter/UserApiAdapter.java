@@ -1,14 +1,13 @@
 package live.smoothing.front.adapter;
 
-import feign.Headers;
+import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
 import live.smoothing.front.user.dto.response.UserCreateResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 /**
  * 유저 관리 관련 FeignClient
@@ -26,6 +25,11 @@ public interface UserApiAdapter {
     @PostMapping("/api/user/signup")
     UserCreateResponse createUser(UserCreateRequest createRequest);
 
-    @GetMapping("/api/user/attendance/list")
-    UserAttendanceResponse getAttendanceList(@RequestHeader(name = "X-USER-ID") String userId);
+    @GetMapping("/api/user/attendance/list/{year}/{month}")
+    UserAttendanceResponse getAttendanceList(@PathVariable("year") int year,
+                                             @PathVariable("month") int month);
+
+    @PostMapping("/api/user/attendance")
+    MessageResponse doAttendanceCheck();
+
 }
