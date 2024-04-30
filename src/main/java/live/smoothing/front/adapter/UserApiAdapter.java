@@ -1,18 +1,14 @@
 package live.smoothing.front.adapter;
 
 import live.smoothing.front.auth.dto.email.MessageResponse;
+import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
 import live.smoothing.front.user.dto.response.UserCreateResponse;
-import live.smoothing.front.user.dto.UserCreateRequest;
-import live.smoothing.front.user.dto.UserCreateResponse;
-import live.smoothing.front.user.dto.UserPointDetailResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 
