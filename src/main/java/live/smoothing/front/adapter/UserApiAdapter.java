@@ -6,7 +6,6 @@ import live.smoothing.front.user.dto.UserPointDetailResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 
@@ -17,6 +16,7 @@ import java.util.List;
  */
 @FeignClient("gateway")
 public interface UserApiAdapter {
+
     /**
      * 유저 생성 요청 처리 및 응답 반환 메서드
      *
@@ -31,4 +31,7 @@ public interface UserApiAdapter {
 
     @GetMapping("/api/user/point")
     List<UserPointDetailResponse> getPointDetailsByUserId();
+
+    @GetMapping(value = "/api/user/profile/name", produces = "application/json")
+    String getUserName();
 }

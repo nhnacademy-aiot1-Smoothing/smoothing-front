@@ -24,8 +24,6 @@ public class TokenRequestInterceptor implements RequestInterceptor {
      */
     @Override
     public void apply(RequestTemplate requestTemplate) {
-
-        try {
             TokenWithType token = ThreadLocalToken.TOKEN.get();
 
             if(token != null) {
@@ -36,8 +34,6 @@ public class TokenRequestInterceptor implements RequestInterceptor {
 
                 requestTemplate.header("Authorization", authorizationToken);
             }
-        } finally {
-            ThreadLocalToken.TOKEN.remove();
-        }
+
     }
 }

@@ -6,10 +6,34 @@
     <head></head>
     <body>
         <th:block layout:fragment="content">
-            <div>
-                <h1>마이페이지</h1>
-                <p>포인트 잔액: <a href="/point-details" th:text="${pointBalance}"></a></p>
-            </div>
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-12 grid-margin">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="page-header border-bottom">
+                                        <h5 class="page-title"> <b th:text="${userName}"></b>님 어서오세요</h5>
+                                        <nav aria-label="breadcrumb">
+                                            <ul class="breadcrumb">
+                                                <li class="breadcrumb-item active" aria-current="page" id="pointBalanceLink">
+                                                    <span>포인트 잔액: <span th:text="${pointBalance}"></span></span>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-danger btn-icon-text btn-fw active"
+                                            id="achievementButton">업적</button>
+                                    <button type="button" class="btn btn-outline-danger btn-icon-text btn-fw"
+                                            id="attendanceButton">출석</button>
+                                    <button type="button" class="btn btn-outline-danger btn-icon-text btn-fw"
+                                            id="pointButton">포인트</button>
+                                    <div id="content"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <script src="/assets/js/mypage.js"></script>
         </th:block>
     </body>
 </html>

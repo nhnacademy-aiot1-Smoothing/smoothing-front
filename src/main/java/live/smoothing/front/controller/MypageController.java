@@ -22,7 +22,10 @@ public class MypageController {
     public String mypage(Model model) {
 
         Long pointBalance = userApiAdapter.getPointBalanceByUserId();
+        String userName = userApiAdapter.getUserName();
+
         model.addAttribute("pointBalance", pointBalance);
+        model.addAttribute("userName", userName);
 
         return "pages/mypage";
     }
@@ -34,5 +37,11 @@ public class MypageController {
         model.addAttribute("pointDetails", pointDetails);
 
         return "pages/point";
+    }
+
+    @GetMapping("/achievement")
+    public String achievement() {
+
+        return "pages/achievement";
     }
 }
