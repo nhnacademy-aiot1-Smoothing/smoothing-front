@@ -1,8 +1,8 @@
 package live.smoothing.front.user.service.impl;
 
 import live.smoothing.front.adapter.UserApiAdapter;
-import live.smoothing.front.user.dto.UserCreateRequest;
-import live.smoothing.front.user.dto.UserCreateResponse;
+import live.smoothing.front.user.dto.request.UserCreateRequest;
+import live.smoothing.front.user.dto.response.UserCreateResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

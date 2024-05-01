@@ -1,4 +1,4 @@
-package live.smoothing.front.user.dto;
+package live.smoothing.front.user.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

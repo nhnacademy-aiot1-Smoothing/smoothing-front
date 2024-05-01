@@ -1,7 +1,7 @@
 package live.smoothing.front.controller;
 
 import live.smoothing.front.auth.service.AuthService;
-import live.smoothing.front.user.dto.UserCreateRequest;
+import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

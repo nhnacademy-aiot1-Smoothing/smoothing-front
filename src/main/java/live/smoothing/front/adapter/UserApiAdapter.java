@@ -1,10 +1,13 @@
 package live.smoothing.front.adapter;
 
-import live.smoothing.front.user.dto.UserCreateRequest;
-import live.smoothing.front.user.dto.UserCreateResponse;
+import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
+import live.smoothing.front.user.dto.request.UserCreateRequest;
+import live.smoothing.front.user.dto.response.UserAttendanceResponse;
+import live.smoothing.front.user.dto.response.UserCreateResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -32,6 +35,12 @@ public interface UserApiAdapter {
     @GetMapping("/api/user/point")
     List<UserPointDetailResponse> getPointDetailsByUserId();
 
-    @GetMapping(value = "/api/user/profile/name", produces = "application/json")
+    @GetMapping(value = "/api/user/profile/name")
     String getUserName();
+
+    @GetMapping("/api/user/attendance/list/{year}/{month}")
+    UserAttendanceResponse getAttendanceList(@PathVariable("year") int year,
+                                             @PathVariable("month") int month);
+    @PostMapping("/api/user/attendance")
+    MessageResponse doAttendanceCheck();
 }

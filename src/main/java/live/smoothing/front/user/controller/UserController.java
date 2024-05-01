@@ -1,6 +1,6 @@
 package live.smoothing.front.user.controller;
 
-import live.smoothing.front.user.dto.UserCreateRequest;
+import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
