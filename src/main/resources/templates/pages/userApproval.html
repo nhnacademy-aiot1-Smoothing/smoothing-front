@@ -42,12 +42,12 @@
                             <th scope="col" style="text-align: center">승인/거절</th>
                         </tr>
                     </thead>
-                    <tbody th:if="${#lists.isEmpty(waitingUserList)}">
+                    <tbody th:if="${#lists.isEmpty(totalWaitingUserList)}">
                         <tr>
                             <td colspan="5" style="text-align: center">승인 요청 대기중인 회원이 없습니다.</td>
                         </tr>
                     </tbody>
-                    <tbody th:if="${not #lists.isEmpty(waitingUserList)}">
+                    <tbody th:if="${not #lists.isEmpty(totalWaitingUserList)}">
                         <tr th:each="user : ${waitingUserList}">
                             <td th:text="${user.userName}"></td>
                             <td th:text="${user.userId}"></td>
@@ -68,8 +68,8 @@
                             <td class="text-center">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                     <form id ="approveForm" method="POST" action="/approve">
-                                        <button type="button" id="approveButton"
-                                                class="btn btn-primary btn-sm me-md-2">승인
+                                        <button type="button"
+                                                class="btn btn-primary btn-sm me-md-2 approveButton">승인
                                             <input type="hidden" id="userId" name="userId" th:value="${user.userId}" />
                                         </button>
                                     </form>
@@ -85,8 +85,8 @@
             </div>
             
             <div>
-                <nav aria-label="Page navigation example" th:if="${totalPages > 1}">
-                    <ul class="pagination justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center" th:if="${totalPages > 0}">
                         <li class="page-item" th:class="${currentPage == 0 ? 'disabled' : ''}">
                             <a class="page-link" th:href="@{/user-approval(page=0, size=${pageSize})}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>

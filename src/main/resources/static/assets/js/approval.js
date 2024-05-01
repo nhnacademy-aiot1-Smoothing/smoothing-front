@@ -1,34 +1,38 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    let approveButton = document.getElementById("approveButton");
+    let approveButtons = document.querySelectorAll(".approveButton");
 
-    approveButton.addEventListener('click', function () {
+    approveButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
 
-        let userId = document.getElementById("userId").value;
+            let userId = this.querySelector("input[name='userId']").value;
 
-        let select = document.getElementById("selectRole_" + userId);
-        let selectedOption = select.options[select.selectedIndex];
-        let selectedRoleId = selectedOption.value;
+            let select = document.getElementById("selectRole_" + userId);
+            let selectedOption = select.options[select.selectedIndex];
+            let selectedRoleId = selectedOption.value;
 
-        let approveRequest =  {
-            userId: userId,
-            roleIds: [selectedRoleId]
-        };
+            console.log(selectedRoleId);
 
-        var jsonData = JSON.stringify(approveRequest);
+            let approveRequest =  {
+                userId: userId,
+                roleIds: [selectedRoleId]
+            };
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/approve");
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(jsonData);
+            var jsonData = JSON.stringify(approveRequest);
 
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    alert("승인되었습니다.");
-                    location.reload();
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/approve");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(jsonData);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        alert("승인되었습니다.");
+                        location.reload();
+                    }
                 }
-            }
-        };
+            };
+        });
     });
 });
