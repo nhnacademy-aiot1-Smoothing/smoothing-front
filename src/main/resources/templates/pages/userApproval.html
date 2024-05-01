@@ -54,7 +54,7 @@
                             <td th:text="${user.requestDate}"></td>
                             <td>
                                 <label>
-                                    <select id = "selectRole">
+                                    <select th:id="'selectRole_' + ${user.userId}">
                                         <option value="">선택</option>
                                         <th:block th:each="role : ${roleList}">
                                             <option th:value="${role.roleId}">

@@ -1,14 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    var approveButton = document.getElementById("approveButton");
+    let approveButton = document.getElementById("approveButton");
 
     approveButton.addEventListener('click', function () {
-        var select = document.getElementById("selectRole");
-        var selectedOption = select.options[select.selectedIndex];
-        var selectedRoleId = selectedOption.value;
-        var userId = document.getElementById("userId").value;
 
-        var approveRequest =  {
+        let userId = document.getElementById("userId").value;
+
+        let select = document.getElementById("selectRole_" + userId);
+        let selectedOption = select.options[select.selectedIndex];
+        let selectedRoleId = selectedOption.value;
+
+        let approveRequest =  {
             userId: userId,
             roleIds: [selectedRoleId]
         };
