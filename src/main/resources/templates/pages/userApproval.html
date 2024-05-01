@@ -3,10 +3,109 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="layout/defaultLayout">
-    <head></head>
+    <head>
+        <script src="/assets/js/approval.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+        
+        <style>
+            td {
+                text-align: center;
+            }
+            
+            select {
+                margin: 0 auto;
+                display: block;
+            }
+            
+            button {
+                display: block;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
     <body>
         <th:block layout:fragment="content">
-          <p>userApproval page</p>
+            <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-messaging.js"></script>
+            <script src="/assets/js/home.js"></script>
+            
+            <p>회원 승인 대기 목록</p>
+            <div>
+                <table class="table table-striped" >
+                    <thead>
+                        <tr>
+                            <th scope="col" style="text-align: center">이름</th>
+                            <th scope="col" style="text-align: center">아이디</th>
+                            <th scope="col" style="text-align: center">요청일</th>
+                            <th scope="col" style="text-align: center">권한</th>
+                            <th scope="col" style="text-align: center">승인/거절</th>
+                        </tr>
+                    </thead>
+                    <tbody th:if="${#lists.isEmpty(waitingUserList)}">
+                        <tr>
+                            <td colspan="5" style="text-align: center">승인 요청 대기중인 회원이 없습니다.</td>
+                        </tr>
+                    </tbody>
+                    <tbody th:if="${not #lists.isEmpty(waitingUserList)}">
+                        <tr th:each="user : ${waitingUserList}">
+                            <td th:text="${user.userName}"></td>
+                            <td th:text="${user.userId}"></td>
+                            <td th:text="${user.requestDate}"></td>
+                            <td>
+                                <label>
+                                    <select id = "selectRole">
+                                        <option value="">선택</option>
+                                        <th:block th:each="role : ${roleList}">
+                                            <option th:value="${role.roleId}">
+                                                <span th:if="${role.roleInfo == 'ROLE_ADMIN'}">관리자</span>
+                                                <span th:if="${role.roleInfo == 'ROLE_USER'}">회원</span>
+                                            </option>
+                                        </th:block>
+                                    </select>
+                                </label>
+                            </td>
+                            <td class="text-center">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                    <form id ="approveForm" method="POST" action="/approve">
+                                        <button type="button" id="approveButton"
+                                                class="btn btn-primary btn-sm me-md-2">승인
+                                            <input type="hidden" id="userId" name="userId" th:value="${user.userId}" />
+                                        </button>
+                                    </form>
+                                    <form method="POST" action="/reject">
+                                        <button type="submit" class="btn btn-danger btn-sm">거절</button>
+                                        <input type="hidden" name="userId" th:value="${user.userId}" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div>
+                <nav aria-label="Page navigation example" th:if="${totalPages > 1}">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:class="${currentPage == 0 ? 'disabled' : ''}">
+                            <a class="page-link" th:href="@{/user-approval(page=0, size=${pageSize})}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        
+                        <li class="page-item" th:class="${currentPage == i ? 'active' : ''}" th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                            <a class="page-link" th:href="@{/user-approval(page=${i}, size=${pageSize})}" th:text="${i + 1}"></a>
+                        </li>
+                        
+                        <li class="page-item" th:class="${currentPage == totalPages - 1 ? 'disabled' : ''}">
+                            <a class="page-link" th:href="@{/user-approval(page=${totalPages - 1}, size=${pageSize})}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            
         </th:block>
     </body>
 </html>
