@@ -1,6 +1,6 @@
 package live.smoothing.front.adapter;
 
-import live.smoothing.front.user.dto.UserIdListResponse;
+import live.smoothing.front.user.dto.response.UserIdListResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -2,12 +2,10 @@ package live.smoothing.front.user.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import live.smoothing.front.interceptor.ReissueJwtTokenInterceptor;
-import live.smoothing.front.user.dto.UserCreateRequest;
+import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
