@@ -42,7 +42,8 @@ document.addEventListener('DOMContentLoaded', function() {
             data.attendanceDate.forEach(function (date) {
                 calendar.addEvent({
                     title: '출석',
-                    start: date
+                    start: date,
+                    color: '#ff5180'
                 });
             });
         }).catch(function (error) {

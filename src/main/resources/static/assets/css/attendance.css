@@ -8,19 +8,32 @@ body {
 #calendar {
     max-width: 1100px;
     margin: 0 auto;
-    background-color: whitesmoke;
+    background-color: white;
 }
 
 .check-button {
     border: none;
     border-radius: 10px;
-    background-color: #1b2658;
+    background-color: #b66dff;
     color: white;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    font-size: 14px;
+    margin: 4px 3px;
     cursor: pointer;
+}
+
+.fc-daygrid-day-number {
+    color: gray;
+}
+
+.fc-col-header-cell-cushion {
+    color: #ff5180;
+}
+
+.fc-col-header-cell-cushion:hover {
+    text-decoration: none;
+    color: #ff5180;
 }
