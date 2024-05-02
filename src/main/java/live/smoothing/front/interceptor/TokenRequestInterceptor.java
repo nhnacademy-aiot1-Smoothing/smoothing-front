@@ -24,16 +24,17 @@ public class TokenRequestInterceptor implements RequestInterceptor {
      */
     @Override
     public void apply(RequestTemplate requestTemplate) {
-            TokenWithType token = ThreadLocalToken.TOKEN.get();
 
-            if(token != null) {
-                String tokenType = token.getTokenType();
-                String tokenValue = token.getToken();
+        TokenWithType token = ThreadLocalToken.TOKEN.get();
 
-                String authorizationToken = String.format("%s %s", tokenType, tokenValue);
+        if(token != null) {
+            String tokenType = token.getTokenType();
+            String tokenValue = token.getToken();
 
-                requestTemplate.header("Authorization", authorizationToken);
-            }
+            String authorizationToken = String.format("%s %s", tokenType, tokenValue);
+            requestTemplate.header("Authorization", authorizationToken);
+        }
+
 
     }
 }

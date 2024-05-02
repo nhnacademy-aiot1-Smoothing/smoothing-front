@@ -78,6 +78,11 @@ public class ReissueJwtTokenInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        ThreadLocalToken.TOKEN.remove();
+    }
+
     /**
      * 현재 시간과 JWT Token의 만료 시간을 비교하여 재발급 여부를 판단하는 메서드
      *

@@ -2,13 +2,14 @@ package live.smoothing.front.adapter;
 
 import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
+import live.smoothing.front.user.dto.WaitingUser;
+import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
+import live.smoothing.front.user.dto.response.RoleResponse;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
 import live.smoothing.front.user.dto.response.UserCreateResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,4 +44,20 @@ public interface UserApiAdapter {
                                              @PathVariable("month") int month);
     @PostMapping("/api/user/attendance")
     MessageResponse doAttendanceCheck();
+
+    @GetMapping("/api/user/waitingUserList")
+    List<WaitingUser> getWaitingUserList(); // 승인 대기 중인 회원 전체를 가져오는 api
+
+    @GetMapping("/api/user/paging/waitingUserList")
+    List<WaitingUser> getWaitingUserList(@RequestParam("page") int page,
+                                         @RequestParam("size") int size);
+    @PutMapping("/api/user/approve")
+    MessageResponse approveUser(@RequestBody UserApproveRequest request);
+
+    @DeleteMapping("/api/user/reject/{userId}")
+    MessageResponse rejectUser(@PathVariable("userId") String userId);
+
+    @GetMapping("/api/user/role/list")
+    List<RoleResponse> getAllRoles();
+
 }
