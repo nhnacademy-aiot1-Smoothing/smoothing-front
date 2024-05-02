@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class RegisterController {
 
     private final UserService userService;
-    private final AuthService authService;
+
     @GetMapping("/register")
     public String register() {
 

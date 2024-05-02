@@ -36,6 +36,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public boolean saveMessage(String userId, Map<String, String> message) {
+
         notificationRepository.saveMessage(userId, message);
         return true;
     }
@@ -48,6 +49,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public boolean deleteMessage(String userId, String hashKey) {
+
         return notificationRepository.deleteNotification(userId, hashKey);
     }
 }

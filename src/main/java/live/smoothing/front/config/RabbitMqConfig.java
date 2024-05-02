@@ -50,11 +50,13 @@ public class RabbitMqConfig {
 
     @Bean
     Queue approvalRequestQueue() {
+
         return new Queue(approvalRequestQueue);
     }
 
     @Bean
     Queue outlierDetectionQueue() {
+
         return new Queue(outlierDetectionQueue);
     }
 
@@ -65,14 +67,15 @@ public class RabbitMqConfig {
     }
 
 
-
     @Bean
     Binding binding1(Queue approvalRequestQueue, TopicExchange exchange) {
+
         return BindingBuilder.bind(approvalRequestQueue).to(exchange).with(approvalRequestRoutingKey);
     }
 
     @Bean
     Binding binding2(Queue outlierDetectionQueue, TopicExchange exchange) {
+
         return BindingBuilder.bind(outlierDetectionQueue).to(exchange).with(outlierDetectionRoutingKey);
     }
 

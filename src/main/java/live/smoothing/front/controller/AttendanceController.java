@@ -22,7 +22,7 @@ public class AttendanceController {
     }
 
     @PostMapping
-    public String doAttendanceCheck () {
+    public String doAttendanceCheck() {
 
         userService.doAttendanceCheck();
 

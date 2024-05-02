@@ -33,7 +33,7 @@ public class MyPageController {
     @GetMapping("/point-details")
     public String pointDetail(Model model) {
 
-        List <UserPointDetailResponse> pointDetails = userService.getPointDetailsByUserId();
+        List<UserPointDetailResponse> pointDetails = userService.getPointDetailsByUserId();
         model.addAttribute("pointDetails", pointDetails);
 
         return "pages/point";

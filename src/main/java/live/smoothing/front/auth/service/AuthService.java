@@ -11,9 +11,13 @@ import live.smoothing.front.auth.dto.token.ReissueResponse;
 public interface AuthService {
 
     LoginResponse doLogin(LoginRequest loginRequest);
+
     ReissueResponse refreshToken(RefreshTokenRequest request);
+
     void logout(RefreshTokenRequest request);
+
     MessageResponse requestCertificationNumber(EmailCertificationRequest request);
+
     MessageResponse verifyCertificationNumber(VerificationRequest request);
 
 }

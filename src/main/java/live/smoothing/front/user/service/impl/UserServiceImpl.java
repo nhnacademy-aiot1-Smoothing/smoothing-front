@@ -40,13 +40,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserAttendanceResponse getUserAttendance(int year, int month) {
+
         UserAttendanceResponse response = userApiAdapter.getAttendanceList(year, month);
-        System.out.println(response.getUserId() + " : " + response.getAttendanceDate() );
+        System.out.println(response.getUserId() + " : " + response.getAttendanceDate());
         return response;
     }
 
     @Override
     public MessageResponse doAttendanceCheck() {
+
         MessageResponse response = userApiAdapter.doAttendanceCheck();
         System.out.println("hello" + response.getMessage());
         return userApiAdapter.doAttendanceCheck();

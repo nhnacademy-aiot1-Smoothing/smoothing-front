@@ -13,11 +13,10 @@ import org.springframework.security.core.AuthenticationException;
 
 /**
  * @author 우혜승
+ * @author 우혜승
  * @see CustomAuthenticationToken 를 통해 인증을 진행하는 Provider
  * @see CustomAuthenticationToken 에서 userId, userPassword를 받아 인증을 진행하고
  * @see AuthAdapter 를 통해 인증을 진행한다.
- *
- * @author 우혜승
  */
 @RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -36,7 +35,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         ResponseEntity<LoginResponse> response;
         try {
             response = authAdapter.doLogin(new LoginRequest(authentication.getName(), (String) authentication.getCredentials()));
-        } catch (Exception e) {
+        } catch(Exception e) {
             //todo feign 200 아닐 경우 에러 처리돼서 따로 뭔가 해줘야함
             throw new InternalAuthenticationServiceException("Internal Server Error");
         }

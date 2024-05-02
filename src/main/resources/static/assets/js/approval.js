@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     var approveButton = document.getElementById("approveButton");
 
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var selectedRoleId = selectedOption.value;
         var userId = document.getElementById("userId").value;
 
-        var approveRequest =  {
+        var approveRequest = {
             userId: userId,
             roleIds: [selectedRoleId]
         };
