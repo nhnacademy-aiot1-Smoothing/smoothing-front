@@ -33,6 +33,7 @@ public class UserManagementController {
         model.addAttribute("waitingUserList", waitingUserList);
 
         List<WaitingUser> totalWaitingUserList = userService.getWaitingUserList();
+        model.addAttribute("totalWaitingUserList", waitingUserList);
         long totalWaitingUsers = totalWaitingUserList.size();
 
         model.addAttribute("totalWaitingUsers", totalWaitingUsers);
@@ -42,6 +43,8 @@ public class UserManagementController {
 
         log.info("총 페이지 수:{}", calculateTotalPages(totalWaitingUsers, size));
         log.info("승인 대기 중인 회원 수:{}", totalWaitingUsers);
+        log.info("대기 회원 리스트:{}", totalWaitingUserList.isEmpty());
+
 
         return "pages/userApproval";
     }
