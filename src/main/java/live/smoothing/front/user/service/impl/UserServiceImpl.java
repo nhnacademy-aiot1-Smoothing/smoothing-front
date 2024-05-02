@@ -3,6 +3,7 @@ package live.smoothing.front.user.service.impl;
 
 import live.smoothing.front.adapter.UserApiAdapter;
 import live.smoothing.front.auth.dto.email.MessageResponse;
+import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
@@ -39,13 +40,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserAttendanceResponse getUserAttendance(int year, int month) {
-
-        return userApiAdapter.getAttendanceList(year, month);
+        UserAttendanceResponse response = userApiAdapter.getAttendanceList(year, month);
+        System.out.println(response.getUserId() + " : " + response.getAttendanceDate() );
+        return response;
     }
 
     @Override
     public MessageResponse doAttendanceCheck() {
-
+        MessageResponse response = userApiAdapter.doAttendanceCheck();
+        System.out.println("hello" + response.getMessage());
         return userApiAdapter.doAttendanceCheck();
     }
 
@@ -77,5 +80,23 @@ public class UserServiceImpl implements UserService {
     public List<RoleResponse> getAllRoles() {
 
         return userApiAdapter.getAllRoles();
+    }
+
+    @Override
+    public String getUserName() {
+
+        return userApiAdapter.getUserName();
+    }
+
+    @Override
+    public Long getPointBalanceByUserId() {
+
+        return userApiAdapter.getPointBalanceByUserId();
+    }
+
+    @Override
+    public List<UserPointDetailResponse> getPointDetailsByUserId() {
+
+        return userApiAdapter.getPointDetailsByUserId();
     }
 }

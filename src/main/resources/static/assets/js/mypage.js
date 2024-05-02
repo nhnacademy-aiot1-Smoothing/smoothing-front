@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('achievementButton').click();
+    document.getElementById('attendanceButton').click();
 });
 
 document.getElementById('attendanceButton').addEventListener('click', function() {
@@ -12,10 +12,9 @@ document.getElementById('attendanceButton').addEventListener('click', function()
 
     contentElement.innerHTML = '';
 
-    // 달력을 초기화할 새로운 div 요소 생성
     var calendarContainer = document.createElement('div');
-    calendarContainer.id = 'calendar'; // 달력을 초기화할 div 요소에 ID 할당
-    contentElement.appendChild(calendarContainer); // 새로운 div 요소를 content에 추가
+    calendarContainer.id = 'calendar';
+    contentElement.appendChild(calendarContainer);
 
     var today = new Date();
     var yyyy = today.getFullYear();
@@ -29,14 +28,14 @@ document.getElementById('attendanceButton').addEventListener('click', function()
             center: 'title',
             right: ''
         },
-        initialDate: new Date(),
+        initialDate: initialDate,
         navLinks: false,
         selectable: true,
         selectMirror: true,
         events: []
     });
 
-    calendar.render(); // 달력 렌더링
+    calendar.render();
 
     function fetchAttendanceDates(year, month) {
         fetch(`/attendance/list/${year}/${month}`, {

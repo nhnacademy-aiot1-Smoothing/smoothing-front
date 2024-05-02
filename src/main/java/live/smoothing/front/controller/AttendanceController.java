@@ -18,7 +18,7 @@ public class AttendanceController {
     @GetMapping
     public String attendance() {
 
-        return "pages/attendance";
+        return "pages/mypage";
     }
 
     @PostMapping

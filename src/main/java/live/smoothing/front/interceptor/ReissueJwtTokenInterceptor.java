@@ -97,10 +97,4 @@ public class ReissueJwtTokenInterceptor implements HandlerInterceptor {
 
         return (now / 1000L) > expireTime;
     }
-
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
-        ThreadLocalToken.TOKEN.remove();
-    }
 }
