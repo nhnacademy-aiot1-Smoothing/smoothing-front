@@ -43,9 +43,9 @@ public interface UserApiAdapter {
     MessageResponse doAttendanceCheck();
 
     @GetMapping("/api/user/waitingUserList")
-    List<WaitingUser> getWaitingUserList(); // 승인 대기 중인 회원 전체를 가져오는 api
+    List<WaitingUser> getWaitingUserList();
 
-    @GetMapping("/api/user/paging/waitingUserList")
+    @GetMapping("/api/user/waitingUserList")
     List<WaitingUser> getWaitingUserList(@RequestParam("page") int page,
                                          @RequestParam("size") int size);
 
