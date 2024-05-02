@@ -16,7 +16,7 @@ import java.util.Objects;
 
 @RequiredArgsConstructor
 public class CustomLogoutHandler implements LogoutHandler {
-  
+
     private final AuthAdapter authAdapter;
 
     @Override
@@ -32,7 +32,7 @@ public class CustomLogoutHandler implements LogoutHandler {
             refreshToken.setMaxAge(0);
             response.addCookie(refreshToken);
         }
-        if (refreshToken != null) {
+        if(refreshToken != null) {
             ThreadLocalToken.TOKEN.set(CookieUtil.decodeTokenWithType(Objects.requireNonNull(accessToken).getValue()));
             TokenWithType tokenWithType = CookieUtil.decodeTokenWithType(refreshToken.getValue());
             authAdapter.logout(new RefreshTokenRequest(tokenWithType.getToken()));

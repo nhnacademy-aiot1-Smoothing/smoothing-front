@@ -1,6 +1,7 @@
 package live.smoothing.front.user.service;
 
 import live.smoothing.front.auth.dto.email.MessageResponse;
+import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
@@ -36,4 +37,10 @@ public interface UserService {
     MessageResponse rejectUser(String userId);
 
     List<RoleResponse> getAllRoles();
+
+    String getUserName();
+
+    Long getPointBalanceByUserId();
+
+    List<UserPointDetailResponse> getPointDetailsByUserId();
 }

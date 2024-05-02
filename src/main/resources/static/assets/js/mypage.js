@@ -1,5 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
+    document.getElementById('attendanceButton').click();
+});
+
+document.getElementById('attendanceButton').addEventListener('click', function() {
+    this.classList.add('active');
+
+    document.getElementById('achievementButton').classList.remove('active');
+    document.getElementById('pointButton').classList.remove('active');
+
+    var contentElement = document.getElementById('content');
+
+    contentElement.innerHTML = '';
+
+    var calendarContainer = document.createElement('div');
+    calendarContainer.id = 'calendar';
+    contentElement.appendChild(calendarContainer);
 
     var today = new Date();
     var yyyy = today.getFullYear();
@@ -7,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var dd = String(today.getDate()).padStart(2, '0');
     var initialDate = yyyy + '-' + mm + '-' + dd;
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    var calendar = new FullCalendar.Calendar(calendarContainer, {
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
@@ -17,12 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         navLinks: false,
         selectable: true,
         selectMirror: true,
-        events: [
-            // {
-            //   title: '출석',
-            //   start: '2024-04-28'
-            // }
-        ]
+        events: []
     });
 
     calendar.render();
@@ -42,7 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
             data.attendanceDate.forEach(function (date) {
                 calendar.addEvent({
                     title: '출석',
-                    start: date
+                    start: date,
+                    color: '#ff5180'
                 });
             });
         }).catch(function (error) {
@@ -88,6 +99,38 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     });
 
-    calendarEl.querySelector('.fc-header-toolbar').appendChild(checkButton);
+    calendarContainer.querySelector('.fc-header-toolbar').appendChild(checkButton);
 
+});
+
+document.getElementById('achievementButton').addEventListener('click', function() {
+    this.classList.add('active');
+
+    document.getElementById('attendanceButton').classList.remove('active');
+    document.getElementById('pointButton').classList.remove('active');
+
+    fetch('/achievement')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('content').innerHTML = data;
+        })
+        .catch(error => console.error('Error:', error));
+});
+
+document.getElementById('pointButton').addEventListener('click', function() {
+    this.classList.add('active');
+
+    document.getElementById('achievementButton').classList.remove('active');
+    document.getElementById('attendanceButton').classList.remove('active');
+
+    fetch('/point-details')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('content').innerHTML = data;
+        })
+        .catch(error => console.error('Error:', error));
+});
+
+document.getElementById('pointBalanceLink').addEventListener('click', function() {
+    document.getElementById('pointButton').click();
 });

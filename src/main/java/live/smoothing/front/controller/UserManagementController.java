@@ -24,7 +24,7 @@ public class UserManagementController {
 
     @GetMapping("/user-approval")
     public String userApprovalPage(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
-                                                @RequestParam(name = "size", defaultValue = "7") int size) {
+                                   @RequestParam(name = "size", defaultValue = "7") int size) {
 
         List<RoleResponse> roleList = userService.getAllRoles();
         model.addAttribute("roleList", roleList);
@@ -62,14 +62,14 @@ public class UserManagementController {
         return "redirect:/user-approval";
     }
 
-   @PostMapping("/reject")
-   public String rejectUser(String userId) {
+    @PostMapping("/reject")
+    public String rejectUser(String userId) {
 
         userService.rejectUser(userId);
 
         log.info("회원 승인 거절 완료");
         return "redirect:/user-approval";
-   }
+    }
 
     @GetMapping("/user-list")
     public String userList() {

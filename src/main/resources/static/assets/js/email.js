@@ -13,7 +13,7 @@ sendCertificationNumberButton.addEventListener('click', function () {
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200)  {
+            if (xhr.status === 200) {
                 console.log(xhr.responseText);
                 alert("인증번호가 발급되었습니다.");
             } else {

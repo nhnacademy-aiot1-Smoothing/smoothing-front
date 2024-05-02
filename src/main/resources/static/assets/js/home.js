@@ -26,7 +26,7 @@ function handleToken() {
 }
 
 function sendTokenToServer(token) {
-    const data = JSON.stringify({ fcmToken: token });
+    const data = JSON.stringify({fcmToken: token});
     fetch('/api/tokens', {
         method: 'POST',
         headers: {
@@ -42,7 +42,7 @@ function sendTokenToServer(token) {
         .catch(error => console.error('서버로부터 응답 오류:', error));
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     handleToken();
 });
 
@@ -57,11 +57,11 @@ messaging.onMessage((payload) => {
 });
 
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
         navigator.serviceWorker.register('/firebase-messaging-sw.js')
-            .then(function(registration) {
+            .then(function (registration) {
                 console.log('Registration successful, scope is:', registration.scope);
-            }).catch(function(err) {
+            }).catch(function (err) {
             console.log('Service worker registration failed, error:', err);
         });
     });

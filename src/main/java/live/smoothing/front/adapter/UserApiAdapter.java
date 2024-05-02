@@ -20,6 +20,7 @@ import java.util.List;
  */
 @FeignClient("gateway")
 public interface UserApiAdapter {
+
     /**
      * 유저 생성 요청 처리 및 응답 반환 메서드
      *
@@ -35,10 +36,12 @@ public interface UserApiAdapter {
     @GetMapping("/api/user/point")
     List<UserPointDetailResponse> getPointDetailsByUserId();
 
+    @GetMapping(value = "/api/user/profile/name")
+    String getUserName();
+
     @GetMapping("/api/user/attendance/list/{year}/{month}")
     UserAttendanceResponse getAttendanceList(@PathVariable("year") int year,
                                              @PathVariable("month") int month);
-
     @PostMapping("/api/user/attendance")
     MessageResponse doAttendanceCheck();
 
@@ -48,7 +51,6 @@ public interface UserApiAdapter {
     @GetMapping("/api/user/waitingUserList")
     List<WaitingUser> getWaitingUserList(@RequestParam("page") int page,
                                          @RequestParam("size") int size);
-
     @PutMapping("/api/user/approve")
     MessageResponse approveUser(@RequestBody UserApproveRequest request);
 
@@ -57,6 +59,5 @@ public interface UserApiAdapter {
 
     @GetMapping("/api/user/role/list")
     List<RoleResponse> getAllRoles();
-
 
 }
