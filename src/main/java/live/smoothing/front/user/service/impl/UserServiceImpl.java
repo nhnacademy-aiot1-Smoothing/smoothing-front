@@ -7,6 +7,7 @@ import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
+import live.smoothing.front.user.dto.request.VerifyPwdRequest;
 import live.smoothing.front.user.dto.response.RoleResponse;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
 import live.smoothing.front.user.service.UserService;
@@ -96,5 +97,11 @@ public class UserServiceImpl implements UserService {
     public List<UserPointDetailResponse> getPointDetailsByUserId() {
 
         return userApiAdapter.getPointDetailsByUserId();
+    }
+
+    @Override
+    public MessageResponse verifyPwd(VerifyPwdRequest request) {
+
+        return userApiAdapter.verifyPwd(request);
     }
 }

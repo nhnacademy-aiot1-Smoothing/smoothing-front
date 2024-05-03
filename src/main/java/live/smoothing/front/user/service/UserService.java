@@ -5,6 +5,7 @@ import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
+import live.smoothing.front.user.dto.request.VerifyPwdRequest;
 import live.smoothing.front.user.dto.response.RoleResponse;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
 
@@ -43,4 +44,6 @@ public interface UserService {
     Long getPointBalanceByUserId();
 
     List<UserPointDetailResponse> getPointDetailsByUserId();
+
+    MessageResponse verifyPwd(VerifyPwdRequest request);
 }

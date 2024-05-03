@@ -46,7 +46,7 @@ public class UserManagementController {
         log.info("대기 회원 리스트:{}", totalWaitingUserList.isEmpty());
 
 
-        return "pages/userApproval";
+        return "pages/user_approval";
     }
 
     private int calculateTotalPages(long totalItems, int size) {
@@ -74,6 +74,6 @@ public class UserManagementController {
     @GetMapping("/user-list")
     public String userList() {
 
-        return "pages/userList";
+        return "pages/user_list";
     }
 }

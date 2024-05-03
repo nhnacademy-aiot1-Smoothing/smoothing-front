@@ -1,10 +1,11 @@
 package live.smoothing.front.controller;
 
 import live.smoothing.front.user.dto.UserPointDetailResponse;
+import live.smoothing.front.user.dto.request.VerifyPwdRequest;
 import live.smoothing.front.user.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,5 +44,25 @@ public class MyPageController {
     public String achievement() {
 
         return "pages/achievement";
+    }
+
+    @GetMapping("/verify-pwd")
+    public String verifyPwdPage() {
+
+        return "pages/verify_password";
+    }
+
+    @PostMapping("/verify-pwd")
+    public String verifyPwd(@RequestParam("userPassword") String userPassword) {
+
+        userService.verifyPwd(new VerifyPwdRequest(userPassword));
+
+        return "pages/user_modify";
+    }
+
+    @GetMapping("/user-modify")
+    public String UserModifyPage() {
+
+        return "redirect:/verify-pwd";
     }
 }

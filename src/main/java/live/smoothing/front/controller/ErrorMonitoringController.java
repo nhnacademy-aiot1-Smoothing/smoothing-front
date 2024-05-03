@@ -9,6 +9,6 @@ public class ErrorMonitoringController {
     @GetMapping("/error-monitoring")
     public String errorMonitoring() {
 
-        return "pages/errorMonitoring";
+        return "pages/error_monitoring";
     }
 }

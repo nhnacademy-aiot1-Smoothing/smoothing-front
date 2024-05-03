@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout/defaultLayout">
+    <head>
+    </head>
+    <body>
+        <th:block layout:fragment="content">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-12 grid-margin">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="page-header border-bottom">
+                                    <h5 class="page-title">유저 수정</h5>
+                                </div>
+                                <form action="/user" method="put">
+                                    <div class="form-group">
+                                        <label for="userId">아이디</label>
+                                        <input type="text" class="form-control" id="userId" name="userId" th:value="${userId}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userName">이름</label>
+                                        <input type="userName" class="form-control" id="userName" name="userName" th:value="${userName}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">이메일</label>
+                                        <input type="email" class="form-control" id="email" name="email" th:value="${email}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="currentPassword">현재 비밀번호</label>
+                                        <input type="password" class="form-control" id="currentPassword" name="currentPassword">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newPassword">새 비밀번호</label>
+                                        <input type="password" class="form-control" id="newPassword" name="newPassword">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirmNewPassword">새 비밀번호 확인</label>
+                                        <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">수정</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </body>
+</html>
