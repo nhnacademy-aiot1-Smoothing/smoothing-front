@@ -4,8 +4,10 @@ import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
+import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
 import live.smoothing.front.user.dto.response.RoleResponse;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
+import live.smoothing.front.user.dto.response.UserInfoResponse;
 
 import java.util.List;
 
@@ -36,4 +38,14 @@ public interface UserService {
     MessageResponse rejectUser(String userId);
 
     List<RoleResponse> getAllRoles();
+
+    List<UserInfoResponse> getUserList();
+
+    List<UserInfoResponse> getUserList(int page, int size);
+
+    List<RoleResponse> getUserRoleList(String userId);
+
+    MessageResponse deleteUser(String userId);
+
+    MessageResponse modifyUserRole(UserRoleModifyRequest request);
 }

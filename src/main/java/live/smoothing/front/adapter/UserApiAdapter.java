@@ -5,9 +5,11 @@ import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
+import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
 import live.smoothing.front.user.dto.response.RoleResponse;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
 import live.smoothing.front.user.dto.response.UserCreateResponse;
+import live.smoothing.front.user.dto.response.UserInfoResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,5 +60,20 @@ public interface UserApiAdapter {
     @GetMapping("/api/user/role/list")
     List<RoleResponse> getAllRoles();
 
+    @GetMapping("/api/user/userList")
+    List<UserInfoResponse> getUserList();
+
+    @GetMapping("/api/user/userList")
+    List<UserInfoResponse> getUserList(@RequestParam("page") int page,
+                                       @RequestParam("size") int size);
+
+    @GetMapping("/api/user/userRole/list")
+    List<RoleResponse> getUserRoleList(@RequestParam("userId") String userId);
+
+    @DeleteMapping("/api/user/delete/{userId}")
+    MessageResponse deleteUser(@PathVariable("userId") String userId);
+
+    @PutMapping("/api/user/userRole")
+    MessageResponse modifyUserRole(@RequestBody UserRoleModifyRequest request);
 
 }

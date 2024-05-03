@@ -2,16 +2,15 @@ package live.smoothing.front.controller;
 
 import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
+import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
 import live.smoothing.front.user.dto.response.RoleResponse;
+import live.smoothing.front.user.dto.response.UserInfoResponse;
 import live.smoothing.front.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class UserManagementController {
 
     private final UserService userService;
 
-    @GetMapping("/user-approval")
+    @GetMapping("/user-approval") // 회원 승인 페이지
     public String userApprovalPage(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
                                                 @RequestParam(name = "size", defaultValue = "7") int size) {
 
@@ -54,7 +53,7 @@ public class UserManagementController {
         return (int) Math.ceil((double) totalItems / size);
     }
 
-    @PostMapping("/approve")
+    @PostMapping("/approve") // 회원 승인
     public String approveUser(@RequestBody UserApproveRequest request) {
 
         userService.approveUser(request);
@@ -62,7 +61,7 @@ public class UserManagementController {
         return "redirect:/user-approval";
     }
 
-   @PostMapping("/reject")
+   @PostMapping("/reject") // 회원 승인 거절
    public String rejectUser(String userId) {
 
         userService.rejectUser(userId);
@@ -71,9 +70,56 @@ public class UserManagementController {
         return "redirect:/user-approval";
    }
 
-    @GetMapping("/user-list")
-    public String userList() {
+    @GetMapping("/user-list") // 회원 목록 조회 페이지
+    public String userList(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
+                            @RequestParam(name = "size", defaultValue = "7") int size) {
+
+        List<RoleResponse> roleList = userService.getAllRoles();
+        model.addAttribute("roleList", roleList);
+
+        List<UserInfoResponse> totalUserList = userService.getUserList();
+        model.addAttribute("totalUserList", totalUserList);
+
+        long totalUsers = totalUserList.size();
+
+        List<UserInfoResponse> userList = userService.getUserList(page, size);
+        model.addAttribute("userList", userList);
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", size);
+        model.addAttribute("totalPages", calculateTotalPages(totalUsers, size));
 
         return "pages/userList";
     }
+
+    @ResponseBody
+    @GetMapping("/userRoleList")
+    public List<RoleResponse> userRoleList(@RequestParam String userId) {
+
+        return userService.getUserRoleList(userId);
+    }
+
+    @ResponseBody
+    @GetMapping("/roleList")
+    public List<RoleResponse> roleList() {
+
+        return userService.getAllRoles();
+    }
+
+    @PostMapping("/deleteUser")
+    public String deleteUser(String userId) {
+
+        userService.deleteUser(userId);
+
+        return "redirect:/user-list";
+    }
+
+    @PostMapping("/modifyUserRole")
+    public String modifyUserRole(@RequestBody UserRoleModifyRequest request) {
+
+        userService.modifyUserRole(request);
+
+        return "redirect:/user-list";
+    }
+
 }

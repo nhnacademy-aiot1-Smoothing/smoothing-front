@@ -6,8 +6,10 @@ import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
+import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
 import live.smoothing.front.user.dto.response.RoleResponse;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
+import live.smoothing.front.user.dto.response.UserInfoResponse;
 import live.smoothing.front.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -77,5 +79,35 @@ public class UserServiceImpl implements UserService {
     public List<RoleResponse> getAllRoles() {
 
         return userApiAdapter.getAllRoles();
+    }
+
+    @Override
+    public List<UserInfoResponse> getUserList() {
+
+        return userApiAdapter.getUserList();
+    }
+
+    @Override
+    public List<UserInfoResponse> getUserList(int page, int size) {
+
+        return userApiAdapter.getUserList(page, size);
+    }
+
+    @Override
+    public List<RoleResponse> getUserRoleList(String userId) {
+
+        return userApiAdapter.getUserRoleList(userId);
+    }
+
+    @Override
+    public MessageResponse deleteUser(String userId) {
+
+        return userApiAdapter.deleteUser(userId);
+    }
+
+    @Override
+    public MessageResponse modifyUserRole(UserRoleModifyRequest request) {
+
+        return userApiAdapter.modifyUserRole(request);
     }
 }
