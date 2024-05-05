@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     roleModifyButtons.forEach(function (button) {
         button.addEventListener('click', function () {
-            let userId = document.getElementById("userId").value;
+            let userId = this.querySelector("input[name='userId']").value;
             // console.log(userId);
 
             let checkboxes = document.querySelectorAll('input[type=checkbox]');

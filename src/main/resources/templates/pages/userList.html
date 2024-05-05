@@ -85,16 +85,20 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                            <button type="button" class="btn btn-primary roleModifyButton">확인</button>
-                                            <input type="hidden" id="userId" name="userId" th:value="${user.userId}" />
+                                            <button type="button" class="btn btn-primary roleModifyButton">확인
+                                                <input type="hidden" id="userId" name="userId" th:value="${user.userId}" />
+                                            </button>
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <td>
                                 <form action="/deleteUser" method="post">
-                                <button type="submit" class="btn btn-danger btn-sm btn-rounded deleteButton">삭제</button>
-                                <input type="hidden" name="userId" th:value="${user.userId}" />
+                                <button type="submit" class="btn btn-danger btn-sm btn-rounded deleteButton">삭제
+                                    <input type="hidden" name="userId" th:value="${user.userId}" />
+                                </button>
+                                
                                 </form>
                             </td>
                         </tr>
