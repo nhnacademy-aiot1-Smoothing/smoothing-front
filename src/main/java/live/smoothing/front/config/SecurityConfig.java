@@ -53,6 +53,8 @@ public class SecurityConfig {
 //                .antMatchers("/error").permitAll()
 //                .antMatchers("/static/**").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/requestCertificationNumber").permitAll()
+                .antMatchers("/verifyCertificationNumber").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

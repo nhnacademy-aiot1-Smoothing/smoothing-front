@@ -1,65 +1,63 @@
-var sendCertificationNumberButton = document.getElementById('sendCertificationNumber');
+document.addEventListener('DOMContentLoaded', function () {
 
-sendCertificationNumberButton.addEventListener('click', function () {
+    let sendCertificationNumberButton = document.getElementById('sendCertificationNumber');
 
-    var userEmail = document.getElementById('userEmail').value;
+    sendCertificationNumberButton.addEventListener('click', function () {
 
-    var xhr = new XMLHttpRequest();
+        let userEmail = document.getElementById('userEmail').value;
 
-    var url = 'http://localhost:8002/api/auth/email';
+        let requestBody = JSON.stringify({
+            userEmail: userEmail
+        });
 
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
+        console.log(requestBody);
 
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                console.log(xhr.responseText);
-                alert("인증번호가 발급되었습니다.");
-            } else {
-                console.log("오류 발생")
+        var url = '/requestCertificationNumber';
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(requestBody);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    alert("인증번호가 발급되었습니다.");
+                } else {
+                    console.log("오류 발생");
+                }
             }
-        }
-    };
-
-    var requestBody = JSON.stringify({
-        userEmail: userEmail
+        };
     });
 
+    let verificationNumberButton = document.getElementById('verification');
 
-    xhr.send(requestBody);
-});
+    verificationNumberButton.addEventListener('click', function () {
 
-var verificationNumberButton = document.getElementById('verification');
+        let userEmail = document.getElementById('userEmail').value;
+        let certificationNumber = document.getElementById('certificationNumber').value;
 
-verificationNumberButton.addEventListener('click', function () {
+        let requestBody = JSON.stringify({
+            userEmail: userEmail,
+            certificationNumber: certificationNumber
+        });
 
-    var userEmail = document.getElementById('userEmail').value;
-    var certificationNumber = document.getElementById('certificationNumber').value;
+        let url = '/verifyCertificationNumber';
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(requestBody);
 
-    var xhr = new XMLHttpRequest();
-
-    var url = 'http://localhost:8002/api/auth/email/verify';
-
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                alert("인증 완료 되었습니다.");
-            } else if (xhr.status === 401) {
-                alert("인증번호를 다시 확인해주세요.");
-            } else {
-                console.log("오류 발생");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    alert("인증 완료 되었습니다.");
+                } else if (xhr.status === 401) {
+                    alert("인증번호를 다시 확인해주세요.");
+                } else {
+                    console.log("오류 발생");
+                }
             }
-        }
-    };
-
-    var requestBody = JSON.stringify({
-        userEmail: userEmail,
-        certificationNumber: certificationNumber
+        };
     });
-
-    xhr.send(requestBody);
 });
