@@ -27,17 +27,12 @@ public class RegisterController {
         return "pages/register";
     }
 
+    @ResponseBody
     @PostMapping("/register")
-    public String createUser(UserCreateRequest request) {
-
-        log.info("아이디 : {}", request.getUserId());
+    public void createUser(@RequestBody UserCreateRequest request) {
 
         userService.createUser(request);
-
-        log.info("회원 가입 완료");
-
-
-        return "pages/login";
+        log.info("회원 가입 완료, 아이디:{}", request.getUserId());
     }
 
     @ResponseBody
