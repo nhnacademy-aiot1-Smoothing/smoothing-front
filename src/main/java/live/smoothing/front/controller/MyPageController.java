@@ -1,7 +1,11 @@
 package live.smoothing.front.controller;
 
+import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
+import live.smoothing.front.user.dto.request.ModifyProfile;
+import live.smoothing.front.user.dto.request.ModifyPwdRequest;
 import live.smoothing.front.user.dto.request.VerifyPwdRequest;
+import live.smoothing.front.user.dto.response.UserProfileResponse;
 import live.smoothing.front.user.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,12 +61,36 @@ public class MyPageController {
 
         userService.verifyPwd(new VerifyPwdRequest(userPassword));
 
-        return "pages/user_modify";
+        return "redirect:/user-modify";
     }
 
     @GetMapping("/user-modify")
-    public String UserModifyPage() {
+    public String UserModifyPage(Model model) {
 
-        return "redirect:/verify-pwd";
+        UserProfileResponse response = userService.getProfile();
+
+        model.addAttribute("userId", response.getUserId());
+        model.addAttribute("userName", response.getUserName());
+        model.addAttribute("userEmail", response.getUserEmail());
+
+        return "pages/user_modify";
+    }
+
+    @PostMapping("/user-modify")
+    public String verifyPwd(@RequestParam("userEmail") String userEmail, @RequestParam("userName") String userName, @RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword) {
+
+        MessageResponse response = userService.verifyPwd(new VerifyPwdRequest(currentPassword));
+
+        if(response.getMessage().equals("비밀번호 확인 완료")) {
+
+            userService.modifyProfile(new ModifyProfile(userName, userEmail));
+            if(newPassword.length() > 0) {
+                userService.modifyPwd(new ModifyPwdRequest(newPassword));
+            }
+        } else {
+            return "redirect:/user-modify";
+        }
+
+        return "redirect:/mypage";
     }
 }
