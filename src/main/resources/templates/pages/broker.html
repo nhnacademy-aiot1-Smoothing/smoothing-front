@@ -33,7 +33,9 @@
             </style>
             <div class="d-flex justify-content-between">
                 <h1>브로커 관리</h1>
-                <button type="button" class="btn btn-primary">추가</button>
+                <button type="button"
+                        class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#brokerAddModal">브로커 추가</button>
             </div>
             <div class="container">
                 <div class="row">
@@ -105,10 +107,7 @@
                     </div>
                 </div>
             </div>
-            <p>브로커 관리 페이지</p>
-            <button type="button"
-                    class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#brokerAddModal">브로커 추가</button>
+            
             
             <div class="modal fade" id="brokerAddModal" tabindex="-1" aria-labelledby="brokerAddModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -124,7 +123,7 @@
                                         <b>브로커 이름</b>
                                     </label>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <input id="brokerName" class="form-control" type="text">
                                 </div>
                             </div>
@@ -134,7 +133,7 @@
                                         <b>브로커 타입</b>
                                     </label>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <label id="protocolType">
                                         <select class="form-select">
                                             <option selected>선택</option>
@@ -153,7 +152,7 @@
                                         <b>IP 주소</b>
                                     </label>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <input id="brokerIp" class="form-control" type="text">
                                 </div>
                             </div>
@@ -163,14 +162,14 @@
                                         <b>포트</b>
                                     </label>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <input id="brokerPort" class="form-control" type="text">
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                             <button type="button" id="brokerAddButton" class="btn btn-primary">추가</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                         </div>
                     </div>
                 </div>
