@@ -3,11 +3,11 @@ package live.smoothing.front.adapter;
 import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.WaitingUser;
-import live.smoothing.front.user.dto.request.UserApproveRequest;
-import live.smoothing.front.user.dto.request.UserCreateRequest;
+import live.smoothing.front.user.dto.request.*;
 import live.smoothing.front.user.dto.response.RoleResponse;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
 import live.smoothing.front.user.dto.response.UserCreateResponse;
+import live.smoothing.front.user.dto.response.UserProfileResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,4 +60,15 @@ public interface UserApiAdapter {
     @GetMapping("/api/user/role/list")
     List<RoleResponse> getAllRoles();
 
+    @PostMapping("/api/user/password")
+    MessageResponse verifyPwd(@RequestBody VerifyPwdRequest request);
+
+    @GetMapping("/api/user/profile/modify")
+    UserProfileResponse getProfile();
+
+    @PutMapping("/api/user/profile")
+    MessageResponse modifyUser(@RequestBody ModifyProfile request);
+
+    @PutMapping("/api/user/profile/password")
+    MessageResponse modifyPwd(@RequestBody ModifyPwdRequest request);
 }
