@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RoleResponse {
 
+    private Long roleId;
     private String roleInfo;
 
     public RoleResponse(String roleInfo) {
