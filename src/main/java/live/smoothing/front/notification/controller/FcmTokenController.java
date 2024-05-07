@@ -14,8 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class FcmTokenController {
 
-    @Autowired
-    private NotificationService notificationService;
+    private final NotificationService notificationService;
+
+    public FcmTokenController(NotificationService notificationService) {
+
+        this.notificationService = notificationService;
+    }
 
     @PostMapping("/api/tokens")
     public ResponseEntity<?> saveToken(@RequestBody FcmTokenRequest fcmTokenRequest, HttpServletRequest request) throws JsonProcessingException {

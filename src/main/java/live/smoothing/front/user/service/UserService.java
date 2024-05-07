@@ -1,13 +1,16 @@
 package live.smoothing.front.user.service;
 
 import live.smoothing.front.auth.dto.email.MessageResponse;
+import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
+import live.smoothing.front.user.dto.request.*;
 import live.smoothing.front.user.dto.response.RoleResponse;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
 import live.smoothing.front.user.dto.response.UserInfoResponse;
+import live.smoothing.front.user.dto.response.UserProfileResponse;
 
 import java.util.List;
 
@@ -38,6 +41,20 @@ public interface UserService {
     MessageResponse rejectUser(String userId);
 
     List<RoleResponse> getAllRoles();
+
+    String getUserName();
+
+    Long getPointBalanceByUserId();
+
+    List<UserPointDetailResponse> getPointDetailsByUserId();
+
+    MessageResponse verifyPwd(VerifyPwdRequest request);
+
+    UserProfileResponse getProfile();
+
+    MessageResponse modifyProfile(ModifyProfile request);
+
+    MessageResponse modifyPwd(ModifyPwdRequest request);
 
     List<UserInfoResponse> getUserList();
 

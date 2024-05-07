@@ -32,8 +32,9 @@ public class TokenRequestInterceptor implements RequestInterceptor {
             String tokenValue = token.getToken();
 
             String authorizationToken = String.format("%s %s", tokenType, tokenValue);
-
             requestTemplate.header("Authorization", authorizationToken);
         }
+
+
     }
 }

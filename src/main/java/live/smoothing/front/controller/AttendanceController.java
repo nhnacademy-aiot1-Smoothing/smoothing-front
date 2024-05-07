@@ -18,11 +18,11 @@ public class AttendanceController {
     @GetMapping
     public String attendance() {
 
-        return "pages/attendance";
+        return "pages/mypage";
     }
 
     @PostMapping
-    public String doAttendanceCheck () {
+    public String doAttendanceCheck() {
 
         userService.doAttendanceCheck();
 

@@ -9,6 +9,6 @@ public class OutlierMonitoringController {
     @GetMapping("/outlier-monitoring")
     public String outlier() {
 
-        return "pages/outlierMonitoring";
+        return "pages/outlier_monitoring";
     }
 }

@@ -23,7 +23,7 @@ public class UserManagementController {
 
     @GetMapping("/user-approval") // 회원 승인 페이지
     public String userApprovalPage(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
-                                                @RequestParam(name = "size", defaultValue = "7") int size) {
+                                   @RequestParam(name = "size", defaultValue = "7") int size) {
 
         List<RoleResponse> roleList = userService.getAllRoles();
         model.addAttribute("roleList", roleList);
@@ -45,7 +45,7 @@ public class UserManagementController {
         log.info("대기 회원 리스트:{}", totalWaitingUserList.isEmpty());
 
 
-        return "pages/userApproval";
+        return "pages/user_approval";
     }
 
     private int calculateTotalPages(long totalItems, int size) {
@@ -68,7 +68,7 @@ public class UserManagementController {
 
         log.info("회원 승인 거절 완료");
         return "redirect:/user-approval";
-   }
+    }
 
     @GetMapping("/user-list") // 회원 목록 조회 페이지
     public String userList(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
@@ -89,7 +89,7 @@ public class UserManagementController {
         model.addAttribute("pageSize", size);
         model.addAttribute("totalPages", calculateTotalPages(totalUsers, size));
 
-        return "pages/userList";
+        return "pages/user_list";
     }
 
     @ResponseBody

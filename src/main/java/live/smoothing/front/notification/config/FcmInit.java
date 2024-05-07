@@ -29,7 +29,7 @@ public class FcmInit {
             }
         } catch(IOException e) {
             System.err.println("Failed to initialize FirebaseApp: " + e.getMessage());
-            throw new RuntimeException("Failed to initialize FirebaseApp", e);
+            throw new RuntimeException("fFailed to initialize FirebaseApp", e);
         }
     }
 }

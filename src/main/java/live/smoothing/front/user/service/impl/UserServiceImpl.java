@@ -3,18 +3,18 @@ package live.smoothing.front.user.service.impl;
 
 import live.smoothing.front.adapter.UserApiAdapter;
 import live.smoothing.front.auth.dto.email.MessageResponse;
+import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
+import live.smoothing.front.user.dto.request.*;
 import live.smoothing.front.user.dto.response.RoleResponse;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
 import live.smoothing.front.user.dto.response.UserInfoResponse;
+import live.smoothing.front.user.dto.response.UserProfileResponse;
 import live.smoothing.front.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -79,6 +79,48 @@ public class UserServiceImpl implements UserService {
     public List<RoleResponse> getAllRoles() {
 
         return userApiAdapter.getAllRoles();
+    }
+
+    @Override
+    public String getUserName() {
+
+        return userApiAdapter.getUserName();
+    }
+
+    @Override
+    public Long getPointBalanceByUserId() {
+
+        return userApiAdapter.getPointBalanceByUserId();
+    }
+
+    @Override
+    public List<UserPointDetailResponse> getPointDetailsByUserId() {
+
+        return userApiAdapter.getPointDetailsByUserId();
+    }
+
+    @Override
+    public MessageResponse verifyPwd(VerifyPwdRequest request) {
+
+        return userApiAdapter.verifyPwd(request);
+    }
+
+    @Override
+    public UserProfileResponse getProfile() {
+
+        return userApiAdapter.getProfile();
+    }
+
+    @Override
+    public MessageResponse modifyProfile(ModifyProfile request) {
+
+        return userApiAdapter.modifyUser(request);
+    }
+
+    @Override
+    public MessageResponse modifyPwd(ModifyPwdRequest request) {
+
+        return userApiAdapter.modifyPwd(request);
     }
 
     @Override

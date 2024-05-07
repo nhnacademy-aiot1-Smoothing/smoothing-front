@@ -6,10 +6,12 @@ import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
+import live.smoothing.front.user.dto.request.*;
 import live.smoothing.front.user.dto.response.RoleResponse;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
 import live.smoothing.front.user.dto.response.UserCreateResponse;
 import live.smoothing.front.user.dto.response.UserInfoResponse;
+import live.smoothing.front.user.dto.response.UserProfileResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,7 @@ import java.util.List;
  */
 @FeignClient("gateway")
 public interface UserApiAdapter {
+
     /**
      * 유저 생성 요청 처리 및 응답 반환 메서드
      *
@@ -37,10 +40,12 @@ public interface UserApiAdapter {
     @GetMapping("/api/user/point")
     List<UserPointDetailResponse> getPointDetailsByUserId();
 
+    @GetMapping(value = "/api/user/profile/name")
+    String getUserName();
+
     @GetMapping("/api/user/attendance/list/{year}/{month}")
     UserAttendanceResponse getAttendanceList(@PathVariable("year") int year,
                                              @PathVariable("month") int month);
-
     @PostMapping("/api/user/attendance")
     MessageResponse doAttendanceCheck();
 
@@ -50,7 +55,6 @@ public interface UserApiAdapter {
     @GetMapping("/api/user/waitingUserList")
     List<WaitingUser> getWaitingUserList(@RequestParam("page") int page,
                                          @RequestParam("size") int size);
-
     @PutMapping("/api/user/approve")
     MessageResponse approveUser(@RequestBody UserApproveRequest request);
 
@@ -75,5 +79,15 @@ public interface UserApiAdapter {
 
     @PutMapping("/api/user/userRole")
     MessageResponse modifyUserRole(@RequestBody UserRoleModifyRequest request);
+    @PostMapping("/api/user/password")
+    MessageResponse verifyPwd(@RequestBody VerifyPwdRequest request);
 
+    @GetMapping("/api/user/profile/modify")
+    UserProfileResponse getProfile();
+
+    @PutMapping("/api/user/profile")
+    MessageResponse modifyUser(@RequestBody ModifyProfile request);
+
+    @PutMapping("/api/user/profile/password")
+    MessageResponse modifyPwd(@RequestBody ModifyPwdRequest request);
 }

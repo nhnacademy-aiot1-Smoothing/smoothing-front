@@ -27,7 +27,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-  private final AuthAdapter authAdapter;
+    private final AuthAdapter authAdapter;
 
     /**
      * SecurityFilterChain 빈 생성 메서드
@@ -100,12 +100,14 @@ public class SecurityConfig {
      * @return AuthenticationProvider
      */
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider() {
+
         return new CustomAuthenticationProvider(authAdapter);
     }
 
     @Bean
     public HttpSessionRequestCache httpSessionRequestCache() {
+
         HttpSessionRequestCache httpSessionRequestCache = new HttpSessionRequestCache();
         httpSessionRequestCache.setCreateSessionAllowed(false);
         return httpSessionRequestCache;
