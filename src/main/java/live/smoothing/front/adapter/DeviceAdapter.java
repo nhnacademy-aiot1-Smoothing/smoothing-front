@@ -3,6 +3,7 @@ package live.smoothing.front.adapter;
 import live.smoothing.front.device.dto.BrokerAddRequest;
 import live.smoothing.front.device.dto.BrokerListResponse;
 import live.smoothing.front.device.dto.BrokerUpdateRequest;
+import live.smoothing.front.device.dto.ProtocolTypeResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,4 +25,7 @@ public interface DeviceAdapter {
 
     @DeleteMapping("/api/device/brokers/{brokerId}")
     void deleteBroker(@PathVariable("brokerId") Integer brokerId);
+
+    @GetMapping("/api/device/brokers/protocols")
+    ProtocolTypeResponse getProtocols();
 }
