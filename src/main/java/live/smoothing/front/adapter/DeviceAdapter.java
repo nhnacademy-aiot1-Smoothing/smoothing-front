@@ -12,16 +12,16 @@ import javax.websocket.server.PathParam;
 public interface DeviceAdapter {
 
     @PostMapping("/api/device/brokers")
-    public void addBroker(@RequestBody BrokerAddRequest brokerAddRequest);
+    void addBroker(@RequestBody BrokerAddRequest brokerAddRequest);
 
     @GetMapping("/api/device/brokers")
-    public BrokerListResponse getBrokers(@RequestParam("page") int page,
+    BrokerListResponse getBrokers(@RequestParam("page") int page,
                                          @RequestParam("size") int size);
 
     @PutMapping("/api/device/brokers/{brokerId}")
-    public void updateBroker(@PathVariable("brokerId") Integer brokerId,
+    void updateBroker(@PathVariable("brokerId") Integer brokerId,
                              @RequestBody BrokerUpdateRequest brokerUpdateRequest);
 
     @DeleteMapping("/api/device/brokers/{brokerId}")
-    public void deleteBroker(@PathVariable("brokerId") Integer brokerId);
+    void deleteBroker(@PathVariable("brokerId") Integer brokerId);
 }

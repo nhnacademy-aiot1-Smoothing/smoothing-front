@@ -5,6 +5,7 @@ import live.smoothing.front.device.dto.BrokerAddRequest;
 import live.smoothing.front.device.dto.BrokerListResponse;
 import live.smoothing.front.device.dto.BrokerUpdateRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service("brokerService")
@@ -19,8 +20,8 @@ public class BrokerServiceImpl implements BrokerService {
     }
 
     @Override
-    public BrokerListResponse getBrokers(int page, int size) {
-        return deviceAdapter.getBrokers(page, size);
+    public BrokerListResponse getBrokers(Pageable pageable) {
+        return deviceAdapter.getBrokers(pageable.getPageNumber(), pageable.getPageSize());
     }
 
     @Override
