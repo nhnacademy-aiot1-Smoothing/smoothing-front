@@ -29,6 +29,10 @@
                     background-color: white;
                 }
             </style>
+            <div class="d-flex justify-content-between">
+                <h1>브로커 관리</h1>
+                <button type="button" class="btn btn-primary">추가</button>
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -37,47 +41,65 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col"><b>브로커 이름</b></th>
-                                <th scope="col"><b>브로커 종류</b></th>
+                                <th scope="col"><b>프로토콜</b></th>
                                 <th scope="col"><b>IP주소</b></th>
                                 <th scope="col"><b>포트</b></th>
+                                <th scope="col">동작</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Bootstrap 4 CDN and Starter Template</td>
-                                <td>Cristina</td>
-                                <td>2.846</td>
+                            <tr th:each="brokers : ${brokers}">
+                                <td th:text="${brokers.brokerId}"></td>
+                                <td th:text="${brokers.brokerName}"></td>
+                                <td th:text="${brokers.protocolType}"></td>
+                                <td th:text="${brokers.brokerIp}"></td>
+                                <td th:text="${brokers.brokerPort}"></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary">테스트<i class="far fa-eye"></i></button>
-                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Bootstrap Grid 4 Tutorial and Examples</td>
-                                <td>Cristina</td>
-                                <td>3.417</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Bootstrap Flexbox Tutorial and Examples</td>
-                                <td>Cristina</td>
-                                <td>1.234</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                    <button type="button" class="btn btn-primary btn-sm">변경</button>
+<!--                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>-->
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
+
+                        <!-- Delete Modal -->
+                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">정말로 삭제하시겠습니까?<br><span style="color: gray;font-size: small">삭제 후 복구가 불가능합니다.</span></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary">삭제</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
