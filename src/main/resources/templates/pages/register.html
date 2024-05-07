@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
         <link rel="stylesheet" href="../../assets/css/styles.css">
         <link rel="shortcut icon" href="../../assets/images/favicon.ico"/>
+        <script src="/assets/js/register.js"></script>
     </head>
     <body>
         <div class="container-scroller">
@@ -20,52 +21,54 @@
                                 </div>
                                 <h4>New here?</h4>
                                 <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
-                                <form class="pt-3" action="/register" method="post">
+<!--                                <form class="pt-3" action="/register" method="post">-->
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-lg" id="userId"
                                                placeholder="아이디" name="userId">
+<!--                                        <span class="id-valid-text" style="font-size: 12px; color: red"></span>-->
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-lg"
                                                id="userPassword" name="userPassword"
                                                placeholder="비밀번호">
+<!--                                        <span class="password-valid-text" style="font-size: 12px; color: red"></span>-->
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-lg"
                                                id="userName" name="userName"
                                                placeholder="이름">
+<!--                                        <span class="name-valid-text" style="font-size: 12px; color: red"></span>-->
                                     </div>
                                     <div class="form-group email-group">
                                         <input type="email" class="form-control form-control-lg" id="userEmail"
                                                placeholder="이메일" name="userEmail">
-                                        <button type="button" class="btn btn-primary" id="sendCertificationNumber">인증번호
-                                                                                                         전송</button>
+<!--                                        <span class="email-valid-text" style="font-size: 12px; color: red"></span>-->
+                                        <button type="button" class="btn btn-primary"
+                                                id="sendCertificationNumberButton">인증번호 전송</button>
                                     </div>
                                     <div class="form-group test-group">
                                         
                                         <input type="text" class="form-control form-control-lg"
                                                id="certificationNumber" name="certificationNumber"
                                                placeholder="인증번호">
-                                        <button type="button" class="btn btn-primary" id="verification">확인</button>
+                                        <button type="button" class="btn btn-primary" id="verificationButton">확인
+                                        </button>
                                     
                                     </div>
                                     <div class="mt-3">
                                         <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
-                                                type="submit">SIGN UP
+                                                type="submit" id="signupButton">SIGN UP
                                         </button>
                                     </div>
-                                    <div class="text-center mt-4 font-weight-light"> Already have an account? <a
-                                            href="/login"
-                                            class="text-primary">Login</a>
+                                    <div class="text-center mt-4 font-weight-light"> Already have an account?
+                                        <a href="/login" class="text-primary">Login</a>
                                     </div>
-                                </form>
+<!--                                </form>-->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <script src="/assets/js/email.js"></script>
     </body>
 </html>
