@@ -4,6 +4,7 @@ import live.smoothing.front.adapter.DeviceAdapter;
 import live.smoothing.front.device.dto.BrokerAddRequest;
 import live.smoothing.front.device.dto.BrokerListResponse;
 import live.smoothing.front.device.dto.BrokerUpdateRequest;
+import live.smoothing.front.device.dto.ProtocolTypeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,10 @@ public class BrokerServiceImpl implements BrokerService {
     @Override
     public void deleteBroker(Integer brokerId) {
         deviceAdapter.deleteBroker(brokerId);
+    }
+
+    @Override
+    public ProtocolTypeResponse getProtocols() {
+        return deviceAdapter.getProtocols();
     }
 }
