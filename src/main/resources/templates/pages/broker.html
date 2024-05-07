@@ -3,10 +3,84 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="layout/defaultLayout">
-    <head></head>
+    <head>
+
+    </head>
     <body>
         <th:block layout:fragment="content">
-            <p>3 page</p>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+            <style>
+                .container {
+                    padding: 2rem 0rem;
+                }
+
+                h4 {
+                    margin: 2rem 0rem 1rem;
+                }
+
+                .table-image {
+                    td, th {
+                        vertical-align: middle;
+                    }
+                }
+                .table-bordered thead th,
+                .table-bordered tbody th,
+                .table-bordered tbody td {
+                    background-color: white;
+                }
+            </style>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col"><b>브로커 이름</b></th>
+                                <th scope="col"><b>브로커 종류</b></th>
+                                <th scope="col"><b>IP주소</b></th>
+                                <th scope="col"><b>포트</b></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Bootstrap 4 CDN and Starter Template</td>
+                                <td>Cristina</td>
+                                <td>2.846</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary">테스트<i class="far fa-eye"></i></button>
+                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Bootstrap Grid 4 Tutorial and Examples</td>
+                                <td>Cristina</td>
+                                <td>3.417</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Bootstrap Flexbox Tutorial and Examples</td>
+                                <td>Cristina</td>
+                                <td>1.234</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                    <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </th:block>
     </body>
 </html>
