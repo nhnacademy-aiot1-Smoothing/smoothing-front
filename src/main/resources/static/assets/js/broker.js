@@ -36,4 +36,17 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+
+    let updateButtons = document.querySelectorAll('.updateButton');
+
+    updateButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            let row = button.closest('tr');
+            let cells = row.querySelectorAll('td');
+            document.getElementById('updateBrokerName').value = cells[1].innerText.trim();
+            document.getElementById('updateProtocolType').value = cells[2].innerText.trim();
+            document.getElementById('updateBrokerIp').value = cells[3].innerText.trim();
+            document.getElementById('updateBrokerPort').value = cells[4].innerText.trim();
+        });
+    });
 });
