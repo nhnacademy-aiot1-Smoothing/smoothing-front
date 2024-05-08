@@ -83,7 +83,7 @@ public class MyPageController {
 
         if(response.getMessage().equals("비밀번호 확인 완료")) {
 
-            userService.modifyProfile(new ModifyProfile(userName, userEmail));
+            userService. modifyProfile(new ModifyProfile(userName, userEmail));
             if(newPassword.length() > 0) {
                 userService.modifyPwd(new ModifyPwdRequest(newPassword));
             }
