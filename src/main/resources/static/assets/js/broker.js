@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        let brokerAddRequest = JSON.stringify({
+        let brokerUpdateRequest = JSON.stringify({
             brokerIp: brokerIp,
             brokerPort: brokerPort,
             brokerName: brokerName,
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: brokerAddRequest
+            body: brokerUpdateRequest
         }).then(response => {
             if (!response.ok) {
                 throw new Error('Server responded with an error.');
