@@ -49,4 +49,27 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('updateBrokerPort').value = cells[4].innerText.trim();
         });
     });
+
+    let deleteButtons = document.querySelectorAll('.deleteButton');
+
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            let row = button.closest('tr');
+            let brokerTds = row.querySelectorAll('td');
+
+            const findBrokerId = brokerTds[0].innerText;
+            const brokerName = brokerTds[1];
+            const brokerProtocol = brokerTds[2];
+            const brokerIp = brokerTds[3];
+            const brokerPort = brokerTds[4];
+
+            document.querySelector('#deleteModalContent').innerHTML = '브로커 ' + brokerName.innerText + '를 삭제하시겠습니까?<br>' +
+                '<span style="color: gray;font-size: small">프로토콜: ' + brokerProtocol.innerText + ', IP주소: ' + brokerIp.innerText + ', 포트: ' + brokerPort.innerText + '</span>';
+
+            document.querySelector('#deleteModalDeleteButton').addEventListener('click', function () {
+                alert('삭제되었습니다.');
+            });
+        });
+    });
+
 });
