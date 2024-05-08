@@ -53,7 +53,9 @@
                             <tbody>
                             <tr th:each="brokers : ${brokers}">
                                 <td th:text="${brokers.brokerId}"></td>
-                                <td th:text="${brokers.brokerName}"></td>
+                                <td>
+                                    <a th:href="@{'/broker/' + ${brokers.brokerId}+'/sensors'}" th:text="${brokers.brokerName}"></a>
+                                </td>
                                 <td th:text="${brokers.protocolType}"></td>
                                 <td th:text="${brokers.brokerIp}"></td>
                                 <td th:text="${brokers.brokerPort}"></td>
@@ -79,6 +81,7 @@
                                     <div class="modal-body">
                                         <p style="color: red" id="deleteModalContent"></p>
                                     </div>
+                                    <p id="brokerDeleteId" style="visibility: hidden"></p>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-primary" style="border-top: 1px solid rgba(0, 0, 0, 0.1);" id="deleteModalDeleteButton">삭제</button>
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
@@ -136,8 +139,8 @@
                                 </div>
                                 <div class="col-md-7">
                                     <label id="protocolType">
-                                        <select class="form-select">
-                                            <option selected>선택</option>
+                                        <select class="form-select" id="add-form-select">
+                                            <option selected th:id="'add_type_'+${type}">선택</option>
                                             <th:block th:each="type : ${protocolTypeList}">
                                                 <option th:value="${type}">
                                                     <span th:text="${type}"></span>
@@ -204,10 +207,10 @@
                                 </div>
                                 <div class="col-md-7">
                                     <label id="updateProtocolType">
-                                        <select class="form-select">
+                                        <select class="form-select" id="update-form-select">
                                             <option selected>선택</option>
                                             <th:block th:each="type : ${protocolTypeList}">
-                                                <option th:value="${type}">
+                                                <option th:value="${type}" th:id="'update_type_' + ${type}">
                                                     <span th:text="${type}"></span>
                                                 </option>
                                             </th:block>
@@ -237,6 +240,7 @@
                                 </div>
                             </div>
                         </div>
+                        <p id="updateBrokerId" style="visibility: hidden"></p>
                         <div class="modal-footer d-flex justify-content-center" style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
                             <button type="button" id="brokerUpdateButton" class="btn btn-primary">수정</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>

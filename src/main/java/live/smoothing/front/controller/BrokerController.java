@@ -1,20 +1,15 @@
 package live.smoothing.front.controller;
 
 import live.smoothing.front.device.dto.BrokerAddRequest;
+import live.smoothing.front.device.dto.BrokerUpdateRequest;
 import live.smoothing.front.device.service.BrokerService;
 import lombok.RequiredArgsConstructor;
-import org.bouncycastle.math.raw.Mod;
 import live.smoothing.front.device.dto.BrokerListResponse;
-import live.smoothing.front.device.service.BrokerService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,10 +32,24 @@ public class BrokerController {
     }
 
     @ResponseBody
-    @PostMapping("/add-broker")
+    @PostMapping("/api/device/brokers")
     public void addBroker(@RequestBody BrokerAddRequest request) {
 
         brokerService.addBroker(request);
+    }
+
+    @ResponseBody
+    @PutMapping("/api/device/brokers/{brokerId}")
+    public void updateBroker(@PathVariable Integer brokerId, @RequestBody BrokerUpdateRequest request) {
+
+        brokerService.updateBroker(brokerId, request);
+    }
+
+    @ResponseBody
+    @DeleteMapping("/api/device/brokers/{brokerId}")
+    public void deleteBroker(@PathVariable Integer brokerId) {
+
+        brokerService.deleteBroker(brokerId);
     }
 
 }

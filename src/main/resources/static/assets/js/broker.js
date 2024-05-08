@@ -1,16 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    let brokerAddButton = document.getElementById('brokerAddButton');
-
-    brokerAddButton.addEventListener('click', function () {
-
+    document.querySelector('#brokerAddButton').addEventListener('click', function () {
         let brokerIp = document.getElementById('brokerIp').value;
         let brokerPort = document.getElementById('brokerPort').value;
         let brokerName = document.getElementById('brokerName').value;
+        let protocolType = document.querySelector('#add-form-select').value;
 
-        let selectElement = document.querySelector('.form-select');
-        let protocolType = selectElement.value;
-
+        if (brokerIp == null || brokerIp === "" || brokerPort == null || brokerPort === "" || brokerName == null || brokerName === "" || protocolType == null || protocolType === "" || protocolType === "선택") {
+            alert("모든 값을 입력해주세요");
+            return;
+        }
 
         let brokerAddRequest = JSON.stringify({
             brokerIp: brokerIp,
@@ -19,42 +18,77 @@ document.addEventListener('DOMContentLoaded', function () {
             protocolType: protocolType
         });
 
-        let url = '/add-broker'
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(brokerAddRequest);
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    alert("브로커가 추가되었습니다.");
-                    window.location.reload();
-                } else {
-                    console.log("오류 발생")
-                }
+        fetch('api/device/brokers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: brokerAddRequest
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Server responded with an error.');
             }
-        }
+        }).then(data => {
+            alert('브로커가 추가되었습니다.');
+            location.reload();
+        }).catch(error => {
+            console.error('브로커 추가 오류:', error);
+        });
     });
 
     let updateButtons = document.querySelectorAll('.updateButton');
+    for(let i = 0; i < updateButtons.length; i++) {
+        updateButtons[i].addEventListener('click', function () {
+            const tds = updateButtons[i].parentElement.parentElement.querySelectorAll('td');
+            document.querySelector('#updateBrokerName').value = tds[1].innerText;
+            document.querySelector('#update_type_' + tds[2].innerText).selected = true;
+            document.querySelector('#updateBrokerIp').value = tds[3].innerText;
+            document.querySelector('#updateBrokerPort').value = tds[4].innerText;
+            document.querySelector('#updateBrokerId').innerHTML = tds[0].innerText;
+        });
+    }
 
-    updateButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            let row = button.closest('tr');
-            let cells = row.querySelectorAll('td');
-            document.getElementById('updateBrokerName').value = cells[1].innerText.trim();
-            document.getElementById('updateProtocolType').value = cells[2].innerText.trim();
-            document.getElementById('updateBrokerIp').value = cells[3].innerText.trim();
-            document.getElementById('updateBrokerPort').value = cells[4].innerText.trim();
+    document.querySelector('#brokerUpdateButton').addEventListener('click', function () {
+        let brokerIp = document.querySelector('#updateBrokerIp').value;
+        let brokerPort = document.querySelector('#updateBrokerPort').value;
+        let brokerName = document.querySelector('#updateBrokerName').value;
+        let protocolType = document.querySelector('#update-form-select').value;
+        let brokerId = document.querySelector('#updateBrokerId').innerHTML;
+
+        if (brokerIp == null || brokerIp === "" || brokerPort == null || brokerPort === "" || brokerName == null || brokerName === "" || protocolType == null || protocolType === "" || protocolType === "선택") {
+            alert("모든 값을 입력해주세요");
+            return;
+        }
+
+        let brokerAddRequest = JSON.stringify({
+            brokerIp: brokerIp,
+            brokerPort: brokerPort,
+            brokerName: brokerName,
+            protocolType: protocolType
+        });
+        fetch('/api/device/brokers/' + brokerId, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: brokerAddRequest
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Server responded with an error.');
+            }
+        }).then(data => {
+            alert('브로커가 수정되었습니다.');
+            location.reload();
+        }).catch(error => {
+            console.error('브로커 수정 오류:', error);
         });
     });
 
     let deleteButtons = document.querySelectorAll('.deleteButton');
 
-    deleteButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            let row = button.closest('tr');
+    for(let i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', function () {
+            let row = deleteButtons[i].closest('tr');
             let brokerTds = row.querySelectorAll('td');
 
             const findBrokerId = brokerTds[0].innerText;
@@ -62,14 +96,30 @@ document.addEventListener('DOMContentLoaded', function () {
             const brokerProtocol = brokerTds[2];
             const brokerIp = brokerTds[3];
             const brokerPort = brokerTds[4];
+            document.querySelector('#brokerDeleteId').innerHTML = findBrokerId;
 
             document.querySelector('#deleteModalContent').innerHTML = '브로커 ' + brokerName.innerText + '를 삭제하시겠습니까?<br>' +
                 '<span style="color: gray;font-size: small">프로토콜: ' + brokerProtocol.innerText + ', IP주소: ' + brokerIp.innerText + ', 포트: ' + brokerPort.innerText + '</span>';
+        });
+    }
 
-            document.querySelector('#deleteModalDeleteButton').addEventListener('click', function () {
-                alert('삭제되었습니다.');
-            });
+    document.querySelector('#deleteModalDeleteButton').addEventListener('click', function () {
+        let brokerId = document.querySelector('#brokerDeleteId').innerHTML;
+        fetch('/api/device/brokers/' + brokerId, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('서버 응답 오류');
+            }
+            return response;
+        }).then(data => {
+            alert('브로커가 삭제되었습니다.');
+            location.reload();
+        }).catch(error => {
+            console.error('브로커 삭제 오류:', error);
         });
     });
-
 });
