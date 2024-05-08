@@ -48,7 +48,7 @@ Highcharts.chart('container1', {
         zoomType: 'x'
     },
     title: {
-        text: "10분 단위 전력 그래프"
+        visible: false
     },
     time: {
         useUTC: true
@@ -132,6 +132,9 @@ Highcharts.chart('container2', {
         title: {
             text: null
         }
+    },
+    legend: {
+        enabled: false
     },
     series: [{
         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

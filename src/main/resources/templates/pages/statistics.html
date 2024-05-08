@@ -3,7 +3,9 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="layout/defaultLayout">
-    <head></head>
+    <head>
+    
+    </head>
     <body>
         <th:block layout:fragment="content">
             <div class="row">
@@ -12,34 +14,25 @@
                         <div class="card-body">
                             <h4 class="card-title">전체 1시간</h4>
                             <p class="card-description"> range selector with data grouping </p>
-                            <div>
-                            
-                            </div>
+                                <div id="container" style="height: 850px"></div>
                         </div>
                     </div>
                 </div>
-                
                 <div class="col-md-4 d-flex align-items-stretch">
                     <div class="row">
                         <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">시간대별</h4>
-                                    <p class="card-description"> Solid Gauge </p>
-                                    <div>
-                                    
-                                    </div>
+                                    <div id="statistics-timezone" style="height: 420px"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">센서 (최근 일주일)</h4>
-                                    <p class="card-description"> Tree map with color axis </p>
-                                    <div>
-                                    
-                                    </div>
+<!--                                    <h4 class="card-title">센서 (최근 일주일)</h4>-->
+                                    <div id="statistics-sensor"></div>
                                 </div>
                             </div>
                         </div>
@@ -71,6 +64,29 @@
                     </div>
                 </div>
             </div>
+
+            
+            <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+            <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+            <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+            
+            <script src="https://code.highcharts.com/stock/highstock.js"></script>
+            <script src="https://code.highcharts.com/highcharts-more.js"></script>
+            <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+            <script src="https://code.highcharts.com/modules/treemap.js"></script>
+            <script src="https://code.highcharts.com/modules/exporting.js"></script>
+            <script src="https://code.highcharts.com/modules/export-data.js"></script>
+            <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+            <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+            <script src="https://code.highcharts.com/modules/data.js"></script>
+            
+            <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+            <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+            <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+            
+            <script src="/assets/js/statistics/all.js"></script>
+            <script src="/assets/js/statistics/timezone.js"></script>
+            <script src="/assets/js/statistics/sensor.js"></script>
         </th:block>
     </body>
 </html>

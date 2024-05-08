@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class TagPowerMetricResponse {
+public class KwhTimeZone {
 
-    private double value;
+    private String label;
+    private Double value;
 }
