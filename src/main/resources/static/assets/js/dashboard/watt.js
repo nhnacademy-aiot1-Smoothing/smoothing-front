@@ -43,6 +43,7 @@ Highcharts.chart('container1', {
         zoomType: 'x'
     },
     title: {
+        visible: false,
         text: null
     },
     legend: {
@@ -153,6 +154,9 @@ Highcharts.chart('container2', {
         title: {
             text: null
         }
+    },
+    legend: {
+        enabled: false
     },
     series: [{
         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
