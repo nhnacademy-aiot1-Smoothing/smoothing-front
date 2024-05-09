@@ -19,10 +19,7 @@ public class KwhController {
     public KwhTimeZoneResponse getKwhTimeZone() {
 
         KwhTimeZoneResponse response = sensorService.getKwhTimeZone();
-        System.out.println(response.getData().get(0).getValue());
-        System.out.println(response.getData().get(1).getValue());
-        System.out.println(response.getData().get(2).getValue());
-        System.out.println(response.getData().get(3).getValue());
+
         return response;
     }
 
