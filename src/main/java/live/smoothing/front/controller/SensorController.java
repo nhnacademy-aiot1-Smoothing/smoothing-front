@@ -2,6 +2,7 @@ package live.smoothing.front.controller;
 
 import live.smoothing.front.device.dto.*;
 import live.smoothing.front.device.service.SensorService;
+import live.smoothing.front.device.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 public class SensorController {
 
     private final SensorService sensorService;
+    private final TagService tagService;
 
     @GetMapping("/broker/{brokerId}/sensor")
     public String sensor(@PageableDefault(size = 100) Pageable pageable,
@@ -29,6 +32,10 @@ public class SensorController {
         model.addAttribute("sensors", sensors.getSensors());
         model.addAttribute("brokerId", brokerId);
         model.addAttribute("broker", broker);
+
+        List<TagResponse> tagList = tagService.getTags().getTags();
+        model.addAttribute("tagList", tagList);
+
         return "pages/sensor";
     }
 
@@ -48,5 +55,12 @@ public class SensorController {
     @DeleteMapping("/api/device/sensors/{sensorId}")
     public void deleteSensor(@PathVariable Integer sensorId) {
         sensorService.deleteSensor(sensorId);
+    }
+
+    @ResponseBody
+    @PostMapping("/addTag")
+    public void addTag(@RequestBody TagRequest request) {
+
+        tagService.addTag(request);
     }
 }

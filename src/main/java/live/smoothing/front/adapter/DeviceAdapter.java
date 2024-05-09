@@ -45,8 +45,7 @@ public interface DeviceAdapter {
     void deleteSensor(@PathVariable("sensorId") Integer sensorId);
 
     @PostMapping("/api/device/tags")
-    void addTag(@RequestHeader("X-USER-ID") String userId,
-                @RequestBody TagRequest tagRequest);
+    void addTag(@RequestBody TagRequest tagRequest);
 
     @GetMapping("/api/device/tags")
     TagListResponse getTags();

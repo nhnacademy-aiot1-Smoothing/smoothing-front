@@ -111,4 +111,46 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('센서 삭제 오류:', error);
         });
     });
+
+    let tagDropdownButtons = document.querySelectorAll('.tagDropdownButton');
+
+    tagDropdownButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            let dropdownMenu = button.nextElementSibling;
+            dropdownMenu.classList.toggle('show');
+        });
+    });
+
+    let tagAddButton = document.getElementById('tagAddButton');
+
+    tagAddButton.addEventListener('click', function () {
+
+        let tagName = document.getElementById('tagName').value;
+
+        if (tagName === "") {
+            alert("태그명을 입력해주세요.");
+            return;
+        }
+
+        let tagRequest = JSON.stringify({
+            tagName: tagName
+        });
+
+        fetch('/addTag', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: tagRequest
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Server responded with an error.');
+            }
+        }).then(data => {
+            alert('태그가 추가되었습니다.');
+            location.reload();
+        }).catch(error => {
+            console.error('태그 추가 오류:', error);
+        });
+    });
 });

@@ -35,12 +35,14 @@
             background-color: white;
         }
     </style>
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-center">
         <h1 th:text="'센서 관리 &nbsp;🐪'+${broker}+'🐪'"></h1>
-        <button type="button"
-                class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                data-bs-target="#sensorAddModal">센서 추가
-        </button>
+        <div class="d-flex">
+            <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#tagManagementModal">태그 관리
+            </button>
+            <button type="button" style="margin-left: 10px" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#sensorAddModal">센서 추가
+            </button>
+        </div>
     </div>
     <div class="container">
         <div class="row">
@@ -63,7 +65,20 @@
                                th:text="${sensors.sensorName}"></a>
                         </td>
                         <td th:text="${sensors.sensorType}"></td>
-                        <td></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle tagDropdownButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    추가
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <th:block th:each="tag : ${tagList}">
+                                        <li><a class="dropdown-item" th:href="'#' + ${tag.tagName}"> <!-- 여기서 변경 -->
+                                            <span th:text="${tag.tagName}"></span> <!-- 태그 이름 표시 -->
+                                        </a></li>
+                                    </th:block>
+                                </ul>
+                            </div>
+                        </td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm updateButton"
                                     data-bs-toggle="modal"
@@ -219,6 +234,47 @@
                      style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
                     <button type="button" id="sensorUpdateButton" class="btn btn-primary">수정</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="tagManagementModal" tabindex="-1" aria-labelledby="tagManagementModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+                    <h1 class="modal-title fs-5" id="tagManagementModalLabel"><b>태그 관리</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--                    <b>태그 추가</b>-->
+                    <div class="row mb-3">
+                        <div class="d-flex align-items-center">
+                            <label for="tagName" class="form-label me-2">
+                                <b>태그 이름</b>
+                            </label>
+                            <input id="tagName" class="form-control rounded-3 border-secondary me-2" style="width: 200px" type="text">
+                            <button type="button" id="tagAddButton" class="btn btn-primary">추가</button>
+                        </div>
+                    </div>
+                    <!--                    <b>태그 수정/삭제</b>-->
+                    <!--                    <div class="row mb-3">-->
+                    <!--                        <div class="d-flex align-items-center">-->
+                    <!--                            <select class="form-select" style="width: 150px">-->
+                    <!--                                <option selected>선택</option>-->
+                    <!--                                <th:block th:each="tag : ${tagList}">-->
+                    <!--                                    <option th:value="${tag.tagId}">-->
+                    <!--                                        <span th:text="${tag.tagName}"></span>-->
+                    <!--                                    </option>-->
+                    <!--                                </th:block>-->
+                    <!--                            </select>-->
+                    <!--                            <input id="tagUpdateName" class="form-control rounded-3 border-secondary me-2"-->
+                    <!--                                   style="width:200px"-->
+                    <!--                                   type="text">-->
+                    <!--                            <button type="button" id="tagUpdateButton" class="btn btn-primary btn-sm">수정</button>-->
+                    <!--                            <button type="button" id="tagDeleteButton" class="btn btn-danger btn-sm">삭제</button>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
                 </div>
             </div>
         </div>
