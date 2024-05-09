@@ -82,4 +82,8 @@ public interface DeviceAdapter {
 
     @DeleteMapping("/api/device/brokers/errors/{errorId}")
     void deleteError(@PathVariable("errorId") Integer errorId);
+    @PostMapping("/api/device/tags/sensors")
+    SensorTagsResponse getSensorTags(@RequestHeader("X-USER-ID") String userId,
+                                     @RequestBody SensorIdListRequest sensorIdListRequest);
+
 }
