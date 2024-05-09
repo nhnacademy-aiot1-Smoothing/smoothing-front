@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 
-@FeignClient("device-service")
+@FeignClient("gateway")
 public interface DeviceAdapter {
 
     @PostMapping("/api/device/brokers")
