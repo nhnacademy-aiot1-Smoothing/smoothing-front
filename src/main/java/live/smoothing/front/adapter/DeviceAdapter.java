@@ -76,4 +76,8 @@ public interface DeviceAdapter {
     @GetMapping("/api/device/topics/types")
     TopicTypeListResponse getTopicTypes();
 
+    @PostMapping("/api/device/tags/sensors")
+    SensorTagsResponse getSensorTags(@RequestHeader("X-USER-ID") String userId,
+                                     @RequestBody SensorIdListRequest sensorIdListRequest);
+
 }
