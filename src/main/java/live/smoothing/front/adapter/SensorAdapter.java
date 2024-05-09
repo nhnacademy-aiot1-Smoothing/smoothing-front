@@ -2,6 +2,7 @@ package live.smoothing.front.adapter;
 
 import live.smoothing.front.sensor.dto.KwhTimeZoneResponse;
 import live.smoothing.front.sensor.dto.TagPowerMetricResponse;
+import live.smoothing.front.sensor.dto.TagSensorValueResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,12 @@ public interface SensorAdapter {
                                    @RequestParam String per,
                                    @RequestParam String type);
 
+<<<<<<< HEAD
     @GetMapping("/api/sensor/kwh/usage/weekly/timezone")
     KwhTimeZoneResponse getKwhTimeZone();
+=======
+    @GetMapping("/api/sensor/kwh/usage/daily/value/total")
+    TagSensorValueResponse getDailyTotalSensorData(@RequestParam String tags);
+
+>>>>>>> develop
 }

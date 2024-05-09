@@ -3,6 +3,7 @@ package live.smoothing.front.sensor.service;
 import live.smoothing.front.adapter.SensorAdapter;
 import live.smoothing.front.sensor.dto.KwhTimeZoneResponse;
 import live.smoothing.front.sensor.dto.TagPowerMetricResponse;
+import live.smoothing.front.sensor.dto.TagSensorValueResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,12 @@ public class SensorService {
         return sensorAdapter.getWatt(tags, unit, per, type);
     }
 
+<<<<<<< HEAD
     public KwhTimeZoneResponse getKwhTimeZone() {
         return sensorAdapter.getKwhTimeZone();
+=======
+    public TagSensorValueResponse getDailyTotalSensorData(String tags) {
+        return sensorAdapter.getDailyTotalSensorData(tags);
+>>>>>>> develop
     }
 }

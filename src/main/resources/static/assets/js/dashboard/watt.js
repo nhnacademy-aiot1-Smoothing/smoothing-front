@@ -1,6 +1,6 @@
 Highcharts.chart('container1', {
     chart: {
-        type: 'column',
+        type: 'spline',
         events: {
             load: function () {
 
@@ -20,14 +20,9 @@ Highcharts.chart('container1', {
                                 .then(res => {
                                     const resData = res.data;
 
-                                    console.log('length = ' + resData.length);
-
                                     if (resData.length !== 14) {
                                         return;
                                     }
-
-                                    console.log(new Date(resData[0].time).getTime());
-                                    console.log(series.data[0].x);
 
                                     if (new Date(resData[0].time).getTime() !== series.data[0].x) {
                                         series.addPoint([new Date(resData[resData.length-1].time).getTime(), 0], true, true, true);
@@ -48,14 +43,34 @@ Highcharts.chart('container1', {
         zoomType: 'x'
     },
     title: {
+<<<<<<< HEAD:src/main/resources/static/assets/js/dashboard/watt.js
         visible: false
+=======
+        text: null
+    },
+    legend: {
+        enabled: false
+>>>>>>> develop:src/main/resources/static/assets/js/watt.js
     },
     time: {
         useUTC: true
     },
+    plotOptions: {
+        series: {
+            color: '#F3CA52'
+        },
+        spline: {
+            marker: {
+                radius: 0
+            }
+        }
+    },
     xAxis: {
         type: 'datetime',
         tickPixelInterval: 150
+    },
+    credits: {
+        enabled: false
     },
     yAxis: {
         title: {
@@ -70,7 +85,7 @@ Highcharts.chart('container1', {
 
 Highcharts.chart('container2', {
     chart: {
-        type: 'column',
+        type: 'spline',
         events: {
             load: function () {
 
@@ -79,7 +94,6 @@ Highcharts.chart('container2', {
                 fetch("/sensor/watt?tags=&unit=hour&per=1&type=test")
                     .then(response => response.json())
                     .then(res => {
-                        console.log(res.data);
                         for (const d of res.data) {
                             series.addPoint([new Date(d.time).getTime(), d.value], true, true);
                         }
@@ -91,14 +105,9 @@ Highcharts.chart('container2', {
                                     .then(res => {
                                         const resData = res.data;
 
-                                        console.log('length = ' + resData.length);
-
                                         if (resData.length !== 25) {
                                             return;
                                         }
-
-                                        console.log(new Date(resData[0].time).getTime());
-                                        console.log(series.data[0].x);
 
                                         if (new Date(resData[0].time).getTime() !== series.data[0].x) {
                                             series.addPoint([new Date(resData[resData.length-1].time).getTime(), 0], true, true, true);
@@ -119,7 +128,20 @@ Highcharts.chart('container2', {
         zoomType: 'x'
     },
     title: {
-        text: "1시간 단위 전력 그래프"
+        text: null
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            color: '#F3CA52'
+        },
+        spline: {
+            marker: {
+                radius: 0
+            }
+        }
     },
     time: {
         useUTC: true
@@ -127,6 +149,9 @@ Highcharts.chart('container2', {
     xAxis: {
         type: 'datetime',
         tickPixelInterval: 150
+    },
+    credits: {
+        enabled: false
     },
     yAxis: {
         title: {
