@@ -17,12 +17,12 @@ public class SensorService {
         return sensorAdapter.getWatt(tags, unit, per, type);
     }
 
-<<<<<<< HEAD
     public KwhTimeZoneResponse getKwhTimeZone() {
+
         return sensorAdapter.getKwhTimeZone();
-=======
+    }
+
     public TagSensorValueResponse getDailyTotalSensorData(String tags) {
         return sensorAdapter.getDailyTotalSensorData(tags);
->>>>>>> develop
     }
 }

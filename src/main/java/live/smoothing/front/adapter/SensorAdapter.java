@@ -15,13 +15,10 @@ public interface SensorAdapter {
                                    @RequestParam String unit,
                                    @RequestParam String per,
                                    @RequestParam String type);
-
-<<<<<<< HEAD
     @GetMapping("/api/sensor/kwh/usage/weekly/timezone")
     KwhTimeZoneResponse getKwhTimeZone();
-=======
+
     @GetMapping("/api/sensor/kwh/usage/daily/value/total")
     TagSensorValueResponse getDailyTotalSensorData(@RequestParam String tags);
 
->>>>>>> develop
 }
