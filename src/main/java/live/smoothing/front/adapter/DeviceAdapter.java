@@ -82,4 +82,11 @@ public interface DeviceAdapter {
 
     @DeleteMapping("/api/device/brokers/errors/{errorId}")
     void deleteError(@PathVariable("errorId") Integer errorId);
+
+    @GetMapping("/api/device/sensors/errors")
+    SensorErrorListResponse getSensorErrors(@RequestParam("page") int page,
+                                            @RequestParam("size") int size);
+
+    @DeleteMapping("/api/device/sensors/errors/{errorId}")
+    void deleteSensorError(@PathVariable("errorId") Integer errorId);
 }
