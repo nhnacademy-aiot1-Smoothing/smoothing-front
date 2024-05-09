@@ -1,11 +1,9 @@
 package live.smoothing.front.sensor.controller;
 
-import live.smoothing.front.sensor.dto.KwhSensorResponse;
-import live.smoothing.front.sensor.dto.KwhTimeZoneResponse;
+import live.smoothing.front.sensor.dto.*;
 import live.smoothing.front.sensor.service.SensorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import live.smoothing.front.sensor.dto.TagSensorValueResponse;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +24,12 @@ public class KwhController {
     public KwhSensorResponse getKwhSensor(@RequestParam String tags) {
 
         return sensorService.getKwhSensor(tags);
+    }
+
+    @GetMapping("sensor/kwh/usage/hourly/total")
+    public KwhHourlyResponse getKwhHourly(@RequestParam String tags) {
+
+        return sensorService.getKwhHourly(tags);
     }
 
     @GetMapping("/sensor/kwh/daily/value")

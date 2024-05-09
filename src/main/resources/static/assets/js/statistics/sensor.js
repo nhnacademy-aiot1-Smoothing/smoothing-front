@@ -29,7 +29,7 @@ $.get("/sensor/kwh/usage/weekly/value/total", { tags: "" }, function(response) {
             data: chartData
         }],
         title: {
-            text: 'Highcharts Treemap'
+            text: null
         }
     });
 })
