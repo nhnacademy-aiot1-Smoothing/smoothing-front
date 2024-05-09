@@ -1,5 +1,6 @@
 package live.smoothing.front.adapter;
 
+import live.smoothing.front.sensor.dto.KwhSensorResponse;
 import live.smoothing.front.sensor.dto.KwhTimeZoneResponse;
 import live.smoothing.front.sensor.dto.TagPowerMetricResponse;
 import live.smoothing.front.sensor.dto.TagSensorValueResponse;
@@ -21,4 +22,6 @@ public interface SensorAdapter {
     @GetMapping("/api/sensor/kwh/usage/daily/value/total")
     TagSensorValueResponse getDailyTotalSensorData(@RequestParam String tags);
 
+    @GetMapping("/api/sensor/kwh/usage/weekly/value/total")
+    KwhSensorResponse getKwhSensor(@RequestParam String tags);
 }

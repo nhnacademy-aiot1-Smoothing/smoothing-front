@@ -1,5 +1,6 @@
 package live.smoothing.front.sensor.controller;
 
+import live.smoothing.front.sensor.dto.KwhSensorResponse;
 import live.smoothing.front.sensor.dto.KwhTimeZoneResponse;
 import live.smoothing.front.sensor.service.SensorService;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +19,18 @@ public class KwhController {
     @GetMapping("/sensor/kwh/usage/weekly/timezone")
     public KwhTimeZoneResponse getKwhTimeZone() {
 
-        KwhTimeZoneResponse response = sensorService.getKwhTimeZone();
+        return sensorService.getKwhTimeZone();
+    }
 
-        return response;
+    @GetMapping("/sensor/kwh/usage/weekly/value/total")
+    public KwhSensorResponse getKwhSensor(@RequestParam String tags) {
+
+        return sensorService.getKwhSensor(tags);
     }
 
     @GetMapping("/sensor/kwh/daily/value")
     public TagSensorValueResponse getDailyTotalSensorData(@RequestParam String tags) {
+
         return sensorService.getDailyTotalSensorData(tags);
     }
 }

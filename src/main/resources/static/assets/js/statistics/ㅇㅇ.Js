@@ -1,19 +1,9 @@
 $.get("/sensor/kwh/usage/weekly/value/total", { tags: "" }, function(response) {
-    var sortedData = response.data.sort(function(a, b) {
-        return b.value - a.value;
-    });
-
-    var top7Data = sortedData.slice(0, 7);
-
-    var colorValueRange = top7Data.map(function(item, index) {
-        return index + 1;
-    }).reverse();
-
-    var chartData = top7Data.map(function(item, index) {
+    var chartData = response.data.map(function(item, index) {
         return {
             name: item.sensorName,
             value: item.value,
-            colorValue: colorValueRange[index]
+            colorValue: index + 1
         };
     });
 
