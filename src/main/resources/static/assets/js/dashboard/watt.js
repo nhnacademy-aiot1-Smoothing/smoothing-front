@@ -43,14 +43,11 @@ Highcharts.chart('container1', {
         zoomType: 'x'
     },
     title: {
-<<<<<<< HEAD:src/main/resources/static/assets/js/dashboard/watt.js
-        visible: false
-=======
+        visible: false,
         text: null
     },
     legend: {
         enabled: false
->>>>>>> develop:src/main/resources/static/assets/js/watt.js
     },
     time: {
         useUTC: true
