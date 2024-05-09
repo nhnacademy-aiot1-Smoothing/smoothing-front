@@ -76,4 +76,10 @@ public interface DeviceAdapter {
     @GetMapping("/api/device/topics/types")
     TopicTypeListResponse getTopicTypes();
 
+    @GetMapping("/api/device/brokers/errors")
+    BrokerErrorListResponse getErrors(@RequestParam("page") int page,
+                                      @RequestParam("size") int size);
+
+    @DeleteMapping("/api/device/brokers/errors/{errorId}")
+    void deleteError(@PathVariable("errorId") Integer errorId);
 }
