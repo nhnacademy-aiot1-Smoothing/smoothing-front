@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="layout/defaultLayout">
     <head>
-        <script src="/assets/js/broker.js"></script>
+        <script src="/assets/js/topic.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     </head>
@@ -31,10 +31,10 @@
                 }
             </style>
             <div class="d-flex justify-content-between">
-                <h1>브로커 관리</h1>
+                <h1 th:text="'토픽 관리&nbsp;🤪'+${sensor}+'🤪'"></h1>
                 <button type="button"
                         class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#brokerAddModal">브로커 추가</button>
+                        data-bs-target="#topicAddModal">토픽 추가</button>
             </div>
             <div class="container">
                 <div class="row">
@@ -43,26 +43,20 @@
                             <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col"><b>브로커 이름</b></th>
-                                <th scope="col"><b>프로토콜</b></th>
-                                <th scope="col"><b>IP주소</b></th>
-                                <th scope="col"><b>포트</b></th>
+                                <th scope="col"><b>타입</b></th>
+                                <th scope="col"><b>토픽</b></th>
                                 <th scope="col"><b>동작</b></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="brokers : ${brokers}">
-                                <td th:text="${brokers.brokerId}"></td>
-                                <td>
-                                    <a th:href="@{'/broker/' + ${brokers.brokerId}+'/sensor?broker='+${brokers.brokerName}}" th:text="${brokers.brokerName}"></a>
-                                </td>
-                                <td th:text="${brokers.protocolType}"></td>
-                                <td th:text="${brokers.brokerIp}"></td>
-                                <td th:text="${brokers.brokerPort}"></td>
+                            <tr th:each="topics : ${topics}">
+                                <td th:text="${topics.topicId}"></td>
+                                <td th:text="${topics.topicType}"></td>
+                                <td th:text="${topics.topic}"></td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm updateButton"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#brokerUpdateModal">변경</button>
+                                            data-bs-target="#topicUpdateModal">변경</button>
 <!--                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>-->
                                     <button type="button" class="btn btn-danger btn-sm deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
                                 </td>
@@ -81,7 +75,7 @@
                                     <div class="modal-body">
                                         <p style="color: red" id="deleteModalContent"></p>
                                     </div>
-                                    <p id="brokerDeleteId" style="visibility: hidden"></p>
+                                    <p id="topicDeleteId" style="visibility: hidden"></p>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-primary" style="border-top: 1px solid rgba(0, 0, 0, 0.1);" id="deleteModalDeleteButton">삭제</button>
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
@@ -113,35 +107,35 @@
             </div>
 
 
-            <div class="modal fade" id="brokerAddModal" tabindex="-1" aria-labelledby="brokerAddModalLabel" aria-hidden="true">
+            <div class="modal fade" id="topicAddModal" tabindex="-1" aria-labelledby="topicAddModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-                            <h1 class="modal-title fs-5" id="brokerAddModalLabel"><b>브로커 추가</b></h1>
+                            <h1 class="modal-title fs-5" id="topicAddModalLabel"><b>토픽 추가</b></h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row mb-3">
                                 <div class="col-md-4 text-center align-self-center">
-                                    <label for="brokerName" class="form-label">
-                                        <b>브로커 이름</b>
+                                    <label for="topic" class="form-label">
+                                        <b>토픽</b>
                                     </label>
                                 </div>
                                 <div class="col-md-7">
-                                    <input id="brokerName" class="form-control rounded-3 border-secondary" type="text">
+                                    <input id="topic" class="form-control rounded-3 border-secondary" type="text">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-4 text-center align-self-center">
-                                    <label for="protocolType" class="form-label">
-                                        <b>브로커 타입</b>
+                                    <label for="topicType" class="form-label">
+                                        <b>토픽 타입</b>
                                     </label>
                                 </div>
                                 <div class="col-md-7">
-                                    <label id="protocolType">
+                                    <label id="topicType">
                                         <select class="form-select" id="add-form-select">
                                             <option selected th:id="'add_type_'+${type}">선택</option>
-                                            <th:block th:each="type : ${protocolTypeList}">
+                                            <th:block th:each="type : ${topicTypes}">
                                                 <option th:value="${type}">
                                                     <span th:text="${type}"></span>
                                                 </option>
@@ -150,66 +144,46 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-md-4 text-center align-self-center">
-                                    <label for="brokerIp" class="form-label">
-                                        <b>IP 주소</b>
-                                    </label>
-                                </div>
-                                <div class="col-md-7">
-                                    <input id="brokerIp" class="form-control rounded-3 border-secondary" type="text">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-4 text-center align-self-center">
-                                    <label for="brokerPort" class="form-label">
-                                        <b>포트</b>
-                                    </label>
-                                </div>
-                                <div class="col-md-7">
-                                    <input id="brokerPort" class="form-control rounded-3 border-secondary" type="text">
-                                </div>
-                            </div>
                         </div>
                         <div class="modal-footer d-flex justify-content-center" style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
-                            <button type="button" id="brokerAddButton" class="btn btn-primary">추가</button>
+                            <button type="button" id="topicAddButton" class="btn btn-primary">추가</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="modal fade" id="brokerUpdateModal" tabindex="-1" aria-labelledby="brokerUpdateModalLabel"
+            <div class="modal fade" id="topicUpdateModal" tabindex="-1" aria-labelledby="topicUpdateModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-                            <h1 class="modal-title fs-5" id="brokerUpdateModalLabel"><b>브로커 수정</b></h1>
+                            <h1 class="modal-title fs-5" id="topicUpdateModalLabel"><b>토픽 수정</b></h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row mb-3">
                                 <div class="col-md-4 text-center align-self-center">
-                                    <label for="updateBrokerName" class="form-label">
-                                        <b>브로커 이름</b>
+                                    <label for="updateTopic" class="form-label">
+                                        <b>토픽</b>
                                     </label>
                                 </div>
                                 <div class="col-md-7">
-                                    <input id="updateBrokerName" class="form-control rounded-3 border-secondary"
+                                    <input id="updateTopic" class="form-control rounded-3 border-secondary"
                                            type="text">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-4 text-center align-self-center">
-                                    <label for="updateProtocolType" class="form-label">
-                                        <b>브로커 타입</b>
+                                    <label for="updateTopicType" class="form-label">
+                                        <b>토픽 타입</b>
                                     </label>
                                 </div>
                                 <div class="col-md-7">
-                                    <label id="updateProtocolType">
+                                    <label id="updateTopicType">
                                         <select class="form-select" id="update-form-select">
                                             <option selected>선택</option>
-                                            <th:block th:each="type : ${protocolTypeList}">
+                                            <th:block th:each="type : ${topicTypes}">
                                                 <option th:value="${type}" th:id="'update_type_' + ${type}">
                                                     <span th:text="${type}"></span>
                                                 </option>
@@ -218,31 +192,10 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-md-4 text-center align-self-center">
-                                    <label for="updateBrokerIp" class="form-label">
-                                        <b>IP 주소</b>
-                                    </label>
-                                </div>
-                                <div class="col-md-7">
-                                    <input id="updateBrokerIp" class="form-control rounded-3 border-secondary" type="text">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-4 text-center align-self-center">
-                                    <label for="updateBrokerPort" class="form-label">
-                                        <b>포트</b>
-                                    </label>
-                                </div>
-                                <div class="col-md-7">
-                                    <input id="updateBrokerPort" class="form-control rounded-3 border-secondary"
-                                           type="text">
-                                </div>
-                            </div>
                         </div>
-                        <p id="updateBrokerId" style="visibility: hidden"></p>
+                        <p id="updateTopicId" style="visibility: hidden"></p>
                         <div class="modal-footer d-flex justify-content-center" style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
-                            <button type="button" id="brokerUpdateButton" class="btn btn-primary">수정</button>
+                            <button type="button" id="topicUpdateButton" class="btn btn-primary">수정</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                         </div>
                     </div>
