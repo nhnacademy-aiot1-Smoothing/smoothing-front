@@ -4,8 +4,6 @@ import live.smoothing.front.device.dto.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-
 @FeignClient("gateway")
 public interface DeviceAdapter {
 
@@ -81,8 +79,8 @@ public interface DeviceAdapter {
 
     @DeleteMapping("/api/device/brokers/errors/{errorId}")
     void deleteError(@PathVariable("errorId") Integer errorId);
+
     @PostMapping("/api/device/tags/sensors")
-    SensorTagsResponse getSensorTags(@RequestHeader("X-USER-ID") String userId,
-                                     @RequestBody SensorIdListRequest sensorIdListRequest);
+    SensorTagsResponse getSensorTags(@RequestBody SensorIdListRequest sensorIdListRequest);
 
 }
