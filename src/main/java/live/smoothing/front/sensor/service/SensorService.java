@@ -16,23 +16,29 @@ public class SensorService {
         return sensorAdapter.getWatt(tags, unit, per, type);
     }
 
-    public KwhTimeZoneResponse getKwhTimeZone() {
+    public TimeZoneResponse getWeeklyTimeZone() {
 
-        return sensorAdapter.getKwhTimeZone();
+        return sensorAdapter.getWeeklyTimeZone();
     }
 
-    public KwhSensorResponse getKwhSensor(String tags) {
+    public SensorResponse getWeeklyTotal(String tags) {
 
-        return sensorAdapter.getKwhSensor(tags);
+        return sensorAdapter.getWeeklyTotal(tags);
     }
 
-    public KwhHourlyResponse getKwhHourly(String tags) {
+    public TagPowerMetricResponse getHourlyTotal(String tags) {
 
-        return sensorAdapter.getKwhHourly(tags);
+        return sensorAdapter.getHourlyTotal(tags);
     }
 
     public TagSensorValueResponse getDailyTotalSensorData(String tags) {
 
         return sensorAdapter.getDailyTotalSensorData(tags);
     }
+
+    public TagPowerMetricResponse getDailyPeriodTotal(String tags, String start, String end) {
+
+        return sensorAdapter.getDailyPeriodTotal(tags, start, end);
+    }
+
 }
