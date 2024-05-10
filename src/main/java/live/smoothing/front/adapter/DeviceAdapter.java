@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 
-@FeignClient("device-service")
+@FeignClient("gateway")
 public interface DeviceAdapter {
 
     @PostMapping("/api/device/brokers")
@@ -76,4 +76,25 @@ public interface DeviceAdapter {
     @GetMapping("/api/device/topics/types")
     TopicTypeListResponse getTopicTypes();
 
+    @GetMapping("/api/device/brokers/errors")
+    BrokerErrorListResponse getErrors(@RequestParam("page") int page,
+                                      @RequestParam("size") int size);
+
+    @DeleteMapping("/api/device/brokers/errors/{errorId}")
+    void deleteError(@PathVariable("errorId") Integer errorId);
+
+    @GetMapping("/api/device/sensors/errors")
+    SensorErrorListResponse getSensorErrors(@RequestParam("page") int page,
+                                            @RequestParam("size") int size);
+
+    @DeleteMapping("/api/device/sensors/errors/{errorId}")
+    void deleteSensorError(@PathVariable("errorId") Integer errorId);
+
+    @PostMapping("/api/device/tags/sensorTag")
+    void addSensorTag(@RequestHeader("X-USER-ID") String userId,
+                      @RequestBody SensorTagAddRequest sensorTagAddRequest);
+
+    @DeleteMapping("/api/device/tags/sensorTag/{sensorTagId}")
+    void deleteSensorTag(@RequestHeader("X-USER-ID") String userId,
+                         @PathVariable Integer sensorTagId);
 }

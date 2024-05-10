@@ -1,43 +1,38 @@
-Highcharts.chart('statistics-sensor', {
-    colorAxis: {
-        minColor: '#FFFFFF',
-        maxColor: Highcharts.getOptions().colors[0]
-    },
-    series: [{
-        type: 'treemap',
-        layoutAlgorithm: 'squarified',
-        clip: false,
-        data: [{
-            name: 'A',
-            value: 6,
-            colorValue: 1
-        }, {
-            name: 'B',
-            value: 6,
-            colorValue: 2
-        }, {
-            name: 'C',
-            value: 4,
-            colorValue: 3
-        }, {
-            name: 'D',
-            value: 3,
-            colorValue: 4
-        }, {
-            name: 'E',
-            value: 2,
-            colorValue: 5
-        }, {
-            name: 'F',
-            value: 2,
-            colorValue: 6
-        }, {
-            name: 'G',
-            value: 1,
-            colorValue: 7
-        }]
-    }],
-    title: {
-        text: 'Highcharts Treemap'
-    }
-});
+$.get("/sensor/kwh/usage/weekly/value/total", { tags: "" }, function(response) {
+    var sortedData = response.data.sort(function(a, b) {
+        return b.value - a.value;
+    });
+
+    var top7Data = sortedData.slice(0, 7);
+
+    var colorValueRange = top7Data.map(function(item, index) {
+        return index + 1;
+    }).reverse();
+
+    var chartData = top7Data.map(function(item, index) {
+        return {
+            name: item.sensorName,
+            value: item.value,
+            colorValue: colorValueRange[index]
+        };
+    });
+
+    Highcharts.chart('statistics-sensor', {
+        colorAxis: {
+            minColor: '#FFFFFF',
+            maxColor: Highcharts.getOptions().colors[0]
+        },
+        series: [{
+            type: 'treemap',
+            layoutAlgorithm: 'squarified',
+            clip: false,
+            data: chartData
+        }],
+        title: {
+            text: null
+        }
+    });
+})
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });

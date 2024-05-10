@@ -1,9 +1,6 @@
 package live.smoothing.front.adapter;
 
-import live.smoothing.front.sensor.dto.CostResponse;
-import live.smoothing.front.sensor.dto.KwhTimeZoneResponse;
-import live.smoothing.front.sensor.dto.TagPowerMetricResponse;
-import live.smoothing.front.sensor.dto.TagSensorValueResponse;
+import live.smoothing.front.sensor.dto.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,11 +14,28 @@ public interface SensorAdapter {
                                    @RequestParam String per,
                                    @RequestParam String type);
     @GetMapping("/api/sensor/kwh/usage/weekly/timezone")
-    KwhTimeZoneResponse getKwhTimeZone();
+    TimeZoneResponse getWeeklyTimeZone();
 
     @GetMapping("/api/sensor/kwh/usage/daily/value/total")
     TagSensorValueResponse getDailyTotalSensorData(@RequestParam String tags);
 
+
     @GetMapping("/api/sensor/cost")
     CostResponse getCost();
+
+    @GetMapping("/api/sensor/kwh/usage/daily/period/total")
+    TagPowerMetricResponse getDailyPeriodTotal(@RequestParam String tags,
+                                           @RequestParam String start,
+                                           @RequestParam String end);
+
+    @GetMapping("/api/sensor/kwh/usage/daily/period")
+    SensorPowerMetricResponse getDailyPeriod(@RequestParam String tags,
+                                               @RequestParam String start,
+                                               @RequestParam String end);
+
+    @GetMapping("/api/sensor/kwh/usage/weekly/value/total")
+    SensorResponse getWeeklyTotal(@RequestParam String tags);
+
+    @GetMapping("/api/sensor/kwh/usage/hourly/total")
+    TagPowerMetricResponse getHourlyTotal(@RequestParam String tags);
 }

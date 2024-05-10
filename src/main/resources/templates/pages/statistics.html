@@ -12,9 +12,9 @@
                 <div class="col-md-8 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">전체 1시간</h4>
-                            <p class="card-description"> range selector with data grouping </p>
-                                <div id="container" style="height: 850px"></div>
+                            <h4 class="card-title">전체 전력량</h4>
+                            <p class="card-description"> (시간, 일, 주) </p>
+                                <div id="statistics-total" style="height: 830px"></div>
                         </div>
                     </div>
                 </div>
@@ -23,16 +23,18 @@
                         <div class="col-md-12 grid-margin stretch-card">
                             <div class="card" >
                                 <div class="card-body">
-                                    <h4 class="card-title">시간대별</h4>
-                                    <div id="statistics-timezone" style="height: 420px"></div>
+                                    <h4 class="card-title">시간대별 전력량</h4>
+                                    <p class="card-description"> (아침, 오후, 저녁, 새벽) </p>
+                                    <div id="statistics-timezone" style="height: 380px"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-<!--                                    <h4 class="card-title">센서 (최근 일주일)</h4>-->
-                                    <div id="statistics-sensor"></div>
+                                    <h4 class="card-title">센서별 전력량</h4>
+                                    <p class="card-description"> (Top 7) </p>
+                                    <div id="statistics-sensor" style="height: 320px"></div>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +86,7 @@
             <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
             <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
             
-            <script src="/assets/js/statistics/all.js"></script>
+            <script src="/assets/js/statistics/total.js"></script>
             <script src="/assets/js/statistics/timezone.js"></script>
             <script src="/assets/js/statistics/sensor.js"></script>
         </th:block>
