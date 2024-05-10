@@ -43,4 +43,10 @@ public class KwhController {
 
         return sensorService.getDailyPeriodTotal(tags, start, end);
     }
+
+    @GetMapping("/sensor/kwh/usage/daily/period")
+    public SensorPowerMetricResponse getDailyPeriod(@RequestParam("tags") String tags, @RequestParam("start") String start, @RequestParam("end") String end) {
+
+        return sensorService.getDailyPeriod(tags, start, end);
+    }
 }

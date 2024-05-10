@@ -24,6 +24,11 @@ public interface SensorAdapter {
                                            @RequestParam String start,
                                            @RequestParam String end);
 
+    @GetMapping("/api/sensor/kwh/usage/daily/period")
+    SensorPowerMetricResponse getDailyPeriod(@RequestParam String tags,
+                                               @RequestParam String start,
+                                               @RequestParam String end);
+
     @GetMapping("/api/sensor/kwh/usage/weekly/value/total")
     SensorResponse getWeeklyTotal(@RequestParam String tags);
 
