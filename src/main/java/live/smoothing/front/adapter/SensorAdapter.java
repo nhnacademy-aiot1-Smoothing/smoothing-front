@@ -19,6 +19,10 @@ public interface SensorAdapter {
     @GetMapping("/api/sensor/kwh/usage/daily/value/total")
     TagSensorValueResponse getDailyTotalSensorData(@RequestParam String tags);
 
+
+    @GetMapping("/api/sensor/cost")
+    CostResponse getCost();
+
     @GetMapping("/api/sensor/kwh/usage/daily/period/total")
     TagPowerMetricResponse getDailyPeriodTotal(@RequestParam String tags,
                                            @RequestParam String start,

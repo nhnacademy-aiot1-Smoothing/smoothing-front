@@ -45,4 +45,8 @@ public class SensorService {
 
         return sensorAdapter.getDailyPeriod(tags, start, end);
     }
+
+    public CostResponse getCost() {
+        return sensorAdapter.getCost();
+    }
 }

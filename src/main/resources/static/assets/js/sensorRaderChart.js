@@ -112,7 +112,6 @@ am5.ready(function() {
                         xAxis.data.setAll(data);
                         series.data.setAll(data);
                     } else {
-                        console.log("value = " + value);
                         dataItem.set("valueY", value);
                         dataItem.animate({
                             key: "valueYWorking",
