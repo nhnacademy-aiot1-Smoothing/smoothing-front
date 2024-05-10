@@ -63,4 +63,11 @@ public class SensorController {
 
         tagService.addTag(request);
     }
+
+    @ResponseBody
+    @PostMapping("/getSensorTag")
+    public SensorTagsResponse getSensorTag(@RequestBody SensorIdListRequest request) {
+
+        return tagService.getSensorTags(request);
+    }
 }

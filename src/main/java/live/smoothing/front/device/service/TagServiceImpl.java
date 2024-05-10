@@ -1,6 +1,8 @@
 package live.smoothing.front.device.service;
 
 import live.smoothing.front.adapter.DeviceAdapter;
+import live.smoothing.front.device.dto.SensorIdListRequest;
+import live.smoothing.front.device.dto.SensorTagsResponse;
 import live.smoothing.front.device.dto.TagListResponse;
 import live.smoothing.front.device.dto.TagRequest;
 import lombok.RequiredArgsConstructor;
@@ -22,4 +24,11 @@ public class TagServiceImpl implements TagService {
 
         return deviceAdapter.getTags();
     }
+
+    @Override
+    public SensorTagsResponse getSensorTags(SensorIdListRequest sensorIdListRequest) {
+
+        return deviceAdapter.getSensorTags(sensorIdListRequest);
+    }
+
 }

@@ -72,8 +72,9 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <th:block th:each="tag : ${tagList}">
-                                        <li><a class="dropdown-item" th:href="'#' + ${tag.tagName}"> <!-- 여기서 변경 -->
-                                            <span th:text="${tag.tagName}"></span> <!-- 태그 이름 표시 -->
+                                        <li><a class="dropdown-item">
+                                            <input type="hidden" name="tagId" th:value="${tag.tagId}" />
+                                            <span th:text="${tag.tagName}"></span>
                                         </a></li>
                                     </th:block>
                                 </ul>
