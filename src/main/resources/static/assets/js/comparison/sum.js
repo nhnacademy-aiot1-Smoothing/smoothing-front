@@ -2,7 +2,7 @@ fetch(`/sensor/kwh/usage/daily/period/total?tags=NHN,Office&start=2024-04-16&end
     .then(response => {
         return response.json();
     }).then(data => {
-    console.log('응답 받은 데이터:', data);
+
         Highcharts.chart('comparison-sum', {
             title: {
                 text: ''
