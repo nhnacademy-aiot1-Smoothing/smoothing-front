@@ -1,8 +1,14 @@
 (async () => {
 
-    const data = await fetch(
-        'https://demo-live-data.highcharts.com/aapl-c.json'
-    ).then(response => response.json());
+    const response = await fetch('/sensor/kwh/usage/hourly/total?tags=');
+    const data = await response.json();
+
+    const convertedData = data.data.map(entry => {
+        return {
+            x: new Date(entry.time).getTime(),
+            y: entry.value
+        };
+    });
 
     Highcharts.setOptions({
         lang: {
@@ -10,46 +16,40 @@
         }
     });
 
-    Highcharts.stockChart('container', {
+    Highcharts.stockChart('statistics-total', {
 
         rangeSelector: {
             allButtonsEnabled: true,
             buttons: [{
+                type: 'day',
+                count: 1,
+                text: 'Hour',
+                dataGrouping: {
+                    forced: true,
+                    units: [['hour', [1]]]
+                }
+            }, {
                 type: 'week',
                 count: 1,
                 text: 'Day',
                 dataGrouping: {
                     forced: true,
+                    approximation: 'sum',
                     units: [['day', [1]]]
                 }
             }, {
-                type: 'year',
-                count: 1,
+                type: 'all',
                 text: 'Week',
                 dataGrouping: {
                     forced: true,
+                    approximation: 'sum',
                     units: [['week', [1]]]
-                }
-            }, {
-                type: 'all',
-                text: 'Month',
-                dataGrouping: {
-                    forced: true,
-                    units: [['month', [1]]]
                 }
             }],
             buttonTheme: {
                 width: 60
             },
             selected: 2
-        },
-
-        title: {
-            text: 'AAPL Stock Price'
-        },
-
-        subtitle: {
-            text: 'Custom data grouping tied to range selector'
         },
 
         _navigator: {
@@ -84,8 +84,8 @@
         },
 
     series: [{
-            name: 'AAPL',
-            data: data,
+            name: '전력 사용량',
+            data: convertedData,
             marker: {
                 enabled: null,
                 radius: 3,

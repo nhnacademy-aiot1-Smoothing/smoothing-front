@@ -1,16 +1,16 @@
 am5.ready(function() {
-    var root = am5.Root.new("statistics-timezone");
+    let root = am5.Root.new("statistics-timezone");
 
     root.setThemes([am5themes_Animated.new(root)]);
 
     $.get("/sensor/kwh/usage/weekly/timezone", function(response) {
-        var chartData = response.data;
+        let chartData = response.data;
 
-        var chart = root.container.children.push(am5percent.PieChart.new(root, {
+        let chart = root.container.children.push(am5percent.PieChart.new(root, {
             layout: root.verticalLayout
         }));
 
-        var series = chart.series.push(am5percent.PieSeries.new(root, {
+        let series = chart.series.push(am5percent.PieSeries.new(root, {
             alignLabels: true,
             calculateAggregates: true,
             valueField: "value",
@@ -25,11 +25,11 @@ am5.ready(function() {
         series.labelsContainer.set("paddingTop", 30);
 
         series.slices.template.adapters.add("radius", function (radius, target) {
-            var dataItem = target.dataItem;
-            var high = series.getPrivate("valueHigh");
+            let dataItem = target.dataItem;
+            let high = series.getPrivate("valueHigh");
 
             if (dataItem) {
-                var value = target.dataItem.get("valueWorking", 0);
+                let value = target.dataItem.get("valueWorking", 0);
                 return radius * value / high;
             }
             return radius;
@@ -37,7 +37,7 @@ am5.ready(function() {
 
         series.data.setAll(chartData);
 
-        var legend = chart.children.push(am5.Legend.new(root, {
+        let legend = chart.children.push(am5.Legend.new(root, {
             centerX: am5.p50,
             x: am5.p50,
             marginTop: 15,
