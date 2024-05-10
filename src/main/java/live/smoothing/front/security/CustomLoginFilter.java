@@ -68,13 +68,8 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
         String refreshToken = token.getLoginResponse().getRefreshToken();
         Cookie accessCookie = CookieUtil.createAccessTokenCookie(tokenType, accessToken);
         Cookie refreshCookie = CookieUtil.createRefreshTokenCookie(tokenType, refreshToken);
-//        accessCookie.setHttpOnly(true);
-//        accessCookie.setSecure(true);
-//        accessCookie.setPath("/");
-//        refreshCookie.setHttpOnly(true);
-//        refreshCookie.setSecure(true);
-//        refreshCookie.setPath("/");
-        //이거 하면 저장이 안 됨
+        accessCookie.setPath("/");
+        refreshCookie.setPath("/");
         response.addCookie(accessCookie);
         response.addCookie(refreshCookie);
 
