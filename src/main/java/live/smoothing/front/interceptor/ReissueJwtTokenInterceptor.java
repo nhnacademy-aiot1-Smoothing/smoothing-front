@@ -68,6 +68,7 @@ public class ReissueJwtTokenInterceptor implements HandlerInterceptor {
 
                 String newAccessToken = Objects.requireNonNull(responseBody).getAccessToken();
                 Cookie newAccessTokenCookie = CookieUtil.createAccessTokenCookie(responseBody.getTokenType(), newAccessToken);
+                newAccessTokenCookie.setPath("/");
 
                 response.addCookie(newAccessTokenCookie);
             }
