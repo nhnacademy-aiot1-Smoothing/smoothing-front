@@ -19,17 +19,23 @@ public interface SensorAdapter {
     @GetMapping("/api/sensor/kwh/usage/daily/value/total")
     TagSensorValueResponse getDailyTotalSensorData(@RequestParam String tags);
 
+
+    @GetMapping("/api/sensor/cost")
+    CostResponse getCost();
+
     @GetMapping("/api/sensor/kwh/usage/daily/period/total")
     TagPowerMetricResponse getDailyPeriodTotal(@RequestParam String tags,
                                            @RequestParam String start,
                                            @RequestParam String end);
+
+    @GetMapping("/api/sensor/kwh/usage/daily/period")
+    SensorPowerMetricResponse getDailyPeriod(@RequestParam String tags,
+                                               @RequestParam String start,
+                                               @RequestParam String end);
 
     @GetMapping("/api/sensor/kwh/usage/weekly/value/total")
     SensorResponse getWeeklyTotal(@RequestParam String tags);
 
     @GetMapping("/api/sensor/kwh/usage/hourly/total")
     TagPowerMetricResponse getHourlyTotal(@RequestParam String tags);
-
-    @GetMapping("/api/sensor/cost")
-    CostResponse getCost();
 }
