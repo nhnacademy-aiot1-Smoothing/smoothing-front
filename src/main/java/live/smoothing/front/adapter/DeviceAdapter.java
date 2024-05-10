@@ -89,4 +89,12 @@ public interface DeviceAdapter {
 
     @DeleteMapping("/api/device/sensors/errors/{errorId}")
     void deleteSensorError(@PathVariable("errorId") Integer errorId);
+
+    @PostMapping("/api/device/tags/sensorTag")
+    void addSensorTag(@RequestHeader("X-USER-ID") String userId,
+                      @RequestBody SensorTagAddRequest sensorTagAddRequest);
+
+    @DeleteMapping("/api/device/tags/sensorTag/{sensorTagId}")
+    void deleteSensorTag(@RequestHeader("X-USER-ID") String userId,
+                         @PathVariable Integer sensorTagId);
 }
