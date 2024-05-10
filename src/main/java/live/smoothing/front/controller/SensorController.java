@@ -68,17 +68,17 @@ public class SensorController {
         tagService.addTag(request);
     }
 
-//    @ResponseBody
-//    @PostMapping("/getSensorTag")
-//    public SensorTagsResponse getSensorTag(@RequestBody SensorIdListRequest request) {
-//
-//        return tagService.getSensorTags(request);
-//    }
-
     @ResponseBody
     @PostMapping("/addSensorTag")
     public void addSensorTag(@RequestBody SensorTagAddRequest sensorTagAddRequest) {
 
         tagService.addSensorTag(sensorTagAddRequest);
+    }
+
+    @ResponseBody
+    @DeleteMapping("/deleteTag/{tagId}")
+    public void deleteTag(@PathVariable("tagId") Integer tagId) {
+
+        tagService.deleteTag(tagId);
     }
 }

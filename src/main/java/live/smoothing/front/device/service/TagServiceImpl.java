@@ -17,6 +17,12 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public void deleteTag(Integer tagId) {
+
+        deviceAdapter.deleteTag(tagId);
+    }
+
+    @Override
     public TagListResponse getTags() {
 
         return deviceAdapter.getTags();

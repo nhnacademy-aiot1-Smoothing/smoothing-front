@@ -269,24 +269,25 @@
                             <button type="button" id="tagAddButton" class="btn btn-primary">추가</button>
                         </div>
                     </div>
-                    <!--                    <b>태그 수정/삭제</b>-->
-                    <!--                    <div class="row mb-3">-->
-                    <!--                        <div class="d-flex align-items-center">-->
-                    <!--                            <select class="form-select" style="width: 150px">-->
-                    <!--                                <option selected>선택</option>-->
-                    <!--                                <th:block th:each="tag : ${tagList}">-->
-                    <!--                                    <option th:value="${tag.tagId}">-->
-                    <!--                                        <span th:text="${tag.tagName}"></span>-->
-                    <!--                                    </option>-->
-                    <!--                                </th:block>-->
-                    <!--                            </select>-->
-                    <!--                            <input id="tagUpdateName" class="form-control rounded-3 border-secondary me-2"-->
-                    <!--                                   style="width:200px"-->
-                    <!--                                   type="text">-->
-                    <!--                            <button type="button" id="tagUpdateButton" class="btn btn-primary btn-sm">수정</button>-->
-                    <!--                            <button type="button" id="tagDeleteButton" class="btn btn-danger btn-sm">삭제</button>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
+                    <b>태그 수정/삭제</b>
+                    <div>
+                        <select id="tagSelect" class="form-select" style="width: 150px">
+                            <th:block th:each="tag : ${tagList}">
+                                <option th:value="${tag.tagId}">
+                                    <span th:text="${tag.tagName}"></span>
+                                </option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <div>
+                        <input id="tagUpdateName" class="form-control rounded-3 border-secondary me-2" style="width:200px" type="text">
+                    </div>
+                </div>
+                
+                <div class="modal-footer d-flex justify-content-center"
+                     style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
+                    <button type="button" id="tagUpdateButton" class="btn btn-primary btn-sm">수정</button>
+                    <button type="button" id="tagDeleteButton" class="btn btn-danger btn-sm">삭제</button>
                 </div>
             </div>
         </div>

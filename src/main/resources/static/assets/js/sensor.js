@@ -226,4 +226,33 @@ document.addEventListener('DOMContentLoaded', function () {
     // }).catch(error => {
     //     console.error('오류 발생', error);
     // });
+
+    let tagSelect = document.getElementById("tagSelect");
+    let tagUpdateName = document.getElementById("tagUpdateName");
+
+    tagSelect.addEventListener('change', function () {
+        let selectedOption = this.options[this.selectedIndex];
+        tagUpdateName.value = selectedOption.textContent.trim();
+
+        let tagId = selectedOption.value;
+        let tagDeleteButton = document.getElementById('tagDeleteButton');
+
+        tagDeleteButton.addEventListener('click', function () {
+            fetch('/deleteTag/' + tagId, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Server responded with an error.');
+                }
+            }).then(data => {
+                alert('태그가 삭제되었습니다.');
+                location.reload();
+            }).catch(error => {
+                console.error('태그 삭제 오류:', error);
+            });
+        });
+    });
 });

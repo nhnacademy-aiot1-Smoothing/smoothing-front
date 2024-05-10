@@ -6,6 +6,8 @@ public interface TagService {
 
     void addTag(TagRequest request); // 전체 태그 추가
 
+    void deleteTag(Integer tagId); // 전체 태그 삭제
+
     TagListResponse getTags(); // 전체 태그 가져오기
 
     SensorTagsResponse getSensorTags(SensorIdListRequest sensorIdListRequest); // 센서의 태그 가져오기
