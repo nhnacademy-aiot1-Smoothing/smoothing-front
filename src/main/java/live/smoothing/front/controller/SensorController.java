@@ -36,6 +36,10 @@ public class SensorController {
         List<TagResponse> tagList = tagService.getTags().getTags();
         model.addAttribute("tagList", tagList);
 
+         SensorTagsResponse sensorTags = tagService.getSensorTags(new SensorIdListRequest(sensors.getSensors().stream().map(SensorResponse::getSensorId).collect(Collectors.toList())));
+
+         model.addAttribute("sensorTags", sensorTags.getSensorTags());
+
         return "pages/sensor";
     }
 
@@ -64,10 +68,17 @@ public class SensorController {
         tagService.addTag(request);
     }
 
-    @ResponseBody
-    @PostMapping("/getSensorTag")
-    public SensorTagsResponse getSensorTag(@RequestBody SensorIdListRequest request) {
+//    @ResponseBody
+//    @PostMapping("/getSensorTag")
+//    public SensorTagsResponse getSensorTag(@RequestBody SensorIdListRequest request) {
+//
+//        return tagService.getSensorTags(request);
+//    }
 
-        return tagService.getSensorTags(request);
+    @ResponseBody
+    @PostMapping("/addSensorTag")
+    public void addSensorTag(@RequestBody SensorTagAddRequest sensorTagAddRequest) {
+
+        tagService.addSensorTag(sensorTagAddRequest);
     }
 }

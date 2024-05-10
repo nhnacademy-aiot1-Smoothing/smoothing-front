@@ -1,10 +1,7 @@
 package live.smoothing.front.device.service;
 
 import live.smoothing.front.adapter.DeviceAdapter;
-import live.smoothing.front.device.dto.SensorIdListRequest;
-import live.smoothing.front.device.dto.SensorTagsResponse;
-import live.smoothing.front.device.dto.TagListResponse;
-import live.smoothing.front.device.dto.TagRequest;
+import live.smoothing.front.device.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +26,18 @@ public class TagServiceImpl implements TagService {
     public SensorTagsResponse getSensorTags(SensorIdListRequest sensorIdListRequest) {
 
         return deviceAdapter.getSensorTags(sensorIdListRequest);
+    }
+
+    @Override
+    public void addSensorTag(SensorTagAddRequest sensorTagAddRequest) {
+
+        deviceAdapter.addSensorTag(sensorTagAddRequest);
+    }
+
+    @Override
+    public void deleteSensorTag(Integer sensorTagId) {
+
+        deviceAdapter.deleteSensorTag(sensorTagId);
     }
 
 }

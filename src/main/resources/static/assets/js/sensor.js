@@ -153,4 +153,77 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('태그 추가 오류:', error);
         });
     });
+
+
+    let dropdownItems = document.querySelectorAll('.dropdown-menu .dropdown-item');
+
+    dropdownItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+            let tagId = item.getAttribute('data-tag-id');
+            console.log(tagId);
+
+            let sensorId = item.getAttribute('data-sensor-id');
+            console.log(sensorId);
+
+            let sensorTagAddRequest = JSON.stringify({
+                sensorId: sensorId,
+                tagId: tagId
+            })
+
+            fetch('/addSensorTag', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: sensorTagAddRequest
+            }).then(response => {
+                if(!response.ok) {
+                    throw new Error("Server responded with an error.");
+                }
+            }).then(data => {
+                alert("센서 태그 추가 완료");
+                location.reload();
+            }).catch(error => {
+                console.error("오류 발생:", error);
+            })
+        });
+    });
+
+    // let inputSensorIds = document.querySelectorAll('.sensorId');
+    // let sensorIds = [];
+    //
+    // inputSensorIds.forEach(function (input) {
+    //     let sensorId = input.value;
+    //     sensorIds.push(sensorId)
+    // });
+    //
+    // console.log(sensorIds);
+    //
+    //
+    // let sensorIdListRequest = JSON.stringify({
+    //     sensorIds: sensorIds
+    // });
+    //
+    // fetch('/getSensorTag', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: sensorIdListRequest
+    // }).then(response => {
+    //     if (!response.ok) {
+    //         throw new Error('Server responded with an error.');
+    //     }
+    //     return response.json();
+    // }).then(data => {
+    //     // Object.entries(data.sensorTags).forEach(([sensorId, tags]) => {
+    //     //     let tagNameDisplay = document.querySelector('.tagNameDisplay[data-sensor-id="${sensorId}"]');
+    //     //     if (tagNameDisplay) {
+    //     //         tagNameDisplay.innerText = tags[0].tagName;
+    //     //     }
+    //     // })
+    //     console.log(data.sensorTags);
+    // }).catch(error => {
+    //     console.error('오류 발생', error);
+    // });
 });

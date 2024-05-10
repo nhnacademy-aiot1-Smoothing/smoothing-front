@@ -1,15 +1,19 @@
 package live.smoothing.front.device.service;
 
-import live.smoothing.front.device.dto.SensorIdListRequest;
-import live.smoothing.front.device.dto.SensorTagsResponse;
-import live.smoothing.front.device.dto.TagListResponse;
-import live.smoothing.front.device.dto.TagRequest;
+import live.smoothing.front.device.dto.*;
 
 public interface TagService {
 
-    void addTag(TagRequest request);
+    void addTag(TagRequest request); // 전체 태그 추가
 
-    TagListResponse getTags();
+    TagListResponse getTags(); // 전체 태그 가져오기
 
-    SensorTagsResponse getSensorTags(SensorIdListRequest sensorIdListRequest);
+    SensorTagsResponse getSensorTags(SensorIdListRequest sensorIdListRequest); // 센서의 태그 가져오기
+
+    void addSensorTag(SensorTagAddRequest sensorTagAddRequest); // 센서에 태그 추기
+
+    void deleteSensorTag(Integer sensorTagId); // 센서의 태그 삭제
+
+
+
 }

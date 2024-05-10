@@ -60,6 +60,7 @@
                     <tbody>
                     <tr th:each="sensors : ${sensors}">
                         <td th:text="${sensors.sensorId}"></td>
+                        <input type="hidden" class="sensorId" th:value="${sensors.sensorId}">
                         <td>
                             <a th:href="@{'/broker/' + ${brokerId} +'/sensor/' + ${sensors.sensorId} + '/topic?sensor=' + ${sensors.sensorName}}"
                                th:text="${sensors.sensorName}"></a>
@@ -70,15 +71,25 @@
                                 <button class="btn btn-secondary btn-sm dropdown-toggle tagDropdownButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     추가
                                 </button>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" id="tagDropdown">
                                     <th:block th:each="tag : ${tagList}">
-                                        <li><a class="dropdown-item">
-                                            <input type="hidden" name="tagId" th:value="${tag.tagId}" />
-                                            <span th:text="${tag.tagName}"></span>
+                                        <li><a class="dropdown-item" th:data-tag-id="${tag.tagId}"
+                                               th:data-sensor-id="${sensors.sensorId}">
+                                            <span th:text="${tag.tagName}">
+                                            </span>
                                         </a></li>
                                     </th:block>
                                 </ul>
                             </div>
+                            <div>
+                                <th:block th:each="tag : ${sensorTags[sensors.sensorId]}">
+                                    <th:block th:each="sensorTag : ${tag}">
+                                        <button type="button" class="btn btn-bg-transparent btn-xs"
+                                                th:text="${sensorTag.tagName}"></button>
+                                    </th:block>
+                                </th:block>
+                            </div>
+                            
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm updateButton"
