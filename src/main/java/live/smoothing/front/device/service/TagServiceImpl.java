@@ -23,6 +23,12 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public void updateTag(Integer tagId, TagRequest request) {
+
+        deviceAdapter.updateTag(tagId, request);
+    }
+
+    @Override
     public TagListResponse getTags() {
 
         return deviceAdapter.getTags();

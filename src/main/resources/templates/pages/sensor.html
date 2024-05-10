@@ -67,9 +67,19 @@
                         </td>
                         <td th:text="${sensors.sensorType}"></td>
                         <td>
+                            <div>
+                                <th:block th:each="tag : ${sensorTags[sensors.sensorId]}">
+                                    <th:block th:each="sensorTag : ${tag}">
+                                        <button type="button" class="btn btn-bg-transparent btn-xs"
+                                                th:text="${sensorTag.tagName}"></button>
+                                    </th:block>
+                                </th:block>
+                            </div>
                             <div class="dropdown">
-                                <button class="btn btn-secondary btn-sm dropdown-toggle tagDropdownButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    추가
+                                <button class="btn btn-bg-transparent btn-sm dropdown-toggle tagDropdownButton"
+                                        type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    🐪
                                 </button>
                                 <ul class="dropdown-menu" id="tagDropdown">
                                     <th:block th:each="tag : ${tagList}">
@@ -81,14 +91,7 @@
                                     </th:block>
                                 </ul>
                             </div>
-                            <div>
-                                <th:block th:each="tag : ${sensorTags[sensors.sensorId]}">
-                                    <th:block th:each="sensorTag : ${tag}">
-                                        <button type="button" class="btn btn-bg-transparent btn-xs"
-                                                th:text="${sensorTag.tagName}"></button>
-                                    </th:block>
-                                </th:block>
-                            </div>
+                            
                             
                         </td>
                         <td>

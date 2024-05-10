@@ -189,70 +189,66 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // let inputSensorIds = document.querySelectorAll('.sensorId');
-    // let sensorIds = [];
-    //
-    // inputSensorIds.forEach(function (input) {
-    //     let sensorId = input.value;
-    //     sensorIds.push(sensorId)
-    // });
-    //
-    // console.log(sensorIds);
-    //
-    //
-    // let sensorIdListRequest = JSON.stringify({
-    //     sensorIds: sensorIds
-    // });
-    //
-    // fetch('/getSensorTag', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: sensorIdListRequest
-    // }).then(response => {
-    //     if (!response.ok) {
-    //         throw new Error('Server responded with an error.');
-    //     }
-    //     return response.json();
-    // }).then(data => {
-    //     // Object.entries(data.sensorTags).forEach(([sensorId, tags]) => {
-    //     //     let tagNameDisplay = document.querySelector('.tagNameDisplay[data-sensor-id="${sensorId}"]');
-    //     //     if (tagNameDisplay) {
-    //     //         tagNameDisplay.innerText = tags[0].tagName;
-    //     //     }
-    //     // })
-    //     console.log(data.sensorTags);
-    // }).catch(error => {
-    //     console.error('오류 발생', error);
-    // });
-
     let tagSelect = document.getElementById("tagSelect");
     let tagUpdateName = document.getElementById("tagUpdateName");
 
     tagSelect.addEventListener('change', function () {
         let selectedOption = this.options[this.selectedIndex];
         tagUpdateName.value = selectedOption.textContent.trim();
+    });
 
+
+    let tagDeleteButton = document.getElementById('tagDeleteButton');
+    let tagUpdateButton = document.getElementById('tagUpdateButton');
+
+    tagUpdateButton.addEventListener('click', function () {
+
+        let selectedOption = tagSelect.options[tagSelect.selectedIndex];
         let tagId = selectedOption.value;
-        let tagDeleteButton = document.getElementById('tagDeleteButton');
+        let tagName = tagUpdateName.value;
 
-        tagDeleteButton.addEventListener('click', function () {
-            fetch('/deleteTag/' + tagId, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            }).then(response => {
-                if (!response.ok) {
-                    throw new Error('Server responded with an error.');
-                }
-            }).then(data => {
-                alert('태그가 삭제되었습니다.');
-                location.reload();
-            }).catch(error => {
-                console.error('태그 삭제 오류:', error);
-            });
+        let tagRequest = JSON.stringify({
+            tagName: tagName
+        });
+
+        fetch('/updateTag/' + tagId, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: tagRequest
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Server responded with an error.');
+            }
+        }).then(data => {
+            alert('태그가 수정되었습니다.');
+            location.reload();
+        }).catch(error => {
+            console.error('태그 수정 오류:', error);
+        });
+
+    });
+
+    tagDeleteButton.addEventListener('click', function () {
+
+        let selectedOption = tagSelect.options[tagSelect.selectedIndex];
+        let tagId = selectedOption.value;
+
+        fetch('/deleteTag/' + tagId, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Server responded with an error.');
+            }
+        }).then(data => {
+            alert('태그가 삭제되었습니다.');
+            location.reload();
+        }).catch(error => {
+            console.error('태그 삭제 오류:', error);
         });
     });
 });
