@@ -41,6 +41,10 @@ public class SensorService {
         return sensorAdapter.getDailyPeriodTotal(tags, start, end);
     }
 
+    public SensorPowerMetricResponse getDailyPeriod(String tags, String start, String end) {
+
+        return sensorAdapter.getDailyPeriod(tags, start, end);
+    }
 
     public CostResponse getCost() {
         return sensorAdapter.getCost();
