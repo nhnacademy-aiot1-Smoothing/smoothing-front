@@ -2,13 +2,14 @@ package live.smoothing.front.sensor.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class KwhHourlyResponse {
+@NoArgsConstructor
+public class SensorResponse {
 
-    private List<String> tags;
-    private List<KwhHourly> data;
+    private List<Sensor> data;
 }

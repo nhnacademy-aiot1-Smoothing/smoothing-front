@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class KwhTimeZoneResponse {
+public class TimeZoneResponse {
 
-    private List<KwhTimeZone> data;
+    private List<TimeZone> data;
 }

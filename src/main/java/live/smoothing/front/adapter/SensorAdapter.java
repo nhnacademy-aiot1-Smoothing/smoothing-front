@@ -14,14 +14,19 @@ public interface SensorAdapter {
                                    @RequestParam String per,
                                    @RequestParam String type);
     @GetMapping("/api/sensor/kwh/usage/weekly/timezone")
-    KwhTimeZoneResponse getKwhTimeZone();
+    TimeZoneResponse getWeeklyTimeZone();
 
     @GetMapping("/api/sensor/kwh/usage/daily/value/total")
     TagSensorValueResponse getDailyTotalSensorData(@RequestParam String tags);
 
+    @GetMapping("/api/sensor/kwh/usage/daily/period/total")
+    TagPowerMetricResponse getDailyPeriodTotal(@RequestParam String tags,
+                                           @RequestParam String start,
+                                           @RequestParam String end);
+
     @GetMapping("/api/sensor/kwh/usage/weekly/value/total")
-    KwhSensorResponse getKwhSensor(@RequestParam String tags);
+    SensorResponse getWeeklyTotal(@RequestParam String tags);
 
     @GetMapping("/api/sensor/kwh/usage/hourly/total")
-    KwhHourlyResponse getKwhHourly(@RequestParam String tags);
+    TagPowerMetricResponse getHourlyTotal(@RequestParam String tags);
 }

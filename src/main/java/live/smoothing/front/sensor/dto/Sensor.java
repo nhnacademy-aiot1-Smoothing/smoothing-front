@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class KwhTimeZone {
+public class Sensor {
 
-    private String label;
+    private String sensorName;
     private Double value;
 }
