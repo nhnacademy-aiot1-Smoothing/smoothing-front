@@ -33,8 +33,6 @@ Highcharts.chart('container1', {
                                             data.push(d.value);
                                         }
 
-                                        console.log(data);
-
                                         series.setData(data, true, true, true);
                                     }
                                 })
@@ -78,6 +76,7 @@ Highcharts.chart('container1', {
     },
     series: [{
         name: '전력(W)',
+        lineWidth: 3,
         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }],
 });
@@ -163,6 +162,7 @@ Highcharts.chart('container2', {
     },
     series: [{
         name: '전력(W)',
+        lineWidth: 3,
         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                0, 0, 0, 0,]

@@ -49,4 +49,12 @@ public class KwhController {
 
         return sensorService.getDailyPeriod(tags, start, end);
     }
+
+    @GetMapping("/sensor/kwh")
+    public TagPowerMetricResponse getKwh(@RequestParam String tags,
+                                          @RequestParam String unit,
+                                          @RequestParam String per) {
+
+        return sensorService.getKwh(tags, unit, per);
+    }
 }

@@ -25,7 +25,6 @@ function setupFlip(tick) {
             fetch("/sensor/cost")
                 .then(response => response.json())
                 .then((response) => {
-                    console.log(response.cost);
                     tick.value = response.cost.toLocaleString() + "₩";
                 })
 

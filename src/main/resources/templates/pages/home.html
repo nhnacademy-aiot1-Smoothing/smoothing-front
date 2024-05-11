@@ -5,10 +5,23 @@
       layout:decorate="layout/defaultLayout">
     <head>
         <style>
-            #chartdiv {
+            #chartdiv2 {
                 width: 100%;
-                height: 300px;
+                height: 500px;
             }
+
+            #kwhHourContainer {
+                width: 100%;
+                height: 400px;
+                margin-top: 50px;
+            }
+
+            #kwhDayContainer {
+                width: 100%;
+                height: 400px;
+                margin-top: 50px;
+            }
+
             #my-flip {
                 /* increase border radius */
                 border-radius:.3125em;
@@ -60,27 +73,26 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">전력량 1시간 (최근 24시간)</h4>
-                            <p class="card-description"> Time series Zoomable 야 이 ㅇㅇㅇㅇㅇㅇ바보야!!</p>
+                            <div>
+                                <div id="kwhHourContainer"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 d-flex align-items-stretch">
-                        <div class="col-md-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">전력량 1일 (최근 일주일)</h4>
-                                    <p class="card-description"> Dual axis line and Column </p>
-                                    <div>
-                                    
-                                    </div>
-                                </div>
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">전력량 1일 (최근 일주일)</h4>
+                            <div>
+                                <div id="kwhDayContainer"></div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
             
             <div class="row">
-                <div class="col-md-4 grid-margin stretch-card">
+                <div class="col-md-3 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">10분 단위 전력</h4>
@@ -90,7 +102,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 grid-margin stretch-card">
+                <div class="col-md-3 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">1시간 단위 전력</h4>
@@ -100,12 +112,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 grid-margin stretch-card">
+                <div class="col-md-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">센서별 TOP5 전력량 (최근 24시간) </h4>
                             <div>
-                                <div id="chartdiv"></div>
+                                <div id="chartdiv2" class="chartdiv"></div>
                             </div>
                         </div>
                     </div>
@@ -152,10 +164,13 @@
             <script src="https://code.highcharts.com/highcharts.js"></script>
             <script src="https://unpkg.com/@pqina/flip/dist/flip.min.js"></script>
 
-            <script src="/assets/js/sensorRaderChart.js"></script>
             <script src="/assets/js/home.js"></script>
             <script src="/assets/js/dashboard/watt.js"></script>
             <script src="/assets/js/dashboard/cost.js"></script>
+            <script src="/assets/js/dashboard/1hKwh.js"></script>
+            <script src="/assets/js/dashboard/1dKwh.js"></script>
+            <script src="/assets/js/dashboard/amCharts.js"></script>
+
         </th:block>
     </body>
 </html>
