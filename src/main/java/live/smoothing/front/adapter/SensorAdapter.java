@@ -39,6 +39,9 @@ public interface SensorAdapter {
     @GetMapping("/api/sensor/kwh/usage/hourly/total")
     TagPowerMetricResponse getHourlyTotal(@RequestParam String tags);
 
+    @GetMapping("/api/sensor/goals/kwh")
+    KwhGoalResponse getKwhGoal();
+
     @GetMapping("/api/sensor/kwh/usage")
     TagPowerMetricResponse getKwh(@RequestParam String tags,
                                   @RequestParam String unit,
