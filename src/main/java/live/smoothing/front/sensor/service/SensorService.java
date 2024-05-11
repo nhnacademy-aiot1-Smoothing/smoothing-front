@@ -49,4 +49,8 @@ public class SensorService {
     public CostResponse getCost() {
         return sensorAdapter.getCost();
     }
+
+    public TagPowerMetricResponse getKwh(String tags, String unit, String per) {
+        return sensorAdapter.getKwh(tags, unit, per);
+    }
 }
