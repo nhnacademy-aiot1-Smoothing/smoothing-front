@@ -1,5 +1,5 @@
 function battery(charge) {
-    var power = Math.ceil(charge / 5); // 5% 단위로 막대 수 계산
+    var power = Math.ceil(charge / 4);
     $(".battery .bar").removeClass("active red yellow green"); // 모든 막대 리셋
 
     $(".battery .bar").each(function(index) {
