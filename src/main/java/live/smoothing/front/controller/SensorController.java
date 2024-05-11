@@ -88,4 +88,11 @@ public class SensorController {
 
         tagService.updateTag(tagId, request);
     }
+
+    @ResponseBody
+    @DeleteMapping("/deleteSensorTag/{sensorId}/{tagId}")
+    public void deleteSensorTag(@PathVariable Integer sensorId, @PathVariable Integer tagId) {
+
+        tagService.deleteSensorTag(sensorId, tagId);
+    }
 }

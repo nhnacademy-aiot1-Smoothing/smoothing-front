@@ -94,6 +94,6 @@ public interface DeviceAdapter {
     @PostMapping("/api/device/tags/sensorTag")
     void addSensorTag(@RequestBody SensorTagAddRequest sensorTagAddRequest);
 
-    @DeleteMapping("/api/device/tags/sensorTag/{sensorTagId}")
-    void deleteSensorTag(@PathVariable Integer sensorTagId);
+    @DeleteMapping("/api/device/tags/sensorTag/{sensorId}/{tagId}")
+    void deleteSensorTag(@PathVariable Integer sensorId, @PathVariable Integer tagId);
 }

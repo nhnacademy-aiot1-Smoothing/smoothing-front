@@ -15,6 +15,34 @@
 <body>
 <th:block layout:fragment="content">
     <style>
+        .inputWrap {
+            position: relative;
+            height: 40px;
+            display: inline-block;
+        }
+
+
+        .inputWrap input {
+            padding-right: 30px;
+            height: inherit;
+        }
+
+        .inputWrap .btnClear {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            background: url(https://img.icons8.com/pastel-glyph/2x/cancel.png) center center no-repeat;
+            background-size: 50%;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            visibility: hidden;
+        }
+        .inputWrap:hover .btnClear {
+            visibility: visible;
+        }
         .container {
             padding: 2rem 0rem;
         }
@@ -70,8 +98,15 @@
                             <div>
                                 <th:block th:each="tag : ${sensorTags[sensors.sensorId]}">
                                     <th:block th:each="sensorTag : ${tag}">
-                                        <button type="button" class="btn btn-bg-transparent btn-xs"
-                                                th:text="${sensorTag.tagName}"></button>
+<!--                                        <button type="button" class="btn btn-bg-transparent btn-xs"-->
+<!--                                                th:text="${sensorTag.tagName}"></button>-->
+                                        <div class="inputWrap">
+                                            <input type="text" class="form-control" style="width: 90px; height: 20px"
+                                                   th:value="${sensorTag.tagName}">
+                                            <input type="hidden" class="sensorIdInput" th:value="${sensors.sensorId}">
+                                            <input type="hidden" class="tagIdInput" th:value="${sensorTag.tagId}">
+                                            <button type="button" class="btnClear sensorTagDeleteButton"></button>
+                                        </div>
                                     </th:block>
                                 </th:block>
                             </div>

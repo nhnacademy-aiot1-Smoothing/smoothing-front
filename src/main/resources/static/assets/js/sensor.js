@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     throw new Error("Server responded with an error.");
                 }
             }).then(data => {
-                alert("센서 태그 추가 완료");
+                // alert("센서 태그 추가 완료");
                 location.reload();
             }).catch(error => {
                 console.error("오류 발생:", error);
@@ -191,6 +191,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let tagSelect = document.getElementById("tagSelect");
     let tagUpdateName = document.getElementById("tagUpdateName");
+
+    let selectedOption = tagSelect.options[tagSelect.selectedIndex];
+    tagUpdateName.value = selectedOption.textContent.trim();
 
     tagSelect.addEventListener('change', function () {
         let selectedOption = this.options[this.selectedIndex];
@@ -249,6 +252,34 @@ document.addEventListener('DOMContentLoaded', function () {
             location.reload();
         }).catch(error => {
             console.error('태그 삭제 오류:', error);
+        });
+    });
+
+    let sensorTagDeleteButtons = document.querySelectorAll('.sensorTagDeleteButton');
+
+    sensorTagDeleteButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+
+            let inputWrap = button.closest('.inputWrap');
+
+            let sensorId = inputWrap.querySelector('.sensorIdInput').value;
+            let tagId = inputWrap.querySelector('.tagIdInput').value;
+
+            fetch('/deleteSensorTag/' + sensorId + '/' + tagId, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Server responded with an error.');
+                }
+            }).then(data => {
+                location.reload();
+            }).catch(error => {
+                console.error("센서 태그 삭제 오류:", error);
+            });
+
         });
     });
 });

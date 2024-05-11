@@ -16,8 +16,6 @@ public interface TagService {
 
     void addSensorTag(SensorTagAddRequest sensorTagAddRequest); // 센서에 태그 추기
 
-    void deleteSensorTag(Integer sensorTagId); // 센서의 태그 삭제
-
-
+    void deleteSensorTag(Integer sensorId, Integer tagId); // 센서의 태그 삭제
 
 }

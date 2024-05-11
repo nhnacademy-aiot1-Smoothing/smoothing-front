@@ -47,9 +47,9 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public void deleteSensorTag(Integer sensorTagId) {
+    public void deleteSensorTag(Integer sensorId, Integer tagId) {
 
-        deviceAdapter.deleteSensorTag(sensorTagId);
+        deviceAdapter.deleteSensorTag(sensorId, tagId);
     }
 
 }
