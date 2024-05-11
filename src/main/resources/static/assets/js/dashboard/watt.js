@@ -20,7 +20,7 @@ Highcharts.chart('container1', {
                                 .then(res => {
                                     const resData = res.data;
 
-                                    if (resData.length !== 14) {
+                                    if (resData.length !== 12) {
                                         return;
                                     }
 
@@ -75,7 +75,9 @@ Highcharts.chart('container1', {
         }
     },
     series: [{
-        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        name: '전력(W)',
+        lineWidth: 3,
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }],
 });
 
@@ -102,7 +104,7 @@ Highcharts.chart('container2', {
                                     .then(res => {
                                         const resData = res.data;
 
-                                        if (resData.length !== 25) {
+                                        if (resData.length !== 24) {
                                             return;
                                         }
 
@@ -159,8 +161,10 @@ Highcharts.chart('container2', {
         enabled: false
     },
     series: [{
+        name: '전력(W)',
+        lineWidth: 3,
         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-               0, 0, 0, 0, 0]
+               0, 0, 0, 0,]
     }],
 });

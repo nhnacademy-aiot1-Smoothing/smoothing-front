@@ -15,26 +15,46 @@ public class KwhController {
     private final SensorService sensorService;
 
     @GetMapping("/sensor/kwh/usage/weekly/timezone")
-    public KwhTimeZoneResponse getKwhTimeZone() {
+    public TimeZoneResponse getWeeklyTimeZone() {
 
-        return sensorService.getKwhTimeZone();
+        return sensorService.getWeeklyTimeZone();
     }
 
     @GetMapping("/sensor/kwh/usage/weekly/value/total")
-    public KwhSensorResponse getKwhSensor(@RequestParam String tags) {
+    public SensorResponse getWeeklyTotal(@RequestParam String tags) {
 
-        return sensorService.getKwhSensor(tags);
+        return sensorService.getWeeklyTotal(tags);
     }
 
     @GetMapping("sensor/kwh/usage/hourly/total")
-    public KwhHourlyResponse getKwhHourly(@RequestParam String tags) {
+    public TagPowerMetricResponse getKwhHourly(@RequestParam String tags) {
 
-        return sensorService.getKwhHourly(tags);
+        return sensorService.getHourlyTotal(tags);
     }
 
     @GetMapping("/sensor/kwh/daily/value")
     public TagSensorValueResponse getDailyTotalSensorData(@RequestParam String tags) {
 
         return sensorService.getDailyTotalSensorData(tags);
+    }
+
+    @GetMapping("/sensor/kwh/usage/daily/period/total")
+    public TagPowerMetricResponse getDailyPeriodTotal(@RequestParam("tags") String tags, @RequestParam("start") String start, @RequestParam("end") String end) {
+
+        return sensorService.getDailyPeriodTotal(tags, start, end);
+    }
+
+    @GetMapping("/sensor/kwh/usage/daily/period")
+    public SensorPowerMetricResponse getDailyPeriod(@RequestParam("tags") String tags, @RequestParam("start") String start, @RequestParam("end") String end) {
+
+        return sensorService.getDailyPeriod(tags, start, end);
+    }
+
+    @GetMapping("/sensor/kwh")
+    public TagPowerMetricResponse getKwh(@RequestParam String tags,
+                                          @RequestParam String unit,
+                                          @RequestParam String per) {
+
+        return sensorService.getKwh(tags, unit, per);
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class KwhSensorResponse {
+public class SensorResponse {
 
-    private List<KwhSensor> data;
+    private List<Sensor> data;
 }
