@@ -1,6 +1,7 @@
 package live.smoothing.front.interceptor;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import feign.FeignException;
 import live.smoothing.front.adapter.AuthAdapter;
 import live.smoothing.front.auth.dto.token.RefreshTokenRequest;
 import live.smoothing.front.auth.dto.token.ReissueResponse;
@@ -19,7 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * JWT Access Token 재발급 인터셉터
@@ -50,11 +53,11 @@ public class ReissueJwtTokenInterceptor implements HandlerInterceptor {
         Cookie encodedAccessToken = CookieUtil.getCookieByName(cookies, ACCESS_TOKEN_COOKIE_NAME);
         Cookie encodedRefreshToken = CookieUtil.getCookieByName(cookies, REFRESH_TOKEN_COOKIE_NAME);
 
-        if(Objects.isNull(encodedAccessToken)) {
+        if (Objects.isNull(encodedAccessToken)) {
             return true;
         }
 
-        if(Objects.isNull(encodedRefreshToken)) {
+        if (Objects.isNull(encodedRefreshToken)) {
             resetCookie(response);
             response.sendRedirect("/login");
             return false;
@@ -66,7 +69,8 @@ public class ReissueJwtTokenInterceptor implements HandlerInterceptor {
         ThreadLocalToken.TOKEN.set(accessToken);
 
         try {
-            if(requireReissue(accessToken.getToken())) {
+            if (requireReissue(accessToken.getToken())) {
+
                 RefreshTokenRequest refreshTokenRequest = new RefreshTokenRequest(refreshToken.getToken());
                 ResponseEntity<ReissueResponse> tokenResponse = authAdapter.refreshToken(refreshTokenRequest);
                 ReissueResponse responseBody = Objects.requireNonNull(tokenResponse.getBody());
@@ -79,10 +83,14 @@ public class ReissueJwtTokenInterceptor implements HandlerInterceptor {
 
                 response.addCookie(newAccessTokenCookie);
             }
-        } catch(Exception e) {
-            resetCookie(response);
-            response.sendRedirect("/login");
-            return false;
+        } catch (FeignException e) {
+            if(e.status()==418){
+                return false;
+            }else{
+                resetCookie(response);
+                response.sendRedirect("/login");
+                return false;
+            }
         }
 
         return true;
