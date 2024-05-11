@@ -21,6 +21,7 @@
                 background-color: #fafafa;
             }
         </style>
+        <link rel="stylesheet" href="/assets/css/battery.css">
         <link href="https://unpkg.com/@pqina/flip/dist/flip.min.css" rel="stylesheet">
     </head>
     <body>
@@ -45,6 +46,34 @@
                 <div class="col-md-7 d-flex align-items-stretch">
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
+                            <div id="project_container">
+                                <div id="projectbox">
+                                    <!-- Start project HTML -->
+                                    <div class='battery'>
+                                        <div class='bar' data-power='5'></div>
+                                        <div class='bar' data-power='10'></div>
+                                        <div class='bar' data-power='15'></div>
+                                        <div class='bar' data-power='20'></div>
+                                        <div class='bar' data-power='25'></div>
+                                        <div class='bar' data-power='30'></div>
+                                        <div class='bar' data-power='35'></div>
+                                        <div class='bar' data-power='40'></div>
+                                        <div class='bar' data-power='45'></div>
+                                        <div class='bar' data-power='50'></div>
+                                        <div class='bar' data-power='55'></div>
+                                        <div class='bar' data-power='60'></div>
+                                        <div class='bar' data-power='65'></div>
+                                        <div class='bar' data-power='70'></div>
+                                        <div class='bar' data-power='75'></div>
+                                        <div class='bar' data-power='80'></div>
+                                        <div class='bar' data-power='85'></div>
+                                        <div class='bar' data-power='90'></div>
+                                        <div class='bar' data-power='95'></div>
+                                        <div class='bar' data-power='100'></div>
+                                    </div>
+                                    <!-- End Project HTML -->
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -152,6 +181,7 @@
             <script src="https://code.highcharts.com/highcharts.js"></script>
             <script src="https://unpkg.com/@pqina/flip/dist/flip.min.js"></script>
 
+            <script src="/assets/js/dashboard/battery.js"></script>
             <script src="/assets/js/sensorRaderChart.js"></script>
             <script src="/assets/js/home.js"></script>
             <script src="/assets/js/dashboard/watt.js"></script>

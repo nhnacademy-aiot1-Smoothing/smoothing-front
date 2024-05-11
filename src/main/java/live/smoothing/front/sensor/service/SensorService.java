@@ -49,4 +49,8 @@ public class SensorService {
     public CostResponse getCost() {
         return sensorAdapter.getCost();
     }
+
+    public KwhGoalResponse getKwhGoal() {
+        return sensorAdapter.getKwhGoal();
+    }
 }
