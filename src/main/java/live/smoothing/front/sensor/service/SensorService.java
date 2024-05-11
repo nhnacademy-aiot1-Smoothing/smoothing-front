@@ -52,6 +52,7 @@ public class SensorService {
 
     public KwhGoalResponse getKwhGoal() {
         return sensorAdapter.getKwhGoal();
+    }
 
     public TagPowerMetricResponse getKwh(String tags, String unit, String per) {
         return sensorAdapter.getKwh(tags, unit, per);
