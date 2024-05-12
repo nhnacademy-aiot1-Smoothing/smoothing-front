@@ -46,4 +46,10 @@ public interface SensorAdapter {
     TagPowerMetricResponse getKwh(@RequestParam String tags,
                                   @RequestParam String unit,
                                   @RequestParam String per);
+
+    @GetMapping("/api/sensor/external/usage")
+    EnergyUsageResponse getUsageAverage(@RequestParam int year,
+                                        @RequestParam String month,
+                                        @RequestParam String bizCd);
+
 }

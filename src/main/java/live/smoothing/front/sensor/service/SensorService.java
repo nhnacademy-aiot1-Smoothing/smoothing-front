@@ -57,4 +57,8 @@ public class SensorService {
     public TagPowerMetricResponse getKwh(String tags, String unit, String per) {
         return sensorAdapter.getKwh(tags, unit, per);
     }
+
+    public EnergyUsageResponse getUsageAverage(int year, String month, String bizCd) {
+        return sensorAdapter.getUsageAverage(year, month, bizCd);
+    }
 }
