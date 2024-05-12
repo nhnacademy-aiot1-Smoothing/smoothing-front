@@ -13,13 +13,13 @@ public class AverageController {
 
     private final SensorService sensorService;
 
-    @GetMapping("/sensor/avg/usage")
+    @GetMapping("/api/sensor/external/usage")
     public EnergyUsageResponse getAverage(
 //            @RequestParam int year,
 //                                          @RequestParam String month,
 //                                          @RequestParam String bizCd
     ) {
-        return sensorService.getUsageAverage(2024, "04", "P");
+        return sensorService.getUsageAverage(2023, "11", "P");
 //        return sensorService.getUsageAverage(year, month, bizCd);
     }
 }
