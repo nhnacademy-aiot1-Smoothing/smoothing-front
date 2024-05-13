@@ -42,7 +42,7 @@
                 <i class="mdi mdi-table-large menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
             <a class="nav-link" data-toggle="collapse" href="#device-management" aria-expanded="false"
                aria-controls="device-management">
                 <span class="menu-title">장치 관리</span>
@@ -58,7 +58,7 @@
                 </ul>
             </div>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
             <a class="nav-link" data-toggle="collapse" href="#user-management" aria-expanded="true"
                aria-controls="user-management">
                 <span class="menu-title">회원 관리</span>
