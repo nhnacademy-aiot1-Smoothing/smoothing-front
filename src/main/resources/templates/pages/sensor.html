@@ -15,6 +15,34 @@
 <body>
 <th:block layout:fragment="content">
     <style>
+        .inputWrap {
+            position: relative;
+            height: 40px;
+            display: inline-block;
+        }
+
+
+        .inputWrap input {
+            padding-right: 30px;
+            height: inherit;
+        }
+
+        .inputWrap .btnClear {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            background: url(https://img.icons8.com/pastel-glyph/2x/cancel.png) center center no-repeat;
+            background-size: 50%;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            visibility: hidden;
+        }
+        .inputWrap:hover .btnClear {
+            visibility: visible;
+        }
         .container {
             padding: 2rem 0rem;
         }
@@ -35,12 +63,14 @@
             background-color: white;
         }
     </style>
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-center">
         <h1 th:text="'센서 관리 &nbsp;🐪'+${broker}+'🐪'"></h1>
-        <button type="button"
-                class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                data-bs-target="#sensorAddModal">센서 추가
-        </button>
+        <div class="d-flex">
+            <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#tagManagementModal">태그 관리
+            </button>
+            <button type="button" style="margin-left: 10px" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#sensorAddModal">센서 추가
+            </button>
+        </div>
     </div>
     <div class="container">
         <div class="row">
@@ -58,12 +88,53 @@
                     <tbody>
                     <tr th:each="sensors : ${sensors}">
                         <td th:text="${sensors.sensorId}"></td>
+                        <input type="hidden" class="sensorId" th:value="${sensors.sensorId}">
                         <td>
                             <a th:href="@{'/broker/' + ${brokerId} +'/sensor/' + ${sensors.sensorId} + '/topic?sensor=' + ${sensors.sensorName}}"
                                th:text="${sensors.sensorName}"></a>
                         </td>
                         <td th:text="${sensors.sensorType}"></td>
-                        <td></td>
+                        <td>
+                            <div>
+                                <th:block th:each="tag : ${sensorTags[sensors.sensorId]}">
+                                    <th:block th:each="sensorTag : ${tag}">
+<!--                                        <button type="button" class="btn btn-bg-transparent btn-xs"-->
+<!--                                                th:text="${sensorTag.tagName}"></button>-->
+                                        <div class="inputWrap">
+                                            <input type="text" class="form-control" style="width: 90px; height: 20px"
+                                                   th:value="${sensorTag.tagName}">
+                                            <input type="hidden" class="sensorIdInput" th:value="${sensors.sensorId}">
+                                            <input type="hidden" class="tagIdInput" th:value="${sensorTag.tagId}">
+                                            <button type="button" class="btnClear sensorTagDeleteButton"></button>
+                                        </div>
+                                    </th:block>
+                                </th:block>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-bg-transparent btn-sm dropdown-toggle tagDropdownButton"
+                                        type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    🐪
+                                </button>
+                                <ul class="dropdown-menu" id="tagDropdown">
+                                    <th:block th:each="tag : ${tagList}">
+                                        <li><a class="dropdown-item" th:data-tag-id="${tag.tagId}"
+                                               th:data-sensor-id="${sensors.sensorId}">
+                                            <span th:text="${tag.tagName}">
+                                            </span>
+                                        </a></li>
+                                    </th:block>
+                                </ul>
+                            </div>
+                            <input type="text" class="form-control" style="width: 90px; height: 20px" id="tagInput">
+                            <datalist id="tagList">
+                                <th:block th:each="tag : ${tagList}">
+                                    <option th:value="${tag.tagName}"></option>
+                                </th:block>
+                            </datalist>
+                            
+                            
+                        </td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm updateButton"
                                     data-bs-toggle="modal"
@@ -219,6 +290,48 @@
                      style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
                     <button type="button" id="sensorUpdateButton" class="btn btn-primary">수정</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="tagManagementModal" tabindex="-1" aria-labelledby="tagManagementModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+                    <h1 class="modal-title fs-5" id="tagManagementModalLabel"><b>태그 관리</b></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--                    <b>태그 추가</b>-->
+                    <div class="row mb-3">
+                        <div class="d-flex align-items-center">
+                            <label for="tagName" class="form-label me-2">
+                                <b>태그 이름</b>
+                            </label>
+                            <input id="tagName" class="form-control rounded-3 border-secondary me-2" style="width: 200px" type="text">
+                            <button type="button" id="tagAddButton" class="btn btn-primary">추가</button>
+                        </div>
+                    </div>
+                    <b>태그 수정/삭제</b>
+                    <div>
+                        <select id="tagSelect" class="form-select" style="width: 150px">
+                            <th:block th:each="tag : ${tagList}">
+                                <option th:value="${tag.tagId}">
+                                    <span th:text="${tag.tagName}"></span>
+                                </option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <div>
+                        <input id="tagUpdateName" class="form-control rounded-3 border-secondary me-2" style="width:200px" type="text">
+                    </div>
+                </div>
+                
+                <div class="modal-footer d-flex justify-content-center"
+                     style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
+                    <button type="button" id="tagUpdateButton" class="btn btn-primary btn-sm">수정</button>
+                    <button type="button" id="tagDeleteButton" class="btn btn-danger btn-sm">삭제</button>
                 </div>
             </div>
         </div>

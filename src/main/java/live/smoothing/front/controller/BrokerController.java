@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import live.smoothing.front.device.dto.BrokerListResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class BrokerController {
 
     private final BrokerService brokerService;
@@ -22,6 +25,7 @@ public class BrokerController {
     @GetMapping("/broker")
     public String broker(@PageableDefault Pageable pageable,
                          Model model) {
+        System.out.println(SecurityContextHolder.getContext().getAuthentication());
 
         List<String> protocolTypeList = brokerService.getProtocols().getProtocolTypes();
         model.addAttribute("protocolTypeList", protocolTypeList);

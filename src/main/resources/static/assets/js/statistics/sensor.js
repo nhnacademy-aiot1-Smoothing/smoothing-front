@@ -30,6 +30,9 @@ $.get("/sensor/kwh/usage/weekly/value/total", { tags: "" }, function(response) {
         }],
         title: {
             text: null
+        },
+        credits: {
+            enabled: false
         }
     });
 })

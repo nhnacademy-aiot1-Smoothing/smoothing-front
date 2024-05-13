@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient("gateway")
-//@FeignClient(name = "externalUsageClient", url = "http://localhost:8000/api/sensor/external")
 public interface SensorAdapter {
 
     @GetMapping("/api/sensor/watt/usage")
@@ -26,13 +25,13 @@ public interface SensorAdapter {
 
     @GetMapping("/api/sensor/kwh/usage/daily/period/total")
     TagPowerMetricResponse getDailyPeriodTotal(@RequestParam String tags,
-                                           @RequestParam String start,
-                                           @RequestParam String end);
+                                               @RequestParam String start,
+                                               @RequestParam String end);
 
     @GetMapping("/api/sensor/kwh/usage/daily/period")
     SensorPowerMetricResponse getDailyPeriod(@RequestParam String tags,
-                                               @RequestParam String start,
-                                               @RequestParam String end);
+                                             @RequestParam String start,
+                                             @RequestParam String end);
 
     @GetMapping("/api/sensor/kwh/usage/weekly/value/total")
     SensorResponse getWeeklyTotal(@RequestParam String tags);
@@ -47,6 +46,9 @@ public interface SensorAdapter {
     TagPowerMetricResponse getKwh(@RequestParam String tags,
                                   @RequestParam String unit,
                                   @RequestParam String per);
+
+    @GetMapping("/api/sensor/goals/history")
+    List<MonthlyGoalResponse> getMonthlyGoals(@RequestParam String year);
 
     @GetMapping("/api/sensor/external/usage")
     EnergyUsageResponse getUsageAverage(@RequestParam("year")int year,

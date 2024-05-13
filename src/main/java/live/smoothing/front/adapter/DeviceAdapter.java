@@ -4,8 +4,6 @@ import live.smoothing.front.device.dto.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-
 @FeignClient("gateway")
 public interface DeviceAdapter {
 
@@ -45,8 +43,7 @@ public interface DeviceAdapter {
     void deleteSensor(@PathVariable("sensorId") Integer sensorId);
 
     @PostMapping("/api/device/tags")
-    void addTag(@RequestHeader("X-USER-ID") String userId,
-                @RequestBody TagRequest tagRequest);
+    void addTag(@RequestBody TagRequest tagRequest);
 
     @GetMapping("/api/device/tags")
     TagListResponse getTags();
@@ -83,6 +80,10 @@ public interface DeviceAdapter {
     @DeleteMapping("/api/device/brokers/errors/{errorId}")
     void deleteError(@PathVariable("errorId") Integer errorId);
 
+    @PostMapping("/api/device/tags/sensors")
+    SensorTagsResponse getSensorTags(@RequestBody SensorIdListRequest sensorIdListRequest);
+
+
     @GetMapping("/api/device/sensors/errors")
     SensorErrorListResponse getSensorErrors(@RequestParam("page") int page,
                                             @RequestParam("size") int size);
@@ -91,10 +92,8 @@ public interface DeviceAdapter {
     void deleteSensorError(@PathVariable("errorId") Integer errorId);
 
     @PostMapping("/api/device/tags/sensorTag")
-    void addSensorTag(@RequestHeader("X-USER-ID") String userId,
-                      @RequestBody SensorTagAddRequest sensorTagAddRequest);
+    void addSensorTag(@RequestBody SensorTagAddRequest sensorTagAddRequest);
 
-    @DeleteMapping("/api/device/tags/sensorTag/{sensorTagId}")
-    void deleteSensorTag(@RequestHeader("X-USER-ID") String userId,
-                         @PathVariable Integer sensorTagId);
+    @DeleteMapping("/api/device/tags/sensorTag/{sensorId}/{tagId}")
+    void deleteSensorTag(@PathVariable Integer sensorId, @PathVariable Integer tagId);
 }
