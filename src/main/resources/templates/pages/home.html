@@ -33,13 +33,13 @@
                 color: #555;
                 background-color: #fafafa;
             }
-            #first-gauge-container {
-                display: flex;
-                justify-content: space-around;
+            #first-gauge-container, #second-gauge-container, #third-gauge-container{
+                display: inline-table;
+                /*justify-content: space-around;*/
             }
-            #three-test1, #three-test2 {
-                width: 300px;  // 게이지 크기 조정 가능
-            height: 300px; // 높이 조정으로 수직 게이지를 더 잘 맞출 수 있음
+            #three-test1, #three-test2 , #ThreePhase-B-LN, #ThreePhase-B-LL, #ThreePhase-C-LN, #ThreePhase-C-LL{
+                width: 310px;  // 게이지 크기 조정 가능
+            /*height: 10px; // 높이 조정으로 수직 게이지를 더 잘 맞출 수 있음*/
             }
         
         </style>
@@ -178,11 +178,13 @@
                                 <div id="three-test1"></div>
                                 <div id="three-test2"></div>
                             </div>
-                            <div>
-                            
+                            <div id="second-gauge-container">
+                                <div id="ThreePhase-B-LN"></div>
+                                <div id="ThreePhase-B-LL"></div>
                             </div>
-                            <div>
-                            
+                            <div id="third-gauge-container">
+                                <div id="ThreePhase-C-LN"></div>
+                                <div id="ThreePhase-C-LL"></div>
                             </div>
                         </div>
                     </div>
