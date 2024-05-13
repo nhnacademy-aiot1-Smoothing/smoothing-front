@@ -9,4 +9,5 @@ import java.util.List;
 @NoArgsConstructor
 public class SensorErrorListResponse {
     private List<SensorErrorResponse> errors;
+    private int totalPage;
 }

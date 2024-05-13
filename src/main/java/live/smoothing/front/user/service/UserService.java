@@ -1,8 +1,11 @@
 package live.smoothing.front.user.service;
 
+import com.google.firebase.auth.UserInfo;
 import live.smoothing.front.auth.dto.email.MessageResponse;
+import live.smoothing.front.user.dto.UserInfoListResponse;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.WaitingUser;
+import live.smoothing.front.user.dto.WaitingUserListResponse;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
@@ -11,6 +14,7 @@ import live.smoothing.front.user.dto.response.RoleResponse;
 import live.smoothing.front.user.dto.response.UserAttendanceResponse;
 import live.smoothing.front.user.dto.response.UserInfoResponse;
 import live.smoothing.front.user.dto.response.UserProfileResponse;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -32,9 +36,7 @@ public interface UserService {
 
     MessageResponse doAttendanceCheck();
 
-    List<WaitingUser> getWaitingUserList();
-
-    List<WaitingUser> getWaitingUserList(int page, int size);
+    WaitingUserListResponse getWaitingUserUserList(Pageable pageable);
 
     MessageResponse approveUser(UserApproveRequest request);
 
@@ -56,9 +58,7 @@ public interface UserService {
 
     MessageResponse modifyPwd(ModifyPwdRequest request);
 
-    List<UserInfoResponse> getUserList();
-
-    List<UserInfoResponse> getUserList(int page, int size);
+    UserInfoListResponse getUserList(Pageable pageable);
 
     List<RoleResponse> getUserRoleList(String userId);
 

@@ -1,8 +1,10 @@
 package live.smoothing.front.adapter;
 
 import live.smoothing.front.auth.dto.email.MessageResponse;
+import live.smoothing.front.user.dto.UserInfoListResponse;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.WaitingUser;
+import live.smoothing.front.user.dto.WaitingUserListResponse;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
@@ -13,6 +15,7 @@ import live.smoothing.front.user.dto.response.UserCreateResponse;
 import live.smoothing.front.user.dto.response.UserInfoResponse;
 import live.smoothing.front.user.dto.response.UserProfileResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,11 +53,9 @@ public interface UserApiAdapter {
     MessageResponse doAttendanceCheck();
 
     @GetMapping("/api/user/waitingUserList")
-    List<WaitingUser> getWaitingUserList();
+    WaitingUserListResponse getWaitingUserList(@RequestParam("page") int page,
+                                               @RequestParam("size") int size);
 
-    @GetMapping("/api/user/waitingUserList")
-    List<WaitingUser> getWaitingUserList(@RequestParam("page") int page,
-                                         @RequestParam("size") int size);
     @PutMapping("/api/user/approve")
     MessageResponse approveUser(@RequestBody UserApproveRequest request);
 
@@ -65,11 +66,9 @@ public interface UserApiAdapter {
     List<RoleResponse> getAllRoles();
 
     @GetMapping("/api/user/userList")
-    List<UserInfoResponse> getUserList();
+    UserInfoListResponse getUserList(@RequestParam("page") int page,
+                                     @RequestParam("size") int size);
 
-    @GetMapping("/api/user/userList")
-    List<UserInfoResponse> getUserList(@RequestParam("page") int page,
-                                       @RequestParam("size") int size);
 
     @GetMapping("/api/user/userRole/list")
     List<RoleResponse> getUserRoleList(@RequestParam("userId") String userId);
@@ -90,4 +89,6 @@ public interface UserApiAdapter {
 
     @PutMapping("/api/user/profile/password")
     MessageResponse modifyPwd(@RequestBody ModifyPwdRequest request);
+
+
 }
