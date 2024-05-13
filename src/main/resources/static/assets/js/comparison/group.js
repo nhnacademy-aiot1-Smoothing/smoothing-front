@@ -30,6 +30,9 @@ fetch(`/sensor/kwh/usage/daily/period/total?tags=NHN,Office&start=2024-04-16&end
             tooltip: {
                 valueSuffix: ' kWh'
             },
+            credits: {
+                enabled: false
+            },
             plotOptions: {
                 column: {
                     pointPadding: 0.2,
