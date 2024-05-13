@@ -52,6 +52,9 @@ function renderChart(groupedData) {
                 text: 'kWh'
             }
         },
+        credits: {
+            enabled: false
+        },
         tooltip: {
             crosshairs: true,
             shared: true
