@@ -6,7 +6,7 @@
         <li class="nav-item nav-profile">
             <a href="/mypage" class="nav-link">
                 <div class="nav-profile-image">
-                    <img src="/assets/images/profile/profile.jpeg" alt="profile">
+                    <img src="/assets/images/profile/profile.png" alt="profile">
                     <span class="login-status online"></span>
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
@@ -21,25 +21,25 @@
         <li class="nav-item active">
             <a class="nav-link" th:href="@{/}">
                 <span class="menu-title">대시보드</span>
-                <i class="mdi mdi-home menu-icon"></i>
+                <i class="mdi mdi-monitor-dashboard menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" th:href="@{/statistics}">
                 <span class="menu-title">통계</span>
-                <i class="mdi mdi-contacts menu-icon"></i>
+                <i class="mdi mdi-finance menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" th:href="@{/comparison}">
                 <span class="menu-title">비교현황</span>
-                <i class="mdi mdi-table-large menu-icon"></i>
+                <i class="mdi mdi-chart-gantt menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">
                 <span class="menu-title">AI 예측</span>
-                <i class="mdi mdi-table-large menu-icon"></i>
+                <i class="mdi mdi-creation menu-icon"></i>
             </a>
         </li>
         <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
@@ -47,7 +47,7 @@
                aria-controls="device-management">
                 <span class="menu-title">장치 관리</span>
                 <i class="menu-arrow"></i>
-                <i class="mdi mdi-medical-bag menu-icon"></i>
+                <i class="mdi mdi-wrench-outline menu-icon"></i>
             </a>
             <div class="collapse show" id="device-management">
                 <ul class="nav flex-column sub-menu">
@@ -63,7 +63,7 @@
                aria-controls="user-management">
                 <span class="menu-title">회원 관리</span>
                 <i class="menu-arrow"></i>
-                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                <i class="mdi mdi-account-multiple-check menu-icon"></i>
             </a>
             <div class="collapse show" id="user-management">
                 <ul class="nav flex-column sub-menu">
