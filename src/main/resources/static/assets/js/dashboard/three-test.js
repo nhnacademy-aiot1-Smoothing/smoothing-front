@@ -7,7 +7,7 @@ const gaugeOptions = {
 
     pane: {
         center: ['50%', '85%'],
-        size: '140%',
+        size: '50%',
         startAngle: -90,
         endAngle: 90,
         background: {
@@ -58,7 +58,7 @@ const gaugeOptions = {
 };
 
 // The speed gauge
-const chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+const chartSpeed = Highcharts.chart('three-test1', Highcharts.merge(gaugeOptions, {
     yAxis: {
         min: 0,
         max: 200,
@@ -89,7 +89,7 @@ const chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOpt
 }));
 
 // The RPM gauge
-const chartRpm = Highcharts.chart('container-rpm', Highcharts.merge(gaugeOptions, {
+const chartRpm = Highcharts.chart('three-test2', Highcharts.merge(gaugeOptions, {
     yAxis: {
         min: 0,
         max: 5,
