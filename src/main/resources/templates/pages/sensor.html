@@ -126,6 +126,12 @@
                                     </th:block>
                                 </ul>
                             </div>
+                            <input type="text" class="form-control" style="width: 90px; height: 20px" id="tagInput">
+                            <datalist id="tagList">
+                                <th:block th:each="tag : ${tagList}">
+                                    <option th:value="${tag.tagName}"></option>
+                                </th:block>
+                            </datalist>
                             
                             
                         </td>
