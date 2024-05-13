@@ -6,5 +6,5 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class TagRequest {
-    private String tag;
+    private String tagName;
 }
