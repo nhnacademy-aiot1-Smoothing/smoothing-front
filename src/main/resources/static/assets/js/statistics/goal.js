@@ -74,6 +74,7 @@ function fetchDataAndDrawChart() {
                     step: 'center',
                     name: 'Goal',
                     data: lineData,
+                    color: Highcharts.getOptions().colors[3],
                     marker: {
                         lineWidth: 2,
                         lineColor: Highcharts.getOptions().colors[3],
