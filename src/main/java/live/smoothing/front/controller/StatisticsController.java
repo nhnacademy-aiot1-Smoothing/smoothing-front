@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class StatisticsController {
 
     @GetMapping("/statistics")
-    public String home() {
+    public String statistics() {
 
         return "pages/statistics";
     }
