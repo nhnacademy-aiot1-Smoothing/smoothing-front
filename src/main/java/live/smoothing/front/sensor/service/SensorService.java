@@ -5,6 +5,8 @@ import live.smoothing.front.sensor.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class SensorService {
@@ -47,14 +49,22 @@ public class SensorService {
     }
 
     public CostResponse getCost() {
+
         return sensorAdapter.getCost();
     }
 
     public KwhGoalResponse getKwhGoal() {
+
         return sensorAdapter.getKwhGoal();
     }
 
     public TagPowerMetricResponse getKwh(String tags, String unit, String per) {
+
         return sensorAdapter.getKwh(tags, unit, per);
+    }
+
+    public List<MonthlyGoalResponse> getMonthlyGoals(String year) {
+
+        return sensorAdapter.getMonthlyGoals(year);
     }
 }

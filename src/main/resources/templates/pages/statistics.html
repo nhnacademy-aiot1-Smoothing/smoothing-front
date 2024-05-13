@@ -48,9 +48,9 @@
                         <div class="card-body">
                             <h4 class="card-title">연도별 월단위 (목표량)</h4>
                             <p class="card-description"> Column line and pie </p>
-                            <div>
-                            
-                            </div>
+                            <button id="prevYearBtn">Previous Year</button>
+                            <button id="nextYearBtn">Next Year</button>
+                            <div id="statistics-goal"></div>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,8 @@
             <script src="https://code.highcharts.com/modules/accessibility.js"></script>
             <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
             <script src="https://code.highcharts.com/modules/data.js"></script>
-            
+            <script src="https://code.highcharts.com/modules/series-label.js"></script>
+
             <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
             <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
             <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
@@ -89,6 +90,7 @@
             <script src="/assets/js/statistics/total.js"></script>
             <script src="/assets/js/statistics/timezone.js"></script>
             <script src="/assets/js/statistics/sensor.js"></script>
+            <script src="/assets/js/statistics/goal.js"></script>
         </th:block>
     </body>
 </html>
