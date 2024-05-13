@@ -53,4 +53,8 @@ public interface SensorAdapter {
                                         @RequestParam("month") String month,
                                         @RequestParam("bizCd") String bizCd);
 
+    @GetMapping("/api/sensor/three-phase")
+    PhaseResponse getThreePhase();
+
+
 }
