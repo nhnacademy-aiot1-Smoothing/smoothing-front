@@ -98,6 +98,38 @@
                 <div class="col-md-2 d-flex align-items-stretch">
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
+                            <div class="d-flex justify-content-between">
+                                <button type="button"
+                                        class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#tagSelectModal">태그 선택</button>
+                                <div class="modal fade" id="tagSelectModal" tabindex="-1" aria-labelledby="tagSelectModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+                                                <h1 class="modal-title fs-5" id="tagSelectModalLabel"><b>태그 선택</b></h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row mb-3">
+                                                    <div class="col-md-12 text-center align-self-center">
+                                                        <label for="tagCheckboxGroup" class="form-label">
+                                                            <b>태그 목록</b>
+                                                        </label>
+                                                        <div id="tagCheckboxGroup">
+                                                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer d-flex justify-content-center" style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
+                                                <button type="button" id="tagSelectButton"
+                                                        class="btn btn-primary">선택 완료</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -207,7 +239,7 @@
             <script src="/assets/js/dashboard/1hKwh.js"></script>
             <script src="/assets/js/dashboard/1dKwh.js"></script>
             <script src="/assets/js/dashboard/amCharts.js"></script>
-
+            <script src="/assets/js/comparison/tags.js"></script>
         </th:block>
     </body>
 </html>
