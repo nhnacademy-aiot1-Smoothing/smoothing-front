@@ -60,6 +60,9 @@ function fetchDataAndDrawChart() {
                 title: {
                     text: ''
                 },
+                credits: {
+                    enabled: false
+                },
                 series: [{
                     type: 'column',
                     name: 'Amount',
@@ -68,6 +71,7 @@ function fetchDataAndDrawChart() {
                     colors: colors,
                 }, {
                     type: 'line',
+                    step: 'center',
                     name: 'Goal',
                     data: lineData,
                     marker: {
