@@ -290,6 +290,7 @@
 
             <script src="/assets/js/comparison/tags-1.js"></script>
             <script src="/assets/js/dashboard/igr.js"></script>
+            <script src="/assets/js/dashboard/three-test.js"></script>
            
             <script>
                 function parsingTags() {
@@ -297,7 +298,6 @@
                     const selectedTags = Array.from(checkboxes).map(checkbox => checkbox.value).join(",");
                     return selectedTags;
                 }
-            <script src="/assets/js/dashboard/three-test.js"></script>
 
                 document.getElementById('tagSelectButton').addEventListener('click', function() {
                     const tags = parsingTags();
