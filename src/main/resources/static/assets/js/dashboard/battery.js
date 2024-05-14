@@ -1,5 +1,5 @@
 function battery(charge) {
-    var power = Math.ceil(charge / 4);
+    var power = Math.ceil(charge / 2);
     $(".battery .bar").removeClass("active red yellow green"); // 모든 막대 리셋
 
     $(".battery .bar").each(function(index) {

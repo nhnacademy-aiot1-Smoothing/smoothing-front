@@ -22,7 +22,7 @@
 }
 
 .bar {
-    border-radius: 20%;
+    border-radius: 5%;
     flex-grow: 1;
     cursor: pointer;
     display: block;

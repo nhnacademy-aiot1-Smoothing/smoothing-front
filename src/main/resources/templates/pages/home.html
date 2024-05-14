@@ -63,30 +63,55 @@
                                 <div id="projectbox">
                                     <!-- Start project HTML -->
                                     <div class='battery'>
+                                        <div class='bar' data-power='2'></div>
                                         <div class='bar' data-power='4'></div>
+                                        <div class='bar' data-power='6'></div>
                                         <div class='bar' data-power='8'></div>
+                                        <div class='bar' data-power='10'></div>
                                         <div class='bar' data-power='12'></div>
+                                        <div class='bar' data-power='14'></div>
                                         <div class='bar' data-power='16'></div>
+                                        <div class='bar' data-power='18'></div>
                                         <div class='bar' data-power='20'></div>
+                                        <div class='bar' data-power='22'></div>
                                         <div class='bar' data-power='24'></div>
+                                        <div class='bar' data-power='26'></div>
                                         <div class='bar' data-power='28'></div>
+                                        <div class='bar' data-power='30'></div>
                                         <div class='bar' data-power='32'></div>
+                                        <div class='bar' data-power='34'></div>
                                         <div class='bar' data-power='36'></div>
+                                        <div class='bar' data-power='38'></div>
                                         <div class='bar' data-power='40'></div>
+                                        <div class='bar' data-power='42'></div>
                                         <div class='bar' data-power='44'></div>
+                                        <div class='bar' data-power='46'></div>
                                         <div class='bar' data-power='48'></div>
+                                        <div class='bar' data-power='50'></div>
                                         <div class='bar' data-power='52'></div>
+                                        <div class='bar' data-power='54'></div>
                                         <div class='bar' data-power='56'></div>
+                                        <div class='bar' data-power='58'></div>
                                         <div class='bar' data-power='60'></div>
+                                        <div class='bar' data-power='62'></div>
                                         <div class='bar' data-power='64'></div>
+                                        <div class='bar' data-power='66'></div>
                                         <div class='bar' data-power='68'></div>
+                                        <div class='bar' data-power='70'></div>
                                         <div class='bar' data-power='72'></div>
+                                        <div class='bar' data-power='74'></div>
                                         <div class='bar' data-power='76'></div>
+                                        <div class='bar' data-power='78'></div>
                                         <div class='bar' data-power='80'></div>
+                                        <div class='bar' data-power='82'></div>
                                         <div class='bar' data-power='84'></div>
+                                        <div class='bar' data-power='86'></div>
                                         <div class='bar' data-power='88'></div>
+                                        <div class='bar' data-power='90'></div>
                                         <div class='bar' data-power='92'></div>
+                                        <div class='bar' data-power='94'></div>
                                         <div class='bar' data-power='96'></div>
+                                        <div class='bar' data-power='98'></div>
                                         <div class='bar' data-power='100'></div>
                                     </div>
                                     <!-- End Project HTML -->
@@ -116,7 +141,6 @@
                                                             <b>태그 목록</b>
                                                         </label>
                                                         <div id="tagCheckboxGroup">
-                                                        
                                                         </div>
                                                     </div>
                                                 </div>
@@ -240,6 +264,25 @@
             <script src="/assets/js/dashboard/1dKwh.js"></script>
             <script src="/assets/js/dashboard/amCharts.js"></script>
             <script src="/assets/js/comparison/tags.js"></script>
+
+            <script>
+                function parsingTags() {
+                    const checkboxes = document.querySelectorAll('#tagCheckboxGroup input[type="checkbox"]:checked');
+                    const selectedTags = Array.from(checkboxes).map(checkbox => checkbox.value).join(",");
+                    return selectedTags;
+                }
+
+                document.getElementById('tagSelectButton').addEventListener('click', function() {
+                    const tags = parsingTags();
+                    create1DKwhChart(tags);
+                    create1HKwhChart(tags);
+                    create10MWattChart(tags);
+                    create1HWattChart(tags);
+                    createRaderChart("chartdiv2", tags);
+
+                    $('#tagSelectModal').modal('hide');  // Use the correct ID if it's different
+                });
+            </script>
         </th:block>
     </body>
 </html>
