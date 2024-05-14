@@ -9,6 +9,10 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.FlashMap;
+import org.springframework.web.servlet.FlashMapManager;
+import org.springframework.web.servlet.support.RequestContextUtils;
+import org.springframework.web.servlet.support.SessionFlashMapManager;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -16,6 +20,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.Map;
 
 /**
  * @author 우혜승
@@ -87,8 +93,13 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
      * @throws IOException sendRedirect 실패 시 예외
      */
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         //todo 에러처리
+//        FlashMap flashMap = new FlashMap();
+//        flashMap.put("error", failed.getMessage());
+//        FlashMapManager flashMapManager = new SessionFlashMapManager();
+//        flashMapManager.saveOutputFlashMap(flashMap, request, response);
+        response.addCookie(new Cookie("error", URLEncoder.encode(failed.getMessage(), "UTF-8")));
         response.sendRedirect("/login");
     }
 }

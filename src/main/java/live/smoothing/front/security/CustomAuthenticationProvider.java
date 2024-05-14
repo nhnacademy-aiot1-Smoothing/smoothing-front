@@ -1,5 +1,6 @@
 package live.smoothing.front.security;
 
+import feign.FeignException;
 import live.smoothing.front.adapter.AuthAdapter;
 import live.smoothing.front.auth.dto.login.LoginRequest;
 import live.smoothing.front.auth.dto.login.LoginResponse;
@@ -35,12 +36,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         ResponseEntity<LoginResponse> response;
         try {
             response = authAdapter.doLogin(new LoginRequest(authentication.getName(), (String) authentication.getCredentials()));
-        } catch(Exception e) {
+        } catch(FeignException e) {
             //todo feign 200 아닐 경우 에러 처리돼서 따로 뭔가 해줘야함
-            throw new InternalAuthenticationServiceException("Internal Server Error");
-        }
-        if(!response.getStatusCode().is2xxSuccessful()) {
-            throw new BadCredentialsException("Fail to Login");
+            if(e.status()!=200){
+                throw new BadCredentialsException("Fail to Login");
+            }else{
+                throw new InternalAuthenticationServiceException("Internal Server Error");
+            }
         }
         return new CustomAuthenticationToken(authentication.getName(), (String) authentication.getCredentials(), response.getBody());
     }
