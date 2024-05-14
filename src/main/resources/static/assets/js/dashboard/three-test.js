@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'solidgauge'
         },
         title: null,
+        credits: {
+            enabled: false
+        },
         pane: {
             center: ['50%', '50%'],
             size: '50%',
