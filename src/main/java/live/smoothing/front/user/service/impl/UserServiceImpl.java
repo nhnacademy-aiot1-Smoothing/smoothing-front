@@ -11,10 +11,7 @@ import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
 import live.smoothing.front.user.dto.request.*;
-import live.smoothing.front.user.dto.response.RoleResponse;
-import live.smoothing.front.user.dto.response.UserAttendanceResponse;
-import live.smoothing.front.user.dto.response.UserInfoResponse;
-import live.smoothing.front.user.dto.response.UserProfileResponse;
+import live.smoothing.front.user.dto.response.*;
 import live.smoothing.front.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -141,5 +138,35 @@ public class UserServiceImpl implements UserService {
     public MessageResponse modifyUserRole(UserRoleModifyRequest request) {
 
         return userApiAdapter.modifyUserRole(request);
+    }
+
+    @Override
+    public List<HookTypeResponse> getHookTypes() {
+
+        return userApiAdapter.getHookTypes();
+    }
+
+    @Override
+    public void createUserHook(HookCreateRequest request) {
+
+        userApiAdapter.createUserHook(request);
+    }
+
+    @Override
+    public UserHookResponse getUserHook() {
+
+        return userApiAdapter.getUserHook();
+    }
+
+    @Override
+    public void modifyUserHook(HookModifyRequest request) {
+
+        userApiAdapter.modifyUserHook(request);
+    }
+
+    @Override
+    public void deleteUserHook() {
+
+        userApiAdapter.deleteUserHook();
     }
 }

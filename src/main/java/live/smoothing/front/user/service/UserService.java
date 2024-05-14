@@ -10,10 +10,7 @@ import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
 import live.smoothing.front.user.dto.request.*;
-import live.smoothing.front.user.dto.response.RoleResponse;
-import live.smoothing.front.user.dto.response.UserAttendanceResponse;
-import live.smoothing.front.user.dto.response.UserInfoResponse;
-import live.smoothing.front.user.dto.response.UserProfileResponse;
+import live.smoothing.front.user.dto.response.*;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -65,4 +62,14 @@ public interface UserService {
     MessageResponse deleteUser(String userId);
 
     MessageResponse modifyUserRole(UserRoleModifyRequest request);
+
+    List<HookTypeResponse> getHookTypes();
+
+    void createUserHook(HookCreateRequest request);
+
+    UserHookResponse getUserHook();
+
+    void modifyUserHook(HookModifyRequest request);
+
+    void deleteUserHook();
 }

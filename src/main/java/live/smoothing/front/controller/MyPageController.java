@@ -2,9 +2,9 @@ package live.smoothing.front.controller;
 
 import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
-import live.smoothing.front.user.dto.request.ModifyProfile;
-import live.smoothing.front.user.dto.request.ModifyPwdRequest;
-import live.smoothing.front.user.dto.request.VerifyPwdRequest;
+import live.smoothing.front.user.dto.request.*;
+import live.smoothing.front.user.dto.response.HookTypeResponse;
+import live.smoothing.front.user.dto.response.UserHookResponse;
 import live.smoothing.front.user.dto.response.UserProfileResponse;
 import live.smoothing.front.user.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -73,6 +73,12 @@ public class MyPageController {
         model.addAttribute("userName", response.getUserName());
         model.addAttribute("userEmail", response.getUserEmail());
 
+        List<HookTypeResponse> hookTypes = userService.getHookTypes();
+        model.addAttribute("hookTypes", hookTypes);
+
+        UserHookResponse userHook = userService.getUserHook();
+        model.addAttribute("userHook", userHook);
+
         return "pages/user_modify";
     }
 
@@ -92,5 +98,26 @@ public class MyPageController {
         }
 
         return "redirect:/mypage";
+    }
+
+    @ResponseBody
+    @PostMapping("/createHook")
+    public void createUserHook(@RequestBody HookCreateRequest request) {
+
+        userService.createUserHook(request);
+    }
+
+    @ResponseBody
+    @PutMapping("/modifyHook")
+    public void modifyUserHook(@RequestBody HookModifyRequest request) {
+
+        userService.modifyUserHook(request);
+    }
+
+    @ResponseBody
+    @DeleteMapping("/deleteHook")
+    public void deleteUserHook() {
+
+        userService.deleteUserHook();
     }
 }
