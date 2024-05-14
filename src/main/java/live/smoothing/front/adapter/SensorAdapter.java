@@ -52,6 +52,7 @@ public interface SensorAdapter {
     @GetMapping("/api/sensor/goals/history")
     List<MonthlyGoalResponse> getMonthlyGoals(@RequestParam String year);
 
+
     @GetMapping("/api/sensor/external/usage")
     EnergyUsageResponse getUsageAverage(@RequestParam("year")int year,
                                         @RequestParam("month") String month,
@@ -61,4 +62,9 @@ public interface SensorAdapter {
     PhaseResponse getThreePhase();
 
 
+    @GetMapping("/api/sensor/igr/class")
+    Igr getClassIgr();
+
+    @GetMapping("/api/sensor/igr/office")
+    Igr getOfficeIgr();
 }

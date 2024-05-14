@@ -76,5 +76,14 @@ public class SensorService {
     public PhaseResponse getThreePhase() {
 
         return sensorAdapter.getThreePhase();
+
+    public Igr getClassIgr() {
+  
+        return sensorAdapter.getClassIgr();
+    }
+
+    public Igr getOfficeIgr() {
+        return sensorAdapter.getOfficeIgr();
+      
     }
 }
