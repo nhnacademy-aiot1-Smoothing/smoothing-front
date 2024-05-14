@@ -15,7 +15,6 @@ public interface SensorAdapter {
                                    @RequestParam String unit,
                                    @RequestParam String per,
                                    @RequestParam String type);
-
     @GetMapping("/api/sensor/kwh/usage/weekly/timezone")
     TimeZoneResponse getWeeklyTimeZone();
 
@@ -52,4 +51,20 @@ public interface SensorAdapter {
 
     @GetMapping("/api/sensor/goals/history")
     List<MonthlyGoalResponse> getMonthlyGoals(@RequestParam String year);
+
+
+    @GetMapping("/api/sensor/external/usage")
+    EnergyUsageResponse getUsageAverage(@RequestParam("year")int year,
+                                        @RequestParam("month") String month,
+                                        @RequestParam("bizCd") String bizCd);
+
+    @GetMapping("/api/sensor/three-phase")
+    PhaseResponse getThreePhase();
+
+
+    @GetMapping("/api/sensor/igr/class")
+    Igr getClassIgr();
+
+    @GetMapping("/api/sensor/igr/office")
+    Igr getOfficeIgr();
 }
