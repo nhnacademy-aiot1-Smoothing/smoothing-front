@@ -33,6 +33,15 @@
                 color: #555;
                 background-color: #fafafa;
             }
+            #first-gauge-container, #second-gauge-container, #third-gauge-container{
+                display: inline-table;
+                /*justify-content: space-around;*/
+            }
+            #three-test1, #three-test2 , #ThreePhase-B-LN, #ThreePhase-B-LL, #ThreePhase-C-LN, #ThreePhase-C-LL{
+                width: 310px;  // 게이지 크기 조정 가능
+            /*height: 10px; // 높이 조정으로 수직 게이지를 더 잘 맞출 수 있음*/
+            }
+        
         </style>
         <link rel="stylesheet" href="/assets/css/battery.css">
         <link href="https://unpkg.com/@pqina/flip/dist/flip.min.css" rel="stylesheet">
@@ -220,14 +229,17 @@
                         <div class="card-body">
                             <h4 class="card-title">전압</h4>
                             <p class="card-description">게이지 그래프 3개</p>
-                            <div>
-                            
+                            <div id="first-gauge-container">
+                                <div id="three-test1"></div>
+                                <div id="three-test2"></div>
                             </div>
-                            <div>
-                            
+                            <div id="second-gauge-container">
+                                <div id="ThreePhase-B-LN"></div>
+                                <div id="ThreePhase-B-LL"></div>
                             </div>
-                            <div>
-                            
+                            <div id="third-gauge-container">
+                                <div id="ThreePhase-C-LN"></div>
+                                <div id="ThreePhase-C-LL"></div>
                             </div>
                         </div>
                     </div>
@@ -235,10 +247,10 @@
                 <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">??</h4>
+                            <h4 class="card-title">누수전력 차트</h4>
                             <p class="card-description"></p>
                             <div>
-                            
+                                <div id="igr-chart"></div>
                             </div>
                         </div>
                     </div>
@@ -253,24 +265,39 @@
             <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
             <script src="https://code.highcharts.com/highcharts.js"></script>
             <script src="https://unpkg.com/@pqina/flip/dist/flip.min.js"></script>
+            <script src="https://code.highcharts.com/highcharts.js"></script>
+
+            <script src="https://code.highcharts.com/highcharts-more.js"></script>
+            <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+            <script src="https://code.highcharts.com/modules/exporting.js"></script>
+            <script src="https://code.highcharts.com/modules/export-data.js"></script>
+            <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+            
+            <script src="https://code.highcharts.com/modules/pictorial.js"></script>
+            <script src="https://code.highcharts.com/modules/exporting.js"></script>
+            <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 
             <script src="/assets/js/dashboard/battery.js"></script>
             <script src="/assets/js/sensorRaderChart.js"></script>
-
+            
             <script src="/assets/js/home.js"></script>
             <script src="/assets/js/dashboard/watt.js"></script>
             <script src="/assets/js/dashboard/cost.js"></script>
             <script src="/assets/js/dashboard/1hKwh.js"></script>
             <script src="/assets/js/dashboard/1dKwh.js"></script>
             <script src="/assets/js/dashboard/amCharts.js"></script>
-            <script src="/assets/js/comparison/tags.js"></script>
 
+            <script src="/assets/js/comparison/tags-1.js"></script>
+            <script src="/assets/js/dashboard/igr.js"></script>
+           
             <script>
                 function parsingTags() {
                     const checkboxes = document.querySelectorAll('#tagCheckboxGroup input[type="checkbox"]:checked');
                     const selectedTags = Array.from(checkboxes).map(checkbox => checkbox.value).join(",");
                     return selectedTags;
                 }
+            <script src="/assets/js/dashboard/three-test.js"></script>
 
                 document.getElementById('tagSelectButton').addEventListener('click', function() {
                     const tags = parsingTags();
