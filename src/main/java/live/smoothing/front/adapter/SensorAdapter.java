@@ -52,4 +52,10 @@ public interface SensorAdapter {
 
     @GetMapping("/api/sensor/goals/history")
     List<MonthlyGoalResponse> getMonthlyGoals(@RequestParam String year);
+
+    @GetMapping("/api/sensor/igr/class")
+    Igr getClassIgr();
+
+    @GetMapping("/api/sensor/igr/office")
+    Igr getOfficeIgr();
 }

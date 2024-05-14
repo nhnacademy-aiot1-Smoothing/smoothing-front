@@ -67,4 +67,12 @@ public class SensorService {
 
         return sensorAdapter.getMonthlyGoals(year);
     }
+
+    public Igr getClassIgr() {
+        return sensorAdapter.getClassIgr();
+    }
+
+    public Igr getOfficeIgr() {
+        return sensorAdapter.getOfficeIgr();
+    }
 }
