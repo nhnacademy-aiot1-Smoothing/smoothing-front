@@ -9,4 +9,5 @@ import java.util.List;
 @NoArgsConstructor
 public class BrokerErrorListResponse {
     private List<BrokerErrorResponse> connectErrors;
+    private int totalPage;
 }

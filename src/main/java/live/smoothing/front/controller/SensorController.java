@@ -23,7 +23,7 @@ public class SensorController {
     private final TagService tagService;
 
     @GetMapping("/broker/{brokerId}/sensor")
-    public String sensor(@PageableDefault(size = 100) Pageable pageable,
+    public String sensor(Pageable pageable,
                          @PathVariable("brokerId") Integer brokerId,
                          @RequestParam("broker") String broker,
                          Model model) {
@@ -34,6 +34,8 @@ public class SensorController {
         model.addAttribute("sensors", sensors.getSensors());
         model.addAttribute("brokerId", brokerId);
         model.addAttribute("broker", broker);
+        model.addAttribute("size", sensors.getTotalPage());
+        model.addAttribute("page", pageable.getPageNumber());
 
         List<TagResponse> tagList = tagService.getTags().getTags();
         model.addAttribute("tagList", tagList);

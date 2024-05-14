@@ -23,15 +23,15 @@ public class BrokerController {
     private final BrokerService brokerService;
 
     @GetMapping("/broker")
-    public String broker(@PageableDefault Pageable pageable,
+    public String broker(Pageable pageable,
                          Model model) {
-        System.out.println(SecurityContextHolder.getContext().getAuthentication());
-
         List<String> protocolTypeList = brokerService.getProtocols().getProtocolTypes();
         model.addAttribute("protocolTypeList", protocolTypeList);
 
         BrokerListResponse brokers = brokerService.getBrokers(pageable);
         model.addAttribute("brokers", brokers.getBrokers());
+        model.addAttribute("size", brokers.getTotalPage());
+        model.addAttribute("page", pageable.getPageNumber());
         return "pages/broker";
     }
 

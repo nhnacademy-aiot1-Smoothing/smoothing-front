@@ -26,6 +26,8 @@ public class OutlierMonitoringController {
 
         SensorErrorListResponse sensorErrors = sensorErrorService.getSensorErrors(pageable);
         model.addAttribute("errors", sensorErrors.getErrors());
+        model.addAttribute("size", sensorErrors.getTotalPage());
+        model.addAttribute("page", pageable.getPageNumber());
 
         return "pages/outlier_monitoring";
     }
