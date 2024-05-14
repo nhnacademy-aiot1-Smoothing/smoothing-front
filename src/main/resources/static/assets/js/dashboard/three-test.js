@@ -57,9 +57,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.first_top = Highcharts.chart('three-test1', Highcharts.merge(gaugeOptions, {
         yAxis: {
             min: 0,
-            max: 320,
+            max: 500,
             title: {
-                text: '1상 LN'
+                text: 'Class-A LL'
             }
         },
         series: [{
@@ -81,9 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.first_bottom = Highcharts.chart('three-test2', Highcharts.merge(gaugeOptions, {
         yAxis: {
             min: 0,
-            max: 500,
+            max: 320,
             title: {
-                text: '1상 LL'
+                text: 'Class-A LN'
             }
         },
         series: [{
@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.second_top = Highcharts.chart('ThreePhase-B-LN', Highcharts.merge(gaugeOptions, {
         yAxis: {
             min: 0,
-            max: 320,
+            max: 500,
             title: {
-                text: '2상 LN'
+                text: 'Office LL'
             }
         },
         series: [{
@@ -129,57 +129,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.second_bottom = Highcharts.chart('ThreePhase-B-LL', Highcharts.merge(gaugeOptions, {
         yAxis: {
             min: 0,
-            max: 500,
-            title: {
-                text: '2상 LL'
-            }
-        },
-        series: [{
-            name: '전압',
-            data: [0],
-            dataLabels: {
-                format:
-                    '<div style="text-align:center">' +
-                    '<span style="font-size:25px">{y:.1f}</span>V<br/>' +
-                    // '<span style="font-size:15px;opacity:0.4">V</span>' +
-                    '</div>'
-            },
-            tooltip: {
-                valueSuffix: 'V'
-            }
-        }]
-    }));
-
-    window.third_top = Highcharts.chart('ThreePhase-C-LN', Highcharts.merge(gaugeOptions, {
-        yAxis: {
-            min: 0,
             max: 320,
             title: {
-                text: '3상 LN'
-            }
-        },
-        series: [{
-            name: '전압',
-            data: [0],
-            dataLabels: {
-                format:
-                    '<div style="text-align:center">' +
-                    '<span style="font-size:25px">{y:.1f}</span>V<br/>' +
-                    // '<span style="font-size:12px;opacity:0.4">V</span>' +
-                    '</div>'
-            },
-            tooltip: {
-                valueSuffix: 'V'
-            }
-        }]
-    }));
-
-    window.third_bottom = Highcharts.chart('ThreePhase-C-LL', Highcharts.merge(gaugeOptions, {
-        yAxis: {
-            min: 0,
-            max: 500,
-            title: {
-                text: '3상 LL'
+                text: 'Office LN'
             }
         },
         series: [{
@@ -197,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }]
     }));
+
 
     fetchData();
     setInterval(fetchData, 1000);
@@ -207,36 +160,27 @@ async function fetchData() {
         const response = await fetch("/sensor/three-phase");
         const data = await response.json();
 
-        const firstTop = parseFloat(data.first.top.value);
-        const firstBtm = parseFloat(data.first.bottom.value);
-        const secondTop = parseFloat(data.second.top.value);
-        const secondBtm = parseFloat(data.second.bottom.value);
-        const thirdTop = parseFloat(data.third.top.value);
-        const thirdBtm = parseFloat(data.third.bottom.value);
+        const classLL = parseFloat(data.classA.top.value);
+        const classLN = parseFloat(data.classA.bottom.value);
+
+        const officeLL = parseFloat(data.office.top.value);
+        const officeLN = parseFloat(data.office.bottom.value);
 
         if (window.first_top) {
             let pointTop = window.first_top.series[0].points[0];
-            pointTop.update(firstTop);
+            pointTop.update(classLL);
         }
         if (window.first_bottom) {
             let pointBtm = window.first_bottom.series[0].points[0];
-            pointBtm.update(firstBtm);
+            pointBtm.update(classLN);
         }
         if (window.second_top) {
             let pointTop = window.second_top.series[0].points[0];
-            pointTop.update(secondTop);
+            pointTop.update(officeLL);
         }
         if (window.second_bottom) {
             let pointBtm = window.second_bottom.series[0].points[0];
-            pointBtm.update(secondBtm);
-        }
-        if (window.third_top) {
-            let pointTop = window.third_top.series[0].points[0];
-            pointTop.update(thirdTop);
-        }
-        if (window.third_bottom) {
-            let pointBtm = window.third_bottom.series[0].points[0];
-            pointBtm.update(thirdBtm);
+            pointBtm.update(officeLN);
         }
 
     } catch (error) {
