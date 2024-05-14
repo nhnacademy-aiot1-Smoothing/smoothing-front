@@ -77,6 +77,8 @@ public class SensorService {
 
         return sensorAdapter.getThreePhase();
 
+    }
+
     public Igr getClassIgr() {
   
         return sensorAdapter.getClassIgr();
