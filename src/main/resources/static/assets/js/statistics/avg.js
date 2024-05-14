@@ -3,17 +3,14 @@ async function fetchData() {
         const response = await fetch("/sensor/avg/usage");
         const data = await response.json();
 
-        // 전국 평균 전력 사용량 계산
         const wholeCountryUsage = parseInt(data.wholeCountry.powerUsage);
         const wholeCountryCount = parseInt(data.wholeCountry.custCnt);
         const wholeCountryAverage = wholeCountryUsage / wholeCountryCount;
 
-        // 김해시 평균 전력 사용량 계산
         const kimCityUsage = parseInt(data.kimCity.powerUsage);
         const kimCityCount = parseInt(data.kimCity.custCnt);
         const kimCityAverage = kimCityUsage / kimCityCount;
 
-        // 차트 생성
         Highcharts.chart('avg', {
             chart: {
                 type: 'column'
@@ -56,7 +53,7 @@ async function fetchData() {
                 },
                 {
                     name: '우리 회사',
-                    data: [3800] // 예시 데이터
+                    data: [3800]
                 }
             ]
         });
