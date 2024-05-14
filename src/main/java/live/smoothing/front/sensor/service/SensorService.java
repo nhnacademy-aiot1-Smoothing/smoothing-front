@@ -68,11 +68,22 @@ public class SensorService {
         return sensorAdapter.getMonthlyGoals(year);
     }
 
+    public EnergyUsageResponse getUsageAverage(int year, String month, String bizCd) {
+
+        return sensorAdapter.getUsageAverage(year, month, bizCd);
+    }
+
+    public PhaseResponse getThreePhase() {
+
+        return sensorAdapter.getThreePhase();
+
     public Igr getClassIgr() {
+  
         return sensorAdapter.getClassIgr();
     }
 
     public Igr getOfficeIgr() {
         return sensorAdapter.getOfficeIgr();
+      
     }
 }
