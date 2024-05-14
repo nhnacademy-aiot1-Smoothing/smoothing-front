@@ -9,4 +9,5 @@ import java.util.List;
 @NoArgsConstructor
 public class TopicResponseListResponse {
     private List<TopicResponse> topics;
+    private int totalPage;
 }

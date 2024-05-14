@@ -20,7 +20,7 @@ public class TopicController {
     private final TopicService topicService;
 
     @GetMapping("/broker/{brokerId}/sensor/{sensorId}/topic")
-    public String topic(@PageableDefault Pageable pageable,
+    public String topic(Pageable pageable,
                         @PathVariable(value = "sensorId") Integer sensorId,
                         @PathVariable(value = "brokerId") Integer brokerId,
                         @RequestParam(value = "sensor") String sensor,
@@ -32,6 +32,8 @@ public class TopicController {
         model.addAttribute("sensorId", sensorId);
         model.addAttribute("brokerId", brokerId);
         model.addAttribute("sensor", sensor);
+        model.addAttribute("size", topicResponseListResponse.getTotalPage());
+        model.addAttribute("page", pageable.getPageNumber());
         return "pages/topic";
     }
 

@@ -9,4 +9,5 @@ import java.util.List;
 @NoArgsConstructor
 public class SensorListResponse {
     private List<SensorResponse> sensors;
+    private int totalPage;
 }
