@@ -235,10 +235,10 @@
                 <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">??</h4>
+                            <h4 class="card-title">누수전력 차트</h4>
                             <p class="card-description"></p>
                             <div>
-                            
+                                <div id="igr-chart"></div>
                             </div>
                         </div>
                     </div>
@@ -253,6 +253,10 @@
             <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
             <script src="https://code.highcharts.com/highcharts.js"></script>
             <script src="https://unpkg.com/@pqina/flip/dist/flip.min.js"></script>
+            <script src="https://code.highcharts.com/highcharts.js"></script>
+            <script src="https://code.highcharts.com/modules/pictorial.js"></script>
+            <script src="https://code.highcharts.com/modules/exporting.js"></script>
+            <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
             <script src="/assets/js/dashboard/battery.js"></script>
             <script src="/assets/js/sensorRaderChart.js"></script>
@@ -264,7 +268,8 @@
             <script src="/assets/js/dashboard/1dKwh.js"></script>
             <script src="/assets/js/dashboard/amCharts.js"></script>
             <script src="/assets/js/comparison/tags.js"></script>
-
+            <script src="/assets/js/dashboard/igr.js"></script>
+            
             <script>
                 function parsingTags() {
                     const checkboxes = document.querySelectorAll('#tagCheckboxGroup input[type="checkbox"]:checked');
