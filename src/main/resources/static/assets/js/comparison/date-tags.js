@@ -9,7 +9,7 @@ const defaultEndDate = new Date();
 defaultEndDate.setDate(defaultEndDate.getDate() - 1);
 endDatePicker.setDate(defaultEndDate);
 
-let tagsQueryString = '';
+let data1 = null;
 
 document.getElementById("tagSelectButton").addEventListener("click", function () {
     const selectedTags = Array.from(document.querySelectorAll("#tagCheckboxGroup input[name=tag]:checked")).map(checkbox => checkbox.value);
@@ -17,7 +17,7 @@ document.getElementById("tagSelectButton").addEventListener("click", function ()
     const startDate = formatDate(new Date(document.getElementById("startDate").value));
     const endDate = formatDate(new Date(document.getElementById("endDate").value));
 
-    tagsQueryString = selectedTags.join(',');
+    const tagsQueryString = selectedTags.join(',');
 
     fetchDataForComparisonSum(tagsQueryString, startDate, endDate);
 
@@ -32,14 +32,15 @@ document.getElementById("tagSelectButton2").addEventListener("click", function (
 
     const tagsQueryString2 = selectedTags2.join(',');
 
-    fetchDataForComparisonGroup(tagsQueryString, tagsQueryString2, startDate, endDate);
+    fetchDataForComparisonGroup(tagsQueryString2, startDate, endDate);
 });
 
 function fetchDataForComparisonSum(tagsQueryString, startDate, endDate) {
     fetch(`/sensor/kwh/usage/daily/period/total?tags=${tagsQueryString}&start=${startDate}&end=${endDate}`)
         .then(response => response.json())
         .then(data => {
-            console.log("Comparison Sum Data:", data);
+            data1 = data;
+
             Highcharts.chart('comparison-sum', {
                 title: {
                     text: ''
@@ -162,10 +163,7 @@ function renderChart(groupedData) {
     });
 }
 
-function fetchDataForComparisonGroup(tagsQueryString, tagsQueryString2, startDate, endDate) {
-    fetch(`/sensor/kwh/usage/daily/period/total?tags=${tagsQueryString}&start=${startDate}&end=${endDate}`)
-        .then(response => response.json())
-        .then(data1 => {
+function fetchDataForComparisonGroup(tagsQueryString2, startDate, endDate) {
             fetch(`/sensor/kwh/usage/daily/period/total?tags=${tagsQueryString2}&start=${startDate}&end=${endDate}`)
                 .then(response => response.json())
                 .then(data2 => {
@@ -216,10 +214,6 @@ function fetchDataForComparisonGroup(tagsQueryString, tagsQueryString2, startDat
                 })
                 .catch(error => {
                     console.error('두 번째 데이터 요청 실패:', error);
-                });
-        })
-        .catch(error => {
-            console.error('첫 번째 데이터 요청 실패:', error);
         });
 }
 
