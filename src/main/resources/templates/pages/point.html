@@ -3,22 +3,26 @@
       xmlns:th="http://www.thymeleaf.org">
     <head></head>
     <body>
-            <h1></h1>
-            <table>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>금액</th>
-                        <th>포인트 기록 일자</th>
+                        <th>포인트 적립/사용일</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="pointDetail : ${pointDetails}">
-                        <td th:text="${pointDetail.pointDetailId}"></td>
+                    <tr th:if="${#lists.isEmpty(pointDetails)}">
+                        <td colspan="3">포인트 기록이 없습니다.</td>
+                    </tr>
+                    <tr th:each="pointDetail, iterStat : ${pointDetails}">
+                        <td th:text="${iterStat.count}"></td>
                         <td th:text="${pointDetail.pointDetailAmount}"></td>
                         <td th:text="${#temporals.format(pointDetail.pointRecordDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                     </tr>
                 </tbody>
             </table>
+        </div>
     </body>
 </html>
