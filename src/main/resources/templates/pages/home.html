@@ -3,10 +3,313 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="layout/defaultLayout">
-    <head></head>
+    <head>
+        <style>
+            #chartdiv2 {
+                width: 100%;
+                height: 500px;
+            }
+
+            #kwhHourContainer {
+                width: 100%;
+                height: 400px;
+                margin-top: 50px;
+            }
+
+            #kwhDayContainer {
+                width: 100%;
+                height: 400px;
+                margin-top: 50px;
+            }
+
+            #my-flip {
+                /* increase border radius */
+                border-radius:.3125em;
+                font-size: 1.8vw;
+
+                /* increase spacing between letters */
+            }
+            #my-flip .tick-flip-panel {
+                color: #555;
+                background-color: #fafafa;
+            }
+            #first-gauge-container, #second-gauge-container, #third-gauge-container{
+                display: inline-table;
+                /*justify-content: space-around;*/
+            }
+            #three-test1, #three-test2 , #ThreePhase-B-LN, #ThreePhase-B-LL, #ThreePhase-C-LN, #ThreePhase-C-LL{
+                width: 310px;  // 게이지 크기 조정 가능
+            /*height: 10px; // 높이 조정으로 수직 게이지를 더 잘 맞출 수 있음*/
+            }
+        
+        </style>
+        <link rel="stylesheet" href="/assets/css/battery.css">
+        <link href="https://unpkg.com/@pqina/flip/dist/flip.min.css" rel="stylesheet">
+    </head>
     <body>
         <th:block layout:fragment="content">
-            home
+            <div class="row">
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card" style="align-items: center">
+                        <div>
+                            <div class="tick"
+                                 data-value="0"
+                                 data-did-init="setupFlip"
+                                 style="align-items: center">
+
+                                <div data-repeat="true" aria-hidden="true">
+                                    <span id="my-flip"
+                                          data-view="flip"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-stretch">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div id="project_container">
+                                <div id="projectbox">
+                                    <!-- Start project HTML -->
+                                    <div class='battery'>
+                                        <div class='bar' data-power='2'></div>
+                                        <div class='bar' data-power='4'></div>
+                                        <div class='bar' data-power='6'></div>
+                                        <div class='bar' data-power='8'></div>
+                                        <div class='bar' data-power='10'></div>
+                                        <div class='bar' data-power='12'></div>
+                                        <div class='bar' data-power='14'></div>
+                                        <div class='bar' data-power='16'></div>
+                                        <div class='bar' data-power='18'></div>
+                                        <div class='bar' data-power='20'></div>
+                                        <div class='bar' data-power='22'></div>
+                                        <div class='bar' data-power='24'></div>
+                                        <div class='bar' data-power='26'></div>
+                                        <div class='bar' data-power='28'></div>
+                                        <div class='bar' data-power='30'></div>
+                                        <div class='bar' data-power='32'></div>
+                                        <div class='bar' data-power='34'></div>
+                                        <div class='bar' data-power='36'></div>
+                                        <div class='bar' data-power='38'></div>
+                                        <div class='bar' data-power='40'></div>
+                                        <div class='bar' data-power='42'></div>
+                                        <div class='bar' data-power='44'></div>
+                                        <div class='bar' data-power='46'></div>
+                                        <div class='bar' data-power='48'></div>
+                                        <div class='bar' data-power='50'></div>
+                                        <div class='bar' data-power='52'></div>
+                                        <div class='bar' data-power='54'></div>
+                                        <div class='bar' data-power='56'></div>
+                                        <div class='bar' data-power='58'></div>
+                                        <div class='bar' data-power='60'></div>
+                                        <div class='bar' data-power='62'></div>
+                                        <div class='bar' data-power='64'></div>
+                                        <div class='bar' data-power='66'></div>
+                                        <div class='bar' data-power='68'></div>
+                                        <div class='bar' data-power='70'></div>
+                                        <div class='bar' data-power='72'></div>
+                                        <div class='bar' data-power='74'></div>
+                                        <div class='bar' data-power='76'></div>
+                                        <div class='bar' data-power='78'></div>
+                                        <div class='bar' data-power='80'></div>
+                                        <div class='bar' data-power='82'></div>
+                                        <div class='bar' data-power='84'></div>
+                                        <div class='bar' data-power='86'></div>
+                                        <div class='bar' data-power='88'></div>
+                                        <div class='bar' data-power='90'></div>
+                                        <div class='bar' data-power='92'></div>
+                                        <div class='bar' data-power='94'></div>
+                                        <div class='bar' data-power='96'></div>
+                                        <div class='bar' data-power='98'></div>
+                                        <div class='bar' data-power='100'></div>
+                                    </div>
+                                    <!-- End Project HTML -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 d-flex align-items-stretch">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="d-flex justify-content-between">
+                                <button type="button"
+                                        class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#tagSelectModal">태그 선택</button>
+                                <div class="modal fade" id="tagSelectModal" tabindex="-1" aria-labelledby="tagSelectModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+                                                <h1 class="modal-title fs-5" id="tagSelectModalLabel"><b>태그 선택</b></h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row mb-3">
+                                                    <div class="col-md-12 text-center align-self-center">
+                                                        <label for="tagCheckboxGroup" class="form-label">
+                                                            <b>태그 목록</b>
+                                                        </label>
+                                                        <div id="tagCheckboxGroup">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer d-flex justify-content-center" style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
+                                                <button type="button" id="tagSelectButton"
+                                                        class="btn btn-primary">선택 완료</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">전력량 1시간 (최근 24시간)</h4>
+                            <div>
+                                <div id="kwhHourContainer"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">전력량 1일 (최근 일주일)</h4>
+                            <div>
+                                <div id="kwhDayContainer"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-3 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">10분 단위 전력</h4>
+                            <div>
+                                <div id="container1" style="height:300px; margin-top: 30px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">1시간 단위 전력</h4>
+                            <div>
+                                <div id="container2" style="height:300px; margin-top: 30px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">센서별 TOP5 전력량 (최근 24시간) </h4>
+                            <div>
+                                <div id="chartdiv2" class="chartdiv"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-8 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">전압</h4>
+                            <p class="card-description">게이지 그래프 3개</p>
+                            <div id="first-gauge-container">
+                                <div id="three-test1"></div>
+                                <div id="three-test2"></div>
+                            </div>
+                            <div id="second-gauge-container">
+                                <div id="ThreePhase-B-LN"></div>
+                                <div id="ThreePhase-B-LL"></div>
+                            </div>
+                            <div id="third-gauge-container">
+                                <div id="ThreePhase-C-LN"></div>
+                                <div id="ThreePhase-C-LL"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">누수전력 차트</h4>
+                            <p class="card-description"></p>
+                            <div>
+                                <div id="igr-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-messaging.js"></script>
+            <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+            <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+            <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
+            <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+            <script src="https://code.highcharts.com/highcharts.js"></script>
+            <script src="https://unpkg.com/@pqina/flip/dist/flip.min.js"></script>
+            <script src="https://code.highcharts.com/highcharts.js"></script>
+
+            <script src="https://code.highcharts.com/highcharts-more.js"></script>
+            <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+            <script src="https://code.highcharts.com/modules/exporting.js"></script>
+            <script src="https://code.highcharts.com/modules/export-data.js"></script>
+            <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+            
+            <script src="https://code.highcharts.com/modules/pictorial.js"></script>
+            <script src="https://code.highcharts.com/modules/exporting.js"></script>
+            <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+            <script src="/assets/js/dashboard/battery.js"></script>
+            <script src="/assets/js/sensorRaderChart.js"></script>
+            
+            <script src="/assets/js/home.js"></script>
+            <script src="/assets/js/dashboard/watt.js"></script>
+            <script src="/assets/js/dashboard/cost.js"></script>
+            <script src="/assets/js/dashboard/1hKwh.js"></script>
+            <script src="/assets/js/dashboard/1dKwh.js"></script>
+            <script src="/assets/js/dashboard/amCharts.js"></script>
+
+            <script src="/assets/js/comparison/tags-1.js"></script>
+            <script src="/assets/js/dashboard/igr.js"></script>
+           
+            <script>
+                function parsingTags() {
+                    const checkboxes = document.querySelectorAll('#tagCheckboxGroup input[type="checkbox"]:checked');
+                    const selectedTags = Array.from(checkboxes).map(checkbox => checkbox.value).join(",");
+                    return selectedTags;
+                }
+            <script src="/assets/js/dashboard/three-test.js"></script>
+
+                document.getElementById('tagSelectButton').addEventListener('click', function() {
+                    const tags = parsingTags();
+                    create1DKwhChart(tags);
+                    create1HKwhChart(tags);
+                    create10MWattChart(tags);
+                    create1HWattChart(tags);
+                    createRaderChart("chartdiv2", tags);
+
+                    $('#tagSelectModal').modal('hide');  // Use the correct ID if it's different
+                });
+            </script>
         </th:block>
     </body>
 </html>

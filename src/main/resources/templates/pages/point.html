@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+    <head></head>
+    <body>
+            <h1></h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>금액</th>
+                        <th>포인트 기록 일자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pointDetail : ${pointDetails}">
+                        <td th:text="${pointDetail.pointDetailId}"></td>
+                        <td th:text="${pointDetail.pointDetailAmount}"></td>
+                        <td th:text="${#temporals.format(pointDetail.pointRecordDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    </tr>
+                </tbody>
+            </table>
+    </body>
+</html>
