@@ -14,6 +14,7 @@ public class CustomOAuth2AuthenticationSuccessHandler extends SimpleUrlAuthentic
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         if(authentication instanceof OAuth2AuthenticationToken){
+            System.out.println("hahaha");
             OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
             request.getSession(true).invalidate();
             Cookie cookie = new Cookie("JSESSIONID", null);

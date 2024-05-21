@@ -99,8 +99,6 @@ public class CustomHttpSessionOAuth2AuthorizationRequestRepository implements Au
                                      Duration maxAge) {
             Cookie cookie = new Cookie(cookieName, cookieValue);
             cookie.setPath("/");
-            cookie.setHttpOnly(Boolean.TRUE);
-            cookie.setSecure(Boolean.TRUE);
             cookie.setMaxAge((int)maxAge.toSeconds());
 
             response.addCookie(cookie);

@@ -1,5 +1,6 @@
 package live.smoothing.front.config;
 
+import live.smoothing.front.adapter.AuthAdapter;
 import live.smoothing.front.security.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -60,6 +61,7 @@ public class SecurityConfig {
                 .antMatchers("/oauth").permitAll()
                 .antMatchers("/requestCertificationNumber").permitAll()
                 .antMatchers("/verifyCertificationNumber").permitAll()
+                .antMatchers("/login/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -71,19 +73,15 @@ public class SecurityConfig {
                 .addLogoutHandler(new CustomLogoutHandler(authAdapter));
 
 
-        http.addFilterAt(oAuth2AuthorizationRequestRedirectFilter(), OAuth2AuthorizationRequestRedirectFilter.class);
         http.oauth2Login()
-                .userInfoEndpoint().userService(new CustomOAuth2Service())
-                .and()
+//                .userInfoEndpoint().userService(new CustomOAuth2Service())
+//                .and()
                 .successHandler(new CustomOAuth2AuthenticationSuccessHandler());
+//
+        http.oauth2Login()
+                .authorizationEndpoint()
+                .authorizationRequestRepository(new CustomHttpSessionOAuth2AuthorizationRequestRepository());
         return http.build();
-    }
-
-    @Bean
-    public OAuth2AuthorizationRequestRedirectFilter oAuth2AuthorizationRequestRedirectFilter() {
-        OAuth2AuthorizationRequestRedirectFilter oAuth2AuthorizationRequestRedirectFilter = new OAuth2AuthorizationRequestRedirectFilter(clientRegistrationRepository);
-        oAuth2AuthorizationRequestRedirectFilter.setAuthorizationRequestRepository(new CustomHttpSessionOAuth2AuthorizationRequestRepository());
-        return oAuth2AuthorizationRequestRedirectFilter;
     }
 
     /**
