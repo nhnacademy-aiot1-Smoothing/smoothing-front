@@ -36,7 +36,7 @@ public class MyPageController {
     }
 
     @GetMapping("/point-details")
-    public String pointDetail(Model model) {
+    public String pointDetailPage(Model model) {
 
         List<UserPointDetailResponse> pointDetails = userService.getPointDetailsByUserId();
         model.addAttribute("pointDetails", pointDetails);
@@ -45,7 +45,7 @@ public class MyPageController {
     }
 
     @GetMapping("/achievement")
-    public String achievement() {
+    public String achievementPage() {
 
         return "pages/achievement";
     }
@@ -65,7 +65,7 @@ public class MyPageController {
     }
 
     @GetMapping("/user-modify")
-    public String UserModifyPage(Model model) {
+    public String userModifyPage(Model model) {
 
         UserProfileResponse response = userService.getProfile();
 
@@ -77,7 +77,7 @@ public class MyPageController {
     }
 
     @PostMapping("/user-modify")
-    public String verifyPwd(@RequestParam("userEmail") String userEmail, @RequestParam("userName") String userName, @RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword) {
+    public String userModify(@RequestParam("userEmail") String userEmail, @RequestParam("userName") String userName, @RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword) {
 
         MessageResponse response = userService.verifyPwd(new VerifyPwdRequest(currentPassword));
 
@@ -92,5 +92,13 @@ public class MyPageController {
         }
 
         return "redirect:/mypage";
+    }
+
+    @PostMapping("/inactiveUser")
+    public String inactiveUser() {
+
+        userService.inactiveUser();
+
+        return "redirect:/login";
     }
 }

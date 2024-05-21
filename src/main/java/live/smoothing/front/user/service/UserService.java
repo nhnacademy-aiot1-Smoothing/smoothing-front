@@ -65,4 +65,6 @@ public interface UserService {
     MessageResponse deleteUser(String userId);
 
     MessageResponse modifyUserRole(UserRoleModifyRequest request);
+
+    MessageResponse inactiveUser();
 }

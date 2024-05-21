@@ -44,12 +44,40 @@
                                         <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword">
                                     </div>
                                     <button type="submit" class="btn btn-primary">수정</button>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#inactiveUserModal">탈퇴</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <div class="modal fade" id="inactiveUserModal" tabindex="-1" aria-labelledby="inactiveUserModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+                            <h1 class="modal-title fs-5" id="inactiveUserModalLabel"><b>회원 탈퇴</b></h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <div class="col-md-12 text-center align-self-center">
+                                    정말로 탈퇴하시겠습니까?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center" style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
+                            <form id="inactiveUserForm" action="/inactiveUser" method="post">
+                                <button type="submit" id="yesButton" class="btn btn-danger">예</button>
+                            </form>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <script src="/assets/js/user-modify.js"></script>
         </th:block>
     </body>
