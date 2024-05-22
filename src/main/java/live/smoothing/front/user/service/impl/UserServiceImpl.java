@@ -142,4 +142,10 @@ public class UserServiceImpl implements UserService {
 
         return userApiAdapter.modifyUserRole(request);
     }
+
+    @Override
+    public MessageResponse inactiveUser() {
+
+        return userApiAdapter.inactiveUser();
+    }
 }
