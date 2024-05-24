@@ -39,7 +39,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         } catch(FeignException e) {
             //todo feign 200 아닐 경우 에러 처리돼서 따로 뭔가 해줘야함
             if(e.status()!=200){
-                throw new BadCredentialsException("Fail to Login");
+                throw new BadCredentialsException("로그인 실패! 아이디와 비밀번호를 다시 확인해주세요.");
             }else{
                 throw new InternalAuthenticationServiceException("Internal Server Error");
             }
