@@ -40,6 +40,7 @@ public interface UserApiAdapter {
     @GetMapping("/api/user/attendance/list/{year}/{month}")
     UserAttendanceResponse getAttendanceList(@PathVariable("year") int year,
                                              @PathVariable("month") int month);
+
     @PostMapping("/api/user/attendance")
     MessageResponse doAttendanceCheck();
 
@@ -60,7 +61,6 @@ public interface UserApiAdapter {
     UserInfoListResponse getUserList(@RequestParam("page") int page,
                                      @RequestParam("size") int size);
 
-
     @GetMapping("/api/user/userRole/list")
     List<RoleResponse> getUserRoleList(@RequestParam("userId") String userId);
 
@@ -69,6 +69,7 @@ public interface UserApiAdapter {
 
     @PutMapping("/api/user/userRole")
     MessageResponse modifyUserRole(@RequestBody UserRoleModifyRequest request);
+
     @PostMapping("/api/user/password")
     MessageResponse verifyPwd(@RequestBody VerifyPwdRequest request);
 
@@ -81,6 +82,8 @@ public interface UserApiAdapter {
     @PutMapping("/api/user/profile/password")
     MessageResponse modifyPwd(@RequestBody ModifyPwdRequest request);
 
+    @DeleteMapping("/api/user/inactive")
+    MessageResponse inactiveUser();
     @GetMapping("/api/user/hookType/list")
     List<HookTypeResponse> getHookTypes();
 

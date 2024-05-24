@@ -20,6 +20,7 @@
                                 </div>
                                 <h4>Hello! let's get started</h4>
                                 <h6 class="font-weight-light">Sign in to continue.</h6>
+                                <h1 th:text="${error}"></h1>
                                 <form class="pt-3" action="/login" method="post">
                                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                                     <div class="form-group">
@@ -46,11 +47,7 @@
                                         </div>
                                         <a href="#" class="auth-link text-black">Forgot password?</a>
                                     </div>
-                                    <div class="mb-2">
-                                        <button type="button" class="btn btn-block btn-facebook auth-form-btn">
-                                            <i class="mdi mdi-facebook me-2"></i>Connect using facebook
-                                        </button>
-                                    </div>
+
                                     <div class="text-center mt-4 font-weight-light"> Don't have an account? <a
                                             href="/register" class="text-primary">Create</a>
                                     </div>

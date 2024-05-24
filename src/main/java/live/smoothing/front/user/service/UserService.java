@@ -63,6 +63,8 @@ public interface UserService {
 
     MessageResponse modifyUserRole(UserRoleModifyRequest request);
 
+    MessageResponse inactiveUser();
+
     List<HookTypeResponse> getHookTypes();
 
     void createUserHook(HookCreateRequest request);

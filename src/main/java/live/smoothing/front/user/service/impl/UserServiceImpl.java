@@ -141,6 +141,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public MessageResponse inactiveUser() {
+
+        return userApiAdapter.inactiveUser();
+    }
+
+    @Override
     public List<HookTypeResponse> getHookTypes() {
 
         return userApiAdapter.getHookTypes();
