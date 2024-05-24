@@ -6,9 +6,40 @@ document.addEventListener('DOMContentLoaded', function () {
     let timerText = document.createElement('span');
     let timerInterval;
 
+
+    let domainSelect = document.getElementById('domainSelect');
+    let domain = document.getElementById('emailDomain');
+
+    // let selectedOption = domainSelect.options[domainSelect.selectedIndex];
+
+    domainSelect.addEventListener('change', function () {
+        let selectedOption = this.options[this.selectedIndex];
+        domain.value = selectedOption.value;
+    });
+
     sendCertificationNumberButton.addEventListener('click', function () {
 
-        let userEmail = document.getElementById('userEmail').value;
+        let email_rule =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+        let email = document.getElementById('userEmail').value;
+
+        if (!email) {
+            alert("이메일을 입력해주세요.");
+            return false;
+        }
+
+        if (!domain.value) {
+            alert("도메인을 입력해주세요.");
+            return false;
+        }
+
+
+        let userEmail = email + "@" + domain.value;
+
+        if (!email_rule.test(userEmail)) {
+            alert("이메일을 형식에 맞게 입력해주세요.")
+            return false;
+        }
 
         let emailCertificationRequest = JSON.stringify({
             userEmail: userEmail
@@ -113,7 +144,9 @@ document.addEventListener('DOMContentLoaded', function () {
             let userId = document.getElementById("userId").value;
             let userPassword = document.getElementById("userPassword").value;
             let userName = document.getElementById("userName").value;
-            let userEmail = document.getElementById("userEmail").value;
+            let email = document.getElementById("userEmail").value;
+
+            let userEmail = email + "@" + domain.value;
 
             let userCreateRequest = JSON.stringify({
                 userId: userId,
