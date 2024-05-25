@@ -84,6 +84,7 @@ public interface UserApiAdapter {
 
     @DeleteMapping("/api/user/inactive")
     MessageResponse inactiveUser();
+
     @GetMapping("/api/user/hookType/list")
     List<HookTypeResponse> getHookTypes();
 
@@ -98,5 +99,8 @@ public interface UserApiAdapter {
 
     @DeleteMapping("/api/user/hook")
     void deleteUserHook();
+
+    @GetMapping("/api/user/existUser")
+    MessageResponse existUser(@RequestParam("userId") String userId);
 
 }

@@ -33,7 +33,8 @@
                                     <div class="form-group position-relative">
                                         <input type="text" class="form-control form-control-lg" id="userId"
                                                placeholder="아이디" name="userId">
-                                        <button type="button" class="btn btn-primary btn-sm position-absolute-center"
+                                        <button type="button"
+                                                class="btn btn-primary btn-sm btn-rounded position-absolute-center"
                                                 id="duplicationButton">중복 확인
                                         </button>
                                     </div>
@@ -50,15 +51,15 @@
                                 
                                 <div class="form-group d-flex align-items-center">
                                     <input type="text" id="userEmail" name="userEmail" class="form-control form-control-lg"
-                                           title="이메일 아이디" placeholder="이메일" maxlength="18" style="flex: 1;" />
+                                           title="이메일 아이디" placeholder="이메일" maxlength="18"/>
                                     <span style="margin: 0 5px;">@</span>
                                     <input type="text" id="emailDomain" name="emailDomain"
                                            class="form-control form-control-lg"
-                                           title="이메일 도메인" placeholder="도메인" maxlength="18" style="flex: 1;" />
+                                           title="이메일 도메인" placeholder="도메인" maxlength="18"/>
                                     
                                     <select id="domainSelect"
                                             class="form-select"
-                                            title="이메일 도메인 주소 선택" style="width: 140px; margin-left: 10px">
+                                            title="이메일 도메인 주소 선택" style="margin-left: 10px">
                                             <option value="">직접입력</option>
                                             <option value="naver.com">naver.com</option>
                                             <option value="gmail.com">gmail.com</option>
@@ -67,8 +68,9 @@
                                     </select>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-primary" id="sendCertificationNumberButton">
+                                <div class="form-group text-end">
+                                    <button type="button" class="btn btn-primary btn-sm btn-rounded"
+                                            id="sendCertificationNumberButton">
                                         인증번호 전송</button>
                                 </div>
                                 
@@ -84,7 +86,8 @@
                                     <input type="text" class="form-control form-control-lg"
                                            id="certificationNumber" name="certificationNumber"
                                            placeholder="인증번호">
-                                    <button type="button" class="btn btn-primary btn-sm position-absolute-center"
+                                    <button type="button"
+                                            class="btn btn-primary btn-sm btn-sm btn-rounded position-absolute-center"
                                             id="verificationButton">확인</button>
                                 </div>
                                 

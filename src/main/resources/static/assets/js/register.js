@@ -6,6 +6,45 @@ document.addEventListener('DOMContentLoaded', function () {
     let timerText = document.createElement('span');
     let timerInterval;
 
+    let duplicationButton = document.getElementById('duplicationButton');
+
+    duplicationButton.addEventListener('click', function () {
+
+        let userIdInput = document.getElementById('userId');
+
+        userIdInput.addEventListener('input', function () {
+
+            duplicationButton.disabled = userIdInput.value.trim() === '';
+        });
+        let userId = document.getElementById('userId').value;
+
+        let url = "/existUser" + "?userId=" + userId;
+        let xhr = new XMLHttpRequest();
+
+        let userIdRequest = JSON.stringify({
+            userId: userId
+        })
+
+        xhr.open('GET', url, true);
+        // xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    alert("사용 가능한 아이디 입니다.");
+                    duplicationButton.disabled = true;
+                } else if (xhr.status === 409) {
+                    alert("사용 불가능한 아이디 입니다.")
+                } else {
+                    console.log("오류 발생");
+                }
+            }
+        };
+
+    });
+
 
     let domainSelect = document.getElementById('domainSelect');
     let domain = document.getElementById('emailDomain');
@@ -44,8 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let emailCertificationRequest = JSON.stringify({
             userEmail: userEmail
         });
-
-        console.log(emailCertificationRequest);
 
         var url = '/requestCertificationNumber';
         var xhr = new XMLHttpRequest();
@@ -97,8 +134,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     verificationNumberButton.addEventListener('click', function () {
 
-        let userEmail = document.getElementById('userEmail').value;
+        let email = document.getElementById('userEmail').value;
         let certificationNumber = document.getElementById('certificationNumber').value;
+
+        let userEmail = email + "@" + domain.value;
 
         if (certificationNumber === "") {
             alert("인증번호를 입력해주세요.")
@@ -109,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
             userEmail: userEmail,
             certificationNumber: certificationNumber
         });
+
 
         let url = '/verifyCertificationNumber';
         let xhr = new XMLHttpRequest();
@@ -137,7 +177,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (isFormValid) {
             if (!isCertificationCompleted()) {
-                alert("이메일 인증을 먼저 완료해주세요");
+                alert("이메일 인증을 먼저 완료해주세요.");
+                return false;
+            }
+
+            if (!isDuplicationCompleted()) {
+                alert("아이디 중복 확인을 해주세요.");
                 return false;
             }
 
@@ -180,6 +225,11 @@ document.addEventListener('DOMContentLoaded', function () {
         return verificationNumberButton.disabled;
     }
 
+    function isDuplicationCompleted() {
+
+        return duplicationButton.disabled;
+    }
+
     function form_check() { // 회원가입 폼 유효성 검사
 
         let userId = document.getElementById("userId");
@@ -218,8 +268,8 @@ document.addEventListener('DOMContentLoaded', function () {
         let idValid = checkField(userId, idValidText, "아이디를 입력해주세요.");
         let passwordValid = checkField(userPassword, passwordValidText, "비밀번호를 입력해주세요.");
         let nameValid = checkField(userName, nameValidText, "이름을 입력해주세요.");
-        let emailValid = checkField(userEmail, emailValidText, "이메일을 입력해주세요.");
+        // let emailValid = checkField(userEmail, emailValidText, "이메일을 입력해주세요.");
 
-        return idValid && passwordValid && nameValid && emailValid;
+        return idValid && passwordValid && nameValid;
     }
 });

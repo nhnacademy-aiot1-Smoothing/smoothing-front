@@ -1,11 +1,11 @@
 package live.smoothing.front.user.service.impl;
 
 
+import feign.FeignException;
 import live.smoothing.front.adapter.UserApiAdapter;
 import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.UserInfoListResponse;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
-import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.WaitingUserListResponse;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
@@ -15,7 +15,9 @@ import live.smoothing.front.user.dto.response.*;
 import live.smoothing.front.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -174,5 +176,15 @@ public class UserServiceImpl implements UserService {
     public void deleteUserHook() {
 
         userApiAdapter.deleteUserHook();
+    }
+
+    @Override
+    public MessageResponse existUser(String userId) {
+
+        try {
+            return userApiAdapter.existUser(userId);
+        } catch(FeignException.Conflict e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
     }
 }

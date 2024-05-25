@@ -57,6 +57,7 @@ public class SecurityConfig {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/requestCertificationNumber").permitAll()
                 .antMatchers("/verifyCertificationNumber").permitAll()
+                .antMatchers("/existUser").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

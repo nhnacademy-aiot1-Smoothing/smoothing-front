@@ -1,10 +1,8 @@
 package live.smoothing.front.user.service;
 
-import com.google.firebase.auth.UserInfo;
 import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.UserInfoListResponse;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
-import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.WaitingUserListResponse;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
@@ -74,4 +72,6 @@ public interface UserService {
     void modifyUserHook(HookModifyRequest request);
 
     void deleteUserHook();
+
+    MessageResponse existUser(String userId);
 }
