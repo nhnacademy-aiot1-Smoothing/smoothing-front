@@ -1,6 +1,7 @@
 package live.smoothing.front.config;
 
 import live.smoothing.front.adapter.AuthAdapter;
+import live.smoothing.front.adapter.UserApiAdapter;
 import live.smoothing.front.security.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 public class SecurityConfig {
 
     private final AuthAdapter authAdapter;
+    private final UserApiAdapter userAdapter;
 
     /**
      * SecurityFilterChain 빈 생성 메서드
@@ -107,7 +109,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
 
-        return new CustomAuthenticationProvider(authAdapter);
+        return new CustomAuthenticationProvider(authAdapter, userAdapter);
     }
 
     @Bean

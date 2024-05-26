@@ -2,15 +2,20 @@ package live.smoothing.front.security;
 
 import feign.FeignException;
 import live.smoothing.front.adapter.AuthAdapter;
+import live.smoothing.front.adapter.UserApiAdapter;
 import live.smoothing.front.auth.dto.login.LoginRequest;
 import live.smoothing.front.auth.dto.login.LoginResponse;
+import live.smoothing.front.user.dto.response.UserStateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+
+import java.util.Objects;
 
 /**
  * @author 우혜승
@@ -23,6 +28,7 @@ import org.springframework.security.core.AuthenticationException;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final AuthAdapter authAdapter;
+    private final UserApiAdapter adapter;
 
     /**
      * @param authentication the inheritor of CustomAuthenticationToken
@@ -35,7 +41,21 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         ResponseEntity<LoginResponse> response;
         try {
+
+            UserStateResponse userStateResponse = adapter.getUserState(authentication.getName());
+
+            if (Objects.equals(userStateResponse.getUserState(), "NOT_APPROVED")) {
+
+                throw new DisabledException("계정이 승인되지 않았습니다.");
+
+            } else if (Objects.equals(userStateResponse.getUserState(), "WITHDRAWAL")) {
+
+                throw new DisabledException("탈퇴된 회원입니다.");
+            }
+
+
             response = authAdapter.doLogin(new LoginRequest(authentication.getName(), (String) authentication.getCredentials()));
+
         } catch(FeignException e) {
             //todo feign 200 아닐 경우 에러 처리돼서 따로 뭔가 해줘야함
             if(e.status()!=200){

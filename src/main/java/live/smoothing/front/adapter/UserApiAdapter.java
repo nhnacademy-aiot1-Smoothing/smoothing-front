@@ -103,4 +103,7 @@ public interface UserApiAdapter {
     @GetMapping("/api/user/existUser")
     MessageResponse existUser(@RequestParam("userId") String userId);
 
+    @GetMapping("/api/user/userState")
+    UserStateResponse getUserState(@RequestParam("userId") String userId);
+
 }
