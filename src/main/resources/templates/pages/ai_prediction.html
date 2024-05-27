@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="layout/defaultLayout">
 <head>
-      <!-- 메타 데이터 설정 -->
+  <!-- 메타 데이터 설정 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 페이지 제목 -->
@@ -27,20 +27,16 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .graph {
-            height: 400px; /* 그래프 크기 증가 */
+            height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 20px;
             position: relative;
-            border: 2px solid black; /* 테두리 */
+            border: 2px solid black;
             border-radius: 10px;
             background: darkgray;
-        }
-        .graph canvas {
-            display: inline-block;
-            width: 300px; /* 그래프 폭 설정 */
-            height: 100%;
+            overflow-y: auto;
         }
         .arrow {
             cursor: pointer;
@@ -50,15 +46,15 @@
             top: 50%;
             transform: translateY(-50%);
             color: slategray;
-            background: none; /* 배경 없음 */
-            border: none; /* 테두리 없음 */
+            background: none;
+            border: none;
             font-weight: bold;
         }
         .arrow.left {
-            left: 10px; /* 왼쪽 화살표 위치 조정 */
+            left: 10px;
         }
         .arrow.right {
-            right: 10px; /* 오른쪽 화살표 위치 조정 */
+            right: 10px;
         }
         .arrow:hover {
             color: mediumpurple;
@@ -70,13 +66,35 @@
             font-size: 14px;
             color: black;
         }
-        #generator-content {
+        .log-entry {
+        margin: 5px 0;
+        padding: 13px; /* 패딩 줄이기 */
+        background: #e9ecef;
+        border-radius: 5px;
+        font-size:20px; /* 폰트 크기 줄이기 */
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* 중앙 정렬 */
+        width: 85%; /* 너비 줄이기 */
+        margin-left: auto; /* 중앙 정렬을 위한 왼쪽 마진 */
+        margin-right: auto; /* 중앙 정렬을 위한 오른쪽 마진 */
+        overflow-x: auto; /* 수평 스크롤 추가 */
+        }
+        .log-entry time {
+            font-weight: bold;
+            font-size: 12px; /* 폰트 크기 줄이기 */
+        }
+        .log-entry span {
+            font-size: 12px; /* 폰트 크기 줄이기 */
+        }
+        .generator-label {
             position: absolute;
             top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 20px;
-            color: black;
         }
     </style>
 </head>
@@ -108,9 +126,12 @@
             <div class="col-6">
                 <div class="graph-container">
                     <div class="graph" id="generator-log">
+                        <div class="generator-label" id="generator-label">발전기 1</div>
                         <span class="arrow left" onclick="prevGenerator()">&lt;</span>
+                        <div id="generator-content" style="width: 100%;">
+                            <!-- 로그 항목이 여기에 추가됩니다. -->
+                        </div>
                         <span class="arrow right" onclick="nextGenerator()">&gt;</span>
-                        <div id="generator-content">발전기 1</div> <!-- 발전기 내용 표시 -->
                     </div>
                 </div>
             </div>
@@ -134,34 +155,33 @@
 
         function updateGeneratorContent() {
             const content = document.getElementById('generator-content');
-            switch(generatorIndex) {
-                case 1:
-                    content.textContent = '발전기 1';
-                    break;
-                case 2:
-                    content.textContent = '발전기 2';
-                    break;
-                case 3:
-                    content.textContent = '발전기 3';
-                    break;
+            const label = document.getElementById('generator-label');
+            content.innerHTML = ''; // 기존 내용 제거
+            label.textContent = '발전기 ' + generatorIndex;
+
+            for (let i = 0; i < 6; i++) { // 로그 항목 6개로 제한
+                const logEntry = document.createElement('div');
+                logEntry.classList.add('log-entry');
+
+                const time = document.createElement('time');
+                time.textContent = `2024-05-27 ${14 + i}:00`;
+
+                const logText = document.createElement('span');
+                logText.textContent = `로그 내용`;
+
+                const status = document.createElement('span');
+                status.textContent = `운영 상태`;
+
+                logEntry.appendChild(time);
+                logEntry.appendChild(logText);
+                logEntry.appendChild(status);
+
+                content.appendChild(logEntry);
             }
         }
 
-        // 예측 그래프를 추가하는 함수 (예시)
-        function addPredictionGraph() {
-            const graphContainer = document.getElementById('prediction-graph');
-            for (let i = 0; i < 24; i++) {
-                const canvas = document.createElement('canvas');
-                const label = document.createElement('div');
-                label.classList.add('label');
-                label.textContent = `${i + 1}시`;
-                canvas.appendChild(label);
-                graphContainer.appendChild(canvas);
-            }
-        }
-
-        // 페이지 로드 시 예측 그래프를 추가합니다.
-        document.addEventListener('DOMContentLoaded', addPredictionGraph);
+        // 페이지 로드 시 초기 내용 설정
+        document.addEventListener('DOMContentLoaded', updateGeneratorContent);
     </script>
 </body>
 </html>
