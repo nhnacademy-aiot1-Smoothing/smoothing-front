@@ -5,6 +5,7 @@ import live.smoothing.front.adapter.AuthAdapter;
 import live.smoothing.front.auth.dto.login.LoginRequest;
 import live.smoothing.front.auth.dto.login.LoginResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,6 +20,7 @@ import org.springframework.security.core.AuthenticationException;
  * @see CustomAuthenticationToken 에서 userId, userPassword를 받아 인증을 진행하고
  * @see AuthAdapter 를 통해 인증을 진행한다.
  */
+@Slf4j
 @RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
@@ -36,12 +38,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         ResponseEntity<LoginResponse> response;
         try {
             response = authAdapter.doLogin(new LoginRequest(authentication.getName(), (String) authentication.getCredentials()));
-        } catch(FeignException e) {
-            //todo feign 200 아닐 경우 에러 처리돼서 따로 뭔가 해줘야함
-            if(e.status()!=200){
-                throw new BadCredentialsException("Fail to Login");
-            }else{
-                throw new InternalAuthenticationServiceException("Internal Server Error");
+        } catch (FeignException e) {
+            log.error("{} : {}", e.status(), e.contentUTF8());
+            if (e.status() == 404) {
+                throw new BadCredentialsException("유저를 찾을 수 없습니다.");
+            } else if (e.status() == 401) {
+                throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
+            } else if (e.status() != 200) {
+                throw new BadCredentialsException("기타 오류가 발생했습니다.");
+            } else {
+                throw new InternalAuthenticationServiceException("내부 서버 오류가 발생했습니다.");
             }
         }
         return new CustomAuthenticationToken(authentication.getName(), (String) authentication.getCredentials(), response.getBody());
