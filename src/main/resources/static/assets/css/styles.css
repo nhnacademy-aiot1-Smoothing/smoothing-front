@@ -7643,6 +7643,8 @@ fieldset:disabled .btn {
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.3125rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
 }
 
 .card > hr {
@@ -15922,9 +15924,8 @@ code {
 
 /* Footer */
 .footer {
-    background: #f2edf3;
-    color: color(dark);
-    border-top: 1px solid #e7dee9;
+    background: rgba(74,255,0,0.06);
+    border-top: 1px solid rgba(0,0,0,0.05);
     padding: 30px 1rem;
     transition: all 0.25s ease;
     -moz-transition: all 0.25s ease;
@@ -20521,7 +20522,7 @@ dl li {
 }
 
 .content-wrapper {
-    background: #f2edf3;
+    background: rgba(74,255,0,0.06);
     padding: 2.75rem 2.25rem;
     width: 100%;
     -webkit-box-flex: 1;

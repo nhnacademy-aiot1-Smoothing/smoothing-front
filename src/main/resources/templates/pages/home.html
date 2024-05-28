@@ -26,20 +26,18 @@
                 /* increase border radius */
                 border-radius:.3125em;
                 font-size: 1.8vw;
-
-                /* increase spacing between letters */
             }
+            
             #my-flip .tick-flip-panel {
                 color: #555;
                 background-color: #fafafa;
             }
+            
             #first-gauge-container, #second-gauge-container, #third-gauge-container{
                 display: inline-table;
-                /*justify-content: space-around;*/
             }
             #three-test1, #three-test2 , #ThreePhase-B-LN, #ThreePhase-B-LL, #ThreePhase-C-LN, #ThreePhase-C-LL{
-                width: 310px;  // 게이지 크기 조정 가능
-            /*height: 10px; // 높이 조정으로 수직 게이지를 더 잘 맞출 수 있음*/
+                width: 310px;
             }
         
         </style>
@@ -48,14 +46,24 @@
     </head>
     <body>
         <th:block layout:fragment="content">
-            <div class="row">
+            <div class="row mx-0">
+                <div class="col-md-1 d-flex align-items-stretch">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card" style=" background-color: transparent; border: none; box-shadow: none;">
+                            <div>
+                                <div id="igr-chart" style="height: 80px; display: flex; justify-content: center; align-items: center;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-4 grid-margin stretch-card">
-                    <div class="card" style="align-items: center">
+                    <div class="card" style="align-items: center; background-color: transparent;border: none; box-shadow: none;">
                         <div>
                             <div class="tick"
                                  data-value="0"
                                  data-did-init="setupFlip"
-                                 style="align-items: center">
+                                 style="align-items: center; font-size: 12px">
 
                                 <div data-repeat="true" aria-hidden="true">
                                     <span id="my-flip"
@@ -65,9 +73,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 d-flex align-items-stretch">
+                <div class="col-md-5 d-flex align-items-stretch">
                     <div class="col-md-12 grid-margin stretch-card">
-                        <div class="card">
+                        <div class="card" style="background-color: transparent;border: none; box-shadow: none;">
                             <div id="project_container">
                                 <div id="projectbox">
                                     <!-- Start project HTML -->
@@ -131,10 +139,10 @@
                 </div>
                 <div class="col-md-2 d-flex align-items-stretch">
                     <div class="col-md-12 grid-margin stretch-card">
-                        <div class="card">
+                        <div class="card" style=" background-color: transparent;border: none; box-shadow: none;">
                             <div class="d-flex justify-content-between">
                                 <button type="button"
-                                        class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                        class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#tagSelectModal">태그 선택</button>
                                 <div class="modal fade" id="tagSelectModal" tabindex="-1" aria-labelledby="tagSelectModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -191,40 +199,51 @@
             </div>
             
             <div class="row">
-                <div class="col-md-3 grid-margin stretch-card">
+                <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">10분 단위 전력</h4>
                             <div>
-                                <div id="container1" style="height:300px; margin-top: 30px"></div>
+                                <div id="container1" style="height:400px; margin-top: 30px"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 grid-margin stretch-card">
+                <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">1시간 단위 전력</h4>
                             <div>
-                                <div id="container2" style="height:300px; margin-top: 30px"></div>
+                                <div id="container2" style="height:400px; margin-top: 30px"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 grid-margin stretch-card">
+                <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">센서별 TOP5 전력량 (최근 24시간) </h4>
                             <div>
-                                <div id="chartdiv2" class="chartdiv"></div>
+                                <div id="chartdiv2" class="chartdiv" style="height:400px; margin-top: 30px"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+<!--                <div class="col-md-3 grid-margin stretch-card">-->
+<!--                    <div class="card">-->
+<!--                        <div class="card-body">-->
+<!--                            <h4 class="card-title">누수전력 차트</h4>-->
+<!--                            <p class="card-description"></p>-->
+<!--                            <div>-->
+<!--                                <div id="igr-chart" style="height: 400px; display: flex; justify-content: center; align-items: center;"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
             
             <div class="row">
-                <div class="col-md-8 grid-margin stretch-card">
+                <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">전압</h4>
@@ -240,17 +259,6 @@
                             <div id="third-gauge-container">
                                 <div id="ThreePhase-C-LN"></div>
                                 <div id="ThreePhase-C-LL"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">누수전력 차트</h4>
-                            <p class="card-description"></p>
-                            <div>
-                                <div id="igr-chart"></div>
                             </div>
                         </div>
                     </div>
@@ -307,7 +315,7 @@
                     create1HWattChart(tags);
                     createRaderChart("chartdiv2", tags);
 
-                    $('#tagSelectModal').modal('hide');  // Use the correct ID if it's different
+                    $('#tagSelectModal').modal('hide');
                 });
             </script>
         </th:block>

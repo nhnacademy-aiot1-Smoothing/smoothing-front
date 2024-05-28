@@ -23,16 +23,21 @@ async function fetchData() {
         Highcharts.chart('igr-chart', {
             align: 'center',
             chart: {
-                type: 'pictorial'
+                type: 'pictorial',
+                backgroundColor: 'transparent'
             },
             colors: ['#ffff00','#ff0000','#808080'],
 
             title: {
-                text: '누수전력 차트',
+                text: '',
                 align: 'center'
             },
             credits: {
                 enabled:false
+            },
+
+            exporting: {
+                enabled: false
             },
 
             subtitle: {},
