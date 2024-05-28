@@ -53,6 +53,14 @@
                                     </div>
                                 </form>
                             </div>
+                            <div id="develop-mode">
+                                <form action="/login" method="post">
+                                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                                    <input type="text" hidden="hidden" value="haha" name="username">
+                                    <input type="password" hidden="hidden" value="1234" name="password">
+                                    <button type="submit" class="btn-gradient-primary">개발자 로그인</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
