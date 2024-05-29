@@ -1,16 +1,18 @@
 
 function validateForm() {
-    var userName = document.getElementById('userName').value;
-    var userEmail = document.getElementById('userEmail').value;
-    var currentPassword = document.getElementById('currentPassword').value;
+    let userName = document.getElementById('userName').value;
+    // let userEmail = document.getElementById('userEmail').value;
+    // var currentPassword = document.getElementById('currentPassword').value;
 
-    if (!userName || !userEmail || !currentPassword) {
-        alert("유저 이름, 유저 이메일, 현재 비밀번호는 필수 입력 항목입니다.");
-        return false;
-    }
+    // if (!userName || !userEmail) {
+    //     alert("유저 이름, 유저 이메일, 현재 비밀번호는 필수 입력 항목입니다.");
+    //     return false;
+    // }
 
-    var newPassword = document.getElementById('newPassword').value;
-    var confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+    let newPassword = document.getElementById('newPassword').value;
+    let confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
 
     if (newPassword !== confirmNewPassword) {
         alert("새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다.");
@@ -132,4 +134,172 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
+
+    const emailModifyButton = document.getElementById('emailModifyButton');
+    const emailEditSection = document.querySelector('.email-edit-section');
+
+    emailModifyButton.addEventListener('click', function() {
+        const isDisplayed = emailEditSection.style.display !== 'none';
+        emailEditSection.style.display = isDisplayed ? 'none' : 'block';
+
+        if (sendCertificationNumberButton.disabled) {
+            sendCertificationNumberButton.disabled = false;
+        }
+
+        if (verificationNumberButton.disabled) {
+            verificationNumberButton.disabled = false;
+        }
+
+        let certificationNumberInput = document.getElementById('certificationNumber');
+        let certificationNumber = certificationNumberInput.value;
+
+        if(certificationNumber.trim() !== "") {
+
+            certificationNumberInput.value = "";
+        }
+
+        emailModifyButton.textContent = isDisplayed ? "수정" : "취소";
+    });
+
+    let sendCertificationNumberButton = document.getElementById('sendCertificationNumberButton');
+    let timerText = document.createElement('span');
+    let timerInterval;
+
+    let domainSelect = document.getElementById('domainSelect');
+    let domain = document.getElementById('emailDomain');
+
+    // let selectedOption = domainSelect.options[domainSelect.selectedIndex];
+
+    domainSelect.addEventListener('change', function () {
+        let selectedOption = this.options[this.selectedIndex];
+        domain.value = selectedOption.value;
+    });
+
+    sendCertificationNumberButton.addEventListener('click', function () {
+
+        let email_rule =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+        let email = document.getElementById('email').value;
+
+        if (!email) {
+            alert("이메일을 입력해주세요.");
+            return false;
+        }
+
+        if (!domain.value) {
+            alert("도메인을 입력해주세요.");
+            return false;
+        }
+
+
+        let userEmail = email + "@" + domain.value;
+
+        if (!email_rule.test(userEmail)) {
+            alert("이메일을 형식에 맞게 입력해주세요.")
+            return false;
+        }
+
+        let emailCertificationRequest = JSON.stringify({
+            userEmail: userEmail
+        });
+
+        var url = '/requestCertificationNumber';
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(emailCertificationRequest);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    alert("인증번호가 발급되었습니다.");
+                    sendCertificationNumberButton.disabled = true;
+                    timerInterval = startTimer();
+                } else {
+                    console.log("오류 발생");
+                }
+            }
+        };
+    });
+
+    function startTimer() {
+
+        let totalTime = 180;
+        let minutes, seconds;
+        timerText.innerText = '3:00';
+        // sendCertificationNumberButton.parentElement.appendChild(timerText);
+
+        // 타이머를 포함하는 div 요소 선택
+        let timerContainer = document.querySelector('.timer-container');
+
+        // 타이머를 포함하는 div 요소에 타이머 텍스트 추가
+        timerContainer.appendChild(timerText);
+
+        return setInterval(function () {
+            minutes = Math.floor(totalTime / 60);
+            seconds = totalTime % 60;
+
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            timerText.innerText = minutes + ':' + seconds;
+
+            if (totalTime <= 0) {
+                clearInterval(timerInterval);
+                timerText.innerText='';
+                sendCertificationNumberButton.disabled = false;
+            } else {
+                totalTime--;
+            }
+        }, 1000);
+
+    }
+
+    let verificationNumberButton = document.getElementById('verificationButton');
+
+    verificationNumberButton.addEventListener('click', function () {
+
+        let email = document.getElementById('email').value;
+        let certificationNumber = document.getElementById('certificationNumber').value;
+
+        let userEmail = email + "@" + domain.value;
+
+        if (certificationNumber === "") {
+            alert("인증번호를 입력해주세요.")
+            return false;
+        }
+
+        let verificationRequest = JSON.stringify({
+            userEmail: userEmail,
+            certificationNumber: certificationNumber
+        });
+
+
+        let url = '/verifyCertificationNumber';
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(verificationRequest);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    alert("인증 완료 되었습니다.");
+                    verificationNumberButton.disabled = true;
+                    clearInterval(timerInterval);
+                    timerText.innerText = '';
+                    emailEditSection.style.display = 'none';
+                    emailModifyButton.textContent = "수정";
+
+                    let currentEmail = document.getElementById('userEmail');
+                    currentEmail.value = userEmail;
+
+                } else if (xhr.status === 401) {
+                    alert("인증번호를 다시 확인해주세요.");
+                } else {
+                    console.log("오류 발생");
+                }
+            }
+        };
+    });
 });

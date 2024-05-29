@@ -1,12 +1,15 @@
 package live.smoothing.front.controller;
 
 import live.smoothing.front.auth.dto.email.MessageResponse;
+import live.smoothing.front.auth.dto.email.VerificationRequest;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.request.*;
 import live.smoothing.front.user.dto.response.HookTypeResponse;
 import live.smoothing.front.user.dto.response.UserHookResponse;
 import live.smoothing.front.user.dto.response.UserProfileResponse;
 import live.smoothing.front.user.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ import java.util.List;
 @Controller
 public class MyPageController {
 
+    private static final Logger log = LoggerFactory.getLogger(MyPageController.class);
     private final UserService userService;
 
     public MyPageController(UserService userService) {
@@ -51,17 +55,19 @@ public class MyPageController {
     }
 
     @GetMapping("/verify-pwd")
-    public String verifyPwdPage() {
+    public String verifyPwdPage(Model model) {
+
+        UserProfileResponse response = userService.getProfile();
+        model.addAttribute("userId", response.getUserId());
 
         return "pages/verify_password";
     }
 
+    @ResponseBody
     @PostMapping("/verify-pwd")
-    public String verifyPwd(@RequestParam("userPassword") String userPassword) {
+    public void verifyPwd(@RequestBody VerifyPwdRequest request) {
 
-        userService.verifyPwd(new VerifyPwdRequest(userPassword));
-
-        return "redirect:/user-modify";
+        userService.verifyPwd(request);
     }
 
     @GetMapping("/user-modify")
@@ -71,7 +77,14 @@ public class MyPageController {
 
         model.addAttribute("userId", response.getUserId());
         model.addAttribute("userName", response.getUserName());
-        model.addAttribute("userEmail", response.getUserEmail());
+
+        String userEmail = response.getUserEmail();
+        String[] emailParts = userEmail.split("@");
+
+        model.addAttribute("email", emailParts[0]);
+        model.addAttribute("domain", emailParts[1]);
+
+        model.addAttribute("userEmail", userEmail);
 
         List<HookTypeResponse> hookTypes = userService.getHookTypes();
         model.addAttribute("hookTypes", hookTypes);
@@ -82,20 +95,22 @@ public class MyPageController {
         return "pages/user_modify";
     }
 
+
+
     @PostMapping("/user-modify")
     public String userModify(@RequestParam("userEmail") String userEmail, @RequestParam("userName") String userName, @RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword) {
 
-        MessageResponse response = userService.verifyPwd(new VerifyPwdRequest(currentPassword));
+//        MessageResponse response = userService.verifyPwd(new VerifyPwdRequest(currentPassword));
 
-        if(response.getMessage().equals("비밀번호 확인 완료")) {
+//        if(response.getMessage().equals("비밀번호 확인 완료")) {
+            log.info("userEmail:{}", userEmail);
+            userService.modifyProfile(new ModifyProfile(userName, userEmail));
 
-            userService. modifyProfile(new ModifyProfile(userName, userEmail));
-            if(newPassword.length() > 0) {
+            if(newPassword != null && !newPassword.isEmpty()) {
+                // 새 비밀번호가 입력되었다면 비밀번호 수정
                 userService.modifyPwd(new ModifyPwdRequest(newPassword));
             }
-        } else {
-            return "redirect:/user-modify";
-        }
+//        }
 
         return "redirect:/mypage";
     }

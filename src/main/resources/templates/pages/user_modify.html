@@ -6,86 +6,170 @@
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <style>
+        
+        </style>
     </head>
     <body>
         <th:block layout:fragment="content">
             <div class="content-wrapper">
                 <div class="row">
                     <div class="col-12 grid-margin">
-                        <div class="card">
+                        <div class="card text-center" style="width: 950px; margin: 0 auto;">
                             <div class="card-body">
                                 <div class="page-header border-bottom">
-                                    <h5 class="page-title">유저 수정</h5>
+                                    <h5 class="page-title" style="font-weight: bold;">회원정보 수정</h5>
                                 </div>
-                                <form id="userForm" action="/user-modify" method="post" onsubmit="return validateForm()">
-                                    <div class="form-group">
-                                        <label for="userId">아이디</label>
-                                        <input type="text" class="form-control" id="userId" name="userId" th:value="${userId}" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="userName">이름</label>
-                                        <input type="userName" class="form-control" id="userName" name="userName"
-                                               th:value="${userName}" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="userEmail">이메일</label>
-                                        <input type="userEmail" class="form-control" id="userEmail" name="userEmail"
-                                               th:value="${userEmail}" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="currentPassword">현재 비밀번호</label>
-                                        <input type="password" class="form-control" id="currentPassword"
-                                               name="currentPassword" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="newPassword">새 비밀번호</label>
-                                        <input type="password" class="form-control" id="newPassword" name="newPassword">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="confirmNewPassword">새 비밀번호 확인</label>
-                                        <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword">
-                                    </div>
+                                <div class="userModifyForm" >
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row"><label for="userId">아이디</label></th>
+                                                <td>
+                                                    <input type="text" class="form-control" id="userId" name="userId" th:value="${userId}" readonly>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><label for="userName">이름</label></th>
+                                                <td>
+                                                    <input type="text" class="form-control" id="userName" name="userName"
+                                                           th:value="${userName}" required>
+                                                </td>
+                                                <td>버튼</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><label for="userEmail">이메일</label></th>
+                                                <td>
+                                                    <div style="display: flex; align-items: center;">
+                                                        <input type="text" class="form-control" id="userEmail" name="userEmail"
+                                                               th:value="${userEmail}" readonly>
+                                                    </div>
+                                                    <div style="display: flex; align-items: center; margin-top: 10px">
+                                                        <div class="email-edit-section" style="display: none;">
+                                                            <div class="form-group d-flex align-items-center">
+                                                                <input type="text" id="email" name="email" class="form-control" title="이메일 아이디" placeholder="이메일" maxlength="18" th:value="${email}"/>
+                                                                <span style="margin: 0 5px;">@</span>
+                                                                <input type="text" id="emailDomain" name="emailDomain" class="form-control" title="이메일 도메인" placeholder="도메인" maxlength="18" th:value="${domain}"/>
+                                                                <select id="domainSelect"
+                                                                        class="form-select"
+                                                                        title="이메일 도메인 주소 선택" style="margin-left: 10px">
+                                                                    <option value="">직접입력</option>
+                                                                    <option value="naver.com">naver.com</option>
+                                                                    <option value="gmail.com">gmail.com</option>
+                                                                    <option value="hanmail.net">hanmail.net</option>>
+                                                                    <option value="nate.com">nate.com</option>
+                                                                </select>
+                                                            </div>
+                                                            
+                                                            <div class="form-group position-relative d-flex align-items-center">
+                                                                <div class="d-flex align-items-center" style="margin-right: 100px">
+                                                                    <!-- 인증번호 전송 버튼 -->
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                            id="sendCertificationNumberButton" style="width: 120px">
+                                                                        인증번호 전송
+                                                                    </button>
+                                                                    <!-- 타이머 -->
+                                                                    <div class="timer-container ml-2" style="margin-left: 30px">
+                                                                        <!-- 타이머가 추가될 곳 -->
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <input type="text" class="form-control" id="certificationNumber" name="certificationNumber" placeholder="인증번호">
+                                                                <button type="button"
+                                                                        class="btn btn-primary btn-sm"
+                                                                        id="verificationButton"
+                                                                        style="margin-left: 20px">확인</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </td>
+                                                <td>
+                                                    <button type="button"
+                                                            class="btn btn-primary btn-sm"
+                                                            id="emailModifyButton" style="background-color: #6c757d;
+                                            border-color:#6c757d;">수정</button>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th scope="row">
+                                                    <label>비밀번호 변경</label>
+                                                </th>
+                                                <td>
+                                                    <div style="display: flex; align-items: center;">
+                                                        <label for="newPassword" style="margin-right: 10px;">새 비밀번호</label>
+                                                        <input type="password" class="form-control" id="newPassword" name="newPassword">
+                                                    </div>
+                                                    <div style="margin-top: 20px; display: flex; align-items: center">
+                                                        <label for="confirmNewPassword" style="margin-right: 10px;">새 비밀번호 확인</label>
+                                                        <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword">
+                                                    </div>
+                                                    
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-primary btn-sm" style="background-color: #6c757d;
+                                            border-color:#6c757d;">버튼</button>
+                                                </td>
+                                                
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th scope="row"><label>서비스 연동</label></th>
+                                                <td>
+                                                    <div style="display: flex; align-items: center;">
+                                                        <label for="messenger" style="margin-right: 10px;">서비스 타입</label>
+                                                        <div class="row" id="messenger">
+                                                            <div class="col-auto" th:each="hookType : ${hookTypes}">
+                                                                <div class="form-check form-check-inline"
+                                                                     style="margin-left: 25px">
+                                                                    <input class="form-check-input" type="radio" name="messengerType"
+                                                                           th:id="${hookType.hookTypeId}" th:value="${hookType.hookTypeId}"
+                                                                           th:checked="${hookType.hookTypeId == userHook.hookTypeId}">
+                                                                    <label class="form-check-label" th:for="${hookType.hookTypeId}"
+                                                                           th:text="${hookType.hookTypeName}">
+                                                                        ></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div style="margin-top: 20px; display: flex; align-items: center">
+                                                        <label for="hookUrl"
+                                                               style="margin-right: 10px;">연동 URL</label>
+                                                        <input type="text" class="form-control" id="hookUrl"
+                                                               name="hookUrl" th:value="${userHook.hookUrl}">
+                                                    </div>
+                                                    
+<!--                                                    <div class="text-end" style="margin-top: 10px">-->
+<!--                                                        <button class="btn btn-primary btn-sm" style="background-color: #6c757d;-->
+<!--                                            border-color:#6c757d;">버튼</button>-->
+                                                        
+
+                                                        
+<!--                                                    </div>-->
+                                                    
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm hookCreateButton"
+                                                            th:if="${userHook.hookTypeId == null || userHook.hookUrl == null}">확인</button>
+                                                    <button type="button" class="btn btn-primary btn-sm hookModifyButton"
+                                                            th:if="${userHook.hookTypeId != null &amp;&amp; userHook.hookUrl != null}">수정</button>
+                                                    <button type="button" class="btn btn-danger btn-sm hookDeleteButton"
+                                                            th:if="${userHook.hookTypeId != null &amp;&amp; userHook.hookUrl != null}">삭제
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
                                     
-                                    <button type="submit" class="btn btn-primary">수정</button>
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    </table>
+                                </div>
+                                
+                                <div class="form-group text-center" style="margin-top: 20px">
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#inactiveUserModal">탈퇴</button>
-                                    
-                                    <hr>
-                                    
-                                    <div class="page-header mt-5 border-bottom">
-                                        <h5 class="page-title">알림 설정</h5>
-                                    </div>
-                                    <div class="form-group mt-4 ">
-                                        <label for="messenger">메신저 타입</label>
-                                        <div class="row" id="messenger">
-                                            <div class="col-auto" th:each="hookType : ${hookTypes}">
-                                                <div class="form-check form-check-inline"
-                                                      style="margin-left: 25px">
-                                                    <input class="form-check-input" type="radio" name="messengerType"
-                                                           th:id="${hookType.hookTypeId}" th:value="${hookType.hookTypeId}"
-                                                           th:checked="${hookType.hookTypeId == userHook.hookTypeId}">
-                                                    <label class="form-check-label" th:for="${hookType.hookTypeId}"
-                                                           th:text="${hookType.hookTypeName}">
-                                                    ></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group mt-4">
-                                            <label for="hookUrl">URL</label>
-                                            <input type="text" class="form-control" id="hookUrl" name="hookUrl" th:value="${userHook.hookUrl}">
-                                        </div>
-                                        <div class="form-group mt-4 text-end">
-                                            <button type="button" class="btn btn-primary btn-sm hookCreateButton"
-                                                    th:if="${userHook.hookTypeId == null || userHook.hookUrl == null}">확인</button>
-                                            <button type="button" class="btn btn-primary btn-sm hookModifyButton"
-                                                    th:if="${userHook.hookTypeId != null &amp;&amp; userHook.hookUrl != null}">수정</button>
-                                            <button type="button" class="btn btn-danger btn-sm hookDeleteButton"
-                                                    th:if="${userHook.hookTypeId != null &amp;&amp; userHook.hookUrl != null}">삭제
-                                            </button>
-                                        </div>
-                                    
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

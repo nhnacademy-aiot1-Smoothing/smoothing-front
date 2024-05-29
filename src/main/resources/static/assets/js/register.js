@@ -18,15 +18,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         let userId = document.getElementById('userId').value;
 
+        if(!userId || /\s/.test(userId)) {
+            alert("아이디에 공백을 입력할 수 없습니다.");
+            return false;
+        }
+
         let url = "/existUser" + "?userId=" + userId;
         let xhr = new XMLHttpRequest();
 
-        let userIdRequest = JSON.stringify({
-            userId: userId
-        })
-
         xhr.open('GET', url, true);
-        // xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send();
 
         xhr.onreadystatechange = function () {
@@ -84,8 +84,8 @@ document.addEventListener('DOMContentLoaded', function () {
             userEmail: userEmail
         });
 
-        var url = '/requestCertificationNumber';
-        var xhr = new XMLHttpRequest();
+        let url = '/requestCertificationNumber';
+        let xhr = new XMLHttpRequest();
         xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(emailCertificationRequest);

@@ -97,7 +97,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public MessageResponse verifyPwd(VerifyPwdRequest request) {
 
-        return userApiAdapter.verifyPwd(request);
+        try {
+            return userApiAdapter.verifyPwd(request);
+        } catch(FeignException.Unauthorized e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
     }
 
     @Override
