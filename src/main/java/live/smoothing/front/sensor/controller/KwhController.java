@@ -26,7 +26,7 @@ public class KwhController {
         return sensorService.getWeeklyTotal(tags);
     }
 
-    @GetMapping("sensor/kwh/usage/hourly/total")
+    @GetMapping("/sensor/kwh/usage/hourly/total")
     public TagPowerMetricResponse getKwhHourly(@RequestParam String tags) {
 
         return sensorService.getHourlyTotal(tags);

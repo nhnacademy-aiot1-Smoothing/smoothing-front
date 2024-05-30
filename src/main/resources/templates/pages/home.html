@@ -5,69 +5,47 @@
       layout:decorate="layout/defaultLayout">
     <head>
         <style>
-            #chartdiv2 {
-                width: 100%;
-                height: 500px;
-            }
-
-            #kwhHourContainer {
-                width: 100%;
-                height: 400px;
-                margin-top: 50px;
-            }
-
-            #kwhDayContainer {
-                width: 100%;
-                height: 400px;
-                margin-top: 50px;
-            }
-
-            #my-flip {
-                /* increase border radius */
-                border-radius:.3125em;
-                font-size: 1.8vw;
-
-                /* increase spacing between letters */
-            }
             #my-flip .tick-flip-panel {
                 color: #555;
                 background-color: #fafafa;
             }
-            #first-gauge-container, #second-gauge-container, #third-gauge-container{
-                display: inline-table;
-                /*justify-content: space-around;*/
-            }
-            #three-test1, #three-test2 , #ThreePhase-B-LN, #ThreePhase-B-LL, #ThreePhase-C-LN, #ThreePhase-C-LL{
-                width: 310px;  // 게이지 크기 조정 가능
-            /*height: 10px; // 높이 조정으로 수직 게이지를 더 잘 맞출 수 있음*/
-            }
-        
         </style>
         <link rel="stylesheet" href="/assets/css/battery.css">
         <link href="https://unpkg.com/@pqina/flip/dist/flip.min.css" rel="stylesheet">
     </head>
     <body>
         <th:block layout:fragment="content">
-            <div class="row">
-                <div class="col-md-4 grid-margin stretch-card">
-                    <div class="card" style="align-items: center">
-                        <div>
-                            <div class="tick"
-                                 data-value="0"
-                                 data-did-init="setupFlip"
-                                 style="align-items: center">
-
-                                <div data-repeat="true" aria-hidden="true">
-                                    <span id="my-flip"
-                                          data-view="flip"></span>
+            <div class="row mx-0">
+                <div class="col-md-1 d-flex align-items-stretch">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card" style=" background-color: transparent; border: none; box-shadow: none;">
+                            <div>
+                                <div id="igr-chart" style="height: 80px; display: flex; justify-content: center; align-items: center;">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 d-flex align-items-stretch">
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card" style="align-items: center; background-color: transparent;border: none; box-shadow: none;">
+                        <div>
+                            <div class="tick"
+                                 data-value="0"
+                                 data-did-init="setupFlip"
+                                 style="align-items: center; font-size: 12px">
+
+                                <div data-repeat="true" aria-hidden="true">
+                                    <span id="my-flip"
+                                          data-view="flip"
+                                          style="border-radius: .3125em; font-size: 1.8vw"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 d-flex align-items-stretch">
                     <div class="col-md-12 grid-margin stretch-card">
-                        <div class="card">
+                        <div class="card" style="background-color: transparent;border: none; box-shadow: none;">
                             <div id="project_container">
                                 <div id="projectbox">
                                     <!-- Start project HTML -->
@@ -131,10 +109,10 @@
                 </div>
                 <div class="col-md-2 d-flex align-items-stretch">
                     <div class="col-md-12 grid-margin stretch-card">
-                        <div class="card">
+                        <div class="card" style=" background-color: transparent;border: none; box-shadow: none;">
                             <div class="d-flex justify-content-between">
                                 <button type="button"
-                                        class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                        class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#tagSelectModal">태그 선택</button>
                                 <div class="modal fade" id="tagSelectModal" tabindex="-1" aria-labelledby="tagSelectModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -173,7 +151,7 @@
                         <div class="card-body">
                             <h4 class="card-title">전력량 1시간 (최근 24시간)</h4>
                             <div>
-                                <div id="kwhHourContainer"></div>
+                                <div id="kwhHourContainer" style="width: 100%; height: 305px; margin-top: 50px"></div>
                             </div>
                         </div>
                     </div>
@@ -183,80 +161,99 @@
                         <div class="card-body">
                             <h4 class="card-title">전력량 1일 (최근 일주일)</h4>
                             <div>
-                                <div id="kwhDayContainer"></div>
+                                <div id="kwhDayContainer" style="width: 100%; height: 305px; margin-top: 50px"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
+            
             <div class="row">
-                <div class="col-md-3 grid-margin stretch-card">
-                    <div class="card">
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card position-relative">
                         <div class="card-body">
-                            <h4 class="card-title">10분 단위 전력</h4>
-                            <div>
-                                <div id="container1" style="height:300px; margin-top: 30px"></div>
+                            <h4 class="card-title" id="container1-title">10분 단위 전력량</h4>
+                            <h4 class="card-title" id="container2-title" style="display: none;">1시간 단위 전력량</h4>
+                            <div class="slide-container" style="position: relative; width: 100%; height: 305px; overflow: hidden;">
+                                <div id="container1" class="slide" style="position: absolute; width: 100%; height: 100%; transition: transform 0.5s ease; margin-top: 50px;"></div>
+                                <div id="container2" class="slide" style="position: absolute; width: 100%; height: 100%; transition: transform 0.5s ease; margin-top: 50px; display: none;"></div>
+                            </div>
+                        </div>
+                        <div class="overlay-buttons">
+                            <div class="left-overlay">
+                                <button id="leftButton" class="btn btn-primary" style="background-color: transparent; border: none; color: black;">
+                                    <span class="mdi mdi-chevron-left" style="font-size: 50px; color: #8c8c8c;"></span>
+                                </button>
+                            </div>
+                            <div class="right-overlay">
+                                <button id="rightButton" class="btn btn-primary" style="background-color: transparent; border: none; color: black;">
+                                    <span class="mdi mdi-chevron-right" style="font-size: 50px; color: #8c8c8c;"></span>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">1시간 단위 전력</h4>
-                            <div>
-                                <div id="container2" style="height:300px; margin-top: 30px"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 grid-margin stretch-card">
+               
+                
+                <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">센서별 TOP5 전력량 (최근 24시간) </h4>
                             <div>
-                                <div id="chartdiv2" class="chartdiv"></div>
+                                <div id="chartdiv2" class="chartdiv" style="height:305px; margin-top: 30px"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-8 grid-margin stretch-card">
+                
+                <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">전압</h4>
                             <p class="card-description">게이지 그래프 3개</p>
-                            <div id="first-gauge-container">
-                                <div id="three-test1"></div>
-                                <div id="three-test2"></div>
-                            </div>
-                            <div id="second-gauge-container">
-                                <div id="ThreePhase-B-LN"></div>
-                                <div id="ThreePhase-B-LL"></div>
-                            </div>
-                            <div id="third-gauge-container">
-                                <div id="ThreePhase-C-LN"></div>
-                                <div id="ThreePhase-C-LL"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">누수전력 차트</h4>
-                            <p class="card-description"></p>
                             <div>
-                                <div id="igr-chart"></div>
+                            
                             </div>
                         </div>
                     </div>
                 </div>
+<!--                <div class="col-md-3 grid-margin stretch-card">-->
+<!--                    <div class="card">-->
+<!--                        <div class="card-body">-->
+<!--                            <h4 class="card-title">누수전력 차트</h4>-->
+<!--                            <p class="card-description"></p>-->
+<!--                            <div>-->
+<!--                                <div id="igr-chart" style="height: 400px; display: flex; justify-content: center; align-items: center;"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
-
+            
+<!--            <div class="row">-->
+<!--                <div class="col-md-12 grid-margin stretch-card">-->
+<!--                    <div class="card">-->
+<!--                        <div class="card-body">-->
+<!--                            <h4 class="card-title">전압</h4>-->
+<!--                            <p class="card-description">게이지 그래프 3개</p>-->
+<!--                            <div id="first-gauge-container" style="display: inline-table">-->
+<!--                                <div id="three-test1" style="width: 300px"></div>-->
+<!--                                <div id="three-test2" style="width: 300px"></div>-->
+<!--                            </div>-->
+<!--                            <div id="second-gauge-container" style="display: inline-table">-->
+<!--                                <div id="ThreePhase-B-LN" style="width: 300px"></div>-->
+<!--                                <div id="ThreePhase-B-LL" style="width: 300px"></div>-->
+<!--                            </div>-->
+<!--                            <div id="third-gauge-container" style="display: inline-table">-->
+<!--                                <div id="ThreePhase-C-LN" style="width: 300px"></div>-->
+<!--                                <div id="ThreePhase-C-LL" style="width: 300px"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            -->
             <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
             <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-messaging.js"></script>
             <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
@@ -307,7 +304,7 @@
                     create1HWattChart(tags);
                     createRaderChart("chartdiv2", tags);
 
-                    $('#tagSelectModal').modal('hide');  // Use the correct ID if it's different
+                    $('#tagSelectModal').modal('hide');
                 });
             </script>
         </th:block>
