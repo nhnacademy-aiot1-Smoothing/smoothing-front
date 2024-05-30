@@ -159,7 +159,7 @@ async function fetchData() {
     try {
         const response = await fetch("/sensor/three-phase");
         const data = await response.json();
-
+        console.log(response);
         const classLL = parseFloat(data.classA.top.value);
         const classLN = parseFloat(data.classA.bottom.value);
 

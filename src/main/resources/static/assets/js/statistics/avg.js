@@ -41,6 +41,8 @@ async function fetchData() {
                     pointPadding: 0.2,
                     borderWidth: 0
                 }
+            },credits: {
+                enabled: false
             },
             series: [
                 {

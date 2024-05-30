@@ -65,5 +65,44 @@ if ('serviceWorker' in navigator) {
         });
     });
 }
+document.getElementById('leftButton').addEventListener('click', function() {
+    let container1 = document.getElementById('container1');
+    let container2 = document.getElementById('container2');
 
+    container1.style.display = 'block';
+    container2.style.display = 'block';
+    container1.style.transform = 'translateX(0)';
+    container2.style.transform = 'translateX(100%)';
 
+    setTimeout(() => {
+        container1.style.transform = 'translateX(0)';
+        container2.style.transform = 'translateX(100%)';
+    }, 10);
+
+    setTimeout(() => {
+        container2.style.display = 'none';
+        document.getElementById('container1-title').style.display = 'block';
+        document.getElementById('container2-title').style.display = 'none';
+    }, 500);
+});
+
+document.getElementById('rightButton').addEventListener('click', function() {
+    let container1 = document.getElementById('container1');
+    let container2 = document.getElementById('container2');
+
+    container1.style.display = 'block';
+    container2.style.display = 'block';
+    container1.style.transform = 'translateX(0)';
+    container2.style.transform = 'translateX(100%)';
+
+    setTimeout(() => {
+        container1.style.transform = 'translateX(-100%)';
+        container2.style.transform = 'translateX(0)';
+    }, 10);
+
+    setTimeout(() => {
+        container1.style.display = 'none';
+        document.getElementById('container1-title').style.display = 'none';
+        document.getElementById('container2-title').style.display = 'block';
+    }, 500);
+});

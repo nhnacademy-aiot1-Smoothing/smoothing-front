@@ -7642,9 +7642,33 @@ fieldset:disabled .btn {
     background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.3125rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    box-shadow:
+            0 0 10px rgba(0, 0, 0, 0.12), /* 위 */
+            0 5px 10px -5px rgba(0, 0, 0, 0.12), /* 오른쪽 */
+            0 0 10px rgba(0, 0, 0, 0.12), /* 아래 */
+            0 -5px 10px -5px rgba(0, 0, 0, 0.12); /* 왼쪽 */
     transition: box-shadow 0.3s ease;
+}
+
+.overlay-buttons {
+    position: absolute;
+    bottom: 50%;
+    transform: translateY(50%);
+    width: 100%;
+    text-align: center;
+}
+
+.left-overlay {
+    position: absolute;
+    left: 0;
+    transform: translate(-50%, 0); /* 부모 요소의 너비를 고려하여 가운데로 이동 */
+}
+
+.right-overlay {
+    position: absolute;
+    right: 0;
+    transform: translate(50%, 0); /* 부모 요소의 너비를 고려하여 가운데로 이동 */
 }
 
 .card > hr {
@@ -15924,7 +15948,7 @@ code {
 
 /* Footer */
 .footer {
-    background: rgba(74,255,0,0.06);
+    background: mintcream;
     border-top: 1px solid rgba(0,0,0,0.05);
     padding: 30px 1rem;
     transition: all 0.25s ease;
@@ -20023,7 +20047,7 @@ dl li {
 /* Sidebar */
 .sidebar {
     min-height: calc(100vh - 70px);
-    background: #ffffff;
+    background: darkcyan;
     font-family: "ubuntu-regular", sans-serif;
     padding: 0;
     width: 260px;
@@ -20066,7 +20090,7 @@ dl li {
     align-items: center;
     white-space: nowrap;
     padding: 1.125rem 0 1.125rem 0;
-    color: #3e4b5b;
+    color: white;
     -webkit-transition-duration: 0.45s;
     transition-duration: 0.45s;
     transition-property: color;
@@ -20078,10 +20102,10 @@ dl li {
 }
 
 .sidebar .nav .nav-item .nav-link i.menu-icon {
-    font-size: 1.125rem;
+    font-size: 1.3rem;
     line-height: 1;
     margin-left: auto;
-    color: #bba8bff5;
+    color: white;
 }
 
 .rtl .sidebar .nav .nav-item .nav-link i.menu-icon {
@@ -20096,9 +20120,9 @@ dl li {
 .sidebar .nav .nav-item .nav-link i.menu-arrow {
     font: normal normal normal 24px/1 "Material Design Icons";
     line-height: 1;
-    font-size: 1.125rem;
+    font-size: 1.2rem;
     margin-left: auto;
-    color: #9e9da0;
+    color: white;
 }
 
 .rtl .sidebar .nav .nav-item .nav-link i.menu-arrow {
@@ -20124,7 +20148,7 @@ dl li {
 .sidebar .nav .nav-item .nav-link .menu-title {
     color: inherit;
     display: inline-block;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     line-height: 1;
     vertical-align: middle;
 }
@@ -20139,20 +20163,24 @@ dl li {
 }
 
 .sidebar .nav .nav-item.active {
-    background: #ffffff;
+    background: mintcream;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
 }
 
 .sidebar .nav .nav-item.active > .nav-link .menu-title {
-    color: #b66dff;
+    color: darkcyan;
     font-family: "ubuntu-medium", sans-serif;
 }
 
 .sidebar .nav .nav-item.active > .nav-link i {
-    color: #b66dff;
+    color: darkcyan;
 }
 
 .sidebar .nav .nav-item:hover {
-    background: #fcfcfc;
+    background: mintcream;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
 }
 
 .sidebar .nav .nav-item.nav-profile .nav-link {
@@ -20167,9 +20195,10 @@ dl li {
     height: 44px;
 }
 
-.sidebar .nav .nav-item.nav-profile .nav-link .nav-profile-image img {
+.sidebar .nav .nav-item.nav-profile .nav-link .nav-profile-image span {
     width: 44px;
     height: 44px;
+    font-size: 42px;
     border-radius: 100%;
 }
 
@@ -20207,11 +20236,15 @@ dl li {
 }
 
 .sidebar .nav .nav-item.sidebar-actions:hover .nav-link {
-    color: initial;
+    color: darkcyan;
+}
+
+.sidebar .nav .nav-item:hover .nav-link i {
+    color: darkcyan;
 }
 
 .sidebar .nav:not(.sub-menu) > .nav-item:hover:not(.nav-category):not(.nav-profile) > .nav-link {
-    color: #29323d;
+    color: darkcyan;
 }
 
 .sidebar .nav.sub-menu {
@@ -20225,10 +20258,10 @@ dl li {
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link {
-    color: #888;
+    color: white;
     padding: 0.75rem 2rem 0.75rem 2rem;
     position: relative;
-    font-size: 0.8125rem;
+    font-size: 0.85rem;
     line-height: 1;
     height: auto;
     border-top: 0;
@@ -20243,7 +20276,7 @@ dl li {
     top: 50%;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
-    color: #a2a2a2;
+    color: white;
     font-size: .75rem;
 }
 
@@ -20253,16 +20286,16 @@ dl li {
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link.active {
-    color: #b66dff;
+    color: darkcyan;
     background: transparent;
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link:hover {
-    color: #555555;
+    color: darkcyan;
 }
 
 .sidebar .nav.sub-menu .nav-item:hover {
-    background: transparent;
+    background: mintcream;
 }
 
 /* style for off-canvas menu*/
@@ -20522,7 +20555,7 @@ dl li {
 }
 
 .content-wrapper {
-    background: rgba(74,255,0,0.06);
+    background: mintcream;
     padding: 2.75rem 2.25rem;
     width: 100%;
     -webkit-box-flex: 1;
