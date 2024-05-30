@@ -3,43 +3,37 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="layout/defaultLayout">
-    <head>
-    
-    </head>
+    <head></head>
     <body>
         <th:block layout:fragment="content">
             <div class="row">
-                <div class="col-md-8 grid-margin stretch-card">
+                <div class="col-md-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">전체 전력량</h4>
                             <p class="card-description"> (시간, 일, 주) </p>
-                                <div id="statistics-total" style="height: 830px"></div>
+                            <div id="statistics-total" style="height: 350px"></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 d-flex align-items-stretch">
-                    <div class="row" style="width: 100%">
-                        <div class="col-md-12 grid-margin stretch-card">
+                        <div class="col-md-3 grid-margin stretch-card">
                             <div class="card" >
                                 <div class="card-body">
                                     <h4 class="card-title">시간대별 전력량</h4>
                                     <p class="card-description"> (아침, 오후, 저녁, 새벽) </p>
-                                    <div id="statistics-timezone" style="height: 380px"></div>
+                                    <div id="statistics-timezone" style="height: 350px"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 grid-margin stretch-card">
+                        <div class="col-md-3 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">센서별 전력량</h4>
                                     <p class="card-description"> (Top 7) </p>
-                                    <div id="statistics-sensor" style="height: 320px"></div>
+                                    <div id="statistics-sensor" style="height: 350px"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
             </div>
             
             <div class="row">
@@ -47,10 +41,9 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">연도별 월단위 (목표량)</h4>
-                            <p class="card-description"> Column line and pie </p>
                             <button id="prevYearBtn">Previous Year</button>
                             <button id="nextYearBtn">Next Year</button>
-                            <div id="statistics-goal"></div>
+                            <div id="statistics-goal" style="height: 320px"></div>
                         </div>
                     </div>
                 </div>
@@ -59,9 +52,7 @@
                         <div class="card-body">
                             <h4 class="card-title">외부 api</h4>
                             <p class="card-description"></p>
-                            <div>
-                                <div id="avg"></div>
-                            </div>
+                                <div id="avg" style="height: 350px"></div>
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 
     const response = await fetch('/sensor/kwh/usage/hourly/total?tags=');
     const data = await response.json();
-
+    console.log(data)
     const convertedData = data.data.map(entry => {
         return {
             x: new Date(entry.time).getTime(),

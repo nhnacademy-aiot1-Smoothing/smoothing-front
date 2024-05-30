@@ -20,13 +20,13 @@ public class FcmInit {
     public void initialize() {
 
         try(InputStream serviceAccount = this.getClass().getClassLoader().getResourceAsStream(credentialsPath)) {
+
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .build();
 
-            if(FirebaseApp.getApps().isEmpty()) {
-                FirebaseApp.initializeApp(options);
-            }
+            FirebaseApp.initializeApp(options);
+
         } catch(IOException e) {
             System.err.println("Failed to initialize FirebaseApp: " + e.getMessage());
             throw new RuntimeException("fFailed to initialize FirebaseApp", e);
