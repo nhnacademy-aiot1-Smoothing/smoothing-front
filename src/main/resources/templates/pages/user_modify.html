@@ -6,6 +6,15 @@
     <head>
         
         <script src="/assets/js/user-modify.js"></script>
+        
+        <style>
+            .button-group {
+                display: flex;
+                flex-direction: column; /* 버튼들을 세로로 배치 */
+                align-items: center; /* 가운데 정렬 */
+                gap: 5px; /* 버튼 사이의 간격 조절 */
+            }
+        </style>
     </head>
     <body>
         <th:block layout:fragment="content">
@@ -31,8 +40,15 @@
                                                 <td>
                                                     <input type="text" class="form-control" id="userName" name="userName"
                                                            th:value="${userName}" required>
+                                                    <div class="error-message" id="errorMessage"
+                                                         style="color: red; margin-top: 10px; font-size: 13px; text-align: left"></div>
                                                 </td>
-                                                <td>버튼</td>
+                                                <td>
+                                                    <button id="modifyNameButton" class="btn btn-primary btn-sm"
+                                                            style="background-color:
+                                                    #6c757d;
+                                            border-color:#6c757d;">변경</button>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row"><label for="userEmail">이메일</label></th>
@@ -85,7 +101,7 @@
                                                     <button type="button"
                                                             class="btn btn-primary btn-sm"
                                                             id="emailModifyButton" style="background-color: #6c757d;
-                                            border-color:#6c757d;">수정</button>
+                                            border-color:#6c757d;">변경</button>
                                                 </td>
                                             </tr>
                                             
@@ -96,17 +112,27 @@
                                                 <td>
                                                     <div style="display: flex; align-items: center;">
                                                         <label for="newPassword" style="margin-right: 10px;">새 비밀번호</label>
-                                                        <input type="password" class="form-control" id="newPassword" name="newPassword">
+                                                        <input type="password" class="form-control" id="newPassword"
+                                                               name="newPassword">
                                                     </div>
+                                                    <div class="error-message" id="pwdErrorMessage"
+                                                         style="color: red; margin-top: 10px; margin-left: 75px;
+                                                         font-size: 13px;
+                                                             text-align: left"></div>
                                                     <div style="margin-top: 20px; display: flex; align-items: center">
                                                         <label for="confirmNewPassword" style="margin-right: 10px;">새 비밀번호 확인</label>
-                                                        <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword">
+                                                        <input type="password" class="form-control"
+                                                               id="confirmNewPassword" name="confirmNewPassword">
                                                     </div>
+                                                    <div class="error-message" id="pwdConfirmMessage"
+                                                         style="color: red; margin-top: 10px; margin-left: 100px;
+                                                         font-size: 13px;
+                                                             text-align: left"></div>
                                                     
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-primary btn-sm" style="background-color: #6c757d;
-                                            border-color:#6c757d;">버튼</button>
+                                                    <button id="modifyPwdButton" class="btn btn-primary btn-sm" style="background-color: #6c757d;
+                                            border-color:#6c757d;">변경</button>
                                                 </td>
                                                 
                                             </tr>
@@ -148,13 +174,14 @@
                                                     
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btn btn-primary btn-sm hookCreateButton"
-                                                            th:if="${userHook.hookTypeId == null || userHook.hookUrl == null}">확인</button>
-                                                    <button type="button" class="btn btn-primary btn-sm hookModifyButton"
-                                                            th:if="${userHook.hookTypeId != null &amp;&amp; userHook.hookUrl != null}">수정</button>
-                                                    <button type="button" class="btn btn-danger btn-sm hookDeleteButton"
-                                                            th:if="${userHook.hookTypeId != null &amp;&amp; userHook.hookUrl != null}">삭제
-                                                    </button>
+                                                    <div class="button-group">
+                                                        <button type="button" class="btn btn-primary btn-sm hookCreateButton"
+                                                                th:if="${userHook.hookTypeId == null || userHook.hookUrl == null}">확인</button>
+                                                        <button type="button" class="btn btn-primary btn-sm hookModifyButton"
+                                                                th:if="${userHook.hookTypeId != null &amp;&amp; userHook.hookUrl != null}">수정</button>
+                                                        <button type="button" class="btn btn-danger btn-sm hookDeleteButton"
+                                                                th:if="${userHook.hookTypeId != null &amp;&amp; userHook.hookUrl != null}">삭제</button>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             

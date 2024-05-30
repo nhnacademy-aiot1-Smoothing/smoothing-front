@@ -74,4 +74,8 @@ public interface UserService {
     void deleteUserHook();
 
     MessageResponse existUser(String userId);
+
+    void modifyUserName(UserNameModifyRequest request);
+
+    void modifyUserEmail(UserEmailModifyRequest request);
 }

@@ -10,14 +10,7 @@ function validateForm() {
     // }
 
 
-    let newPassword = document.getElementById('newPassword').value;
-    let confirmNewPassword = document.getElementById('confirmNewPassword').value;
 
-
-    if (newPassword !== confirmNewPassword) {
-        alert("새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다.");
-        return false;
-    }
 
     return true;
 }
@@ -158,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
             certificationNumberInput.value = "";
         }
 
-        emailModifyButton.textContent = isDisplayed ? "수정" : "취소";
+        emailModifyButton.textContent = isDisplayed ? "변경" : "취소";
     });
 
     let sendCertificationNumberButton = document.getElementById('sendCertificationNumberButton');
@@ -289,13 +282,140 @@ document.addEventListener('DOMContentLoaded', function () {
                     clearInterval(timerInterval);
                     timerText.innerText = '';
                     emailEditSection.style.display = 'none';
-                    emailModifyButton.textContent = "수정";
+                    emailModifyButton.textContent = "변경";
 
-                    let currentEmail = document.getElementById('userEmail');
-                    currentEmail.value = userEmail;
+                    // let currentEmail = document.getElementById('userEmail');
+                    // currentEmail.value = userEmail;
+
+                    let userEmailModifyRequest = JSON.stringify({
+                        userEmail: userEmail
+                    });
+
+                    let url = '/modify-email'
+                    let xhr = new XMLHttpRequest();
+                    xhr.open('PUT', url, true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(userEmailModifyRequest);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+
+                                location.reload();
+                            } else {
+                                console.log("이메일 변경 중 오류가 발생했습니다.");
+                            }
+                        }
+                    }
+
 
                 } else if (xhr.status === 401) {
                     alert("인증번호를 다시 확인해주세요.");
+                } else {
+                    console.log("오류 발생");
+                }
+            }
+        };
+    });
+
+    let newPasswordInput = document.getElementById("newPassword");
+
+    newPasswordInput.addEventListener("input", function() {
+        let errorMessage = document.getElementById("pwdErrorMessage");
+        if (newPasswordInput.value.trim() !== "") {
+            errorMessage.textContent = "";
+        }
+    });
+
+    let confirmNewPasswordInput = document.getElementById("confirmNewPassword");
+    let passwordMatchMessage = document.getElementById("pwdConfirmMessage");
+
+    newPasswordInput.addEventListener("input", function() {
+        checkPasswordMatch();
+    });
+
+    confirmNewPasswordInput.addEventListener("input", function() {
+        checkPasswordMatch();
+    });
+
+    function checkPasswordMatch() {
+        let newPassword = newPasswordInput.value;
+        let confirmNewPassword = confirmNewPasswordInput.value;
+
+        if (newPassword === "" && confirmNewPassword === "") {
+            passwordMatchMessage.textContent = "";
+        } else if (newPassword === confirmNewPassword) {
+            passwordMatchMessage.textContent = "비밀번호가 일치합니다.";
+            passwordMatchMessage.style.color = "green";
+        } else {
+            passwordMatchMessage.textContent = "비밀번호가 일치하지 않습니다.";
+            passwordMatchMessage.style.color = "red";
+        }
+    }
+
+    let modifyPwdButton = document.getElementById('modifyPwdButton');
+
+    modifyPwdButton.addEventListener('click', function () {
+
+        let newPassword = document.getElementById('newPassword').value;
+        let confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+        if (!newPassword) {
+            let errorMessage = document.getElementById("pwdErrorMessage");
+            errorMessage.textContent = "새 비밀번호를 입력해주세요.";
+            return false;
+        }
+
+        let modifyPwdRequest = JSON.stringify({
+            userPassword: newPassword
+        });
+
+        let url = '/modify-pwd';
+        let xhr = new XMLHttpRequest();
+        xhr.open('PUT', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(modifyPwdRequest);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    alert("변경되었습니다.");
+                    location.reload();
+                } else {
+                    console.log("오류 발생");
+                }
+            }
+        };
+    });
+
+    let modifyNameButton = document.getElementById('modifyNameButton');
+
+    modifyNameButton.addEventListener('click', function () {
+
+        let userName = document.getElementById('userName').value;
+
+        if (!userName) {
+            let errorMessage = document.getElementById("errorMessage");
+            errorMessage.textContent = "이름을 입력해주세요.";
+
+            return false;
+        }
+
+        let userNameModifyRequest = JSON.stringify({
+            userName: userName
+        });
+
+        let url = '/modify-name';
+        let xhr = new XMLHttpRequest();
+        xhr.open('PUT', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(userNameModifyRequest);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    alert("변경되었습니다.");
+                    location.reload();
                 } else {
                     console.log("오류 발생");
                 }

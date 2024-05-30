@@ -191,4 +191,16 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
+
+    @Override
+    public void modifyUserName(UserNameModifyRequest request) {
+
+        userApiAdapter.modifyUserName(request);
+    }
+
+    @Override
+    public void modifyUserEmail(UserEmailModifyRequest request) {
+
+        userApiAdapter.modifyUserEmail(request);
+    }
 }

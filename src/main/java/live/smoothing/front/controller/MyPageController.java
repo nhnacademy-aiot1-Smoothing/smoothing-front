@@ -95,25 +95,45 @@ public class MyPageController {
         return "pages/user_modify";
     }
 
+    @ResponseBody
+    @PutMapping("/modify-pwd")
+    public void modifyPwd(@RequestBody ModifyPwdRequest request) {
 
-
-    @PostMapping("/user-modify")
-    public String userModify(@RequestParam("userEmail") String userEmail, @RequestParam("userName") String userName, @RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword) {
-
-//        MessageResponse response = userService.verifyPwd(new VerifyPwdRequest(currentPassword));
-
-//        if(response.getMessage().equals("비밀번호 확인 완료")) {
-            log.info("userEmail:{}", userEmail);
-            userService.modifyProfile(new ModifyProfile(userName, userEmail));
-
-            if(newPassword != null && !newPassword.isEmpty()) {
-                // 새 비밀번호가 입력되었다면 비밀번호 수정
-                userService.modifyPwd(new ModifyPwdRequest(newPassword));
-            }
-//        }
-
-        return "redirect:/mypage";
+        userService.modifyPwd(request);
     }
+
+    @ResponseBody
+    @PutMapping("/modify-name")
+    public void modifyName(@RequestBody UserNameModifyRequest request) {
+
+        userService.modifyUserName(request);
+    }
+
+    @ResponseBody
+    @PutMapping("/modify-email")
+    public void modifyEmail(@RequestBody UserEmailModifyRequest request) {
+
+        userService.modifyUserEmail(request);
+    }
+
+
+//    @PostMapping("/user-modify")
+//    public String userModify(@RequestParam("userEmail") String userEmail, @RequestParam("userName") String userName, @RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword) {
+//
+////        MessageResponse response = userService.verifyPwd(new VerifyPwdRequest(currentPassword));
+//
+////        if(response.getMessage().equals("비밀번호 확인 완료")) {
+//            log.info("userEmail:{}", userEmail);
+//            userService.modifyProfile(new ModifyProfile(userName, userEmail));
+//
+//            if(newPassword != null && !newPassword.isEmpty()) {
+//                // 새 비밀번호가 입력되었다면 비밀번호 수정
+//                userService.modifyPwd(new ModifyPwdRequest(newPassword));
+//            }
+////        }
+//
+//        return "redirect:/mypage";
+//    }
 
     @PostMapping("/inactiveUser")
     public String inactiveUser() {

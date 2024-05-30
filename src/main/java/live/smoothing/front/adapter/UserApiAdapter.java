@@ -106,4 +106,9 @@ public interface UserApiAdapter {
     @GetMapping("/api/user/userState")
     UserStateResponse getUserState(@RequestParam("userId") String userId);
 
+    @PutMapping("/api/user/modify/userName")
+    MessageResponse modifyUserName(@RequestBody UserNameModifyRequest request);
+
+    @PutMapping("/api/user/modify/userEmail")
+    MessageResponse modifyUserEmail(@RequestBody UserEmailModifyRequest request);
 }
