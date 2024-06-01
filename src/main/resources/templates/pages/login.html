@@ -7,7 +7,24 @@
         <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
         <link rel="stylesheet" href="../../assets/css/styles.css">
         <link rel="shortcut icon" href="../../assets/images/favicon.ico"/>
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
         <script src="/assets/js/login.js"></script>
+        <link rel="stylesheet" href="/assets/css/login.css">
+        
+        <title>Login</title>
+        
+        <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .auth-form-light {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border-radius: 20px; /* 원하는 둥글기 정도를 지정합니다. */
+            }
+            .fast-login-btn {
+                border-radius: 20px;
+            }
+        </style>
     </head>
     <body>
         <div class="container-scroller">
@@ -16,53 +33,53 @@
                     <div class="row flex-grow">
                         <div class="col-lg-4 mx-auto">
                             <div class="auth-form-light text-left p-5">
-                                <div class="brand-logo">
-                                    <img src="../../assets/images/logo.png">
-                                </div>
-                                <h4>Hello! let's get started</h4>
-                                <h6 class="font-weight-light">Sign in to continue.</h6>
-<!--                                <h1 th:text="${error}"></h1>-->
-                                <form class="pt-3" action="/login" method="post">
-                                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-lg"
-                                               id="userId" name="username"
-                                               placeholder="아이디">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-lg"
-                                               id="userPassword"
-                                               name="password"
-                                               placeholder="비밀번호">
-                                    </div>
-                                    
-                                    <h1 id="errorMessage" th:text="${error}" style="display: none;"></h1>
-                                    <div class="mt-3">
-                                        <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
-                                                type="submit" id="loginButton">SIGN IN
-                                        </button>
-                                    </div>
-                                    <div class="my-2 d-flex justify-content-between align-items-center">
-                                        <div class="form-check">
-                                            <label class="form-check-label text-muted">
-                                                <input type="checkbox" class="form-check-input"> Keep me signed in
-                                            </label>
+                                <div class="login-content">
+                                    <form style="width: 100%;" action="/login" method="post">
+                                        <img th:src="@{/assets/images/logo.png}" style="margin-bottom: 30px; width:
+                                        300px; height: auto;">
+                                        <div class="input-div pass">
+                                            <div class="i">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div class="div">
+                                                <input type="text" class="input"
+                                                       id="userId" name="username"
+                                                       placeholder="아이디">
+                                            </div>
                                         </div>
-                                        <a href="#" class="auth-link text-black">Forgot password?</a>
-                                    </div>
-
-                                    <div class="text-center mt-4 font-weight-light"> Don't have an account? <a
-                                            href="/register" class="text-primary">Create</a>
-                                    </div>
-                                </form>
-                            </div>
-                            <div id="develop-mode">
-                                <form action="/login" method="post">
-                                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                                    <input type="text" hidden="hidden" value="haha" name="username">
-                                    <input type="password" hidden="hidden" value="1234" name="password">
-                                    <button type="submit" class="btn-gradient-primary">개발자 로그인</button>
-                                </form>
+                                        <div class="input-div pass">
+                                            <div class="i">
+                                                <i class="fas fa-lock"></i>
+                                            </div>
+                                            <div class="div">
+                                                <input type="password" class="input"
+                                                       id="userPassword"
+                                                       name="password"
+                                                       placeholder="비밀번호">
+                                            </div>
+                                        </div>
+                                        <h1 id="errorMessage" th:text="${error}" style="display: none;"></h1>
+                                        <button class="btn"
+                                                type="submit" id="loginButton">Login
+                                        </button>
+                                    </form>
+                                </div>
+                                
+                                <div class="text-center mt-4" style="display: flex; justify-content: center; align-items: center;">
+                                    <span style="margin-right: 5px;">아직 계정이 없다면?</span>
+                                    <a href="/register" class="text-primary">회원가입</a>
+                                </div>
+                                
+                                <div id="develop-mode">
+                                    <form action="/login" method="post">
+                                        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                                        <input type="text" hidden="hidden" value="haha" name="username">
+                                        <input type="password" hidden="hidden" value="1234" name="password">
+                                        <button type="submit" class="btn-gradient-success fast-login-btn"
+                                                style="width: 100px">개발자
+                                                                                                           로그인</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

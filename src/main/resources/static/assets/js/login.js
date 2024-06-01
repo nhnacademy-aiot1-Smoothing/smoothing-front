@@ -1,3 +1,25 @@
+const inputs = document.querySelectorAll(".input");
+
+
+function addcl(){
+    let parent = this.parentNode.parentNode;
+    parent.classList.add("focus");
+}
+
+function remcl(){
+    let parent = this.parentNode.parentNode;
+    if(this.value == ""){
+        parent.classList.remove("focus");
+    }
+}
+
+
+inputs.forEach(input => {
+    input.addEventListener("focus", addcl);
+    input.addEventListener("blur", remcl);
+});
+
+//Source :- https://github.com/sefyudem/Responsive-Login-Form/blob/master/img/avatar.svg
 document.addEventListener('DOMContentLoaded', function () {
 
     let loginButton = document.getElementById('loginButton');
@@ -33,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     validText.innerText = message;
                     field.parentElement.appendChild(validText);
                     validText.style.color = "red";
-                    validText.style.fontSize = "12px";
+                    validText.style.fontSize = "14px";
                     field.focus();
                 }
                 return false;
