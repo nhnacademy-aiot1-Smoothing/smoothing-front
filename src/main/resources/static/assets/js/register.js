@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         alert("회원가입이 완료 되었습니다.");
-                        window.location.href = "/login";
+                        window.location.href = "/login2";
 
                     } else {
                         console.log("오류 발생");
