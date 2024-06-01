@@ -1,13 +1,14 @@
 package live.smoothing.front.sensor.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
-
-import java.time.Instant;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Phase {
-    private Instant time;
-    private Double value;
+
+    private String time;
+    private double value;
 }
