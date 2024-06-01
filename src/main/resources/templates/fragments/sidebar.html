@@ -40,7 +40,7 @@
                 <i class="mdi mdi-creation menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+        <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#device-management" aria-expanded="false"
                aria-controls="device-management">
                 <span class="menu-title">장치 관리</span>
@@ -49,9 +49,9 @@
             </a>
             <div class="collapse show" id="device-management">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="/outlier-monitoring"> 이상치 모니터링 </a>
+                    <li class="nav-item"><a class="nav-link" href="/outlier-monitoring" sec:authorize="hasRole('ROLE_ADMIN')"> 이상치 모니터링 </a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="/error-monitoring"> 통신이상 모니터링 </a></li>
+                    <li class="nav-item"><a class="nav-link" href="/error-monitoring" sec:authorize="hasRole('ROLE_ADMIN')"> 통신이상 모니터링 </a></li>
                     <li class="nav-item"><a class="nav-link" href="/broker"> 브로커 관리 </a></li>
                 </ul>
             </div>

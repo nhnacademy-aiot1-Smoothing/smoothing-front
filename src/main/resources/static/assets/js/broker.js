@@ -26,13 +26,18 @@ document.addEventListener('DOMContentLoaded', function () {
             body: brokerAddRequest
         }).then(response => {
             if (!response.ok) {
-                throw new Error('Server responded with an error.');
+                throw new Error(response.status.toString());
             }
         }).then(data => {
             alert('브로커가 추가되었습니다.');
             location.reload();
         }).catch(error => {
-            console.error('브로커 추가 오류:', error);
+            if(error.message === '403') {
+                alert('권한이 없습니다.');
+                location.reload();
+            }else {
+                alert('브로커 추가에 실패하였습니다.');
+            }
         });
     });
 
@@ -74,13 +79,18 @@ document.addEventListener('DOMContentLoaded', function () {
             body: brokerUpdateRequest
         }).then(response => {
             if (!response.ok) {
-                throw new Error('Server responded with an error.');
+                throw new Error(response.status.toString());
             }
         }).then(data => {
             alert('브로커가 수정되었습니다.');
             location.reload();
         }).catch(error => {
-            console.error('브로커 수정 오류:', error);
+            if(error.message === '403') {
+                alert('권한이 없습니다.');
+                location.reload();
+            }else {
+                alert('브로커 수정에 실패하였습니다.');
+            }
         });
     });
 
@@ -112,14 +122,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }).then(response => {
             if (!response.ok) {
-                throw new Error('서버 응답 오류');
+                throw new Error(response.status.toString());
             }
-            return response;
         }).then(data => {
             alert('브로커가 삭제되었습니다.');
             location.reload();
         }).catch(error => {
-            console.error('브로커 삭제 오류:', error);
+            if(error.message === '403') {
+                alert('권한이 없습니다.');
+                location.reload();
+            }else {
+                alert('브로커 삭제에 실패하였습니다.');
+            }
         });
     });
 });

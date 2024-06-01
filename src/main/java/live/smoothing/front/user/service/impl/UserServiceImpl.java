@@ -1,24 +1,23 @@
 package live.smoothing.front.user.service.impl;
 
 
+import feign.FeignException;
 import live.smoothing.front.adapter.UserApiAdapter;
 import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.UserInfoListResponse;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
-import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.WaitingUserListResponse;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
 import live.smoothing.front.user.dto.request.*;
-import live.smoothing.front.user.dto.response.RoleResponse;
-import live.smoothing.front.user.dto.response.UserAttendanceResponse;
-import live.smoothing.front.user.dto.response.UserInfoResponse;
-import live.smoothing.front.user.dto.response.UserProfileResponse;
+import live.smoothing.front.user.dto.response.*;
 import live.smoothing.front.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -98,7 +97,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public MessageResponse verifyPwd(VerifyPwdRequest request) {
 
-        return userApiAdapter.verifyPwd(request);
+        try {
+            return userApiAdapter.verifyPwd(request);
+        } catch(FeignException.Unauthorized e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
     }
 
     @Override
@@ -147,5 +150,57 @@ public class UserServiceImpl implements UserService {
     public MessageResponse inactiveUser() {
 
         return userApiAdapter.inactiveUser();
+    }
+
+    @Override
+    public List<HookTypeResponse> getHookTypes() {
+
+        return userApiAdapter.getHookTypes();
+    }
+
+    @Override
+    public void createUserHook(HookCreateRequest request) {
+
+        userApiAdapter.createUserHook(request);
+    }
+
+    @Override
+    public UserHookResponse getUserHook() {
+
+        return userApiAdapter.getUserHook();
+    }
+
+    @Override
+    public void modifyUserHook(HookModifyRequest request) {
+
+        userApiAdapter.modifyUserHook(request);
+    }
+
+    @Override
+    public void deleteUserHook() {
+
+        userApiAdapter.deleteUserHook();
+    }
+
+    @Override
+    public MessageResponse existUser(String userId) {
+
+        try {
+            return userApiAdapter.existUser(userId);
+        } catch(FeignException.Conflict e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
+    }
+
+    @Override
+    public void modifyUserName(UserNameModifyRequest request) {
+
+        userApiAdapter.modifyUserName(request);
+    }
+
+    @Override
+    public void modifyUserEmail(UserEmailModifyRequest request) {
+
+        userApiAdapter.modifyUserEmail(request);
     }
 }

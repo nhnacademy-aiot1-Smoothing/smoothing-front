@@ -23,13 +23,18 @@ document.addEventListener('DOMContentLoaded', function () {
             body: sensorAddRequest
         }).then(response => {
             if (!response.ok) {
-                throw new Error('Server responded with an error.');
+                throw new Error(response.status.toString());
             }
         }).then(data => {
             alert('센서가 추가되었습니다.');
             location.reload();
         }).catch(error => {
-            console.error('센서 추가 오류:', error);
+            if(error.message === '403') {
+                alert('권한이 없습니다.');
+                location.reload();
+            }else {
+                alert('센서 추가에 실패하였습니다.');
+            }
         });
     });
 
@@ -65,13 +70,18 @@ document.addEventListener('DOMContentLoaded', function () {
             body: sensorUpdateRequest
         }).then(response => {
             if (!response.ok) {
-                throw new Error('Server responded with an error.');
+                throw new Error(response.status.toString());
             }
         }).then(data => {
             alert('센서가 수정되었습니다.');
             location.reload();
         }).catch(error => {
-            console.error('센서 수정 오류:', error);
+            if(error.message === '403') {
+                alert('권한이 없습니다.');
+                location.reload();
+            }else {
+                alert('센서 수정에 실패하였습니다.');
+            }
         });
     });
 
@@ -101,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }).then(response => {
             if (!response.ok) {
-                throw new Error('서버 응답 오류');
+                throw new Error(response.status.toString());
             }
             return response;
         }).then(data => {
@@ -144,13 +154,18 @@ document.addEventListener('DOMContentLoaded', function () {
             body: tagRequest
         }).then(response => {
             if (!response.ok) {
-                throw new Error('Server responded with an error.');
+                throw new Error(response.status.toString());
             }
         }).then(data => {
             alert('태그가 추가되었습니다.');
             location.reload();
         }).catch(error => {
-            console.error('태그 추가 오류:', error);
+            if(error.message === '403') {
+                alert('권한이 없습니다.');
+                location.reload();
+            }else {
+                alert('태그 추가에 실패하였습니다.');
+            }
         });
     });
 

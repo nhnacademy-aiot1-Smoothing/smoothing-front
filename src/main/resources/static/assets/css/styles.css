@@ -8912,7 +8912,7 @@ fieldset:disabled .btn {
     flex-direction: column;
     width: 100%;
     pointer-events: auto;
-    background-color: #f2edf3;
+    background-color: #ffffff;
     background-clip: padding-box;
     border: 1px solid #ebedf2;
     border-radius: 0.3rem;
