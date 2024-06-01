@@ -1,0 +1,4 @@
+
+
+DELETE http://localhost:8000/api/device/brokers/2
+Authorization: Bearer+eyJhbGciOiJIUzM4NCJ9.eyJ1c2VySWQiOiJ1c2VyMSIsInJvbGVzIjpbXSwiaWF0IjoxNzE1MTMyNjQ3LCJleHAiOjE3MTUxMzM4NDd9.BVefyO1DOhdDWrYT-F7bduX2oRH7BARzhKacICm4G_09Yv5QV4IeGgfqZLPWlvCr

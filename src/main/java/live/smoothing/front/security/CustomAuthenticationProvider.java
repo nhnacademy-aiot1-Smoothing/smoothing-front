@@ -1,48 +1,54 @@
 package live.smoothing.front.security;
 
-import live.smoothing.front.adapter.AuthAdaptor;
-import live.smoothing.front.auth.dto.LoginRequest;
-import live.smoothing.front.auth.dto.LoginResponse;
+import feign.FeignException;
+import live.smoothing.front.adapter.AuthAdapter;
+import live.smoothing.front.auth.dto.login.LoginRequest;
+import live.smoothing.front.auth.dto.login.LoginResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.stereotype.Component;
 
 /**
+ * @author 우혜승
+ * @author 우혜승
  * @see CustomAuthenticationToken 를 통해 인증을 진행하는 Provider
  * @see CustomAuthenticationToken 에서 userId, userPassword를 받아 인증을 진행하고
- * @see AuthAdaptor 를 통해 인증을 진행한다.
- *
- * @author 우혜승
+ * @see AuthAdapter 를 통해 인증을 진행한다.
  */
+@Slf4j
 @RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    private final AuthAdaptor authAdaptor;
+    private final AuthAdapter authAdapter;
 
     /**
-     * @see CustomAuthenticationToken 를 받아서 인증을 시도한다.
-     *
      * @param authentication the inheritor of CustomAuthenticationToken
      * @return the inheritor of CustomAuthenticationToken
      * @throws AuthenticationException 인증 서버 에러, 로그인 실패 등의 예외
+     * @see CustomAuthenticationToken 를 받아서 인증을 시도한다.
      */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
         ResponseEntity<LoginResponse> response;
         try {
-            response = authAdaptor.doLogin(new LoginRequest(authentication.getName(), (String) authentication.getCredentials()));
-        } catch (Exception e) {
-            //todo feign 200 아닐 경우 에러 처리돼서 따로 뭔가 해줘야함
-            throw new InternalAuthenticationServiceException("Internal Server Error");
-        }
-        if (!response.getStatusCode().is2xxSuccessful()) {
-            throw new BadCredentialsException("Fail to Login");
+            response = authAdapter.doLogin(new LoginRequest(authentication.getName(), (String) authentication.getCredentials()));
+        } catch (FeignException e) {
+            log.error("{} : {}", e.status(), e.contentUTF8());
+            if (e.status() == 404) {
+                throw new BadCredentialsException("유저를 찾을 수 없습니다.");
+            } else if (e.status() == 401) {
+                throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
+            } else if (e.status() != 200) {
+                throw new BadCredentialsException("기타 오류가 발생했습니다.");
+            } else {
+                throw new InternalAuthenticationServiceException("내부 서버 오류가 발생했습니다.");
+            }
         }
         return new CustomAuthenticationToken(authentication.getName(), (String) authentication.getCredentials(), response.getBody());
     }
@@ -55,6 +61,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
      */
     @Override
     public boolean supports(Class<?> authentication) {
+
         return CustomAuthenticationToken.class.isAssignableFrom(authentication);
     }
 }

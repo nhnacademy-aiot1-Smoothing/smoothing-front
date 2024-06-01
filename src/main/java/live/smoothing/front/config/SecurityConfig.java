@@ -1,6 +1,6 @@
 package live.smoothing.front.config;
 
-import live.smoothing.front.adapter.AuthAdaptor;
+import live.smoothing.front.adapter.AuthAdapter;
 import live.smoothing.front.security.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -15,18 +16,20 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 /**
  * Security 설정 클래스
  *
  * @author 우혜승
-
  */
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-    private final AuthAdaptor authAdaptor;
+
+    private final AuthAdapter authAdapter;
 
     /**
      * SecurityFilterChain 빈 생성 메서드
@@ -38,6 +41,7 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_THREADLOCAL);
 
         http.csrf().disable()
@@ -51,13 +55,18 @@ public class SecurityConfig {
 //                .antMatchers("/error").permitAll()
 //                .antMatchers("/static/**").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/requestCertificationNumber").permitAll()
+                .antMatchers("/verifyCertificationNumber").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/login")
                 .permitAll()
                 .and()
-                .logout().addLogoutHandler(new CustomLogoutHandler())
-                .permitAll();
+                .logout()
+                .logoutUrl("/logout")
+                .addLogoutHandler(new CustomLogoutHandler(authAdapter));
+
 
         return http.build();
     }
@@ -70,6 +79,7 @@ public class SecurityConfig {
      */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
+
         return (web) -> web.ignoring().antMatchers("/assets/**", "/error", "/static/**");
     }
 
@@ -83,6 +93,7 @@ public class SecurityConfig {
      */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+
         return authenticationConfiguration.getAuthenticationManager();
     }
 
@@ -93,7 +104,16 @@ public class SecurityConfig {
      * @return AuthenticationProvider
      */
     @Bean
-    public AuthenticationProvider authenticationProvider(){
-        return new CustomAuthenticationProvider(authAdaptor);
+    public AuthenticationProvider authenticationProvider() {
+
+        return new CustomAuthenticationProvider(authAdapter);
+    }
+
+    @Bean
+    public HttpSessionRequestCache httpSessionRequestCache() {
+
+        HttpSessionRequestCache httpSessionRequestCache = new HttpSessionRequestCache();
+        httpSessionRequestCache.setCreateSessionAllowed(false);
+        return httpSessionRequestCache;
     }
 }
