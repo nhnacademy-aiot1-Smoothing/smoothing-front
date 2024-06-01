@@ -17,7 +17,6 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class BrokerController {
 
     private final BrokerService brokerService;
@@ -36,6 +35,7 @@ public class BrokerController {
     }
 
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/api/device/brokers")
     public void addBroker(@RequestBody BrokerAddRequest request) {
 
@@ -43,6 +43,7 @@ public class BrokerController {
     }
 
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/api/device/brokers/{brokerId}")
     public void updateBroker(@PathVariable Integer brokerId, @RequestBody BrokerUpdateRequest request) {
 
@@ -50,6 +51,7 @@ public class BrokerController {
     }
 
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/api/device/brokers/{brokerId}")
     public void deleteBroker(@PathVariable Integer brokerId) {
 
