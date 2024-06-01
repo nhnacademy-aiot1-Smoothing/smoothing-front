@@ -27,7 +27,6 @@ function fetchDataAndDrawChart() {
         url: '/sensor/goals/history?year=' + currentYear,
         method: 'GET',
         success: function (data) {
-            console.log(data);
             let columnData = [];
             let lineData = [];
             let months = [];
