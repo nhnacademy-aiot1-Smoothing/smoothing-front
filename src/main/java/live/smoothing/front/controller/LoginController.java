@@ -24,4 +24,15 @@ public class LoginController {
         }
         return "pages/login";
     }
+
+    @GetMapping("/login2")
+    public String login2(@CookieValue(value = "error", required = false) String error, Model model, HttpServletResponse response) {
+        if (error != null) {
+            model.addAttribute("error", URLDecoder.decode(error));
+            Cookie cookie = new Cookie("error", "");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+        }
+        return "pages/login2";
+    }
 }

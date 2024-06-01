@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+        <link rel="stylesheet" href="../../assets/css/styles.css">
+        <link rel="shortcut icon" href="../../assets/images/favicon.ico"/>
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+        <script src="/assets/js/login2.js"></script>
+        <link rel="stylesheet" href="/assets/css/login.css">
+        
+        <title>Animated Login Form</title>
+        
+        <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .auth-form-light {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border-radius: 20px; /* 원하는 둥글기 정도를 지정합니다. */
+            }
+        </style>
+    </head>
+    <body>
+        
+<!--        <img class="wave" src="https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/master/img/wave.png">-->
+<!--        <div class="container">-->
+<!--            <div class="img">-->
+<!--                <img src="https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/master/img/bg.svg">-->
+<!--            </div>-->
+<!--            <div class="login-content">-->
+<!--                <form>-->
+<!--                    <img src="https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/master/img/avatar.svg">-->
+<!--                    <h2 class="title">Welcome</h2>-->
+<!--                    <div class="input-div one">-->
+<!--                        <div class="i">-->
+<!--                            <i class="fas fa-user"></i>-->
+<!--                        </div>-->
+<!--                        <div class="div">-->
+<!--                            <h5>Username</h5>-->
+<!--                            <input type="text" class="input">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="input-div pass">-->
+<!--                        <div class="i">-->
+<!--                            <i class="fas fa-lock"></i>-->
+<!--                        </div>-->
+<!--                        <div class="div">-->
+<!--                            <h5>Password</h5>-->
+<!--                            <input type="password" class="input">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <a href="#">Forgot Password?</a>-->
+<!--                    <input type="submit" class="btn" value="Login">-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="container-scroller">
+            <div class="container-fluid page-body-wrapper full-page-wrapper">
+                <div class="content-wrapper d-flex align-items-center auth">
+                    <div class="row flex-grow">
+                        <div class="col-lg-4 mx-auto">
+                            <div class="auth-form-light text-left p-5">
+                                
+                                <div class="login-content">
+                                    <form style="width: 100%;">
+                                        <img src="https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/master/img/avatar.svg">
+                                        <h2 class="title">Welcome</h2>
+                                        <div class="input-div one">
+                                            <div class="i">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>아이디</h5>
+                                                <input type="text" class="input">
+                                            </div>
+                                        </div>
+                                        <div class="input-div pass">
+                                            <div class="i">
+                                                <i class="fas fa-lock"></i>
+                                            </div>
+                                            <div class="div">
+                                                <h5>비밀번호</h5>
+                                                <input type="password" class="input">
+                                            </div>
+                                        </div>
+<!--                                        <a href="#">회원가입</a>-->
+                                        <input type="submit" class="btn" value="Login">
+                                    </form>
+                                </div>
+                                
+                                <div class="text-center mt-4" style="display: flex; justify-content: center; align-items: center;">
+                                    <span style="margin-right: 5px;">Don't have an account?</span>
+                                    <a href="/register" class="text-primary">Create</a>
+                                </div>
+                            </div>
+<!--                                <div class="brand-logo">-->
+<!--                                    <img src="../../assets/images/logo.svg">-->
+<!--                                </div>-->
+<!--                                <h4>Hello! let's get started</h4>-->
+<!--                                <h6 class="font-weight-light">Sign in to continue.</h6>-->
+<!--                                &lt;!&ndash;                                <h1 th:text="${error}"></h1>&ndash;&gt;-->
+<!--                                <form class="pt-3" action="/login" method="post">-->
+<!--                                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <input type="text" class="form-control form-control-lg"-->
+<!--                                               id="userId" name="username"-->
+<!--                                               placeholder="아이디">-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <input type="password" class="form-control form-control-lg"-->
+<!--                                               id="userPassword"-->
+<!--                                               name="password"-->
+<!--                                               placeholder="비밀번호">-->
+<!--                                    </div>-->
+<!--                                    -->
+<!--                                    <h1 id="errorMessage" th:text="${error}" style="display: none;"></h1>-->
+<!--                                    <div class="mt-3">-->
+<!--                                        <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"-->
+<!--                                                type="submit" id="loginButton">SIGN IN-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                    <div class="my-2 d-flex justify-content-between align-items-center">-->
+<!--                                        <div class="form-check">-->
+<!--                                            <label class="form-check-label text-muted">-->
+<!--                                                <input type="checkbox" class="form-check-input"> Keep me signed in-->
+<!--                                            </label>-->
+<!--                                        </div>-->
+<!--                                        <a href="#" class="auth-link text-black">Forgot password?</a>-->
+<!--                                    </div>-->
+<!--                                    -->
+<!--                                    <div class="text-center mt-4 font-weight-light"> Don't have an account? <a-->
+<!--                                            href="/register" class="text-primary">Create</a>-->
+<!--                                    </div>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                            <div id="develop-mode">-->
+<!--                                <form action="/login" method="post">-->
+<!--                                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>-->
+<!--                                    <input type="text" hidden="hidden" value="haha" name="username">-->
+<!--                                    <input type="password" hidden="hidden" value="1234" name="password">-->
+<!--                                    <button type="submit" class="btn-gradient-primary">개발자 로그인</button>-->
+<!--                                </form>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
