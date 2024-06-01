@@ -62,6 +62,9 @@ function fetchDataAndDrawChart() {
                 credits: {
                     enabled: false
                 },
+                exporting: {
+                    enabled: false
+                },
                 series: [{
                     type: 'column',
                     name: 'Amount',

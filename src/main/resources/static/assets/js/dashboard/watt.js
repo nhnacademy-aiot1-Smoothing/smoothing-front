@@ -63,6 +63,9 @@ function create10MWattChart(tags) {
                 }
             }
         },
+        exporting: {
+            enabled: false
+        },
         xAxis: {
             type: 'datetime',
             tickPixelInterval: 150

@@ -83,6 +83,9 @@ function create1HKwhChart(tags) {
         legend: {
             enabled: false
         },
+        exporting: {
+            enabled: false
+        },
         plotOptions: {
             series: {
                 animation: {
