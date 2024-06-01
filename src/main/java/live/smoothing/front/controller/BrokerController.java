@@ -1,5 +1,6 @@
 package live.smoothing.front.controller;
 
+import live.smoothing.front.adapter.RuleEngineAdapter;
 import live.smoothing.front.device.dto.BrokerAddRequest;
 import live.smoothing.front.device.dto.BrokerUpdateRequest;
 import live.smoothing.front.device.service.BrokerService;
@@ -20,13 +21,14 @@ import java.util.List;
 public class BrokerController {
 
     private final BrokerService brokerService;
+    private final RuleEngineAdapter ruleEngineAdapter;
 
     @GetMapping("/broker")
     public String broker(Pageable pageable,
                          Model model) {
         List<String> protocolTypeList = brokerService.getProtocols().getProtocolTypes();
         model.addAttribute("protocolTypeList", protocolTypeList);
-
+        model.addAttribute("brokerStatus", ruleEngineAdapter.getBrokerStatus().getBrokerStatus());
         BrokerListResponse brokers = brokerService.getBrokers(pageable);
         model.addAttribute("brokers", brokers.getBrokers());
         model.addAttribute("size", brokers.getTotalPage());
