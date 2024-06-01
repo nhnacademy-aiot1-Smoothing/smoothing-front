@@ -7654,21 +7654,25 @@ fieldset:disabled .btn {
 .overlay-buttons {
     position: absolute;
     bottom: 50%;
-    transform: translateY(50%);
+    left: 0;
     width: 100%;
-    text-align: center;
+    display: flex;
+    z-index: 1;
+}
+
+.left-overlay, .right-overlay {
+    position: absolute;
+    bottom: 50%;
+    transform: translateY(50%);
+    z-index: 2;
 }
 
 .left-overlay {
-    position: absolute;
-    left: 0;
-    transform: translate(-50%, 0); /* 부모 요소의 너비를 고려하여 가운데로 이동 */
+    left: -65px;
 }
 
 .right-overlay {
-    position: absolute;
-    right: 0;
-    transform: translate(50%, 0); /* 부모 요소의 너비를 고려하여 가운데로 이동 */
+    right: -65px;
 }
 
 .card > hr {
