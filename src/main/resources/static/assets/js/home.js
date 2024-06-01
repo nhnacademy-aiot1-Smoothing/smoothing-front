@@ -13,10 +13,8 @@ let fcmToken;
 
 function handleToken() {
     messaging.requestPermission().then(() => {
-        console.log('알림 권한이 허용되었습니다.');
         return messaging.getToken();
     }).then(token => {
-        console.log('토큰:', token);
         fcmToken = token;
         sendTokenToServer(token);
     }).catch(err => {
@@ -59,7 +57,6 @@ if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
         navigator.serviceWorker.register('/firebase-messaging-sw.js')
             .then(function (registration) {
-                console.log('Registration successful, scope is:', registration.scope);
             }).catch(function (err) {
             console.log('Service worker registration failed, error:', err);
         });

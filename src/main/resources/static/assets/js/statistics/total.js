@@ -9,8 +9,6 @@
         };
     });
 
-    console.log('converted', convertedData);
-
     Highcharts.setOptions({
         lang: {
             rangeSelectorZoom: 'Granularity'

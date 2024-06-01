@@ -12,21 +12,18 @@
         </style>
         <link rel="stylesheet" href="/assets/css/battery.css">
         <link href="https://unpkg.com/@pqina/flip/dist/flip.min.css" rel="stylesheet">
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <script src="https://code.highcharts.com/modules/pictorial.js"></script>
     </head>
     <body>
         <th:block layout:fragment="content">
             <div class="row mx-0">
-                <div class="col-md-1 d-flex align-items-stretch">
-                    <div class="col-md-12 grid-margin stretch-card">
-                        <div class="card" style=" background-color: transparent; border: none; box-shadow: none;">
-                            <div>
-                                <div id="igr-chart" style="height: 80px; display: flex; justify-content: center; align-items: center;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 grid-margin stretch-card">
+                <div class="col-md-5 grid-margin stretch-card">
                     <div class="card" style="align-items: center; background-color: transparent;border: none; box-shadow: none;">
                         <div>
                             <div class="tick"
@@ -43,12 +40,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5 d-flex align-items-stretch">
-                    <div class="col-md-12 grid-margin stretch-card">
+                    <div class="col-md-5 grid-margin stretch-card">
                         <div class="card" style="background-color: transparent;border: none; box-shadow: none;">
                             <div id="project_container">
                                 <div id="projectbox">
-                                    <!-- Start project HTML -->
                                     <div class='battery'>
                                         <div class='bar' data-power='2'></div>
                                         <div class='bar' data-power='4'></div>
@@ -101,14 +96,11 @@
                                         <div class='bar' data-power='98'></div>
                                         <div class='bar' data-power='100'></div>
                                     </div>
-                                    <!-- End Project HTML -->
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 d-flex align-items-stretch">
-                    <div class="col-md-12 grid-margin stretch-card">
+                    <div class="col-md-2 grid-margin stretch-card">
                         <div class="card" style=" background-color: transparent;border: none; box-shadow: none;">
                             <div class="d-flex justify-content-between">
                                 <button type="button"
@@ -141,7 +133,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -211,102 +202,32 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">전압</h4>
-                            <p class="card-description">게이지 그래프 3개</p>
-                            <div>
-                            
-                            </div>
+                            <div id="first"></div>
                         </div>
                     </div>
                 </div>
-<!--                <div class="col-md-3 grid-margin stretch-card">-->
-<!--                    <div class="card">-->
-<!--                        <div class="card-body">-->
-<!--                            <h4 class="card-title">누수전력 차트</h4>-->
-<!--                            <p class="card-description"></p>-->
-<!--                            <div>-->
-<!--                                <div id="igr-chart" style="height: 400px; display: flex; justify-content: center; align-items: center;"></div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
             
-<!--            <div class="row">-->
-<!--                <div class="col-md-12 grid-margin stretch-card">-->
-<!--                    <div class="card">-->
-<!--                        <div class="card-body">-->
-<!--                            <h4 class="card-title">전압</h4>-->
-<!--                            <p class="card-description">게이지 그래프 3개</p>-->
-<!--                            <div id="first-gauge-container" style="display: inline-table">-->
-<!--                                <div id="three-test1" style="width: 300px"></div>-->
-<!--                                <div id="three-test2" style="width: 300px"></div>-->
-<!--                            </div>-->
-<!--                            <div id="second-gauge-container" style="display: inline-table">-->
-<!--                                <div id="ThreePhase-B-LN" style="width: 300px"></div>-->
-<!--                                <div id="ThreePhase-B-LL" style="width: 300px"></div>-->
-<!--                            </div>-->
-<!--                            <div id="third-gauge-container" style="display: inline-table">-->
-<!--                                <div id="ThreePhase-C-LN" style="width: 300px"></div>-->
-<!--                                <div id="ThreePhase-C-LL" style="width: 300px"></div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            -->
             <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
             <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-messaging.js"></script>
+            
             <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
             <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
             <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
             <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-            <script src="https://code.highcharts.com/highcharts.js"></script>
+            
             <script src="https://unpkg.com/@pqina/flip/dist/flip.min.js"></script>
-            <script src="https://code.highcharts.com/highcharts.js"></script>
-
-            <script src="https://code.highcharts.com/highcharts-more.js"></script>
-            <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-            <script src="https://code.highcharts.com/modules/exporting.js"></script>
-            <script src="https://code.highcharts.com/modules/export-data.js"></script>
-            <script src="https://code.highcharts.com/modules/accessibility.js"></script>
             
-            <script src="https://code.highcharts.com/modules/pictorial.js"></script>
-            <script src="https://code.highcharts.com/modules/exporting.js"></script>
-            <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
-
             <script src="/assets/js/dashboard/battery.js"></script>
-            <script src="/assets/js/sensorRaderChart.js"></script>
-            
             <script src="/assets/js/home.js"></script>
             <script src="/assets/js/dashboard/watt.js"></script>
             <script src="/assets/js/dashboard/cost.js"></script>
             <script src="/assets/js/dashboard/1hKwh.js"></script>
             <script src="/assets/js/dashboard/1dKwh.js"></script>
             <script src="/assets/js/dashboard/amCharts.js"></script>
-
             <script src="/assets/js/comparison/tags-1.js"></script>
-            <script src="/assets/js/dashboard/igr.js"></script>
-            <script src="/assets/js/dashboard/three-test.js"></script>
-           
-            <script>
-                function parsingTags() {
-                    const checkboxes = document.querySelectorAll('#tagCheckboxGroup input[type="checkbox"]:checked');
-                    const selectedTags = Array.from(checkboxes).map(checkbox => checkbox.value).join(",");
-                    return selectedTags;
-                }
-
-                document.getElementById('tagSelectButton').addEventListener('click', function() {
-                    const tags = parsingTags();
-                    create1DKwhChart(tags);
-                    create1HKwhChart(tags);
-                    create10MWattChart(tags);
-                    create1HWattChart(tags);
-                    createRaderChart("chartdiv2", tags);
-
-                    $('#tagSelectModal').modal('hide');
-                });
-            </script>
+            <script src="/assets/js/dashboard/three.js"></script>
+         
         </th:block>
     </body>
 </html>
