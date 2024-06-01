@@ -360,6 +360,10 @@ document.addEventListener('DOMContentLoaded', function () {
         let newPassword = document.getElementById('newPassword').value;
         let confirmNewPassword = document.getElementById('confirmNewPassword').value;
 
+        if (newPassword !== confirmNewPassword) {
+            return false;
+        }
+
         if (!newPassword) {
             let errorMessage = document.getElementById("pwdErrorMessage");
             errorMessage.textContent = "새 비밀번호를 입력해주세요.";
