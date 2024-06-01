@@ -19,8 +19,7 @@ async function fetchData() {
                 enabled: false
             },
             title: {
-                text: '평균 비교',
-                align: 'center'
+                text: '',
             },
             subtitle: {
                 text: 'Source: indexmundi',

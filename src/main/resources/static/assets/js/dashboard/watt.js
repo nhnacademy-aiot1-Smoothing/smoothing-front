@@ -137,6 +137,9 @@ function create1HWattChart(tags) {
         legend: {
             enabled: false
         },
+        exporting: {
+            enabled: false
+        },
         plotOptions: {
             series: {
                 color: '#F3CA52'

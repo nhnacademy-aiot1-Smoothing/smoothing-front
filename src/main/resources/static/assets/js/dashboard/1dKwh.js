@@ -2,27 +2,27 @@ const days = {
     1: {
         code: 'MON',
         name: '월요일',
-        color: '#FE2371'
+        color: '#FF0080'
     },
     2: {
         code: 'TUE',
         name: '화요일',
-        color: '#544FC5'
+        color: '#FFAA80'
     },
     3: {
         code: 'WED',
         name: '수요일',
-        color: '#2CAFFE'
+        color: '#FFDB5C'
     },
     4: {
         code: 'THU',
         name: '목요일',
-        color: '#FE6A35'
+        color: '#9DDE8B'
     },
     5: {
         code: 'FRI',
         name: '금요일',
-        color: '#6B8ABC'
+        color: '#40A578'
     },
     6: {
         code: 'SAT',
@@ -32,7 +32,7 @@ const days = {
     0: {
         code: 'SUN',
         name: '일요일',
-        color: '#00A6A6'
+        color: '#7469B6'
     }
 };
 
@@ -129,7 +129,6 @@ function create1DKwhChart(tags) {
                 }
             }
         },
-        // Custom option for templates
         days: days,
         title: {
             text: null,
@@ -146,13 +145,11 @@ function create1DKwhChart(tags) {
         tooltip: {
             shared: true,
             formatter: function() {
-                // 각 포인트에 대해 요일을 계산
                 const pointDate = new Date(this.x);
                 const dayOfWeek = pointDate.getDay();
-                const dayName = days[dayOfWeek].name;  // 요일 이름
+                const dayName = days[dayOfWeek].name;
 
                 let header = `<span style="font-size: 15px">${dayName}</span><br/>`;
-                // 각 시리즈 포인트 정보
                 let points = this.points.map(point =>
                     `<span style="color:${point.color}">\u25CF</span> ${point.series.name}: <b>${point.y} kwh</b><br/>`
                 ).join('');
