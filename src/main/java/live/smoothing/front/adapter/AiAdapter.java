@@ -1,5 +1,6 @@
 package live.smoothing.front.adapter;
 
+import live.smoothing.front.ai.dto.PowerGeneratorLogResponse;
 import live.smoothing.front.ai.dto.TimeValue;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +21,10 @@ public interface AiAdapter {
                             @RequestParam("description") String description);
 
     @GetMapping("/api/ai/power-generation")
-    String getPowerGeneration(@RequestParam("measurement") String measurement,
+    List<TimeValue> getPowerGeneration(@RequestParam("measurement") String measurement,
                               @RequestParam("field") String field);
 
     @GetMapping("/api/ai/power-generator/log")
-    String getPowerGeneratorLog(@RequestParam("generatorId") String generatorId);
+    List<PowerGeneratorLogResponse> getPowerGeneratorLog(@RequestParam("generatorId") String generatorId);
 }
 

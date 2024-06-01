@@ -1,7 +1,7 @@
 package live.smoothing.front.controller;
 
 import live.smoothing.front.adapter.AiAdapter;
-import live.smoothing.front.adapter.DeviceAdapter;
+import live.smoothing.front.ai.dto.PowerGeneratorLogResponse;
 import live.smoothing.front.ai.dto.TimeValue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -37,13 +37,13 @@ public class AiController {
 
     @ResponseBody
     @GetMapping("/ai/power-generation")
-    public String getPowerGeneration(@RequestParam String measurement, @RequestParam String field) {
+    public List<TimeValue> getPowerGeneration(@RequestParam String measurement, @RequestParam String field) {
         return aiAdapter.getPowerGeneration(measurement, field);
     }
 
     @ResponseBody
     @GetMapping("/ai/power-generator/log")
-    public String getPowerGenerationLog(@RequestParam String generatorId) {
+    public List<PowerGeneratorLogResponse> getPowerGenerationLog(@RequestParam String generatorId) {
         return aiAdapter.getPowerGeneratorLog(generatorId);
     }
 

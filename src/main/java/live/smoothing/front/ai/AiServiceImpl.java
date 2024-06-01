@@ -1,6 +1,7 @@
 package live.smoothing.front.ai;
 
 import live.smoothing.front.adapter.AiAdapter;
+import live.smoothing.front.ai.dto.PowerGeneratorLogResponse;
 import live.smoothing.front.ai.dto.TimeValue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,13 +25,12 @@ public class AiServiceImpl implements AiService {
     }
 
     @Override
-    public String getPowerGeneration(String measurement, String field) {
+    public List<TimeValue> getPowerGeneration(String measurement, String field) {
         return aiAdapter.getPowerGeneration(measurement, field);
     }
 
     @Override
-    public String getPowerGeneratorLog(String generatorId) {
+    public List<PowerGeneratorLogResponse> getPowerGeneratorLog(String generatorId) {
         return aiAdapter.getPowerGeneratorLog(generatorId);
     }
-
 }
