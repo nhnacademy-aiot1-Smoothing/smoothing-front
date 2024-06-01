@@ -53,6 +53,7 @@
                         <th scope="col"><b>프로토콜</b></th>
                         <th scope="col"><b>IP주소</b></th>
                         <th scope="col"><b>포트</b></th>
+                        <th scope="col"><b>상태</b></th>
                         <th scope="col"><b>동작</b></th>
                     </tr>
                     </thead>
@@ -66,6 +67,8 @@
                         <td th:text="${brokers.protocolType}"></td>
                         <td th:text="${brokers.brokerIp}"></td>
                         <td th:text="${brokers.brokerPort}"></td>
+                        <td th:text="'동작중'" th:if="${brokerStatus[brokers.brokerId] == 'running'}"></td>
+                        <td th:text="'중지'" th:if="${brokerStatus[brokers.brokerId] == 'stop'}"></td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm updateButton"
                                     data-bs-toggle="modal"
