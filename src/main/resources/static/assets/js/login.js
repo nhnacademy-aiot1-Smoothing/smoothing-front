@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     validText.innerText = message;
                     field.parentElement.appendChild(validText);
                     validText.style.color = "red";
-                    validText.style.fontSize = "12px";
+                    validText.style.fontSize = "14px";
                     field.focus();
                 }
                 return false;

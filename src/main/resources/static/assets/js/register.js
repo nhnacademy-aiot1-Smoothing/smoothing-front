@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         alert("회원가입이 완료 되었습니다.");
-                        window.location.href = "/login2";
+                        window.location.href = "/login";
 
                     } else {
                         console.log("오류 발생");
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     validText.innerText = message;
                     field.parentElement.appendChild(validText);
                     validText.style.color = "red";
-                    validText.style.fontSize = "12px";
+                    validText.style.fontSize = "14px";
                     field.focus();
                 }
                 return false;
