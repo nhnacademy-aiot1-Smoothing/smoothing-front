@@ -7654,44 +7654,24 @@ fieldset:disabled .btn {
 .overlay-buttons {
     position: absolute;
     bottom: 50%;
-    transform: translateY(50%);
-    width: 100%;
-    text-align: center;
-}
-
-.left-overlay {
-    position: absolute;
-    left: 0;
-    transform: translate(-50%, 0);
-}
-
-.right-overlay {
-    position: absolute;
-    right: 0;
-    transform: translate(50%, 0);
-}
-
-.year-buttons {
-    position: absolute;
-    bottom: 50%;
     left: 0;
     width: 100%;
     display: flex;
     z-index: 1;
 }
 
-.left-year, .right-year {
+.left-overlay, .right-overlay {
     position: absolute;
     bottom: 50%;
     transform: translateY(50%);
     z-index: 2;
 }
 
-.left-year {
+.left-overlay {
     left: -65px;
 }
 
-.right-year {
+.right-overlay {
     right: -65px;
 }
 

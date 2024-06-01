@@ -52,23 +52,33 @@ fetch('/sensor/three-phase')
                     }
                 },
                 lineWidth: 0,
-                plotBands: [{
+                plotBands: [ {
                     from: 0,
-                    to: maxValueChart1 * 0.65,
-                    color: '#40A578',
+                    to: maxValueChart1 * 0.2,
+                    color: '#F72464',
                     thickness: 20,
                     borderRadius: '50%'
-                }, {
-                    from: maxValueChart1 * 0.75,
+                },  {
+                    from: maxValueChart1 * 0.8,
                     to: maxValueChart1,
                     color: '#F72464',
                     thickness: 20,
                     borderRadius: '50%'
                 }, {
-                    from: maxValueChart1 * 0.60,
-                    to: maxValueChart1 * 0.80,
+                    from: maxValueChart1 * 0.15,
+                    to: maxValueChart1 * 0.4,
                     color: '#FCDC2A',
                     thickness: 20
+                }, {
+                    from: maxValueChart1 * 0.4,
+                    to: maxValueChart1 * 0.6,
+                    color: '#40A578',
+                    thickness: 20
+                }, {
+                    from: maxValueChart1 * 0.6,
+                    to: maxValueChart1 * 0.85,
+                    color: '#FCDC2A',
+                    thickness: 20,
                 }]
             }, exporting: {
                 enabled: false
@@ -155,21 +165,31 @@ fetch('/sensor/three-phase')
                 lineWidth: 0,
                 plotBands: [{
                     from: 0,
-                    to: maxValueChart2 * 0.65,
-                    color: '#40A578',
+                    to: maxValueChart2 * 0.2,
+                    color: '#F72464',
                     thickness: 20,
                     borderRadius: '50%'
-                }, {
-                    from: maxValueChart2 * 0.75,
+                },  {
+                    from: maxValueChart2 * 0.8,
                     to: maxValueChart2,
                     color: '#F72464',
                     thickness: 20,
                     borderRadius: '50%'
                 }, {
-                    from: maxValueChart2 * 0.60,
-                    to: maxValueChart2 * 0.80,
+                    from: maxValueChart2 * 0.15,
+                    to: maxValueChart2 * 0.4,
                     color: '#FCDC2A',
                     thickness: 20
+                }, {
+                    from: maxValueChart2 * 0.4,
+                    to: maxValueChart2 * 0.6,
+                    color: '#40A578',
+                    thickness: 20
+                }, {
+                    from: maxValueChart2 * 0.6,
+                    to: maxValueChart2 * 0.85,
+                    color: '#FCDC2A',
+                    thickness: 20,
                 }]
             }, exporting: {
             enabled: false
