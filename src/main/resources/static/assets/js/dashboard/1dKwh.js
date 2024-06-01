@@ -168,6 +168,9 @@ function create1DKwhChart(tags) {
                 }
             }
         },
+        exporting: {
+            enabled: false
+        },
         yAxis: [{
             title: {
                 text: null
