@@ -1,16 +1,16 @@
 function battery(charge) {
-    var power = Math.ceil(charge / 2);
-    $(".battery .bar").removeClass("active red yellow green"); // 모든 막대 리셋
+    var power = Math.ceil(charge / 4);
+    $(".battery .bar").removeClass("active red yellow green");
 
     $(".battery .bar").each(function(index) {
         if (index < power) {
-            $(this).addClass("active"); // 막대 활성화
-            if (charge <= 20) {
-                $(this).addClass("red"); // 20% 이하면 빨간색
-            } else if (charge <= 40) {
-                $(this).addClass("yellow"); // 40% 이하면 노란색
+            $(this).addClass("active");
+            if (charge >= 80) {
+                $(this).addClass("red");
+            } else if (charge >= 60) {
+                $(this).addClass("yellow");
             } else {
-                $(this).addClass("green"); // 그 이상은 녹색
+                $(this).addClass("green");
             }
         }
     });
@@ -24,7 +24,7 @@ fetch("/sensor/goal/current")
     .then(response => response.json())
     .then(res => {
         const percent = getPercent(res.goalAmount, res.currentAmount);
-        battery(100 - percent);
+        battery(percent);
     })
     .then(() => {
         setInterval(() => {
@@ -32,7 +32,7 @@ fetch("/sensor/goal/current")
                 .then(response => response.json())
                 .then(res => {
                     const percent = getPercent(res.goalAmount, res.currentAmount);
-                    battery(100 - percent);
+                    battery(percent);
                 })
         }, 5000);
     })

@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">전체 기간 전력량</h4>
-                            <div id="statistics-total" style="height: 350px"></div>
+                            <div id="statistics-total" style="height: 380px"></div>
                         </div>
                     </div>
                 </div>
@@ -39,8 +39,20 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">연도별 목표 달성 여부</h4>
-                            <button id="prevYearBtn">Previous Year</button>
-                            <button id="nextYearBtn">Next Year</button>
+                            <p class="card-description"></p>
+                            <p class="card-description"></p>
+                            <div class="year-buttons">
+                                <div class="left-year">
+                                    <button id="prevYearBtn" class="btn btn-primary" style="background-color: transparent; border: none; color: black;">
+                                        <span class="mdi mdi-chevron-left" style="font-size: 50px; color: #8c8c8c;"></span>
+                                    </button>
+                                </div>
+                                <div class="right-year">
+                                    <button id="nextYearBtn" class="btn btn-primary" style="background-color: transparent; border: none; color: black;">
+                                        <span class="mdi mdi-chevron-right" style="font-size: 50px; color: #8c8c8c;"></span>
+                                    </button>
+                                </div>
+                            </div>
                             <div id="statistics-goal" style="height: 320px"></div>
                         </div>
                     </div>
@@ -50,7 +62,8 @@
                         <div class="card-body">
                             <h4 class="card-title">동일 사업장 전력량 평균 비교</h4>
                             <p class="card-description"></p>
-                                <div id="avg" style="height: 350px"></div>
+                            <p class="card-description"></p>
+                            <div id="avg" style="height: 320px"></div>
                         </div>
                     </div>
                 </div>

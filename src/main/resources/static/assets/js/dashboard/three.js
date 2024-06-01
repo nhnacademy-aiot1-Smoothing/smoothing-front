@@ -61,13 +61,13 @@ fetch('/sensor/three-phase')
                 }, {
                     from: maxValueChart1 * 0.75,
                     to: maxValueChart1,
-                    color: '#E6FF94',
+                    color: '#F72464',
                     thickness: 20,
                     borderRadius: '50%'
                 }, {
                     from: maxValueChart1 * 0.60,
                     to: maxValueChart1 * 0.80,
-                    color: '#9DDE8B',
+                    color: '#FCDC2A',
                     thickness: 20
                 }]
             }, exporting: {
@@ -162,13 +162,13 @@ fetch('/sensor/three-phase')
                 }, {
                     from: maxValueChart2 * 0.75,
                     to: maxValueChart2,
-                    color: '#E6FF94',
+                    color: '#F72464',
                     thickness: 20,
                     borderRadius: '50%'
                 }, {
                     from: maxValueChart2 * 0.60,
                     to: maxValueChart2 * 0.80,
-                    color: '#9DDE8B',
+                    color: '#FCDC2A',
                     thickness: 20
                 }]
             }, exporting: {

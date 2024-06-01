@@ -1,24 +1,26 @@
 .battery {
     border-radius: 5px;
+
     display: flex;
     justify-content: space-between;
     padding: 2px;
     width: 100%;
-    border: solid thin #bcbcbc; /* 윤곽선 색상을 어두운 회색으로 변경 */
+    border: solid thin #EEEEEE;
     position: relative;
     box-sizing: border-box;
-    background-color: #bcbcbc; /* 배터리 전체 배경을 어두운 회색으로 설정 */
+    background-color: #EEEEEE;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .battery:after {
     content: " ";
     position: absolute;
-    top: 50%; /* 부모 컨테이너 높이의 가운데로 위치 조정 */
-    right: -10px; /* 오른쪽 외곽으로부터의 위치 */
-    transform: translateY(-50%); /* 요소의 높이의 반만큼 위로 올려서 정확히 가운데 정렬 */
+    top: 50%;
+    right: -10px;
+    transform: translateY(-50%);
     height: 20px;
     width: 7px;
-    background: #bcbcbc; /* 플러스 단자 배경 색상 변경 */
+    background: #EEEEEE;
 }
 
 .bar {
@@ -27,10 +29,10 @@
     cursor: pointer;
     display: block;
     border: solid thin rgba(255, 255, 255, 0.1);
-    margin: 0 2px;
+    margin: 0 0.5px;
     padding: 18px 0;
     height: 30px;
-    background: #ffffff; /* 막대의 초기 배경을 밝은 회색으로 설정 */
+    background: #ffffff;
     transition: background 1s;
 }
 
@@ -43,13 +45,14 @@
 }
 
 .bar.active.red {
-    background: red;
+    background: #F72464;
 }
 
 .bar.active.yellow {
-    background: yellow;
+    background: #FCDC2A;
 }
 
 .bar.active.green {
-    background: green;
+    background: #40A578;
 }
+

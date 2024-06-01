@@ -7662,13 +7662,37 @@ fieldset:disabled .btn {
 .left-overlay {
     position: absolute;
     left: 0;
-    transform: translate(-50%, 0); /* 부모 요소의 너비를 고려하여 가운데로 이동 */
+    transform: translate(-50%, 0);
 }
 
 .right-overlay {
     position: absolute;
     right: 0;
-    transform: translate(50%, 0); /* 부모 요소의 너비를 고려하여 가운데로 이동 */
+    transform: translate(50%, 0);
+}
+
+.year-buttons {
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    z-index: 1;
+}
+
+.left-year, .right-year {
+    position: absolute;
+    bottom: 50%;
+    transform: translateY(50%);
+    z-index: 2;
+}
+
+.left-year {
+    left: -65px;
+}
+
+.right-year {
+    right: -65px;
 }
 
 .card > hr {
