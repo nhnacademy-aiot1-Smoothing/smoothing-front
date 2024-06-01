@@ -45,6 +45,7 @@ public class SecurityConfig {
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_THREADLOCAL);
 
         http.csrf().disable()
+                .cors().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
                 .and()
                 .addFilterAt(new CustomLoginFilter(authenticationManager(null)), UsernamePasswordAuthenticationFilter.class)
