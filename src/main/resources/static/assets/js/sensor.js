@@ -169,6 +169,127 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    document.querySelectorAll('.input-tag').forEach(function(input){
+        input.addEventListener('input', function(e){
+            if(e instanceof InputEvent) {
+                return;
+            }
+            let options = document.querySelectorAll('datalist')[0].options;
+            let input = this.value;
+            for(let i = 0; i < options.length; i++){
+                if(options[i].value === input){
+                    console.log(options[i].value);
+                    console.log(document.querySelector('#tagIdName').querySelector('#tag_'+options[i].value).value);
+                    console.log(this.getAttribute('data-sensor-id'));
+
+                    fetch('/addSensorTag', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            sensorId: this.getAttribute('data-sensor-id'),
+                            tagId: document.querySelector('#tagIdName').querySelector('#tag_'+options[i].value).value
+                        })
+                    }).then(response => {
+                        if(!response.ok) {
+                            throw new Error("Server responded with an error.");
+                        }
+                    }).then(data => {
+                        location.reload();
+                    }).catch(error => {
+                        console.error("오류 발생:", error);
+                    });
+                }
+            }
+        });
+    });
+
+    document.querySelectorAll('.input-tag').forEach(function (item) {
+        item.addEventListener('keydown', function (e) {
+            if(e.key === 'Enter') {
+                let tagIdNames = document.querySelectorAll('.tagIdNames');
+                for(let i = 0;i<tagIdNames.length;i++) {
+                    if(item.value.toUpperCase() === tagIdNames[i].id.split('_')[1].toUpperCase()) {
+                        fetch('/addSensorTag', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                sensorId: item.getAttribute('data-sensor-id'),
+                                tagId: tagIdNames[i].value
+                            })
+                        }).then(response => {
+                            if(!response.ok) {
+                                throw new Error("Server responded with an error.");
+                            }
+                        }).then(data => {
+                            location.reload();
+                        }).catch(error => {
+                            console.error("오류 발생:", error);
+                        });
+                        return;
+                    }
+                }
+                let value = item.value;
+
+                fetch('/addTag', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        tagName: value
+                    })
+                }).then(response => {
+                    if(!response.ok) {
+                        throw new Error("Server responded with an error.");
+                    }
+                }).then(data => {
+                    fetch('/tags', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(response => {
+                        if(!response.ok) {
+                            throw new Error("Server responded with an error.");
+                        }
+                        return response.json();
+                    }).then(data => {
+                        for(let i = 0; i < data.length; i++) {
+                            if(data[i].tagName.toUpperCase() === value.toUpperCase()) {
+                                fetch('/addSensorTag', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        sensorId: item.getAttribute('data-sensor-id'),
+                                        tagId: data[i].tagId
+                                    })
+                                }).then(response => {
+                                    if(!response.ok) {
+                                        throw new Error("Server responded with an error.");
+                                    }
+                                }).then(data => {
+                                    location.reload();
+                                }).catch(error => {
+                                    console.error("오류 발생:", error);
+                                });
+                            }
+                        }
+                    }).catch(error => {
+                        console.error("오류 발생:", error);
+                    });
+                }).catch(error => {
+                    console.error("오류 발생:", error);
+                });
+            }
+        });
+    });
+
 
     let dropdownItems = document.querySelectorAll('.dropdown-menu .dropdown-item');
 
