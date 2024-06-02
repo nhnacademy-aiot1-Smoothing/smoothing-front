@@ -5,15 +5,8 @@
       layout:decorate="layout/defaultLayout">
 <head>
     <script src="/assets/js/sensor.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-            crossorigin="anonymous"></script>
-</head>
-<body>
-<th:block layout:fragment="content">
+    <link rel="stylesheet" href="/assets/css/table.css">
+    
     <style>
         .inputWrap {
             position: relative;
@@ -63,24 +56,27 @@
             background-color: white;
         }
     </style>
-    <div class="d-flex justify-content-between align-items-center">
-        <h1 th:text="'센서 관리 &nbsp;🌡️'+${broker}"></h1>
-        <div class="d-flex">
-            <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#tagManagementModal">태그 관리
-            </button>
-            <button type="button" style="margin-left: 10px" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#sensorAddModal">센서 추가
-            </button>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="container overflow-auto">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 th:text="'센서 관리 &nbsp;🌡️'+${broker}" style="font-weight: bold"></h3>
+            <div class="d-flex">
+                <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#tagManagementModal">태그 관리
+                </button>
+                <button type="button" style="margin-left: 10px" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#sensorAddModal">센서 추가
+                </button>
+            </div>
         </div>
-    </div>
-    <ul hidden="hidden" id="tagIdName">
-        <li th:each="tag : ${tagList}" th:id="${'tag_' + tag.tagName}" th:value="${tag.tagId}"></li>
-    </ul>
-    <div class="container">
-        <div class="row">
+        <ul hidden="hidden" id="tagIdName">
+            <li th:each="tag : ${tagList}" th:id="${'tag_' + tag.tagName}" th:value="${tag.tagId}"></li>
+        </ul>
+        <div class="row" style="margin-top: 20px">
             <div class="col-12">
-                <table class="table table-bordered">
+                <table>
                     <thead>
-                    <tr>
+                    <tr style="background-color: #c5e8ef">
                         <th scope="col">ID</th>
                         <th scope="col"><b>센서 이름</b></th>
                         <th scope="col"><b>센서 타입</b></th>
@@ -89,7 +85,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="sensors : ${sensors}">
+                    <tr th:each="sensors : ${sensors}" style="border-bottom: 1px solid rgba(0,0,0,.2);">
                         <td th:text="${sensors.sensorId}"></td>
                         <input type="hidden" class="sensorId" th:value="${sensors.sensorId}">
                         <td>
