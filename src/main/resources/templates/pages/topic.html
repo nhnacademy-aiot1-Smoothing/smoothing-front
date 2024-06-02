@@ -117,42 +117,44 @@
 
 
             <div class="modal fade" id="topicAddModal" tabindex="-1" aria-labelledby="topicAddModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="display: flex; justify-content: center; align-items: center;
+                max-width: 1000px; width: 100%">
                     <div class="modal-content">
                         <div class="modal-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
                             <h1 class="modal-title fs-5" id="topicAddModalLabel"><b>토픽 추가</b></h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <div class="row mb-3">
-                                <div class="col-md-4 text-center align-self-center">
-                                    <label for="topic" class="form-label">
-                                        <b>토픽</b>
-                                    </label>
-                                </div>
-                                <div class="col-md-7">
-                                    <input id="topic" class="form-control rounded-3 border-secondary" type="text">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-4 text-center align-self-center">
-                                    <label for="topicType" class="form-label">
-                                        <b>토픽 타입</b>
-                                    </label>
-                                </div>
-                                <div class="col-md-7">
-                                    <label id="topicType">
-                                        <select class="form-select" id="add-form-select">
-                                            <option selected th:id="'add_type_'+${type}">선택</option>
-                                            <th:block th:each="type : ${topicTypes}">
-                                                <option th:value="${type}">
-                                                    <span th:text="${type}"></span>
-                                                </option>
-                                            </th:block>
-                                        </select>
-                                    </label>
-                                </div>
-                            </div>
+                        <div class="modal-body" style="margin: auto">
+                            <table class="table table-borderless" style="box-shadow: none">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">
+                                            <label class="form-label">토픽 타입</label>
+                                        </th>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <select class="form-select" id="add-form-select" style="width: 200px">
+                                                    <option selected th:id="'add_type_'+${type}">선택</option>
+                                                    <th:block th:each="type : ${topicTypes}">
+                                                        <option th:value="${type}">
+                                                            <span th:text="${type}"></span>
+                                                        </option>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            <label for="topic" class="form-label">토픽</label>
+                                        </th>
+                                        <td>
+                                            <input id="topic" class="form-control rounded-3 border-secondary"
+                                                   type="text" style="width: 700px">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="modal-footer d-flex justify-content-center" style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
                             <button type="button" id="topicAddButton" class="btn btn-primary" style="background-color: darkcyan; border-color: darkcyan">추가</button>
@@ -164,47 +166,49 @@
 
             <div class="modal fade" id="topicUpdateModal" tabindex="-1" aria-labelledby="topicUpdateModalLabel"
                  aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="display: flex; justify-content: center; align-items: center;
+                max-width: 1000px; width: 100%">
                     <div class="modal-content">
                         <div class="modal-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
                             <h1 class="modal-title fs-5" id="topicUpdateModalLabel"><b>토픽 수정</b></h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <div class="row mb-3">
-                                <div class="col-md-4 text-center align-self-center">
-                                    <label for="updateTopic" class="form-label">
-                                        <b>토픽</b>
-                                    </label>
-                                </div>
-                                <div class="col-md-7">
-                                    <input id="updateTopic" class="form-control rounded-3 border-secondary"
-                                           type="text">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-4 text-center align-self-center">
-                                    <label for="updateTopicType" class="form-label">
-                                        <b>토픽 타입</b>
-                                    </label>
-                                </div>
-                                <div class="col-md-7">
-                                    <label id="updateTopicType">
-                                        <select class="form-select" id="update-form-select">
-                                            <option selected>선택</option>
-                                            <th:block th:each="type : ${topicTypes}">
-                                                <option th:value="${type}" th:id="'update_type_' + ${type}">
-                                                    <span th:text="${type}"></span>
-                                                </option>
-                                            </th:block>
-                                        </select>
-                                    </label>
-                                </div>
-                            </div>
+                        <div class="modal-body" style="margin: auto">
+                            <table class="table table-borderless" style="box-shadow: none">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">
+                                            <label class="form-label">토픽 타입</label>
+                                        </th>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <select class="form-select" id="update-form-select" style="width: 200px">
+                                                    <option selected>선택</option>
+                                                    <th:block th:each="type : ${topicTypes}">
+                                                        <option th:value="${type}" th:id="'update_type_' + ${type}">
+                                                            <span th:text="${type}"></span>
+                                                        </option>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">
+                                            <label for="updateTopic" class="form-label">토픽</label>
+                                        </th>
+                                        <td>
+                                            <input id="updateTopic" class="form-control rounded-3 border-secondary"
+                                                   type="text" style="width: 700px">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <p id="updateTopicId" style="visibility: hidden"></p>
                         <div class="modal-footer d-flex justify-content-center" style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
-                            <button type="button" id="topicUpdateButton" class="btn btn-primary">수정</button>
+                            <button type="button" id="topicUpdateButton" class="btn btn-primary"
+                                    style="background-color: darkcyan; border-color: darkcyan">수정</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                         </div>
                     </div>

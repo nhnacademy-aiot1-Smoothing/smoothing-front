@@ -13,7 +13,12 @@
             height: 40px;
             display: inline-block;
         }
-
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
 
         .inputWrap input {
             padding-right: 30px;
@@ -318,35 +323,60 @@
                 </div>
                 <div class="modal-body">
                     <!--                    <b>태그 추가</b>-->
-                    <div class="row mb-3">
-                        <div class="d-flex align-items-center">
-                            <label for="tagName" class="form-label me-2">
-                                <b>태그 이름</b>
-                            </label>
-                            <input id="tagName" class="form-control rounded-3 border-secondary me-2" style="width: 200px" type="text">
-                            <button type="button" id="tagAddButton" class="btn btn-primary">추가</button>
-                        </div>
-                    </div>
-                    <b>태그 수정/삭제</b>
-                    <div>
-                        <select id="tagSelect" class="form-select" style="width: 150px">
-                            <th:block th:each="tag : ${tagList}">
-                                <option th:value="${tag.tagId}">
-                                    <span th:text="${tag.tagName}"></span>
-                                </option>
-                            </th:block>
-                        </select>
-                    </div>
-                    <div>
-                        <input id="tagUpdateName" class="form-control rounded-3 border-secondary me-2" style="width:200px" type="text">
-                    </div>
+                    
+                    <table class="table table-borderless" style="box-shadow: none">
+                        <tbody>
+                            <tr>
+                                <th scope="row"><label for="tagName" class="form-label me-2">태그 이름</label></th>
+                                <td>
+                                    <input id="tagName" class="form-control rounded-3 border-secondary me-2" type="text">
+                                </td>
+                                <td>
+                                    <button type="button" id="tagAddButton" class="btn btn-primary btn-sm btn-rounded"
+                                            style="background-color: transparent; border-color: darkcyan; color: #2c3034">추가
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <th scope="row">태그 수정/삭제</th>
+                                <td>
+                                    <div style="display: flex; align-items: center;">
+                                    <select id="tagSelect" class="form-select" style="width: 250px">
+                                        <th:block th:each="tag : ${tagList}">
+                                            <option th:value="${tag.tagId}">
+                                                <span th:text="${tag.tagName}"></span>
+                                            </option>
+                                        </th:block>
+                                    </select>
+                                    </div>
+                                    <div style="margin-top: 10px; display: flex; align-items: center">
+                                    <input id="tagUpdateName" class="form-control rounded-3 border-secondary me-2"
+                                           style="width:250px" type="text">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="button-group">
+                                        <button type="button" id="tagUpdateButton"
+                                                class="btn btn-primary btn-sm btn-rounded"
+                                                style="background-color: transparent; border-color: #9c9fa6; color:
+                                                #2c3034">수정
+                                        </button>
+                                        <button type="button" id="tagDeleteButton"
+                                                class="btn btn-danger btn-sm btn-rounded"
+                                                style="background-color: transparent; color:#2c3034">삭제</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="modal-footer d-flex justify-content-center"
-                     style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
-                    <button type="button" id="tagUpdateButton" class="btn btn-primary btn-sm">수정</button>
-                    <button type="button" id="tagDeleteButton" class="btn btn-danger btn-sm">삭제</button>
-                </div>
+<!--                <div class="modal-footer d-flex justify-content-center"-->
+<!--                     style="border-top: 1px solid rgba(0, 0, 0, 0.1);">-->
+<!--                    <button type="button" id="tagUpdateButton" class="btn btn-primary btn-sm">수정</button>-->
+<!--                    <button type="button" id="tagDeleteButton" class="btn btn-danger btn-sm">삭제</button>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
