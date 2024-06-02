@@ -98,7 +98,7 @@
                         </td>
                         <td th:text="${sensors.sensorType}"></td>
                         <td>
-                            <div>
+                            <div style="display: flex; align-items: center;">
                                 <input type="text" list="tagList" class="form-control input-tag" style="width: 90px; height: 20px" id="tagInput" th:data-sensor-id="${sensors.sensorId}">
                                 <datalist id="tagList">
                                     <th:block th:each="tag : ${tagList}">
@@ -107,11 +107,8 @@
                                 </datalist>
                                 <th:block th:each="tag : ${sensorTags[sensors.sensorId]}">
                                     <th:block th:each="sensorTag : ${tag}">
-<!--                                        <button type="button" class="btn btn-bg-transparent btn-xs"-->
-<!--                                                th:text="${sensorTag.tagName}"></button>-->
-                                        <div class="inputWrap">
-                                            <input type="text" class="form-control" style="width: 90px; height: 20px"
-                                                   th:value="${sensorTag.tagName}">
+                                        <div class="inputWrap" style="display: flex; align-items: center; margin-left: 5px;">
+                                            <input type="text" class="form-control" style="width: 90px; height: 20px; margin-right: 5px;" th:value="${sensorTag.tagName}">
                                             <input type="hidden" class="sensorIdInput" th:value="${sensors.sensorId}">
                                             <input type="hidden" class="tagIdInput" th:value="${sensorTag.tagId}">
                                             <button type="button" class="btnClear sensorTagDeleteButton"></button>
@@ -119,6 +116,7 @@
                                     </th:block>
                                 </th:block>
                             </div>
+
 <!--                            <div class="dropdown">-->
 <!--                                <button class="btn btn-bg-transparent btn-sm dropdown-toggle tagDropdownButton"-->
 <!--                                        type="button"-->
