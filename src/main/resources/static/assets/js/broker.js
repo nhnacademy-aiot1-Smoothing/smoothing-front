@@ -108,8 +108,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const brokerPort = brokerTds[4];
             document.querySelector('#brokerDeleteId').innerHTML = findBrokerId;
 
-            document.querySelector('#deleteModalContent').innerHTML = '브로커 ' + brokerName.innerText + '를 삭제하시겠습니까?<br>' +
-                '<span style="color: gray;font-size: small">프로토콜: ' + brokerProtocol.innerText + ', IP주소: ' + brokerIp.innerText + ', 포트: ' + brokerPort.innerText + '</span>';
+            document.querySelector('#deleteModalContent').innerHTML = '브로커 ' + '(' + brokerName.innerText + ')' + '를 삭제하시겠습니까?<br>' +
+                '<span style="color: gray;font-size: large">프로토콜: ' + brokerProtocol.innerText + ', IP주소: ' + brokerIp.innerText + ', 포트: ' + brokerPort.innerText + '</span>';
         });
     }
 

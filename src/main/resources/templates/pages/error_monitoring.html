@@ -35,7 +35,7 @@
 <!--    </div>-->
     <div class="container">
         <h3 style="font-weight: bold;">통신이상 모니터링🛜</h3>
-        <div class="row">
+        <div class="row" style="margin-top: 20px">
             <div class="col-12">
                 <table>
                     <thead>
@@ -49,14 +49,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="brokers : ${brokers}">
+                    <tr th:each="brokers : ${brokers}" style="border-bottom: 1px solid rgba(0,0,0,.2);">
                         <td th:text="${brokers.brokerErrorId}"></td>
                         <td th:text="${brokers.createdAt}"></td>
                         <td th:text="${brokers.brokerName}"></td>
                         <td th:text="${brokers.brokerIp}"></td>
                         <td th:text="${brokers.brokerPort}"></td>
                         <td>
-                            <button type="button" class="btn btn-danger btn-sm deleteButton" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-danger btn-sm btn-rounded deleteButton" data-bs-toggle="modal"
                                     data-bs-target="#deleteModal">삭제
                             </button>
                         </td>
