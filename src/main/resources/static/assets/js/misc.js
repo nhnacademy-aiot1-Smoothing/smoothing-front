@@ -1,12 +1,13 @@
-var ChartColor = ["#5D62B4", "#54C3BE", "#EF726F", "#F9C446", "rgb(93.0, 98.0, 180.0)", "#21B7EC", "#04BCCC"];
-var primaryColor = getComputedStyle(document.body).getPropertyValue('--primary');
-var secondaryColor = getComputedStyle(document.body).getPropertyValue('--secondary');
-var successColor = getComputedStyle(document.body).getPropertyValue('--success');
-var warningColor = getComputedStyle(document.body).getPropertyValue('--warning');
-var dangerColor = getComputedStyle(document.body).getPropertyValue('--danger');
-var infoColor = getComputedStyle(document.body).getPropertyValue('--info');
-var darkColor = getComputedStyle(document.body).getPropertyValue('--dark');
-var lightColor = getComputedStyle(document.body).getPropertyValue('--light');
+$(document).ready(function() {
+    $('.nav-item .nav-link', '.sidebar').on('click', function(e) {
+        var submenu = $(this).parent().find('.sub-menu');
+        if (submenu.length > 0) {
+            e.preventDefault();
+            var firstSubmenuItem = submenu.find('.nav-item:first-child .nav-link');
+            window.location.href = firstSubmenuItem.attr('href');
+        }
+    });
+});
 
 (function ($) {
     'use strict';
@@ -18,16 +19,20 @@ var lightColor = getComputedStyle(document.body).getPropertyValue('--light');
         var sidebar = $('.sidebar');
 
         function addActiveClass(element) {
+
             if (current === "") {
-                if (element.attr('href').indexOf("index.html") !== -1) {
+                if (element.attr('href').indexOf("sidebar.html") !== -1) {
+                    $('.nav-item').removeClass('active');
                     element.parents('.nav-item').last().addClass('active');
                     if (element.parents('.sub-menu').length) {
                         element.closest('.collapse').addClass('show');
                         element.addClass('active');
                     }
+
                 }
             } else {
                 if (element.attr('href').indexOf(current) !== -1) {
+                    $('.nav-item').removeClass('active');
                     element.parents('.nav-item').last().addClass('active');
                     if (element.parents('.sub-menu').length) {
                         element.closest('.collapse').addClass('show');
@@ -36,11 +41,14 @@ var lightColor = getComputedStyle(document.body).getPropertyValue('--light');
                     if (element.parents('.submenu-item').length) {
                         element.addClass('active');
                     }
+
                 }
             }
         }
 
+
         var current = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
+
         $('.nav li a', sidebar).each(function () {
             var $this = $(this);
             addActiveClass($this);
