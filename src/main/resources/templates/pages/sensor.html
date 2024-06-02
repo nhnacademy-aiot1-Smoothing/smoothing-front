@@ -98,7 +98,7 @@
                         </td>
                         <td th:text="${sensors.sensorType}"></td>
                         <td>
-                            <div style="display: flex; align-items: center;">
+                            <div style="display: flex;flex-wrap: wrap; align-items: center;">
                                 <input type="text" list="tagList" class="form-control input-tag" style="width: 90px; height: 20px" id="tagInput" th:data-sensor-id="${sensors.sensorId}">
                                 <datalist id="tagList">
                                     <th:block th:each="tag : ${tagList}">
