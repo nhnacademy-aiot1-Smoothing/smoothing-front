@@ -169,6 +169,39 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    document.querySelectorAll('.input-tag').forEach(function(input){
+        input.addEventListener('input', function(){
+            let options = document.querySelectorAll('datalist')[0].options;
+            let input = this.value;
+            for(let i = 0; i < options.length; i++){
+                if(options[i].value === input){
+                    console.log(options[i].value);
+                    console.log(document.querySelector('#tagIdName').querySelector('#tag_'+options[i].value).value);
+                    console.log(this.getAttribute('data-sensor-id'));
+
+                    fetch('/addSensorTag', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            sensorId: this.getAttribute('data-sensor-id'),
+                            tagId: document.querySelector('#tagIdName').querySelector('#tag_'+options[i].value).value
+                        })
+                    }).then(response => {
+                        if(!response.ok) {
+                            throw new Error("Server responded with an error.");
+                        }
+                    }).then(data => {
+                        location.reload();
+                    }).catch(error => {
+                        console.error("오류 발생:", error);
+                    });
+                }
+            }
+        });
+    });
+
 
     let dropdownItems = document.querySelectorAll('.dropdown-menu .dropdown-item');
 
