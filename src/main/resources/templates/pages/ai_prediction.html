@@ -12,42 +12,42 @@
 
 </head>
 <body>
-    <th:block layout:fragment="content">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title"></h4>
-                            <div id="prediction-graph" style="height: 400px"></div>
-                        </div>
+<th:block layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">전력량 예측 그래프</h4>
+                        <div id="prediction-graph" style="height: 400px"></div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">주간 발전량 기록</h4>
-                            <div id="monitoring-graph" style="height: 400px"></div>
-                        </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">주간 발전량 기록</h4>
+                        <div id="monitoring-graph" style="height: 400px"></div>
                     </div>
                 </div>
-                <div class="col-md-6 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">발전기 로그</h4>
-                            <div class="graph" id="generator-log">
-                                <span class="arrow left" onclick="prevGenerator()">&lt;</span>
-                                <div class="generator-label" id="generator-label">발전기 1</div>
-                                <div id="generator-content" class="centered-log"></div>
-                                <span class="arrow right" onclick="nextGenerator()">&gt;</span>
-                            </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">발전기 로그</h4>
+                        <div class="graph" id="generator-log">
+                            <span class="arrow left" onclick="prevGenerator()">&lt;</span>
+                            <div class="generator-label" id="generator-label">발전기 1</div>
+                            <div id="generator-content" class="centered-log"></div>
+                            <span class="arrow right" onclick="nextGenerator()">&gt;</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -58,211 +58,6 @@
     <script src="/assets/js/ai/ai_predictional.js"></script>
     <script src="/assets/js/ai/ai_generator.js"></script>
     <script src="/assets/js/ai/generator_log.js"></script>
- </th:block>
+</th:block>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--원래 작성한 내용-->
-<!--<!DOCTYPE html>-->
-<!--<html lang="ko"-->
-<!--      xmlns:th="http://www.thymeleaf.org"-->
-<!--      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"-->
-<!--      layout:decorate="layout/defaultLayout">-->
-<!--<head>-->
-<!--  &lt;!&ndash; 메타 데이터 설정 &ndash;&gt;-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    &lt;!&ndash; 페이지 제목 &ndash;&gt;-->
-<!--    <title>AI 페이지</title>-->
-<!--    &lt;!&ndash; 외부 스타일 시트 링크 &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">-->
-<!--    <style>-->
-<!--        body {-->
-<!--            background-color: #f4f4f9;-->
-<!--            font-family: 'Arial', sans-serif;-->
-<!--        }-->
-<!--        .container {-->
-<!--            margin-top: 40px;-->
-<!--        }-->
-<!--        .graph-container {-->
-<!--            background: #fff;-->
-<!--            padding: 20px;-->
-<!--            margin-bottom: 30px;-->
-<!--            border-radius: 10px;-->
-<!--            box-shadow: 0 4px 8px rgba(0,0,0,0.1);-->
-<!--        }-->
-<!--        .graph {-->
-<!--            height: 400px;-->
-<!--            display: flex;-->
-<!--            align-items: center;-->
-<!--            justify-content: center;-->
-<!--            font-size: 20px;-->
-<!--            position: relative;-->
-<!--            border: 2px solid black;-->
-<!--            border-radius: 10px;-->
-<!--            background: darkgray;-->
-<!--            overflow-y: auto;-->
-<!--        }-->
-<!--        .arrow {-->
-<!--            cursor: pointer;-->
-<!--            font-size: 24px;-->
-<!--            user-select: none;-->
-<!--            position: absolute;-->
-<!--            top: 50%;-->
-<!--            transform: translateY(-50%);-->
-<!--            color: slategray;-->
-<!--            background: none;-->
-<!--            border: none;-->
-<!--            font-weight: bold;-->
-<!--        }-->
-<!--        .arrow.left {-->
-<!--            left: 10px;-->
-<!--        }-->
-<!--        .arrow.right {-->
-<!--            right: 10px;-->
-<!--        }-->
-<!--        .arrow:hover {-->
-<!--            color: mediumpurple;-->
-<!--        }-->
-<!--        .label {-->
-<!--            position: absolute;-->
-<!--            top: 10px;-->
-<!--            left: 10px;-->
-<!--            font-size: 14px;-->
-<!--            color: black;-->
-<!--        }-->
-<!--        .log-entry {-->
-<!--        margin: 5px 0;-->
-<!--        padding: 13px; /* 패딩 줄이기 */-->
-<!--        background: #e9ecef;-->
-<!--        border-radius: 5px;-->
-<!--        font-size:20px; /* 폰트 크기 줄이기 */-->
-<!--        display: flex;-->
-<!--        justify-content: space-between;-->
-<!--        align-items: center; /* 중앙 정렬 */-->
-<!--        width: 85%; /* 너비 줄이기 */-->
-<!--        margin-left: auto; /* 중앙 정렬을 위한 왼쪽 마진 */-->
-<!--        margin-right: auto; /* 중앙 정렬을 위한 오른쪽 마진 */-->
-<!--        overflow-x: auto; /* 수평 스크롤 추가 */-->
-<!--        }-->
-<!--        .log-entry time {-->
-<!--            font-weight: bold;-->
-<!--            font-size: 12px; /* 폰트 크기 줄이기 */-->
-<!--        }-->
-<!--        .log-entry span {-->
-<!--            font-size: 12px; /* 폰트 크기 줄이기 */-->
-<!--        }-->
-<!--        .generator-label {-->
-<!--            position: absolute;-->
-<!--            top: 10px;-->
-<!--            font-size: 18px;-->
-<!--            font-weight: bold;-->
-<!--            color: black;-->
-<!--            left: 50%;-->
-<!--            transform: translateX(-50%);-->
-<!--        }-->
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-<!--    &lt;!&ndash; 전체 페이지 컨테이너 &ndash;&gt;-->
-<!--    <div class="container">-->
-<!--        &lt;!&ndash; 예측 값 섹션 &ndash;&gt;-->
-<!--        <div class="row">-->
-<!--            <div class="col-12">-->
-<!--                <div class="graph-container">-->
-<!--                    <div class="graph" id="prediction-graph">-->
-<!--                        &lt;!&ndash; 예측 값 그래프가 여기에 추가될 예정 &ndash;&gt;-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; 발전량 모니터링 섹션 &ndash;&gt;-->
-<!--        <div class="row">-->
-<!--            <div class="col-6">-->
-<!--                <div class="graph-container">-->
-<!--                    <div class="graph">-->
-<!--                        <div class="graph-placeholder">-->
-<!--                            &lt;!&ndash; 발전량 모니터링 그래프가 여기에 추가될 예정 &ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            &lt;!&ndash; 발전기 로그 섹션 &ndash;&gt;-->
-<!--            <div class="col-6">-->
-<!--                <div class="graph-container">-->
-<!--                    <div class="graph" id="generator-log">-->
-<!--                        <div class="generator-label" id="generator-label">발전기 1</div>-->
-<!--                        <span class="arrow left" onclick="prevGenerator()">&lt;</span>-->
-<!--                        <div id="generator-content" style="width: 100%;">-->
-<!--                            &lt;!&ndash; 로그 항목이 여기에 추가됩니다. &ndash;&gt;-->
-<!--                        </div>-->
-<!--                        <span class="arrow right" onclick="nextGenerator()">&gt;</span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; 외부 스크립트 링크 &ndash;&gt;-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>-->
-<!--    &lt;!&ndash; 발전기 전환을 위한 스크립트 &ndash;&gt;-->
-<!--    <script>-->
-<!--        let generatorIndex = 1;-->
-
-<!--        function prevGenerator() {-->
-<!--            generatorIndex = (generatorIndex - 1 < 1) ? 3 : generatorIndex - 1;-->
-<!--            updateGeneratorContent();-->
-<!--        }-->
-
-<!--        function nextGenerator() {-->
-<!--            generatorIndex = (generatorIndex + 1 > 3) ? 1 : generatorIndex + 1;-->
-<!--            updateGeneratorContent();-->
-<!--        }-->
-
-<!--        function updateGeneratorContent() {-->
-<!--            const content = document.getElementById('generator-content');-->
-<!--            const label = document.getElementById('generator-label');-->
-<!--            content.innerHTML = ''; // 기존 내용 제거-->
-<!--            label.textContent = '발전기 ' + generatorIndex;-->
-
-<!--            for (let i = 0; i < 6; i++) { // 로그 항목 6개로 제한-->
-<!--                const logEntry = document.createElement('div');-->
-<!--                logEntry.classList.add('log-entry');-->
-
-<!--                const time = document.createElement('time');-->
-<!--                time.textContent = `2024-05-27 ${14 + i}:00`;-->
-
-<!--                const logText = document.createElement('span');-->
-<!--                logText.textContent = `로그 내용`;-->
-
-<!--                const status = document.createElement('span');-->
-<!--                status.textContent = `운영 상태`;-->
-
-<!--                logEntry.appendChild(time);-->
-<!--                logEntry.appendChild(logText);-->
-<!--                logEntry.appendChild(status);-->
-
-<!--                content.appendChild(logEntry);-->
-<!--            }-->
-<!--        }-->
-
-<!--        // 페이지 로드 시 초기 내용 설정-->
-<!--        document.addEventListener('DOMContentLoaded', updateGeneratorContent);-->
-<!--    </script>-->
-<!--</body>-->
-<!--</html>-->

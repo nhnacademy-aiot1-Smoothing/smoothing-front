@@ -1,97 +1,42 @@
-let generatorIndex = 1;
+document.addEventListener('DOMContentLoaded', function() {
+    let currentGeneratorIndex = 1; // 숫자 인덱스로 관리
+    const maxGeneratorIndex = 3;   // 최대 발전기 숫자
 
-function prevGenerator() {
-    generatorIndex = (generatorIndex - 1 < 1) ? 3 : generatorIndex - 1;
-    updateGeneratorContent();
-}
-
-function nextGenerator() {
-    generatorIndex = (generatorIndex + 1 > 3) ? 1 : generatorIndex + 1;
-    updateGeneratorContent();
-}
-
-function updateGeneratorContent() {
-    const content = document.getElementById('generator-content');
-    const label = document.getElementById('generator-label');
-    content.innerHTML = ''; // 기존 내용 제거
-    label.textContent = '발전기 ' + generatorIndex;
-
-    for (let i = 0; i < 6; i++) { // 로그 항목 6개로 제한
-        const logEntry = document.createElement('div');
-        logEntry.classList.add('log-entry');
-
-        const time = document.createElement('time');
-        time.textContent = `2024-05-27 ${14 + i}:00`;
-
-        const logText = document.createElement('span');
-        logText.textContent = `로그 내용`;
-
-        const status = document.createElement('span');
-        status.textContent = `운영 상태`;
-
-        logEntry.appendChild(time);
-        logEntry.appendChild(logText);
-        logEntry.appendChild(status);
-
-        content.appendChild(logEntry);
+    function fetchGeneratorLog(generatorIndex) {
+        let generatorId = `generator_${generatorIndex}`; // ID를 문자열 형태로 조합
+        fetch("/ai/power-generator/log?generatorId=" + generatorId)
+            .then(response => response.json())
+            .then(data => updateLogDisplay(data))
+            .catch(error => console.error('Error fetching data:', error));
     }
-}
 
-// 페이지 로드 시 초기 내용 설정
-document.addEventListener('DOMContentLoaded', updateGeneratorContent);
+    function updateLogDisplay(logs) {
+        const logContainer = document.getElementById('generator-content');
+        logContainer.innerHTML = '';
 
+        logs.forEach(log => {
+            const logEntry = document.createElement('div');
+            logEntry.classList.add('log-entry');
+            const formattedTime = new Date(log.time).toLocaleString('ko-KR', {
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+            logEntry.innerHTML = `<span class="log-time"><strong>${formattedTime}</strong></span> <span class="log-message">${log.message}</span>`;
+            logContainer.appendChild(logEntry);
+        });
+    }
 
+    window.prevGenerator = function() {
+        currentGeneratorIndex = (currentGeneratorIndex - 1 < 1) ? maxGeneratorIndex : currentGeneratorIndex - 1;
+        fetchGeneratorLog(currentGeneratorIndex);
+        document.getElementById('generator-label').textContent = `발전기 ${currentGeneratorIndex}`;
+    };
 
+    window.nextGenerator = function() {
+        currentGeneratorIndex = (currentGeneratorIndex + 1 > maxGeneratorIndex) ? 1 : currentGeneratorIndex + 1;
+        fetchGeneratorLog(currentGeneratorIndex);
+        document.getElementById('generator-label').textContent = `발전기 ${currentGeneratorIndex}`;
+    };
 
-
-
-
-
-// let generatorIndex = 1;
-//
-// function prevGenerator() {
-//     generatorIndex = (generatorIndex - 1 < 1) ? 3 : generatorIndex - 1;
-//     updateGeneratorContent();
-// }
-//
-// function nextGenerator() {
-//     generatorIndex = (generatorIndex + 1 > 3) ? 1 : generatorIndex + 1;
-//     updateGeneratorContent();
-// }
-//
-// function updateGeneratorContent() {
-//     const content = document.getElementById('generator-content');
-//     const label = document.getElementById('generator-label');
-//     content.innerHTML = ''; // 기존 내용 제거
-//     label.textContent = '발전기 ' + generatorIndex;
-//
-//     // fetch('/api/generator/${generatorIndex}/logs') // 엔드포인트 일치하도록 작성할 것
-//     // .then(response => response.json())
-//     // .then(data => {
-//     //      data.logs.forEach(log => {
-//     for (let i = 0; i < 6; i++) { // 로그 항목 6개로 제한
-//         const logEntry = document.createElement('div');
-//         logEntry.classList.add('log-entry');
-//
-//         const time = document.createElement('time');
-//         time.textContent = `2024-05-27 ${14 + i}:00`;
-//
-//         const logText = document.createElement('span');
-//         logText.textContent = `로그 내용`;
-//
-//         const status = document.createElement('span');
-//         status.textContent = `운영 상태`;
-//
-//         logEntry.appendChild(time);
-//         logEntry.appendChild(logText);
-//         logEntry.appendChild(status);
-//
-//         content.appendChild(logEntry);
-//     }
-// }
-// //  });
-// // })
-// // .catch(error => console.error('로그 생성 오류', error));
-//
-// // 페이지 로드 시 초기 내용 설정
-// document.addEventListener('DOMContentLoaded', updateGeneratorContent);
+    fetchGeneratorLog(currentGeneratorIndex);
+});

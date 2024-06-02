@@ -32,7 +32,7 @@ Highcharts.chart('prediction-graph', {
         }
     },
     title: {
-        text: '예측량 그래프'
+        text: ''
     },
     xAxis: {
         categories: []
