@@ -63,9 +63,11 @@
         <div class="d-flex justify-content-between align-items-center">
             <h3 th:text="'센서 관리 &nbsp;🌡️'+${broker}" style="font-weight: bold"></h3>
             <div class="d-flex">
-                <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#tagManagementModal">태그 관리
+                <button type="button" class="btn btn-gradient-info btn-rounded" data-bs-toggle="modal"
+                        data-bs-target="#tagManagementModal" style="font-weight: bold">태그 관리
                 </button>
-                <button type="button" style="margin-left: 10px" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#sensorAddModal">센서 추가
+                <button type="button" style="margin-left: 10px; font-weight: bold" class="btn btn-gradient-info btn-rounded"
+                        data-bs-toggle="modal" data-bs-target="#sensorAddModal" >센서 추가
                 </button>
             </div>
         </div>
@@ -134,12 +136,13 @@
 
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-sm updateButton"
+                            <button type="button" class="btn btn-primary btn-sm btn-rounded updateButton"
+                                    style="background-color: #9c9fa6; border-color: #9c9fa6"
                                     data-bs-toggle="modal"
                                     data-bs-target="#sensorUpdateModal">변경
                             </button>
                             <!--                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>-->
-                            <button type="button" class="btn btn-danger btn-sm deleteButton" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-danger btn-sm btn-rounded deleteButton" data-bs-toggle="modal"
                                     data-bs-target="#deleteModal">삭제
                             </button>
                         </td>

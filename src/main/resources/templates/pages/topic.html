@@ -33,14 +33,14 @@
                 <div class="d-flex justify-content-between">
                     <h3 style="font-weight: bold" th:text="'토픽 관리&nbsp;🤪'+${sensor}+'🤪'"></h3>
                     <button type="button"
-                            class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#topicAddModal">토픽 추가</button>
+                            class="btn btn-gradient-info btn-rounded" data-bs-toggle="modal"
+                            data-bs-target="#topicAddModal" style="font-weight: bold">토픽 추가</button>
                 </div>
                 <div class="row" style="margin-top: 20px">
                     <div class="col-12">
                         <table>
                             <thead>
-                            <tr>
+                            <tr style="background-color: #c5e8ef">
                                 <th scope="col">ID</th>
                                 <th scope="col"><b>타입</b></th>
                                 <th scope="col"><b>토픽</b></th>
@@ -53,11 +53,13 @@
                                 <td th:text="${topics.topicType}"></td>
                                 <td th:text="${topics.topic}"></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm updateButton"
+                                    <button type="button" class="btn btn-primary btn-sm  btn-rounded updateButton"
+                                            style="background-color: #9c9fa6; border-color: #9c9fa6"
                                             data-bs-toggle="modal"
                                             data-bs-target="#topicUpdateModal">변경</button>
 <!--                                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>-->
-                                    <button type="button" class="btn btn-danger btn-sm deleteButton" data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
+                                    <button type="button" class="btn btn-danger btn-sm btn-rounded deleteButton"
+                                            data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
                                 </td>
                             </tr>
                             </tbody>
