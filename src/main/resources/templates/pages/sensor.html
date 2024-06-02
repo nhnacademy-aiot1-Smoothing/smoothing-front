@@ -97,7 +97,10 @@
                         <td th:text="${sensors.sensorType}"></td>
                         <td>
                             <div style="display: flex;flex-wrap: wrap; align-items: center;">
-                                <input type="text" list="tagList" class="form-control input-tag" style="width: 90px; height: 20px" id="tagInput" th:data-sensor-id="${sensors.sensorId}">
+                                <input type="text" list="tagList" class="form-control input-tag" style="width: 90px;
+                                height:
+                                20px; border: 1px solid #ced4da" id="tagInput"
+                                       th:data-sensor-id="${sensors.sensorId}">
                                 <datalist id="tagList">
                                     <th:block th:each="tag : ${tagList}">
                                         <option th:value="${tag.tagName}" th:data-tag-id="${tag.tagId}"></option>
@@ -106,7 +109,9 @@
                                 <th:block th:each="tag : ${sensorTags[sensors.sensorId]}">
                                     <th:block th:each="sensorTag : ${tag}">
                                         <div class="inputWrap" style="display: flex; align-items: center; margin-left: 5px;">
-                                            <input type="text" class="form-control" style="width: 90px; height: 20px; margin-right: 5px;" th:value="${sensorTag.tagName}">
+                                            <input type="text" class="form-control"
+                                                   style="width:90px; height: 20px;
+                                            margin-right: 5px; border: 1px solid #ced4da" th:value="${sensorTag.tagName}">
                                             <input type="hidden" class="sensorIdInput" th:value="${sensors.sensorId}">
                                             <input type="hidden" class="tagIdInput" th:value="${sensorTag.tagId}">
                                             <button type="button" class="btnClear sensorTagDeleteButton"></button>
