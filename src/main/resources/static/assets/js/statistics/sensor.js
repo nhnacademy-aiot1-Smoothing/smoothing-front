@@ -20,7 +20,7 @@ $.get("/sensor/kwh/usage/weekly/value/total", { tags: "" }, function(response) {
     Highcharts.chart('statistics-sensor', {
         colorAxis: {
             minColor: '#FFFFFF',
-            maxColor: Highcharts.getOptions().colors[0]
+            maxColor: '#5FBDFF'
         },
         exporting: {
             enabled: false
