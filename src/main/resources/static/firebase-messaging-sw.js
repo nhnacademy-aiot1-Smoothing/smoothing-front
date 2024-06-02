@@ -1,23 +1,31 @@
-importScripts('https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/8.0.0/firebase-messaging.js');
+importScripts("https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js");
 
-firebase.initializeApp({
-    apiKey: 'AIzaSyBYjQ_3ClLSfoS7pQLJMfhJSAHbmoNlUJ0',
-    authDomain: 'smoothing-4e445.firebaseapp.com',
-    projectId: 'smoothing-4e445',
-    storageBucket: "smoothing-4e445.appspot.com",
-    messagingSenderId: '1008788884422',
-    appId: '1:1008788884422:web:b003901891b30682cf00c7',
-    measurementId: "G-WSZGQMJW1N"
+self.addEventListener("install", function (e) {
+    self.skipWaiting();
 });
+
+self.addEventListener("activate", function (e) {
+    console.log("fcm service worker가 실행되었습니다.");
+});
+
+const firebaseConfig = {
+    apiKey: "AIzaSyASZ2bBr3yDAkbR5JmUtRskDU8anEFxhFI",
+    authDomain: "smoothing-test2.firebaseapp.com",
+    projectId: "smoothing-test2",
+    storageBucket: "smoothing-test2.appspot.com",
+    messagingSenderId: "265747573760",
+    appId: "1:265747573760:web:a9bb536c87896e3c29fce5"
+};
+
+firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
-messaging.setBackgroundMessageHandler(function(payload) {
-    const notificationTitle = payload.notification.title;
+messaging.onBackgroundMessage((payload) => {
+    const notificationTitle = payload.title;
     const notificationOptions = {
-        body: payload.notification.body,
+        body: payload.body
     };
-
-    return self.registration.showNotification(notificationTitle, notificationOptions);
+    self.registration.showNotification(notificationTitle, notificationOptions);
 });

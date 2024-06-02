@@ -3,19 +3,10 @@ package live.smoothing.front.adapter;
 import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.UserInfoListResponse;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
-import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.WaitingUserListResponse;
-import live.smoothing.front.user.dto.request.UserApproveRequest;
-import live.smoothing.front.user.dto.request.UserCreateRequest;
-import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
 import live.smoothing.front.user.dto.request.*;
-import live.smoothing.front.user.dto.response.RoleResponse;
-import live.smoothing.front.user.dto.response.UserAttendanceResponse;
-import live.smoothing.front.user.dto.response.UserCreateResponse;
-import live.smoothing.front.user.dto.response.UserInfoResponse;
-import live.smoothing.front.user.dto.response.UserProfileResponse;
+import live.smoothing.front.user.dto.response.*;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -94,4 +85,30 @@ public interface UserApiAdapter {
     @DeleteMapping("/api/user/inactive")
     MessageResponse inactiveUser();
 
+    @GetMapping("/api/user/hookType/list")
+    List<HookTypeResponse> getHookTypes();
+
+    @PostMapping("/api/user/hook")
+    void createUserHook(@RequestBody HookCreateRequest request);
+
+    @GetMapping("/api/user/hook")
+    UserHookResponse getUserHook();
+
+    @PutMapping("/api/user/hook")
+    void modifyUserHook(@RequestBody HookModifyRequest request);
+
+    @DeleteMapping("/api/user/hook")
+    void deleteUserHook();
+
+    @GetMapping("/api/user/existUser")
+    MessageResponse existUser(@RequestParam("userId") String userId);
+
+    @GetMapping("/api/user/userState")
+    UserStateResponse getUserState(@RequestParam("userId") String userId);
+
+    @PutMapping("/api/user/modify/userName")
+    MessageResponse modifyUserName(@RequestBody UserNameModifyRequest request);
+
+    @PutMapping("/api/user/modify/userEmail")
+    MessageResponse modifyUserEmail(@RequestBody UserEmailModifyRequest request);
 }

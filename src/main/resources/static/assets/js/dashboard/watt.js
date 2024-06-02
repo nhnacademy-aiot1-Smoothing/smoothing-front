@@ -63,6 +63,9 @@ function create10MWattChart(tags) {
                 }
             }
         },
+        exporting: {
+            enabled: false
+        },
         xAxis: {
             type: 'datetime',
             tickPixelInterval: 150
@@ -132,6 +135,9 @@ function create1HWattChart(tags) {
             text: null
         },
         legend: {
+            enabled: false
+        },
+        exporting: {
             enabled: false
         },
         plotOptions: {

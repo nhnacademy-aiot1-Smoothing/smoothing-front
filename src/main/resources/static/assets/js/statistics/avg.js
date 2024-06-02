@@ -15,9 +15,11 @@ async function fetchData() {
             chart: {
                 type: 'column'
             },
+            exporting: {
+                enabled: false
+            },
             title: {
-                text: '평균 비교',
-                align: 'center'
+                text: '',
             },
             subtitle: {
                 text: 'Source: indexmundi',
@@ -41,6 +43,8 @@ async function fetchData() {
                     pointPadding: 0.2,
                     borderWidth: 0
                 }
+            },credits: {
+                enabled: false
             },
             series: [
                 {

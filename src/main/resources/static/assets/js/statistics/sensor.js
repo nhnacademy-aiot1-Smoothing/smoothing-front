@@ -22,6 +22,9 @@ $.get("/sensor/kwh/usage/weekly/value/total", { tags: "" }, function(response) {
             minColor: '#FFFFFF',
             maxColor: Highcharts.getOptions().colors[0]
         },
+        exporting: {
+            enabled: false
+        },
         series: [{
             type: 'treemap',
             layoutAlgorithm: 'squarified',

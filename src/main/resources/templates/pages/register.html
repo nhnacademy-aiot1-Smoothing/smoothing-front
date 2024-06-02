@@ -8,62 +8,102 @@
         <link rel="stylesheet" href="../../assets/css/styles.css">
         <link rel="shortcut icon" href="../../assets/images/favicon.ico"/>
         <script src="/assets/js/register.js"></script>
+        
+        <style>
+            .position-absolute-center {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .auth-form-light {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border-radius: 20px; /* 원하는 둥글기 정도를 지정합니다. */
+            }
+
+            .input-field,
+            .form-select{
+                border: 1px solid #adb5bd;
+            }
+        </style>
     </head>
     <body>
         <div class="container-scroller">
             <div class="container-fluid page-body-wrapper full-page-wrapper">
                 <div class="content-wrapper d-flex align-items-center auth">
                     <div class="row flex-grow">
-                        <div class="col-lg-4 mx-auto">
-                            <div class="auth-form-light text-left p-5">
+                        <div class="col-lg-5 mx-auto">
+                            <div class="auth-form-light text-left p-5" style="margin: 0 auto;">
                                 <div class="brand-logo">
-                                    <img src="../../assets/images/logo.svg">
+                                    <img th:src="@{/assets/images/logo-mini.png}" style="margin-bottom: 30px; width: 70px; height: auto;">
+                                    <h3 style="font-weight: bold; display: inline-block; margin-left: 10px;">회원가입</h3>
                                 </div>
-                                <h4>New here?</h4>
-                                <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
-<!--                                <form class="pt-3" action="/register" method="post">-->
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-lg" id="userId"
+                                <h6 class="font-weight-light">아래 항목들을 모두 채워 회원가입을 완료해주세요.</h6>
+                                    <div class="form-group position-relative">
+                                        <input type="text" class="form-control form-control-lg input-field" id="userId"
                                                placeholder="아이디" name="userId">
-<!--                                        <span class="id-valid-text" style="font-size: 12px; color: red"></span>-->
+                                        <button type="button"
+                                                class="btn btn-success btn-sm btn-rounded position-absolute-center"
+                                                style="background-color: #32be8f; font-weight: bold" id="duplicationButton">중복 확인
+                                        </button>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-lg"
+                                        <input type="password" class="form-control form-control-lg input-field"
                                                id="userPassword" name="userPassword"
                                                placeholder="비밀번호">
-<!--                                        <span class="password-valid-text" style="font-size: 12px; color: red"></span>-->
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-lg"
+                                        <input type="text" class="form-control form-control-lg input-field"
                                                id="userName" name="userName"
                                                placeholder="이름">
-<!--                                        <span class="name-valid-text" style="font-size: 12px; color: red"></span>-->
                                     </div>
-                                    <div class="form-group email-group">
-                                        <input type="email" class="form-control form-control-lg" id="userEmail"
-                                               placeholder="이메일" name="userEmail">
-<!--                                        <span class="email-valid-text" style="font-size: 12px; color: red"></span>-->
-                                        <button type="button" class="btn btn-primary"
-                                                id="sendCertificationNumberButton">인증번호 전송</button>
-                                    </div>
-                                    <div class="form-group test-group">
-                                        
-                                        <input type="text" class="form-control form-control-lg"
-                                               id="certificationNumber" name="certificationNumber"
-                                               placeholder="인증번호">
-                                        <button type="button" class="btn btn-primary" id="verificationButton">확인
-                                        </button>
+                                
+                                <div class="form-group d-flex align-items-center">
+                                    <input type="text" id="userEmail" name="userEmail"
+                                           class="form-control form-control-lg input-field"
+                                           title="이메일 아이디" placeholder="이메일" maxlength="18"/>
+                                    <span style="margin: 0 5px;">@</span>
+                                    <input type="text" id="emailDomain" name="emailDomain"
+                                           class="form-control form-control-lg input-field"
+                                           title="이메일 도메인" placeholder="도메인" maxlength="18"/>
                                     
-                                    </div>
-                                    <div class="mt-3">
-                                        <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
-                                                type="submit" id="signupButton">SIGN UP
+                                    <select id="domainSelect"
+                                            class="form-select"
+                                            title="이메일 도메인 주소 선택" style="margin-left: 10px">
+                                            <option value="">직접입력</option>
+                                            <option value="naver.com">naver.com</option>
+                                            <option value="hanmail.net">hanmail.net</option>>
+                                            <option value="nate.com">nate.com</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-success btn-sm btn-rounded"
+                                            style="background-color: #32be8f; font-weight: bold"
+                                            id="sendCertificationNumberButton">
+                                        인증번호 전송</button>
+                                </div>
+                                
+                                
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control form-control-lg input-field"
+                                           id="certificationNumber" name="certificationNumber"
+                                           placeholder="인증번호">
+                                    <button type="button"
+                                            class="btn btn-success btn-sm btn-rounded position-absolute-center"
+                                            style="background-color: #32be8f; font-weight: bold" id="verificationButton">확인</button>
+                                </div>
+                                
+                                    <div class="text-left p-5 text-center">
+                                        <button
+                                                class="btn btn-rounded btn-gradient-success btn-lg font-weight-bold auth-form-btn"
+                                                 style="width: 300px" type="submit" id="signupButton">SIGN UP
                                         </button>
                                     </div>
-                                    <div class="text-center mt-4 font-weight-light"> Already have an account?
-                                        <a href="/login" class="text-primary">Login</a>
+                                    <div class="text-center mt-4 font-weight-bold"> 이미 계정이 있다면?
+                                        <a href="/login" class="text-primary">로그인</a>
                                     </div>
-<!--                                </form>-->
                             </div>
                         </div>
                     </div>

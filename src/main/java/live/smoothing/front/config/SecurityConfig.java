@@ -33,6 +33,7 @@ public class SecurityConfig {
 
     private final AuthAdapter authAdapter;
     private final ClientRegistrationRepository clientRegistrationRepository;
+    private final UserApiAdapter userAdapter;
 
     /**
      * SecurityFilterChain 빈 생성 메서드
@@ -48,6 +49,7 @@ public class SecurityConfig {
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_THREADLOCAL);
 
         http.csrf().disable()
+                .cors().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
                 .and()
                 .addFilterAt(new CustomLoginFilter(authenticationManager(null)), UsernamePasswordAuthenticationFilter.class)
@@ -62,6 +64,7 @@ public class SecurityConfig {
                 .antMatchers("/requestCertificationNumber").permitAll()
                 .antMatchers("/verifyCertificationNumber").permitAll()
                 .antMatchers("/login/**").permitAll()
+                .antMatchers("/existUser").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -119,7 +122,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
 
-        return new CustomAuthenticationProvider(authAdapter);
+        return new CustomAuthenticationProvider(authAdapter, userAdapter);
     }
 
     @Bean

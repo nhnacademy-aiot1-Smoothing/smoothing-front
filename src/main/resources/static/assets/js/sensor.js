@@ -23,13 +23,18 @@ document.addEventListener('DOMContentLoaded', function () {
             body: sensorAddRequest
         }).then(response => {
             if (!response.ok) {
-                throw new Error('Server responded with an error.');
+                throw new Error(response.status.toString());
             }
         }).then(data => {
             alert('센서가 추가되었습니다.');
             location.reload();
         }).catch(error => {
-            console.error('센서 추가 오류:', error);
+            if(error.message === '403') {
+                alert('권한이 없습니다.');
+                location.reload();
+            }else {
+                alert('센서 추가에 실패하였습니다.');
+            }
         });
     });
 
@@ -65,13 +70,18 @@ document.addEventListener('DOMContentLoaded', function () {
             body: sensorUpdateRequest
         }).then(response => {
             if (!response.ok) {
-                throw new Error('Server responded with an error.');
+                throw new Error(response.status.toString());
             }
         }).then(data => {
             alert('센서가 수정되었습니다.');
             location.reload();
         }).catch(error => {
-            console.error('센서 수정 오류:', error);
+            if(error.message === '403') {
+                alert('권한이 없습니다.');
+                location.reload();
+            }else {
+                alert('센서 수정에 실패하였습니다.');
+            }
         });
     });
 
@@ -101,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }).then(response => {
             if (!response.ok) {
-                throw new Error('서버 응답 오류');
+                throw new Error(response.status.toString());
             }
             return response;
         }).then(data => {
@@ -144,13 +154,139 @@ document.addEventListener('DOMContentLoaded', function () {
             body: tagRequest
         }).then(response => {
             if (!response.ok) {
-                throw new Error('Server responded with an error.');
+                throw new Error(response.status.toString());
             }
         }).then(data => {
             alert('태그가 추가되었습니다.');
             location.reload();
         }).catch(error => {
-            console.error('태그 추가 오류:', error);
+            if(error.message === '403') {
+                alert('권한이 없습니다.');
+                location.reload();
+            }else {
+                alert('태그 추가에 실패하였습니다.');
+            }
+        });
+    });
+
+    document.querySelectorAll('.input-tag').forEach(function(input){
+        input.addEventListener('input', function(e){
+            if(e instanceof InputEvent) {
+                return;
+            }
+            let options = document.querySelectorAll('datalist')[0].options;
+            let input = this.value;
+            for(let i = 0; i < options.length; i++){
+                if(options[i].value === input){
+                    console.log(options[i].value);
+                    console.log(document.querySelector('#tagIdName').querySelector('#tag_'+options[i].value).value);
+                    console.log(this.getAttribute('data-sensor-id'));
+
+                    fetch('/addSensorTag', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            sensorId: this.getAttribute('data-sensor-id'),
+                            tagId: document.querySelector('#tagIdName').querySelector('#tag_'+options[i].value).value
+                        })
+                    }).then(response => {
+                        if(!response.ok) {
+                            throw new Error("Server responded with an error.");
+                        }
+                    }).then(data => {
+                        location.reload();
+                    }).catch(error => {
+                        console.error("오류 발생:", error);
+                    });
+                }
+            }
+        });
+    });
+
+    document.querySelectorAll('.input-tag').forEach(function (item) {
+        item.addEventListener('keydown', function (e) {
+            if(e.key === 'Enter') {
+                let tagIdNames = document.querySelectorAll('.tagIdNames');
+                for(let i = 0;i<tagIdNames.length;i++) {
+                    if(item.value.toUpperCase() === tagIdNames[i].id.split('_')[1].toUpperCase()) {
+                        fetch('/addSensorTag', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                sensorId: item.getAttribute('data-sensor-id'),
+                                tagId: tagIdNames[i].value
+                            })
+                        }).then(response => {
+                            if(!response.ok) {
+                                throw new Error("Server responded with an error.");
+                            }
+                        }).then(data => {
+                            location.reload();
+                        }).catch(error => {
+                            console.error("오류 발생:", error);
+                        });
+                        return;
+                    }
+                }
+                let value = item.value;
+
+                fetch('/addTag', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        tagName: value
+                    })
+                }).then(response => {
+                    if(!response.ok) {
+                        throw new Error("Server responded with an error.");
+                    }
+                }).then(data => {
+                    fetch('/tags', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(response => {
+                        if(!response.ok) {
+                            throw new Error("Server responded with an error.");
+                        }
+                        return response.json();
+                    }).then(data => {
+                        for(let i = 0; i < data.length; i++) {
+                            if(data[i].tagName.toUpperCase() === value.toUpperCase()) {
+                                fetch('/addSensorTag', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        sensorId: item.getAttribute('data-sensor-id'),
+                                        tagId: data[i].tagId
+                                    })
+                                }).then(response => {
+                                    if(!response.ok) {
+                                        throw new Error("Server responded with an error.");
+                                    }
+                                }).then(data => {
+                                    location.reload();
+                                }).catch(error => {
+                                    console.error("오류 발생:", error);
+                                });
+                            }
+                        }
+                    }).catch(error => {
+                        console.error("오류 발생:", error);
+                    });
+                }).catch(error => {
+                    console.error("오류 발생:", error);
+                });
+            }
         });
     });
 
