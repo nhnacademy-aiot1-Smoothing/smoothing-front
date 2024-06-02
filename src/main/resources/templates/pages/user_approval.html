@@ -29,7 +29,7 @@
                         </tr>
                     </tbody>
                     <tbody th:if="${not #lists.isEmpty(waitingUserList)}">
-                        <tr th:each="user : ${waitingUserList}">
+                        <tr th:each="user : ${waitingUserList}" style="border-bottom: 1px solid rgba(0,0,0,.2);">
                             <td th:text="${user.userName}"></td>
                             <td th:text="${user.userId}"></td>
                             <td th:text="${user.requestDate}"></td>
@@ -51,7 +51,7 @@
                                     <form id ="approveForm" method="POST" action="/approve">
                                         <button type="button"
                                                 class="btn btn-primary btn-sm btn-rounded me-md-2 approveButton"
-                                                style="background-color: darkcyan; border-color: darkcyan">승인
+                                                style="background-color: #9c9fa6; border-color: #9c9fa6">승인
                                             <input type="hidden" id="userId" name="userId" th:value="${user.userId}" />
                                         </button>
                                     </form>

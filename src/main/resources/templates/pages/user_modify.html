@@ -10,9 +10,9 @@
         <style>
             .button-group {
                 display: flex;
-                flex-direction: column; /* 버튼들을 세로로 배치 */
-                align-items: center; /* 가운데 정렬 */
-                gap: 5px; /* 버튼 사이의 간격 조절 */
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
             }
         </style>
     </head>
@@ -45,9 +45,7 @@
                                                 </td>
                                                 <td>
                                                     <button id="modifyNameButton" class="btn btn-primary btn-sm btn-rounded"
-                                                            style="background-color:
-                                                    #6c757d;
-                                            border-color:#6c757d;">변경</button>
+                                                            style="background-color: #9c9fa6; border-color: #9c9fa6">변경</button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -101,8 +99,7 @@
                                                 <td>
                                                     <button type="button"
                                                             class="btn btn-primary btn-sm btn-rounded"
-                                                            id="emailModifyButton" style="background-color: #6c757d;
-                                            border-color:#6c757d;">변경</button>
+                                                            id="emailModifyButton" style="background-color: #9c9fa6; border-color: #9c9fa6">변경</button>
                                                 </td>
                                             </tr>
                                             
@@ -132,8 +129,7 @@
                                                     
                                                 </td>
                                                 <td>
-                                                    <button id="modifyPwdButton" class="btn btn-primary btn-sm btn-rounded" style="background-color: #6c757d;
-                                            border-color:#6c757d;">변경</button>
+                                                    <button id="modifyPwdButton" class="btn btn-primary btn-sm btn-rounded" style="background-color: #9c9fa6; border-color: #9c9fa6">변경</button>
                                                 </td>
                                                 
                                             </tr>
@@ -178,12 +174,10 @@
                                                     <div class="button-group">
                                                         <button type="button"
                                                                 class="btn btn-secondary btn-sm btn-rounded hookCreateButton"
-                                                                style="background-color: #6c757d;
-                                            border-color:#6c757d;"
+                                                                style="background-color: #9c9fa6; border-color: #9c9fa6"
                                                                 th:if="${userHook.hookTypeId == null || userHook.hookUrl == null}">확인</button>
                                                         <button type="button"
-                                                                class="btn btn-primary btn-sm btn-rounded hookModifyButton" style="background-color: #6c757d;
-                                            border-color:#6c757d;"
+                                                                class="btn btn-primary btn-sm btn-rounded hookModifyButton" style="background-color: #9c9fa6; border-color: #9c9fa6"
                                                                 th:if="${userHook.hookTypeId != null &amp;&amp; userHook.hookUrl != null}">수정</button>
                                                         <button type="button"
                                                                 class="btn btn-danger btn-sm btn-rounded hookDeleteButton"
