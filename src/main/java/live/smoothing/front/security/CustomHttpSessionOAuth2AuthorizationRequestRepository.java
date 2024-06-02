@@ -39,6 +39,7 @@ public class CustomHttpSessionOAuth2AuthorizationRequestRepository implements Au
     @Override
     public void saveAuthorizationRequest(OAuth2AuthorizationRequest authorizationRequest, HttpServletRequest request,
                                          HttpServletResponse response) {
+        response.addCookie(new Cookie("FUCKING_OAUTH2","null"));
         if (isNull(authorizationRequest)) {
             removeAuthorizationRequest(request, response);
             return;

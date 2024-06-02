@@ -1,6 +1,7 @@
 package live.smoothing.front.config;
 
 import live.smoothing.front.adapter.AuthAdapter;
+import live.smoothing.front.adapter.UserApiAdapter;
 import live.smoothing.front.security.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
