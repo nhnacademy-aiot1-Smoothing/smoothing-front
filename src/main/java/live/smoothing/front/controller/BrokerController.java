@@ -1,5 +1,6 @@
 package live.smoothing.front.controller;
 
+import live.smoothing.front.adapter.RuleEngineAdapter;
 import live.smoothing.front.device.dto.BrokerAddRequest;
 import live.smoothing.front.device.dto.BrokerUpdateRequest;
 import live.smoothing.front.device.service.BrokerService;
@@ -17,17 +18,17 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class BrokerController {
 
     private final BrokerService brokerService;
+    private final RuleEngineAdapter ruleEngineAdapter;
 
     @GetMapping("/broker")
     public String broker(Pageable pageable,
                          Model model) {
         List<String> protocolTypeList = brokerService.getProtocols().getProtocolTypes();
         model.addAttribute("protocolTypeList", protocolTypeList);
-
+        model.addAttribute("brokerStatus", ruleEngineAdapter.getBrokerStatus().getBrokerStatus());
         BrokerListResponse brokers = brokerService.getBrokers(pageable);
         model.addAttribute("brokers", brokers.getBrokers());
         model.addAttribute("size", brokers.getTotalPage());
@@ -36,6 +37,7 @@ public class BrokerController {
     }
 
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/api/device/brokers")
     public void addBroker(@RequestBody BrokerAddRequest request) {
 
@@ -43,6 +45,7 @@ public class BrokerController {
     }
 
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/api/device/brokers/{brokerId}")
     public void updateBroker(@PathVariable Integer brokerId, @RequestBody BrokerUpdateRequest request) {
 
@@ -50,6 +53,7 @@ public class BrokerController {
     }
 
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/api/device/brokers/{brokerId}")
     public void deleteBroker(@PathVariable Integer brokerId) {
 

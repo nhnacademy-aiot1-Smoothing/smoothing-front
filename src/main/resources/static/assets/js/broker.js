@@ -26,13 +26,18 @@ document.addEventListener('DOMContentLoaded', function () {
             body: brokerAddRequest
         }).then(response => {
             if (!response.ok) {
-                throw new Error('Server responded with an error.');
+                throw new Error(response.status.toString());
             }
         }).then(data => {
             alert('브로커가 추가되었습니다.');
             location.reload();
         }).catch(error => {
-            console.error('브로커 추가 오류:', error);
+            if(error.message === '403') {
+                alert('권한이 없습니다.');
+                location.reload();
+            }else {
+                alert('브로커 추가에 실패하였습니다.');
+            }
         });
     });
 
@@ -74,13 +79,18 @@ document.addEventListener('DOMContentLoaded', function () {
             body: brokerUpdateRequest
         }).then(response => {
             if (!response.ok) {
-                throw new Error('Server responded with an error.');
+                throw new Error(response.status.toString());
             }
         }).then(data => {
             alert('브로커가 수정되었습니다.');
             location.reload();
         }).catch(error => {
-            console.error('브로커 수정 오류:', error);
+            if(error.message === '403') {
+                alert('권한이 없습니다.');
+                location.reload();
+            }else {
+                alert('브로커 수정에 실패하였습니다.');
+            }
         });
     });
 
@@ -98,8 +108,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const brokerPort = brokerTds[4];
             document.querySelector('#brokerDeleteId').innerHTML = findBrokerId;
 
-            document.querySelector('#deleteModalContent').innerHTML = '브로커 ' + brokerName.innerText + '를 삭제하시겠습니까?<br>' +
-                '<span style="color: gray;font-size: small">프로토콜: ' + brokerProtocol.innerText + ', IP주소: ' + brokerIp.innerText + ', 포트: ' + brokerPort.innerText + '</span>';
+            document.querySelector('#deleteModalContent').innerHTML = '브로커 ' + '(' + brokerName.innerText + ')' + '를 삭제하시겠습니까?<br>' +
+                '<span style="color: gray;font-size: large">프로토콜: ' + brokerProtocol.innerText + ', IP주소: ' + brokerIp.innerText + ', 포트: ' + brokerPort.innerText + '</span>';
         });
     }
 
@@ -112,14 +122,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }).then(response => {
             if (!response.ok) {
-                throw new Error('서버 응답 오류');
+                throw new Error(response.status.toString());
             }
-            return response;
         }).then(data => {
             alert('브로커가 삭제되었습니다.');
             location.reload();
         }).catch(error => {
-            console.error('브로커 삭제 오류:', error);
+            if(error.message === '403') {
+                alert('권한이 없습니다.');
+                location.reload();
+            }else {
+                alert('브로커 삭제에 실패하였습니다.');
+            }
         });
     });
 });

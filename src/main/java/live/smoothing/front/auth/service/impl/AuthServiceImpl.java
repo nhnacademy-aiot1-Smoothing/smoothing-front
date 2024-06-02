@@ -1,5 +1,6 @@
 package live.smoothing.front.auth.service.impl;
 
+import feign.FeignException;
 import live.smoothing.front.adapter.AuthAdapter;
 import live.smoothing.front.auth.dto.email.EmailCertificationRequest;
 import live.smoothing.front.auth.dto.email.MessageResponse;
@@ -10,7 +11,9 @@ import live.smoothing.front.auth.dto.token.RefreshTokenRequest;
 import live.smoothing.front.auth.dto.token.ReissueResponse;
 import live.smoothing.front.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +49,12 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public MessageResponse verifyCertificationNumber(VerificationRequest request) {
 
-        return authAdapter.verifyCertificationNumber(request).getBody();
+        try {
+            return authAdapter.verifyCertificationNumber(request).getBody();
+        } catch(FeignException.Unauthorized e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+
+
     }
 }

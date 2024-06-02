@@ -17,7 +17,7 @@ public class ComparisonController {
     @GetMapping("/comparison")
     public String comparisonPage() {
 
-        return "/pages/comparison";
+        return "pages/comparison";
     }
 
     @ResponseBody

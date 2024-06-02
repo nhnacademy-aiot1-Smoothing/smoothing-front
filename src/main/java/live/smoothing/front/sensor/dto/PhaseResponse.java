@@ -2,14 +2,14 @@ package live.smoothing.front.sensor.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
 
 @Getter
-@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class PhaseResponse {
 
-    ThreePhase classA;
-    ThreePhase office;
+    private List<ThreePhase> threePhases;
 }

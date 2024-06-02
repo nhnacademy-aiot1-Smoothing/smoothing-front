@@ -1,19 +1,14 @@
 package live.smoothing.front.user.service;
 
-import com.google.firebase.auth.UserInfo;
 import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.UserInfoListResponse;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
-import live.smoothing.front.user.dto.WaitingUser;
 import live.smoothing.front.user.dto.WaitingUserListResponse;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
 import live.smoothing.front.user.dto.request.UserCreateRequest;
 import live.smoothing.front.user.dto.request.UserRoleModifyRequest;
 import live.smoothing.front.user.dto.request.*;
-import live.smoothing.front.user.dto.response.RoleResponse;
-import live.smoothing.front.user.dto.response.UserAttendanceResponse;
-import live.smoothing.front.user.dto.response.UserInfoResponse;
-import live.smoothing.front.user.dto.response.UserProfileResponse;
+import live.smoothing.front.user.dto.response.*;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -67,4 +62,20 @@ public interface UserService {
     MessageResponse modifyUserRole(UserRoleModifyRequest request);
 
     MessageResponse inactiveUser();
+
+    List<HookTypeResponse> getHookTypes();
+
+    void createUserHook(HookCreateRequest request);
+
+    UserHookResponse getUserHook();
+
+    void modifyUserHook(HookModifyRequest request);
+
+    void deleteUserHook();
+
+    MessageResponse existUser(String userId);
+
+    void modifyUserName(UserNameModifyRequest request);
+
+    void modifyUserEmail(UserEmailModifyRequest request);
 }

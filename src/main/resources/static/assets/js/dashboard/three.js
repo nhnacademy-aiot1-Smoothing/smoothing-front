@@ -1,111 +1,260 @@
-async function fetchData() {
-    try {
-        const response = await fetch("/sensor/three-phase")
-        const data = await response.json();
+fetch('/sensor/three-phase')
+    .then(response => response.json())
+    .then(data => {
+        const topValue = data.threePhases[0].top.value;
+        const bottomValue = data.threePhases[0].bottom.value;
 
-        const first_time = parseInt(data.ThreePhase.phaseA.time);
-        const first_value = parseInt(data.ThreePhase.phaseA.value);
+        const maxValueChart2 = Math.max(topValue, bottomValue, 200) * 1.1;
+        const maxValueChart1 = Math.max(topValue, bottomValue, 200) * 1.1 * 2;
 
-        const second_time = parseInt(data.ThreePhase.phaseB.time);
-        const second_value = parseInt(data.ThreePhase.phaseB.value);
+        Highcharts.chart('chart1', {
 
-        const third_time = parseInt(data.ThreePhase.phaseC.time);
-        const third_value = parseInt(data.ThreePhase.phaseC.value);
-
-        console.log(first_time);
-        console.log(first_value);
-
-        var chart = AmCharts.makeChart("three", {
-            "type": "serial",
-            "theme": "light",
-            "marginTop": 0,
-            "marginRight": 80,
-            "dataProvider": [
-                {"time": "00:00", "phaseA": 220, "phaseB": 221, "phaseC": 222},
-                {"time": "01:00", "phaseA": 219, "phaseB": 220, "phaseC": 222},
-                {"time": "02:00", "phaseA": 218, "phaseB": 219, "phaseC": 221},
-                {"time": "03:00", "phaseA": 220, "phaseB": 221, "phaseC": 220},
-                {"time": "04:00", "phaseA": 222, "phaseB": 223, "phaseC": 221},
-            ],
-            "valueAxes": [{
-                "axisAlpha": 0,
-                "position": "left",
-                "title": "전압 (V)"
-            }],
-            "graphs": [{
-                "id": "phaseA",
-                "balloonText": "[[category]]<br><b><span style='font-size:14px;'>Phase A: [[value]] V</span></b>",
-                "bullet": "round",
-                "bulletSize": 8,
-                "lineColor": "#FF0000",
-                "lineThickness": 2,
-                "type": "smoothedLine",
-                "valueField": "phaseA"
-            }, {
-                "id": "phaseB",
-                "balloonText": "[[category]]<br><b><span style='font-size:14px;'>Phase B: [[value]] V</span></b>",
-                "bullet": "round",
-                "bulletSize": 8,
-                "lineColor": "#00FF00",
-                "lineThickness": 2,
-                "type": "smoothedLine",
-                "valueField": "phaseB"
-            }, {
-                "id": "phaseC",
-                "balloonText": "[[category]]<br><b><span style='font-size:14px;'>Phase C: [[value]] V</span></b>",
-                "bullet": "round",
-                "bulletSize": 8,
-                "lineColor": "#0000FF",
-                "lineThickness": 2,
-                "type": "smoothedLine",
-                "valueField": "phaseC"
-            }],
-            "chartScrollbar": {
-                "graph": "phaseA",
-                "gridAlpha": 0,
-                "color": "#888888",
-                "scrollbarHeight": 55,
-                "backgroundAlpha": 0,
-                "selectedBackgroundAlpha": 0.1,
-                "selectedBackgroundColor": "#888888",
-                "graphFillAlpha": 0,
-                "autoGridCount": true,
-                "selectedGraphFillAlpha": 0,
-                "graphLineAlpha": 0.2,
-                "graphLineColor": "#c2c2c2",
-                "selectedGraphLineColor": "#888888",
-                "selectedGraphLineAlpha": 1
+            chart: {
+                type: 'gauge',
+                plotBackgroundColor: null,
+                plotBackgroundImage: null,
+                plotBorderWidth: 0,
+                plotShadow: false,
+                height: '305px',
+                marginLeft: 50,
+                marginRight: 50
             },
-            "chartCursor": {
-                "categoryBalloonDateFormat": "JJ:NN",
-                "cursorAlpha": 0,
-                "valueLineEnabled": true,
-                "valueLineBalloonEnabled": true,
-                "valueLineAlpha": 0.5,
-                "fullWidth": true
+
+            title: {
+                text: ''
             },
-            "categoryField": "time",
-            "categoryAxis": {
-                "parseDates": false,
-                "minorGridAlpha": 0.1,
-                "minorGridEnabled": true,
-                "title": "시간"
+
+            credits: {
+                enabled: false
             },
-            "export": {
-                "enabled": true
-            }
+
+            pane: {
+                startAngle: -90,
+                endAngle: 89.9,
+                background: null,
+                center: ['50%', '75%'],
+                size: '110%'
+            },
+
+            yAxis: {
+                min: 0,
+                max: maxValueChart1,
+                tickPixelInterval: 72,
+                tickPosition: 'inside',
+                tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
+                tickLength: 20,
+                tickWidth: 2,
+                minorTickInterval: null,
+                labels: {
+                    distance: 20,
+                    style: {
+                        fontSize: '14px'
+                    }
+                },
+                lineWidth: 0,
+                plotBands: [ {
+                    from: 0,
+                    to: maxValueChart1 * 0.2,
+                    color: '#F72464',
+                    thickness: 20,
+                    borderRadius: '50%'
+                },  {
+                    from: maxValueChart1 * 0.8,
+                    to: maxValueChart1,
+                    color: '#F72464',
+                    thickness: 20,
+                    borderRadius: '50%'
+                }, {
+                    from: maxValueChart1 * 0.15,
+                    to: maxValueChart1 * 0.4,
+                    color: '#FCDC2A',
+                    thickness: 20
+                }, {
+                    from: maxValueChart1 * 0.4,
+                    to: maxValueChart1 * 0.6,
+                    color: '#40A578',
+                    thickness: 20
+                }, {
+                    from: maxValueChart1 * 0.6,
+                    to: maxValueChart1 * 0.85,
+                    color: '#FCDC2A',
+                    thickness: 20,
+                }]
+            }, exporting: {
+                enabled: false
+            },
+
+            series: [{
+                name: 'LL',
+                data: [topValue],
+                tooltip: {
+                    valueSuffix: ' V'
+                },
+                dataLabels: {
+                    format: 'LL',
+                    borderWidth: 0,
+                    color: (
+                        Highcharts.defaultOptions.title &&
+                        Highcharts.defaultOptions.title.style &&
+                        Highcharts.defaultOptions.title.style.color
+                    ) || '#333333',
+                    style: {
+                        fontSize: '16px'
+                    }
+                },
+                dial: {
+                    radius: '80%',
+                    backgroundColor: 'gray',
+                    baseWidth: 12,
+                    baseLength: '0%',
+                    rearLength: '0%'
+                },
+                pivot: {
+                    backgroundColor: 'gray',
+                    radius: 6
+                }
+
+            }]
+
         });
 
-    } catch (error) {
-        console.error("ERROR: ", error)
-    }
-}
+        Highcharts.chart('chart2', {
 
-chart.addListener("rendered", zoomChart);
-if (chart.zoomChart) {
-    chart.zoomChart();
-}
+            chart: {
+                type: 'gauge',
+                plotBackgroundColor: null,
+                plotBackgroundImage: null,
+                plotBorderWidth: 0,
+                plotShadow: false,
+                height: '305px',
+                marginLeft: 50,
+                marginRight: 50
+            },
 
-function zoomChart() {
-    chart.zoomToIndexes(Math.round(chart.dataProvider.length * 0.4), Math.round(chart.dataProvider.length * 0.55));
-}
+            title: {
+                text: ''
+            },
+
+            credits: {
+                enabled: false
+            },
+
+            pane: {
+                startAngle: -90,
+                endAngle: 89.9,
+                background: null,
+                center: ['50%', '75%'],
+                size: '110%'
+            },
+
+            yAxis: {
+                min: 0,
+                max: maxValueChart2,
+                tickPixelInterval: 72,
+                tickPosition: 'inside',
+                tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
+                tickLength: 20,
+                tickWidth: 2,
+                minorTickInterval: null,
+                labels: {
+                    distance: 20,
+                    style: {
+                        fontSize: '14px'
+                    }
+                },
+                lineWidth: 0,
+                plotBands: [{
+                    from: 0,
+                    to: maxValueChart2 * 0.2,
+                    color: '#F72464',
+                    thickness: 20,
+                    borderRadius: '50%'
+                },  {
+                    from: maxValueChart2 * 0.8,
+                    to: maxValueChart2,
+                    color: '#F72464',
+                    thickness: 20,
+                    borderRadius: '50%'
+                }, {
+                    from: maxValueChart2 * 0.15,
+                    to: maxValueChart2 * 0.4,
+                    color: '#FCDC2A',
+                    thickness: 20
+                }, {
+                    from: maxValueChart2 * 0.4,
+                    to: maxValueChart2 * 0.6,
+                    color: '#40A578',
+                    thickness: 20
+                }, {
+                    from: maxValueChart2 * 0.6,
+                    to: maxValueChart2 * 0.85,
+                    color: '#FCDC2A',
+                    thickness: 20,
+                }]
+            }, exporting: {
+            enabled: false
+        },
+
+            series: [{
+                name: 'LN',
+                data: [bottomValue],
+                tooltip: {
+                    valueSuffix: ' V'
+                },
+                dataLabels: {
+                    format: 'LN',
+                    borderWidth: 0,
+                    color: (
+                        Highcharts.defaultOptions.title &&
+                        Highcharts.defaultOptions.title.style &&
+                        Highcharts.defaultOptions.title.style.color
+                    ) || '#333333',
+                    style: {
+                        fontSize: '16px'
+                    }
+                },
+                dial: {
+                    radius: '80%',
+                    backgroundColor: 'gray',
+                    baseWidth: 12,
+                    baseLength: '0%',
+                    rearLength: '0%'
+                },
+                pivot: {
+                    backgroundColor: 'gray',
+                    radius: 6
+                }
+
+            }]
+
+        });
+
+    })
+    .catch(error => console.error('Error fetching data:', error));
+
+setInterval(() => {
+    fetch('/sensor/three-phase')
+        .then(response => response.json())
+        .then(data => {
+            const topValue = data.threePhases[0].top.value;
+            const bottomValue = data.threePhases[0].bottom.value;
+
+            const maxValueChart2 = Math.max(topValue, bottomValue, 200) * 1.1;
+            const maxValueChart1 = Math.max(topValue, bottomValue, 200) * 1.1 * 2;
+
+            const chart1 = Highcharts.charts[0];
+            const chart2 = Highcharts.charts[1];
+
+            if (chart1 && chart2) {
+                const point1 = chart1.series[0].points[0];
+                const point2 = chart2.series[0].points[0];
+
+                chart1.yAxis[0].update({ max: maxValueChart1 });
+                chart2.yAxis[0].update({ max: maxValueChart2 });
+
+                point1.update(topValue);
+                point2.update(bottomValue);
+            }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+}, 3000);

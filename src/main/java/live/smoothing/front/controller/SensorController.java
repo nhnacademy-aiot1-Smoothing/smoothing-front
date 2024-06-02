@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class SensorController {
 
     private final SensorService sensorService;
@@ -48,18 +47,21 @@ public class SensorController {
     }
 
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/api/device/sensors")
     public void addSensor(@RequestBody SensorRegisterRequest sensorRegisterRequest) {
         sensorService.addSensor(sensorRegisterRequest);
     }
 
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/api/device/sensors/{sensorId}")
     public void updateSensor(@PathVariable Integer sensorId, @RequestBody SensorUpdateRequest sensorUpdateRequest) {
         sensorService.updateSensor(sensorId, sensorUpdateRequest);
     }
 
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/api/device/sensors/{sensorId}")
     public void deleteSensor(@PathVariable Integer sensorId) {
         sensorService.deleteSensor(sensorId);
@@ -98,5 +100,11 @@ public class SensorController {
     public void deleteSensorTag(@PathVariable Integer sensorId, @PathVariable Integer tagId) {
 
         tagService.deleteSensorTag(sensorId, tagId);
+    }
+
+    @ResponseBody
+    @GetMapping("/tags")
+    public List<TagResponse> getTags() {
+        return tagService.getTags().getTags();
     }
 }

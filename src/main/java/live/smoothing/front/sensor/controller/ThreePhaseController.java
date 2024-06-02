@@ -14,7 +14,8 @@ public class ThreePhaseController {
 
     @GetMapping("/sensor/three-phase")
     public PhaseResponse getThreePhase() {
+        PhaseResponse response = sensorService.getThreePhase();
 
-        return sensorService.getThreePhase();
+        return response;
     }
 }

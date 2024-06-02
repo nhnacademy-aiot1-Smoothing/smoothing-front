@@ -2,7 +2,7 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    
+
     <head>
         <div th:insert="fragments/config::configFragment"></div>
     </head>
@@ -17,6 +17,7 @@
                     </div>
                     <footer class="footer" th:replace="fragments/footer::footerFragment"></footer>
                 </div>
+                <nav th:replace="fragments/slidebar"></nav>
             </div>
         </div>
     </body>
