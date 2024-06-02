@@ -2,7 +2,7 @@ const days = {
     1: {
         code: 'MON',
         name: '월요일',
-        color: '#FF0080'
+        color: '#F72464'
     },
     2: {
         code: 'TUE',
@@ -12,7 +12,7 @@ const days = {
     3: {
         code: 'WED',
         name: '수요일',
-        color: '#FFDB5C'
+        color: '#FFC700'
     },
     4: {
         code: 'THU',

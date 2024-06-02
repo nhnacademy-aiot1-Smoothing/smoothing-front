@@ -76,7 +76,8 @@ function fetchDataForComparisonSum(tagsQueryString, startDate, endDate) {
                 series: [
                     {
                         name: 'NHN Office',
-                        data: data.data.map(item => item.value)
+                        data: data.data.map(item => item.value),
+                        color: '#5FBDFF'
                     }
                 ]
             });
@@ -201,10 +202,12 @@ function fetchDataForComparisonGroup(tagsQueryString2, startDate, endDate) {
                         },
                         series: [{
                             name: 'First data',
-                            data: data1.data.map(item => item.value)
+                            data: data1.data.map(item => item.value),
+                            color: '#5FBDFF'
                         }, {
                             name: 'Second Data',
-                            data: data2.data.map(item => item.value)
+                            data: data2.data.map(item => item.value),
+                            color: '#7267CB'
                         }]
                     });
 
