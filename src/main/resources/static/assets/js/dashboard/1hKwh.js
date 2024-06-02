@@ -4,8 +4,7 @@ function create1HKwhChart(tags) {
             zoomType: 'xy',
             events: {
                 load: function () {
-                    // 차트가 로드되면 실행할 함수
-                    const chart = this;  // 차트 참조
+                    const chart = this;
                     fetch("/sensor/kwh?unit=hour&per=1&tags=" + tags)
                         .then(response => response.json())
                         .then(res => {
@@ -89,8 +88,8 @@ function create1HKwhChart(tags) {
         plotOptions: {
             series: {
                 animation: {
-                    duration: 800,  // Adjusted duration
-                    easing: 'easeOutQuad'  // Changed easing function
+                    duration: 800,
+                    easing: 'easeOutQuad'
                 }
             }
         },
@@ -115,7 +114,8 @@ function create1HKwhChart(tags) {
                 0, 0, 0, 0],
             tooltip: {
                 valueSuffix: ' kwh'
-            }
+            },
+            color: '#5FBDFF'
 
         }, {
             name: '1일전 전력량',
@@ -125,7 +125,8 @@ function create1HKwhChart(tags) {
                 0, 0, 0, 0],
             tooltip: {
                 valueSuffix: ' kwh'
-            }
+            },
+            color: '#7267CB'
         }]
     });
 }

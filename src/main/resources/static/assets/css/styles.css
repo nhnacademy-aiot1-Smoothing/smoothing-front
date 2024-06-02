@@ -19498,8 +19498,8 @@ dl li {
 }
 
 .navbar .navbar-brand-wrapper .navbar-brand.brand-logo-mini img {
-    width: calc(70px - 50px);
-    max-width: 100%;
+    width: 28px;
+
     height: 28px;
     margin: auto;
 }
@@ -20168,8 +20168,8 @@ dl li {
 
 .sidebar .nav .nav-item.active {
     background: mintcream;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
+    /*border-top-left-radius: 50px;*/
+    /*border-bottom-left-radius: 50px;*/
 }
 
 .sidebar .nav .nav-item.active > .nav-link .menu-title {
@@ -20183,8 +20183,6 @@ dl li {
 
 .sidebar .nav .nav-item:hover {
     background: mintcream;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
 }
 
 .sidebar .nav .nav-item.nav-profile .nav-link {
@@ -20289,13 +20287,30 @@ dl li {
     right: 0;
 }
 
+.sidebar .nav.sub-menu .nav-item .nav-link:before {
+    color: dimgray;
+}
+
 .sidebar .nav.sub-menu .nav-item .nav-link.active {
     color: darkcyan;
     background: transparent;
 }
 
-.sidebar .nav.sub-menu .nav-item .nav-link:hover {
+.sidebar .nav.sub-menu:hover .nav-item .nav-link:hover {
     color: darkcyan;
+}
+
+.sidebar .nav.sub-menu:before .nav-item .nav-link {
+    color: dimgray;
+}
+
+
+.sidebar .nav.sub-menu:hover .nav-item:not(:hover) .nav-link {
+    color: dimgray; /* hover된 항목을 제외한 다른 항목들의 색상 설정 */
+}
+
+.sidebar .nav.sub-menu .nav-item .nav-link:not(.active) {
+    color: dimgray; /* 활성화되지 않은 항목의 색상 설정 */
 }
 
 .sidebar .nav.sub-menu .nav-item:hover {

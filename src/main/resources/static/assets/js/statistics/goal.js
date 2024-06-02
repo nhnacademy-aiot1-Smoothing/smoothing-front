@@ -41,9 +41,9 @@ function fetchDataAndDrawChart() {
                 lineData.push(item.goalAmount);
 
                 if (item.amount > item.goalAmount) {
-                    colors.push('red');
+                    colors.push('#F72464');
                 } else {
-                    colors.push(Highcharts.getOptions().colors[0]);
+                    colors.push('#82C3EC');
                 }
             });
 
@@ -76,10 +76,10 @@ function fetchDataAndDrawChart() {
                     step: 'center',
                     name: 'Goal',
                     data: lineData,
-                    color: Highcharts.getOptions().colors[3],
+                    color: '#FFA62F',
                     marker: {
                         lineWidth: 2,
-                        lineColor: Highcharts.getOptions().colors[3],
+                        lineColor: '#FFA62F',
                         fillColor: 'white'
                     }
                 }]

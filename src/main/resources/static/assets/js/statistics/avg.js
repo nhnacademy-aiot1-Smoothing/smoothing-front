@@ -21,10 +21,6 @@ async function fetchData() {
             title: {
                 text: '',
             },
-            subtitle: {
-                text: 'Source: indexmundi',
-                align: 'left'
-            },
             xAxis: {
                 categories: ['전국 평균', '지역 평균', '우리 회사 🏭'],
                 crosshair: true
@@ -49,15 +45,18 @@ async function fetchData() {
             series: [
                 {
                     name: '전국 평균',
-                    data: [wholeCountryAverage]
+                    data: [wholeCountryAverage],
+                    color: '#7267CB'
                 },
                 {
                     name: '김해 평균',
-                    data: [kimCityAverage]
+                    data: [kimCityAverage],
+                    color: '#5FBDFF'
                 },
                 {
                     name: '우리 회사',
-                    data: [3800]
+                    data: [3800],
+                    color: '#4477CE'
                 }
             ]
         });
