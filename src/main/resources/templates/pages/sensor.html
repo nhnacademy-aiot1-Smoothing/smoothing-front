@@ -64,7 +64,7 @@
         }
     </style>
     <div class="d-flex justify-content-between align-items-center">
-        <h1 th:text="'센서 관리 &nbsp;🐪'+${broker}+'🐪'"></h1>
+        <h1 th:text="'센서 관리 &nbsp;🌡️'+${broker}"></h1>
         <div class="d-flex">
             <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#tagManagementModal">태그 관리
             </button>
@@ -72,6 +72,9 @@
             </button>
         </div>
     </div>
+    <ul hidden="hidden" id="tagIdName">
+        <li th:each="tag : ${tagList}" th:id="${'tag_' + tag.tagName}" th:value="${tag.tagId}"></li>
+    </ul>
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -96,6 +99,12 @@
                         <td th:text="${sensors.sensorType}"></td>
                         <td>
                             <div>
+                                <input type="text" list="tagList" class="form-control input-tag" style="width: 90px; height: 20px" id="tagInput" th:data-sensor-id="${sensors.sensorId}">
+                                <datalist id="tagList">
+                                    <th:block th:each="tag : ${tagList}">
+                                        <option th:value="${tag.tagName}" th:data-tag-id="${tag.tagId}"></option>
+                                    </th:block>
+                                </datalist>
                                 <th:block th:each="tag : ${sensorTags[sensors.sensorId]}">
                                     <th:block th:each="sensorTag : ${tag}">
 <!--                                        <button type="button" class="btn btn-bg-transparent btn-xs"-->
@@ -110,30 +119,25 @@
                                     </th:block>
                                 </th:block>
                             </div>
-                            <div class="dropdown">
-                                <button class="btn btn-bg-transparent btn-sm dropdown-toggle tagDropdownButton"
-                                        type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                    🐪
-                                </button>
-                                <ul class="dropdown-menu" id="tagDropdown">
-                                    <th:block th:each="tag : ${tagList}">
-                                        <li><a class="dropdown-item" th:data-tag-id="${tag.tagId}"
-                                               th:data-sensor-id="${sensors.sensorId}">
-                                            <span th:text="${tag.tagName}">
-                                            </span>
-                                        </a></li>
-                                    </th:block>
-                                </ul>
-                            </div>
-<!--                            <input type="text" list="tagList" class="form-control" style="width: 90px; height: 20px" id="tagInput">-->
-<!--                            <datalist id="tagList">-->
-<!--                                <th:block th:each="tag : ${tagList}">-->
-<!--                                    <option th:value="${tag.tagName}"></option>-->
-<!--                                </th:block>-->
-<!--                            </datalist>-->
-                            
-                            
+<!--                            <div class="dropdown">-->
+<!--                                <button class="btn btn-bg-transparent btn-sm dropdown-toggle tagDropdownButton"-->
+<!--                                        type="button"-->
+<!--                                        data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                                    🐪-->
+<!--                                </button>-->
+<!--                                <ul class="dropdown-menu" id="tagDropdown">-->
+<!--                                    <th:block th:each="tag : ${tagList}">-->
+<!--                                        <li><a class="dropdown-item" th:data-tag-id="${tag.tagId}"-->
+<!--                                               th:data-sensor-id="${sensors.sensorId}">-->
+<!--                                            <span th:text="${tag.tagName}">-->
+<!--                                            </span>-->
+<!--                                        </a></li>-->
+<!--                                    </th:block>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+
+
+
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm updateButton"
@@ -300,7 +304,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="modal fade" id="tagManagementModal" tabindex="-1" aria-labelledby="tagManagementModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -333,7 +337,7 @@
                         <input id="tagUpdateName" class="form-control rounded-3 border-secondary me-2" style="width:200px" type="text">
                     </div>
                 </div>
-                
+
                 <div class="modal-footer d-flex justify-content-center"
                      style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
                     <button type="button" id="tagUpdateButton" class="btn btn-primary btn-sm">수정</button>
