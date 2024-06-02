@@ -101,4 +101,10 @@ public class SensorController {
 
         tagService.deleteSensorTag(sensorId, tagId);
     }
+
+    @ResponseBody
+    @GetMapping("/tags")
+    public List<TagResponse> getTags() {
+        return tagService.getTags().getTags();
+    }
 }
