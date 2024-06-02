@@ -73,7 +73,7 @@
         </div>
     </div>
     <ul hidden="hidden" id="tagIdName">
-        <li th:each="tag : ${tagList}" th:id="${'tag_' + tag.tagName}" th:value="${tag.tagId}"></li>
+        <li th:each="tag : ${tagList}" th:id="${'tag_' + tag.tagName}" th:value="${tag.tagId}" class="tagIdNames"></li>
     </ul>
     <div class="container">
         <div class="row">
