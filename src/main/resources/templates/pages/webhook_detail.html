@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout/defaultLayout">
+    <head>
+<!--        <link rel="stylesheet" href="/assets/css/table.css">-->
+        <style>
+            .container {
+                padding: 2rem 0rem;
+            }
+
+            h4 {
+                margin: 2rem 0rem 1rem;
+            }
+
+            .table-image {
+                td, th {
+                    vertical-align: middle;
+                }
+            }
+
+            .table-bordered thead th,
+            .table-bordered tbody th,
+            .table-bordered tbody td {
+                background-color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <th:block layout:fragment="content">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-12 grid-margin">
+                        <div class="card text-center" style="margin: 0 auto;">
+                            <div class="card-body">
+                                <h5 style="text-align: left; margin-bottom: 50px"><a href="/webhook">< 웹훅 목록</a></h5>
+                                <div class="page-header border-bottom d-flex justify-content-between">
+                                    <h3 style="font-weight: bold;">웹훅 상세정보</h3>
+                                    <div class="d-flex">
+                                        <button type="button"
+                                                class="btn btn-gradient-info btn-rounded btn-sm" style="font-weight:
+                                                bold"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#webHookUpdateModal">수정
+                                        </button>
+                                        
+                                        
+                                        
+                                        
+                                        <div class="modal fade" id="webHookUpdateModal" tabindex="-1"
+                                             aria-labelledby="webHookUpdateModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content" style="border-radius: 15px">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" style="font-weight: bold"
+                                                            id="webHookUpdateModalLabel">웹훅 수정하기</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body" style="text-align: left">
+                                                        <div class="mb-3">
+                                                            <label for="webHookName" class="form-label">이름</label>
+                                                            <input type="text" class="form-control" id="webHookName">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="webHookURL" class="form-label">URL</label>
+                                                            <input type="text" class="form-control" id="webHookURL">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="eventType" class="form-label">이벤트 타입</label>
+                                                            <div class="form-check" id="eventType"
+                                                                 style="margin-left: 30px">
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                                <label class="form-check-label" for="flexCheckDefault">
+                                                                    Default checkbox
+                                                                </label>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                                                <label class="form-check-label" for="flexCheckChecked">
+                                                                    Checked checkbox
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                style="border-radius: 10px"
+                                                                data-bs-dismiss="modal">닫기</button>
+                                                        <button type="button" class="btn btn-primary"
+                                                                style="border-radius: 10px">수정하기</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        <button type="button"
+                                                class="btn btn-gradient-danger btn-rounded btn-sm" style="font-weight:
+                                                bold"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#webHookDeleteModal">삭제
+                                        </button>
+                                    </div>
+                                    
+                                    
+                                    <div class="modal fade" id="webHookDeleteModal" tabindex="-1"
+                                         aria-labelledby="webHookDeleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content" style="border-radius: 15px">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" style="font-weight: bold"
+                                                        id="webHookDeleteModalLabel">웹훅 삭제하기</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body" style="text-align: left">
+                                                    ...
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            style="border-radius: 10px"
+                                                            data-bs-dismiss="modal">닫기</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                            style="border-radius: 10px">삭제하기</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th style="background-color: #eeeeee">이름</th>
+                                            <td>asdfdsfdsf</td>
+                                            <th rowspan="2" style="background-color: #eeeeee">이벤트 타입</th>
+                                            <td rowspan="2">asdfdsfdsf</td>
+                                        </tr>
+                                        <tr>
+                                            <th style="background-color: #eeeeee">URL</th>
+                                            <td>www.smoothing.live</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <div class="page-header border-bottom d-flex justify-content-between"
+                                     style="margin-top: 50px">
+                                    <h3 style="font-weight: bold;">웹훅 전송기록</h3>
+                            </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="background-color: #eeeeee"><b>상태</b></th>
+                                            <th scope="col" style="background-color: #eeeeee"><b>이벤트 타입</b></th>
+                                            <th scope="col" style="background-color: #eeeeee"><b>발생 시간</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                전송
+                                            </td>
+                                            <td>
+                                                이벤트 타입
+                                            </td>
+                                            <td>
+                                                2024-06-03 02:49:00
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </body>
+</html>
