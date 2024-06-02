@@ -20185,11 +20185,16 @@ dl li {
     background: mintcream;
 }
 
+.sidebar .nav .nav-item.nav-profile{
+    background: darkcyan;
+}
+
 .sidebar .nav .nav-item.nav-profile .nav-link {
     height: auto;
     line-height: 1;
     border-top: 0;
     padding: 1.25rem 0;
+    background: darkcyan;
 }
 
 .sidebar .nav .nav-item.nav-profile .nav-link .nav-profile-image {
