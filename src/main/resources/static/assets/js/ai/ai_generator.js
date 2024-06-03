@@ -91,21 +91,6 @@ function create1DPowerGeneration() {
             linkedTo: 'main',
             data: [],
             name: '주간 발전량'
-        }, {
-            name: '발전량',
-            id: 'main',
-            dataSorting: {
-                matchByName: true
-            },
-            dataLabels: [{
-                enabled: true,
-                inside: true,
-                style: {
-                    fontSize: '16px',
-                    color: '#FFF'
-                }
-            }],
-            data: []
         }]
     });
 }
