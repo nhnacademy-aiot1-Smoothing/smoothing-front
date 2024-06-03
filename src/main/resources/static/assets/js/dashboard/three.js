@@ -1,18 +1,31 @@
 
 let currentIndex = 0;
 let data = [];
+let llchart;
+let lnchart;
 
-function fetchDataAndUpdate() {
+function fetchDataAndCreateChart() {
     fetch('/sensor/three-phase')
         .then(response => response.json())
         .then(fetchedData => {
             data = fetchedData.threePhases;
-            updateCharts();
+            createCharts();
         })
         .catch(error => console.error('Error fetching data:', error));
 }
 
-function updateCharts() {
+function update(chart1, chart2) {
+    fetch('/sensor/three-phase')
+        .then(response => response.json())
+        .then(fetchedData => {
+            data = fetchedData.threePhases;
+            chart1.series[0].points[0].update(data[currentIndex].top.value);
+            chart2.series[0].points[0].update(data[currentIndex].bottom.value);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+}
+
+function createCharts() {
     if (data.length === 0) return;
 
     const currentData = data[currentIndex];
@@ -24,7 +37,7 @@ function updateCharts() {
 
     document.getElementById('locationTitle').innerText = `장소별 전압 (${currentData.place})`;
 
-    Highcharts.chart('chart1', {
+    llchart = Highcharts.chart('chart1', {
         chart: {
             type: 'gauge',
             plotBackgroundColor: null,
@@ -128,7 +141,7 @@ function updateCharts() {
         }]
     });
 
-    Highcharts.chart('chart2', {
+    lnchart = Highcharts.chart('chart2', {
         chart: {
             type: 'gauge',
             plotBackgroundColor: null,
@@ -235,13 +248,15 @@ function updateCharts() {
 
 document.getElementById('leftButton2').addEventListener('click', () => {
     currentIndex = (currentIndex > 0) ? currentIndex - 1 : data.length - 1;
-    updateCharts();
+    createCharts();
 });
 
 document.getElementById('rightButton2').addEventListener('click', () => {
     currentIndex = (currentIndex < data.length - 1) ? currentIndex + 1 : 0;
-    updateCharts();
+    createCharts();
 });
 
-fetchDataAndUpdate();
-setInterval(fetchDataAndUpdate, 3000);
+fetchDataAndCreateChart();
+setTimeout(() => {
+    setInterval(() => update(llchart, lnchart), 5000);
+}, 3000);
