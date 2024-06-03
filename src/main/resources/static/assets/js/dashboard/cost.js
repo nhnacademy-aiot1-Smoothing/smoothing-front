@@ -1,5 +1,7 @@
+
+
 let target = 1;
-const duration = 1500; // 애니메이션의 전체 소요 시간 (밀리초)
+const duration = 1500;
 
 function setupFlip(tick) {
     let startTime = null;
@@ -12,11 +14,11 @@ function setupFlip(tick) {
         }
 
         const progress = timestamp - startTime;
-        const newValue = Math.min(currentTarget, Math.floor(progress / duration * currentTarget)); // 애니메이션 중간값 계산
-        tick.value = newValue.toLocaleString() + "₩"; // 쉼표 추가
+        const newValue = Math.min(currentTarget, Math.floor(progress / duration * currentTarget));
+        tick.value = "₩" + newValue.toLocaleString() ;
 
         if (newValue < currentTarget) {
-            requestAnimationFrame(updateTick); // 다음 프레임 요청
+            requestAnimationFrame(updateTick);
         }
     }
 
@@ -25,7 +27,7 @@ function setupFlip(tick) {
             fetch("/sensor/cost")
                 .then(response => response.json())
                 .then((response) => {
-                    tick.value = response.cost.toLocaleString() + "₩";
+                    tick.value = "₩" + response.cost.toLocaleString();
                 })
 
         }, 5000);
