@@ -15,19 +15,19 @@ Highcharts.chart('prediction-graph', {
                             chart.series[0].setData(data, true, true, true);
                         }
                     )
-                    .then(fetch("/ai/power-usage/actual?location=class_a_floor_heating&description=w")
-                        .then(response => response.json())
-                        .then(res => {
-                                const data = [];
-                                for (let i = 0; i < res.length; i++) {
-                                    data.push([new Date(res[i].time), res[i].value]);
-                                }
-
-                                console.log(data);
-
-                                chart.series[1].setData(data, true, true, true);
+                .then(fetch("/ai/power-usage/actual?location=class_a_floor_heating&description=w")
+                    .then(response => response.json())
+                    .then(res => {
+                            const data = [];
+                            for (let i = 0; i < res.length; i++) {
+                                data.push([new Date(res[i].time), res[i].value]);
                             }
-                        ))
+
+                            console.log(data);
+
+                            chart.series[1].setData(data, true, true, true);
+                        }
+                    ))
             }
         }
     },
@@ -42,6 +42,9 @@ Highcharts.chart('prediction-graph', {
             text: '예측량(Wh)'
         }
     },
+    credits: {
+        enabled: false
+    },
     plotOptions: {
         line: {
             dataLabels: {
@@ -51,10 +54,10 @@ Highcharts.chart('prediction-graph', {
         }
     },
     series: [{
-        name: 'Reggane',
+        name: '예측량(Wh)',
         data: []
     }, {
-        name: 'Tallinn',
+        name: '실측량(Wh)',
         data: []
     }]
 });
