@@ -49,7 +49,7 @@
                         <td th:text="${brokers.brokerIp}"></td>
                         <td th:text="${brokers.brokerPort}"></td>
                         <td th:text="'동작중'" th:if="${brokerStatus[brokers.brokerId] == 'running'}"></td>
-                        <td th:text="'중지'" th:if="${brokerStatus[brokers.brokerId] == 'stop'}"></td>
+                        <td th:text="'중지'" th:unless="${brokerStatus[brokers.brokerId] == 'running'}"></td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm btn-rounded updateButton"
                                     style="background-color: #9c9fa6; border-color: #9c9fa6"
