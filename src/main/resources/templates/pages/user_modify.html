@@ -135,10 +135,16 @@
                                             </tr>
                                             
                                             <tr>
-                                                <th scope="row"><label>서비스 연동</label></th>
+                                                <th scope="row"><label>웹 훅</label></th>
+<!--                                                <td>-->
+<!--                                                    <div class="d-flex align-items-center">-->
+<!--                                                        <a href="/webhook" class="text-primary">웹훅 관리</a>-->
+<!--                                                    </div>-->
+<!--                                                    -->
+<!--                                                </td>-->
                                                 <td>
                                                     <div style="display: flex; align-items: center;">
-                                                        <label for="messenger" style="margin-right: 10px;">서비스 타입</label>
+                                                        <label for="messenger" style="margin-right: 10px;">메신저 타입</label>
                                                         <div class="row" id="messenger">
                                                             <div class="col-auto" th:each="hookType : ${hookTypes}">
                                                                 <div class="form-check form-check-inline"
@@ -160,14 +166,6 @@
                                                         <input type="text" class="form-control" id="hookUrl"
                                                                name="hookUrl" th:value="${userHook.hookUrl}">
                                                     </div>
-                                                    
-<!--                                                    <div class="text-end" style="margin-top: 10px">-->
-<!--                                                        <button class="btn btn-primary btn-sm" style="background-color: #6c757d;-->
-<!--                                            border-color:#6c757d;">버튼</button>-->
-                                                        
-
-                                                        
-<!--                                                    </div>-->
                                                     
                                                 </td>
                                                 <td>

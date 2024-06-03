@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout/defaultLayout">
+    <head>
+<!--        <link rel="stylesheet" href="/assets/css/table.css">-->
+        <style>
+            .container {
+                    padding: 2rem 0rem;
+            }
+        
+            h4 {
+                margin: 2rem 0rem 1rem;
+            }
+        
+            .table-image {
+                td, th {
+                    vertical-align: middle;
+                }
+            }
+        
+            .table-bordered thead th,
+            .table-bordered tbody th,
+            .table-bordered tbody td {
+                background-color: white;
+            }
+            </style>
+    </head>
+    <body>
+        <th:block layout:fragment="content">
+            <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-12 grid-margin">
+                            <div class="card text-center" style="margin: 0 auto;">
+                                <div class="card-body">
+                                    <div class="page-header border-bottom d-flex justify-content-between">
+                                        <h3 style="font-weight: bold;">웹훅 목록</h3>
+                                        <button type="button"
+                                                class="btn btn-gradient-info btn-rounded" style="font-weight: bold"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#webHookAddModal">➕ 웹 훅 등록하기
+                                        </button>
+                                        
+                                        <div class="modal fade" id="webHookAddModal" tabindex="-1"
+                                             aria-labelledby="webHookAddModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content" style="border-radius: 15px">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" style="font-weight: bold"
+                                                            id="webHookAddModalLabel">웹훅 등록하기</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body" style="text-align: left">
+                                                        <div class="mb-3">
+                                                            <label for="webHookName" class="form-label">이름</label>
+                                                            <input type="text" class="form-control" id="webHookName">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="webHookURL" class="form-label">URL</label>
+                                                            <input type="text" class="form-control" id="webHookURL">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="eventType" class="form-label">이벤트 타입</label>
+                                                            <div class="form-check" id="eventType"
+                                                                 style="margin-left: 30px">
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                                <label class="form-check-label" for="flexCheckDefault">
+                                                                    Default checkbox
+                                                                </label>
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                                                <label class="form-check-label" for="flexCheckChecked">
+                                                                    Checked checkbox
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                style="border-radius: 10px"
+                                                                data-bs-dismiss="modal">닫기</button>
+                                                        <button type="button" class="btn btn-primary"
+                                                                style="border-radius: 10px">등록하기</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="background-color: #eeeeee"><b>이름</b></th>
+                                                <th scope="col" style="background-color: #eeeeee"><b>URL</b></th>
+                                                <th scope="col" style="background-color: #eeeeee"><b>이벤트 타입</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a href="/webhook-detail">이름</a>
+                                                </td>
+                                                <td>
+                                                    URL 들어갈 공간
+                                                </td>
+                                                <td>
+                                                    이벤트 타입
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </th:block>
+    </body>
+</html>
