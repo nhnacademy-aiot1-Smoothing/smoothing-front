@@ -18,6 +18,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.*;
@@ -39,14 +41,20 @@ public class CustomHttpSessionOAuth2AuthorizationRequestRepository implements Au
     @Override
     public void saveAuthorizationRequest(OAuth2AuthorizationRequest authorizationRequest, HttpServletRequest request,
                                          HttpServletResponse response) {
-        response.addCookie(new Cookie("FUCKING_OAUTH2","null"));
         if (isNull(authorizationRequest)) {
             removeAuthorizationRequest(request, response);
             return;
         }
 
         try {
-            CookieUtil.addCookie(response, OAUTH2_COOKIE_NAME, encrypt(authorizationRequest), OAUTH_COOKIE_EXPIRY);
+            String encryptedText = Aes256.encrypt(Arrays.toString(SerializationUtils.serialize(authorizationRequest)));
+            System.out.println(encryptedText);
+            System.out.println(Aes256.decrypt(encryptedText));
+            SerializationUtils.deserialize(URLDecoder.decode(encryptedText, StandardCharsets.UTF_8).getBytes());
+            CookieUtil.addCookie(response, OAUTH2_COOKIE_NAME + "1", encryptedText.substring(0, encryptedText.length() / 4), OAUTH_COOKIE_EXPIRY);
+            CookieUtil.addCookie(response, OAUTH2_COOKIE_NAME + "2", encryptedText.substring(encryptedText.length() / 4, encryptedText.length() / 2), OAUTH_COOKIE_EXPIRY);
+            CookieUtil.addCookie(response, OAUTH2_COOKIE_NAME + "3", encryptedText.substring(encryptedText.length() / 2, encryptedText.length() / 4 * 3), OAUTH_COOKIE_EXPIRY);
+            CookieUtil.addCookie(response, OAUTH2_COOKIE_NAME + "4", encryptedText.substring(encryptedText.length() / 4 * 3), OAUTH_COOKIE_EXPIRY);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -67,7 +75,13 @@ public class CustomHttpSessionOAuth2AuthorizationRequestRepository implements Au
 
     @SneakyThrows
     private OAuth2AuthorizationRequest getCookie(HttpServletRequest request) {
-        return CookieUtil.getCookie(request, OAUTH2_COOKIE_NAME).map(this::decrypt).orElse(null);
+        Cookie cookie1 = CookieUtil.getCookie(request, OAUTH2_COOKIE_NAME + "1").orElse(null);
+        Cookie cookie2 = CookieUtil.getCookie(request, OAUTH2_COOKIE_NAME + "2").orElse(null);
+        Cookie cookie3 = CookieUtil.getCookie(request, OAUTH2_COOKIE_NAME + "3").orElse(null);
+        Cookie cookie4 = CookieUtil.getCookie(request, OAUTH2_COOKIE_NAME + "4").orElse(null);
+        String encryptedText = cookie1.getValue() + cookie2.getValue() + cookie3.getValue() + cookie4.getValue();
+        System.out.println(encryptedText);
+        return (OAuth2AuthorizationRequest) SerializationUtils.deserialize(URLDecoder.decode(encryptedText, StandardCharsets.UTF_8).getBytes());
     }
 
     private String encrypt(OAuth2AuthorizationRequest authorizationRequest) throws Exception {
@@ -75,14 +89,14 @@ public class CustomHttpSessionOAuth2AuthorizationRequestRepository implements Au
         return Aes256.encrypt(Arrays.toString(bytes));
     }
 
-    private OAuth2AuthorizationRequest decrypt(Cookie cookie){
+    private OAuth2AuthorizationRequest decrypt(String encryptedText) {
         byte[] bytes = null;
         try {
-            bytes = Aes256.decrypt(Arrays.toString(cookie.getValue().getBytes(StandardCharsets.UTF_8))).getBytes();
+            bytes = Aes256.decrypt(Arrays.toString(encryptedText.getBytes(StandardCharsets.UTF_8))).getBytes();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return (OAuth2AuthorizationRequest)SerializationUtils.deserialize(
+        return (OAuth2AuthorizationRequest) SerializationUtils.deserialize(
                 bytes);
     }
 
@@ -100,7 +114,8 @@ public class CustomHttpSessionOAuth2AuthorizationRequestRepository implements Au
                                      Duration maxAge) {
             Cookie cookie = new Cookie(cookieName, cookieValue);
             cookie.setPath("/");
-            cookie.setMaxAge((int)maxAge.toSeconds());
+//            cookie.setDomain("localhost");
+            cookie.setMaxAge((int) maxAge.toSeconds());
 
             response.addCookie(cookie);
         }
