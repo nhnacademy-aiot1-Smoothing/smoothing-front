@@ -17,11 +17,6 @@ am5.ready(function() {
             categoryField: "label"
         }));
 
-        series.slices.template.setAll({
-            strokeWidth: 3,
-            stroke: am5.color(0xffffff)
-        });
-
         series.labelsContainer.set("paddingTop", 30);
 
         series.slices.template.adapters.add("radius", function (radius, target) {
@@ -43,6 +38,14 @@ am5.ready(function() {
             marginTop: 15,
             marginBottom: 15
         }));
+
+        series.labels.template.setAll({
+            forceHidden: true
+        });
+
+        series.ticks.template.setAll({
+            forceHidden: true
+        });
 
         legend.data.setAll(series.dataItems);
 
