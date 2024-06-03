@@ -86,19 +86,13 @@ function create1DPowerGeneration() {
             enabled: false
         },
         series: [{
-            color: 'rgba(158, 159, 163, 0.5)',
-            pointPlacement: -0.2,
-            linkedTo: 'main',
-            data: [],
-            name: '주간 발전량'
-        }, {
             name: '발전량',
             id: 'main',
             dataSorting: {
                 matchByName: true
             },
             dataLabels: [{
-                enabled: true,
+                enabled: false,
                 inside: true,
                 style: {
                     fontSize: '16px',
