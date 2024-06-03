@@ -8,7 +8,7 @@
 .check-button {
     border: none;
     border-radius: 10px;
-    background-color: #ff5180;
+    background-color: darkcyan;
     color: white;
     padding: 10px 20px;
     text-align: center;
@@ -24,10 +24,10 @@
 }
 
 .fc-col-header-cell-cushion {
-    color: #ff5180;
+    color: darkcyan;
 }
 
 .fc-col-header-cell-cushion:hover {
     text-decoration: none;
-    color: #ff5180;
+    color: #02bdbd;
 }
