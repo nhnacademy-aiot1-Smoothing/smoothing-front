@@ -163,4 +163,16 @@ public class MyPageController {
 
         userService.deleteUserHook();
     }
+
+    @GetMapping("/webhook")
+    public String webhookPage(Model model) {
+
+        return "pages/webhook";
+    }
+
+    @GetMapping("/webhook-detail")
+    public String webhookDetailPage(Model model) {
+
+        return "pages/webhook_detail";
+    }
 }
