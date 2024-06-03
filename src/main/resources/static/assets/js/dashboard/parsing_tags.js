@@ -6,6 +6,14 @@ function parsingTags() {
 
 document.getElementById('tagSelectButton').addEventListener('click', function() {
     const tags = parsingTags();
+
+    if (tags === '') {
+        document.getElementById('tagName').textContent = '전체 데이터';
+    } else {
+        let tagNames = tags.replaceAll(',', ', ');
+        document.getElementById('tagName').textContent = tagNames;
+    }
+
     create1DKwhChart(tags);
     create1HKwhChart(tags);
     create10MWattChart(tags);

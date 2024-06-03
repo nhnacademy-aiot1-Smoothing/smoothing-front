@@ -52,7 +52,7 @@ document.getElementById('attendanceButton').addEventListener('click', function()
                 calendar.addEvent({
                     title: '출석',
                     start: date,
-                    color: '#ff5180'
+                    color: '#02bdbd'
                 });
             });
         }).catch(function (error) {

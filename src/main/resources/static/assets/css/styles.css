@@ -7630,6 +7630,7 @@ fieldset:disabled .btn {
 
 .card {
     position: relative;
+    font-family: "ubuntu-bold";
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -20586,5 +20587,18 @@ dl li {
     -ms-flex-positive: 1;
     flex-grow: 1;
 }
+
+.border-left-primary {
+    border-left: .25rem solid #4e73df !important;
+}
+
+.border-left-success {
+    border-left: .25rem solid #1cc88a !important;
+}
+
+.border-left-info {
+    border-left: .25rem solid #36b9cc !important;
+}
+
 
 /*# sourceMappingURL=style.css.map */

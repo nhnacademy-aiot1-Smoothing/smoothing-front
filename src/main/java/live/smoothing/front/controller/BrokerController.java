@@ -1,15 +1,13 @@
 package live.smoothing.front.controller;
 
-import live.smoothing.front.adapter.RuleEngineAdapter;
 import live.smoothing.front.device.dto.BrokerAddRequest;
 import live.smoothing.front.device.dto.BrokerUpdateRequest;
 import live.smoothing.front.device.service.BrokerService;
+import live.smoothing.front.device.service.RuleEngineService;
 import lombok.RequiredArgsConstructor;
 import live.smoothing.front.device.dto.BrokerListResponse;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,14 +19,14 @@ import java.util.List;
 public class BrokerController {
 
     private final BrokerService brokerService;
-    private final RuleEngineAdapter ruleEngineAdapter;
+    private final RuleEngineService ruleEngineService;
 
     @GetMapping("/broker")
     public String broker(Pageable pageable,
                          Model model) {
         List<String> protocolTypeList = brokerService.getProtocols().getProtocolTypes();
         model.addAttribute("protocolTypeList", protocolTypeList);
-        model.addAttribute("brokerStatus", ruleEngineAdapter.getBrokerStatus().getBrokerStatus());
+        model.addAttribute("brokerStatus", ruleEngineService.getRuleEngineStatus());
         BrokerListResponse brokers = brokerService.getBrokers(pageable);
         model.addAttribute("brokers", brokers.getBrokers());
         model.addAttribute("size", brokers.getTotalPage());

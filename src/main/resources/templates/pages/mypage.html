@@ -4,6 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="layout/defaultLayout">
     <head>
+        <link rel="shortcut icon" href="/assets/images/logo-mini.png">
     </head>
     <body>
         <th:block layout:fragment="content">
@@ -12,7 +13,7 @@
                                     <div class="page-header border-bottom">
                                         <h1 class="page-title"> <b th:text="${userName}"></b>님 어서오세요  <a
                                                 th:href="@{/verify-pwd}"
-                                                class="btn btn-gradient-info btn-rounded btn-fw btn-sm"
+                                                class="btn btn-gradient-success btn-rounded btn-fw btn-sm"
                                                 style="font-weight: bold">수정</a></h1>
                                         
                                         <nav aria-label="breadcrumb">
@@ -23,9 +24,9 @@
                                             </ul>
                                         </nav>
                                     </div>
-                                    <button type="button" class="btn btn-outline-danger btn-icon-text btn-fw"
+                                    <button type="button" class="btn btn-outline-warning btn-icon-text btn-fw"
                                             id="attendanceButton">출석</button>
-                                    <button type="button" class="btn btn-outline-danger btn-icon-text btn-fw"
+                                    <button type="button" class="btn btn-outline-warning btn-icon-text btn-fw"
                                             id="pointButton">포인트</button>
                                     <h1> </h1><p></p>
                                     <h1> </h1><p></p>
