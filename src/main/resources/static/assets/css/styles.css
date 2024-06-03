@@ -7630,6 +7630,7 @@ fieldset:disabled .btn {
 
 .card {
     position: relative;
+    font-family: "ubuntu-bold";
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
