@@ -28,7 +28,7 @@ public class ActController {
     }
 
     @PutMapping("/timeout")
-    public void modifyTimeout(ModifyTimoutConditionRequest timeoutRequest) {
+    public void modifyTimeout(@RequestBody ModifyTimoutConditionRequest timeoutRequest) {
         actService.modifyTimeout(timeoutRequest);
     }
 
