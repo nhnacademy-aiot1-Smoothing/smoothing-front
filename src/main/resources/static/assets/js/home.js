@@ -50,7 +50,7 @@ messaging.onMessage((payload) => {
         body: payload.notification.body,
     };
 
-    let notification = new Notification(notificationTitle, notificationOptions);
+    new Notification(notificationTitle, notificationOptions);
 });
 
 if ('serviceWorker' in navigator) {
