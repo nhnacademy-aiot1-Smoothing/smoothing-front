@@ -88,4 +88,8 @@ public class SensorService {
         return sensorAdapter.getOfficeIgr();
       
     }
+
+    public void setGoal(GoalReqeust goalRequest) {
+        sensorAdapter.modifyGoal(goalRequest);
+    }
 }

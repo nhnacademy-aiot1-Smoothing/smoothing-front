@@ -3,6 +3,8 @@ package live.smoothing.front.adapter;
 import live.smoothing.front.sensor.dto.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -67,4 +69,7 @@ public interface SensorAdapter {
 
     @GetMapping("/api/sensor/igr/office")
     Igr getOfficeIgr();
+
+    @PutMapping("/api/sensor/goals")
+    void modifyGoal(@RequestBody GoalReqeust goalRequest);
 }
