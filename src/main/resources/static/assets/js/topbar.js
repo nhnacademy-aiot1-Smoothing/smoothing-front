@@ -2,9 +2,9 @@ function handleLogout() {
     fetch('/api/tokens', {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json' // 요청 본문의 데이터 타입 지정
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify({fcmToken: fcmToken}) // JSON 데이터를 문자열로 변환하여 본문에 추가
+        body: JSON.stringify({fcmToken: fcmToken})
     })
         .then(response => {
             if (response.ok) {

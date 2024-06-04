@@ -19,8 +19,8 @@ $(document).ready(function () {
                         dropdown.append(
                             `<a class="dropdown-item preview-item" href="#" data-hashkey="${hashKey}">
                                 <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-success">
-                                        <i class="mdi mdi-calendar"></i>
+                                    <div class="preview-icon bg-info">
+                                        <i class="mdi mdi-account-arrow-right"></i>
                                     </div>
                                 </div>
                                 <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
@@ -49,6 +49,7 @@ $(document).ready(function () {
             success: function(result) {
                 console.log('Notification deleted:', hashKey);
                 $(item).closest('.dropdown-item').remove();
+                window.location.href = '/user-approval';
             },
             error: function(xhr, status, error) {
                 console.error("Error deleting notification:", status, error);
