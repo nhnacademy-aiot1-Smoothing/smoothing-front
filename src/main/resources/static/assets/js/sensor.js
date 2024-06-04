@@ -205,9 +205,25 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    class timeValue {
+        static time = new Date().getTime() - 1000;
+        static setTime(time) {
+            this.time = time;
+        }
+        static getTime() {
+            return this.time;
+        }
+    }
+
     document.querySelectorAll('.input-tag').forEach(function (item) {
         item.addEventListener('keydown', function (e) {
             if(e.key === 'Enter') {
+                let time = timeValue.getTime();
+                console.log(time);
+                if(time + 500 > new Date().getTime()) {
+                    return;
+                }
+                timeValue.setTime(new Date().getTime());
                 let tagIdNames = document.querySelectorAll('.tagIdNames');
                 for(let i = 0;i<tagIdNames.length;i++) {
                     if(item.value.toUpperCase() === tagIdNames[i].id.split('_')[1].toUpperCase()) {
@@ -225,9 +241,11 @@ document.addEventListener('DOMContentLoaded', function () {
                                 throw new Error("Server responded with an error.");
                             }
                         }).then(data => {
+                            alert("태그가 추가되었습니다.")
                             location.reload();
                         }).catch(error => {
                             console.error("오류 발생:", error);
+                            alert("태그 추가에 실패하였습니다.");
                         });
                         return;
                     }
@@ -274,8 +292,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                         throw new Error("Server responded with an error.");
                                     }
                                 }).then(data => {
+                                    alert("태그가 추가되었습니다.");
                                     location.reload();
                                 }).catch(error => {
+                                    alert("태그 추가에 실패하였습니다.")
                                     console.error("오류 발생:", error);
                                 });
                             }
