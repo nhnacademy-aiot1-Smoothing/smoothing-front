@@ -55,7 +55,7 @@ function create10MWattChart(tags) {
         },
         plotOptions: {
             series: {
-                color: '#F3CA52'
+                color: '#FFC700'
             },
             spline: {
                 marker: {
@@ -142,7 +142,7 @@ function create1HWattChart(tags) {
         },
         plotOptions: {
             series: {
-                color: '#F3CA52'
+                color: '#FFC700'
             },
             spline: {
                 marker: {

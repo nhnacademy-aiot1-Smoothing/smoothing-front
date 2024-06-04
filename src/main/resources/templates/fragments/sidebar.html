@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lagn="ko"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <nav class="sidebar sidebar-offcanvas" id="sidebar" th:fragment="sidebarFragment">
     <ul class="nav">
         <li class="nav-item nav-profile">
@@ -17,53 +17,53 @@
             </a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" th:href="@{/}">
+            <a class="nav-link" href="/">
                 <span class="menu-title">대시보드</span>
                 <i class="mdi mdi-monitor-dashboard menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/statistics}">
+            <a class="nav-link" href="/statistics">
                 <span class="menu-title">통계</span>
                 <i class="mdi mdi-finance menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/comparison}">
+            <a class="nav-link" href="/comparison">
                 <span class="menu-title">비교현황</span>
                 <i class="mdi mdi-chart-gantt menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" th:href="@{/ai}">
                 <span class="menu-title">AI 예측</span>
                 <i class="mdi mdi-creation menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#device-management" aria-expanded="false"
+            <a class="nav-link" data-bs-toggle="collapse" href="#device-management" aria-expanded="false"
                aria-controls="device-management">
                 <span class="menu-title">장치 관리</span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-wrench-outline menu-icon"></i>
             </a>
-            <div class="collapse show" id="device-management">
+            <div class="collapse" id="device-management">
                 <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="/broker"> 브로커 관리 </a></li>
                     <li class="nav-item"><a class="nav-link" href="/outlier-monitoring" sec:authorize="hasRole('ROLE_ADMIN')"> 이상치 모니터링 </a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="/error-monitoring" sec:authorize="hasRole('ROLE_ADMIN')"> 통신이상 모니터링 </a></li>
-                    <li class="nav-item"><a class="nav-link" href="/broker"> 브로커 관리 </a></li>
                 </ul>
             </div>
         </li>
         <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-            <a class="nav-link" data-toggle="collapse" href="#user-management" aria-expanded="true"
+            <a class="nav-link" data-bs-toggle="collapse" href="#user-management" aria-expanded="false"
                aria-controls="user-management">
                 <span class="menu-title">회원 관리</span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-account-multiple-check menu-icon"></i>
             </a>
-            <div class="collapse show" id="user-management">
+            <div class="collapse" id="user-management">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"><a class="nav-link" href="/user-approval">회원 승인</a></li>
                     <li class="nav-item"><a class="nav-link" href="/user-list">회원 목록</a>

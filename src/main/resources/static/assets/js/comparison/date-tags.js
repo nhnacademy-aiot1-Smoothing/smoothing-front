@@ -10,6 +10,7 @@ defaultEndDate.setDate(defaultEndDate.getDate() - 1);
 endDatePicker.setDate(defaultEndDate);
 
 let data1 = null;
+let data1Label = null;
 
 document.getElementById("tagSelectButton").addEventListener("click", function () {
     const selectedTags = Array.from(document.querySelectorAll("#tagCheckboxGroup input[name=tag]:checked")).map(checkbox => checkbox.value);
@@ -40,6 +41,19 @@ function fetchDataForComparisonSum(tagsQueryString, startDate, endDate) {
         .then(response => response.json())
         .then(data => {
             data1 = data;
+            let label;
+            if (data.tags[0] === '') {
+                label = '전체 데이터';
+            } else {
+                data.tags.forEach((tag, index) => {
+                    if (index === 0) {
+                        label = tag;
+                    } else {
+                        label += `, ${tag}`;
+                    }
+                })
+            }
+            data1Label = label;
 
             Highcharts.chart('comparison-sum', {
                 title: {
@@ -75,8 +89,9 @@ function fetchDataForComparisonSum(tagsQueryString, startDate, endDate) {
                 },
                 series: [
                     {
-                        name: 'NHN Office',
-                        data: data.data.map(item => item.value)
+                        name: data1Label,
+                        data: data.data.map(item => item.value),
+                        color: '#5FBDFF'
                     }
                 ]
             });
@@ -167,6 +182,19 @@ function fetchDataForComparisonGroup(tagsQueryString2, startDate, endDate) {
             fetch(`/sensor/kwh/usage/daily/period/total?tags=${tagsQueryString2}&start=${startDate}&end=${endDate}`)
                 .then(response => response.json())
                 .then(data2 => {
+                    let label;
+                    if (data2.tags[0] === '') {
+                        label = '전체 데이터';
+                    } else {
+                        data2.tags.forEach((tag, index) => {
+                            if (index === 0) {
+                                label = tag;
+                            } else {
+                                label += `, ${tag}`;
+                            }
+                        })
+                    }
+
                     Highcharts.chart('comparison-group', {
                         title: {
                             text: ''
@@ -200,11 +228,13 @@ function fetchDataForComparisonGroup(tagsQueryString2, startDate, endDate) {
                             }
                         },
                         series: [{
-                            name: 'First data',
-                            data: data1.data.map(item => item.value)
+                            name: data1Label,
+                            data: data1.data.map(item => item.value),
+                            color: '#5FBDFF'
                         }, {
-                            name: 'Second Data',
-                            data: data2.data.map(item => item.value)
+                            name: label,
+                            data: data2.data.map(item => item.value),
+                            color: '#7267CB'
                         }]
                     });
 

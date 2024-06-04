@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout/defaultLayout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 페이지</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/ai.css">
+
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">전력량 예측 그래프</h4>
+                        <div id="prediction-graph" style="height: 400px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">주간 발전량 기록</h4>
+                        <div id="monitoring-graph" style="height: 400px"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">발전기 로그</h4>
+                        <div class="graph" id="generator-log">
+                            <span class="arrow left" onclick="prevGenerator()">&lt;</span>
+                            <div class="generator-label" id="generator-label">발전기 1</div>
+                            <div id="generator-content" class="centered-log"></div>
+                            <span class="arrow right" onclick="nextGenerator()">&gt;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="/assets/js/ai/ai_predictional.js"></script>
+    <script src="/assets/js/ai/ai_generator.js"></script>
+    <script src="/assets/js/ai/generator_log.js"></script>
+</th:block>
+</body>
+</html>

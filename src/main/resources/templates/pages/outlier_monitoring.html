@@ -6,6 +6,7 @@
 <head>
     <script src="/assets/js/outlier_monitoring.js"></script>
     <link rel="stylesheet" href="/assets/css/table.css">
+    <link rel="shortcut icon" href="/assets/images/logo-mini.png">
 </head>
 <body>
 <th:block layout:fragment="content">
@@ -35,7 +36,7 @@
 <!--    </div>-->
     <div class="container overflow-auto">
         <h3 style="font-weight: bold;">이상치 모니터링🚫</h3>
-        <div class="row">
+        <div class="row" style="margin-top: 20px">
             <div class="col-12">
                 <table>
                     <thead>
@@ -43,20 +44,23 @@
                         <th scope="col"><b>에러ID</b></th>
                         <th scope="col"><b>발생시간</b></th>
                         <th scope="col"><b>장치명</b></th>
+                        <th scope="col"><b>원인</b></th>
                         <th scope="col"><b>토픽</b></th>
                         <th scope="col"><b>수치</b></th>
                         <th scope="col"><b>동작</b></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="errors : ${errors}">
+                    <tr th:each="errors : ${errors}" style="border-bottom: 1px solid rgba(0,0,0,.2);">
                         <td th:text="${errors.sensorErrorId}"></td>
                         <td th:text="${errors.createdAt}"></td>
-                        <td th:text="${errors.sensorName}"></td>
+                        <td th:text="${errors.brokerName}"></td>
+                        <td th:text="${errors.sensorErrorType}"></td>
                         <td th:text="${errors.topic}"></td>
                         <td th:text="${errors.value}"></td>
                         <td>
-                            <button type="button" class="btn btn-danger btn-sm deleteButton" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-danger btn-sm btn-rounded deleteButton"
+                                    data-bs-toggle="modal"
                                     data-bs-target="#deleteModal">삭제
                             </button>
                         </td>

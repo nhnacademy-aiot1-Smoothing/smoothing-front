@@ -9,8 +9,13 @@
                 color: #555;
                 background-color: #fafafa;
             }
+
+            [class*="pqina"], [class*="credit"]{
+                display: none !important;
+            }
         </style>
         <link rel="stylesheet" href="/assets/css/battery.css">
+        <link rel="stylesheet" href="/assets/css/goal_slider.css">
         <link href="https://unpkg.com/@pqina/flip/dist/flip.min.css" rel="stylesheet">
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -19,44 +24,64 @@
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
         <script src="https://code.highcharts.com/modules/pictorial.js"></script>
+        <link rel="shortcut icon" href="/assets/images/logo-mini.png">
     </head>
     <body>
         <th:block layout:fragment="content">
-            <div class="row justify-content-center">
-                <div class="col-2">
-                    <div class="card" style=" background-color: transparent;border: none; box-shadow: none;">
-                        <div class="d-flex justify-content-between">
-                            <button type="button"
-                                    class="btn btn-success" data-bs-toggle="modal"
-                                    data-bs-target="#tagSelectModal">태그 선택
-                            </button>
-                            <div class="modal fade" id="tagSelectModal" tabindex="-1"
-                                 aria-labelledby="tagSelectModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-                                            <h1 class="modal-title fs-5" id="tagSelectModalLabel"><b>태그 선택</b></h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row mb-3">
-                                                <div class="col-md-12 text-center align-self-center">
-                                                    <label for="tagCheckboxGroup" class="form-label">
-                                                        <b>태그 목록</b>
-                                                    </label>
-                                                    <div id="tagCheckboxGroup">
+            <div class="row">
+                
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info mb-1" style="font-weight: bold">
+                                        태그
+                                    </div>
+                                    <h1></h1>
+                                    <h1></h1>
+                                    <div id="tagName" class="h1 mb-0 font-weight-bold text-gray-800">전체 데이터</div>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="button"
+                                            class="btn btn-gradient-success btn-rounded" style="font-weight: bold"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#tagSelectModal">태그 선택
+                                    </button>
+                                    <div class="modal fade" id="tagSelectModal" tabindex="-1"
+                                         aria-labelledby="tagSelectModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header"
+                                                     style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+                                                    <h1 class="modal-title fs-5" id="tagSelectModalLabel"><b>태그 선택</b>
+                                                    </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-12">
+                                                            <label for="tagCheckboxGroup" class="form-label">
+                                                                <b>태그 목록</b>
+                                                            </label>
+                                                            <div id="tagCheckboxGroup">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="modal-footer d-flex justify-content-center"
+                                                     style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
+                                                    <button type="button" id="tagSelectButton"
+                                                            class="btn btn-primary"
+                                                            style="background-color: darkcyan; border-color: darkcyan">
+                                                        선택 완료
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">취소
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer d-flex justify-content-center"
-                                             style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
-                                            <button type="button" id="tagSelectButton"
-                                                    class="btn btn-primary">선택 완료
-                                            </button>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -64,65 +89,110 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-1">
-                    <h2 class="card-title"></h2>
-                </div>
-                <div class="col-1">
-                    <h2 class="card-title">실시간 요금</h2>
-                </div>
-                <div class="col-3">
-                    <div class="card"
-                         style="align-items: center; background-color: transparent;border: none; box-shadow: none;">
-                        <div>
-                            <div class="tick"
-                                 data-value="0"
-                                 data-did-init="setupFlip"
-                                 style="align-items: center; font-size: 12px">
-                                
-                                <div data-repeat="true" aria-hidden="true">
+                
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary mb-1" style="font-weight: bold">
+                                        실시간 일반 전기 요금
+                                    </div>
+                                    <h1></h1>
+                                    <h1></h1>
+                                    <div class="tick"
+                                         data-value="0"
+                                         data-did-init="setupFlip"
+                                         style="align-items: center; font-size: 12px">
+                                        
+                                        <div data-repeat="true" aria-hidden="true">
                                     <span id="my-flip"
                                           data-view="flip"
                                           style="border-radius: .3125em; font-size: 1.3vw"></span>
+                                        </div>
+                                    </div>
+                                
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-1">
-                    <h2 class="card-title">목표량</h2>
-                </div>
-                <div class="col-4">
-                    <div class="card" style="background-color: transparent;border: none; box-shadow: none;
-                        padding-right: 20px">
-                        <div id="project_container">
-                            <div id="projectbox">
-                                <div class='battery'>
+                
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success mb-1" style="font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+                                        <span>목표량</span>
+                                        <img th:src="@{/assets/images/setting.png}" style="width: 25px; height: 25px;
+                                        cursor: pointer;" data-bs-toggle="modal" data-bs-target="#goalModal" alt="Setting">
+                                    </div>
                                     
-                                    <div class='bar' data-power='4'></div>
-                                    <div class='bar' data-power='8'></div>
-                                    <div class='bar' data-power='12'></div>
-                                    <div class='bar' data-power='16'></div>
-                                    <div class='bar' data-power='20'></div>
-                                    <div class='bar' data-power='24'></div>
-                                    <div class='bar' data-power='28'></div>
-                                    <div class='bar' data-power='32'></div>
-                                    <div class='bar' data-power='36'></div>
-                                    <div class='bar' data-power='40'></div>
-                                    <div class='bar' data-power='44'></div>
-                                    <div class='bar' data-power='48'></div>
-                                    <div class='bar' data-power='52'></div>
-                                    <div class='bar' data-power='56'></div>
-                                    <div class='bar' data-power='60'></div>
-                                    <div class='bar' data-power='64'></div>
-                                    <div class='bar' data-power='68'></div>
-                                    <div class='bar' data-power='72'></div>
-                                    <div class='bar' data-power='76'></div>
-                                    <div class='bar' data-power='80'></div>
-                                    <div class='bar' data-power='84'></div>
-                                    <div class='bar' data-power='88'></div>
-                                    <div class='bar' data-power='92'></div>
-                                    <div class='bar' data-power='96'></div>
-                                    <div class='bar' data-power='100'></div>
+                                    <div class="modal fade" id="goalModal" tabindex="-1"
+                                         aria-labelledby="goalModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="goalModalLabel">한 달 목표량 설정</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="slidecontainer d-flex justify-content-center align-items-center">
+                                                        <input type="range" min="100" max="4000" value="2000"
+                                                               class="slider" id="goalRange" style="margin-top: 30px;
+                                                                margin-left: 50px">
+                                                        <p style="margin-top: 50px"><span id="kwh"></span> kwh</p>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer d-flex justify-content-center"
+                                                     style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
+                                                    <button type="button" id="goalButton"
+                                                            class="btn btn-primary"
+                                                            style="background-color: darkcyan; border-color: darkcyan">
+                                                        설정
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">취소
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <h1></h1>
+                                    <h1></h1>
+                                    <div id="project_container">
+                                        <div id="projectbox">
+                                            <div class='battery'>
+                                                <div class='bar' data-power='4'></div>
+                                                <div class='bar' data-power='8'></div>
+                                                <div class='bar' data-power='12'></div>
+                                                <div class='bar' data-power='16'></div>
+                                                <div class='bar' data-power='20'></div>
+                                                <div class='bar' data-power='24'></div>
+                                                <div class='bar' data-power='28'></div>
+                                                <div class='bar' data-power='32'></div>
+                                                <div class='bar' data-power='36'></div>
+                                                <div class='bar' data-power='40'></div>
+                                                <div class='bar' data-power='44'></div>
+                                                <div class='bar' data-power='48'></div>
+                                                <div class='bar' data-power='52'></div>
+                                                <div class='bar' data-power='56'></div>
+                                                <div class='bar' data-power='60'></div>
+                                                <div class='bar' data-power='64'></div>
+                                                <div class='bar' data-power='68'></div>
+                                                <div class='bar' data-power='72'></div>
+                                                <div class='bar' data-power='76'></div>
+                                                <div class='bar' data-power='80'></div>
+                                                <div class='bar' data-power='84'></div>
+                                                <div class='bar' data-power='88'></div>
+                                                <div class='bar' data-power='92'></div>
+                                                <div class='bar' data-power='96'></div>
+                                                <div class='bar' data-power='100'></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +201,7 @@
             </div>
             
             <div class="row">
-                <div style="height: 30px">
+                <div style="height: 15px">
                 
                 </div>
             </div>
@@ -201,7 +271,7 @@
                 <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">장소별 전압</h4>
+                            <h4 class="card-title" id="locationTitle">장소별 전압</h4>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div id="chart1" class="chart" style="height: 305px"></div>
@@ -214,13 +284,15 @@
                                 <div class="left-overlay">
                                     <button id="leftButton2" class="btn btn-primary"
                                             style="background-color: transparent; border: none; color: black;">
-                                        <span class="mdi mdi-chevron-left" style="font-size: 50px; color: #8c8c8c;"></span>
+                                        <span class="mdi mdi-chevron-left"
+                                              style="font-size: 50px; color: #8c8c8c;"></span>
                                     </button>
                                 </div>
                                 <div class="right-overlay">
                                     <button id="rightButton2" class="btn btn-primary"
                                             style="background-color: transparent; border: none; color: black;">
-                                        <span class="mdi mdi-chevron-right" style="font-size: 50px; color: #8c8c8c;"></span>
+                                        <span class="mdi mdi-chevron-right"
+                                              style="font-size: 50px; color: #8c8c8c;"></span>
                                     </button>
                                 </div>
                             </div>
@@ -249,6 +321,7 @@
             <script src="/assets/js/dashboard/three.js"></script>
             <script src="/assets/js/dashboard/battery.js"></script>
             <script src="/assets/js/dashboard/parsing_tags.js"></script>
+            <script src="/assets/js/dashboard/goal_slider.js"></script>
         </th:block>
     </body>
 </html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lagn="ko"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
     <nav th:fragment="topbarFragment"
          class="navbar default-layout-navbar col-lg-12 col-12 p-0 d-flex flex-row fixed-top">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -16,9 +16,6 @@
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        <div class="nav-profile-img">
-                            <img src="/assets/images/profile/profile.png" alt="profile">
-                        </div>
                         <div class="nav-profile-text">
                             <p class="mb-1 text-black"><span sec:authentication="name"></span> 님</p>
                         </div>
@@ -44,7 +41,7 @@
                     </div>
                 </li>
                 <li class="nav-item nav-logout d-none d-lg-block">
-                    <a id="logoutButton" class="nav-link" href="#">
+                    <a id="logoutButton" class="nav-link" href="/logout">
                         <i class="mdi mdi-power"></i>
                     </a>
                 </li>
