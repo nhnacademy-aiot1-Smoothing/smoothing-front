@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     rows.forEach(function(row) {
         let userId = row.querySelector(".user-id").textContent;
         let roleCell = row.querySelector(".user-role");
+        let deleteButton = row.querySelector(".deleteButton");
         let xhr = new XMLHttpRequest();
         xhr.open("GET", "/userRoleList?userId=" + userId);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -14,8 +15,29 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (roleResponse.length > 0) {
                     let roles = roleResponse.map(function (roleResponse) {
                         if (roleResponse.roleInfo === "ROLE_ADMIN") {
+                            deleteButton.addEventListener('click', function () {
+                                alert("관리자는 삭제할 수 없습니다.");
+                                return false;
+                            })
                             return "관리자";
                         } else if (roleResponse.roleInfo === "ROLE_USER") {
+                            deleteButton.addEventListener('click', function () {
+                                let xhr = new XMLHttpRequest();
+                                xhr.open("DELETE", "/deleteUser/" + userId);
+                                xhr.setRequestHeader("Content-Type", "application/json");
+
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                                        if (xhr.status === 200) {
+                                            alert("삭제되었습니다.");
+                                            location.reload();
+                                        } else {
+                                            console.log("오류 발생");
+                                        }
+                                    }
+                                };
+                                xhr.send();
+                            });
                             return "회원";
                         } else  {
                             return roleResponse.roleInfo;
@@ -40,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let userId = this.querySelector("input[name='userId']").value;
             // console.log(userId);
 
-            let checkboxes = document.querySelectorAll('input[type=checkbox]');
+            let checkboxes = document.querySelectorAll("input[name='roleCheckbox']");
 
             let checkedRoleIds = [];
 
@@ -51,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
+            console.log(checkedRoleIds);
 
             let modifyRequest = {
                 userId: userId,
