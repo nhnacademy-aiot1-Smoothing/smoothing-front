@@ -44,6 +44,7 @@
                         <th scope="col"><b>에러ID</b></th>
                         <th scope="col"><b>발생시간</b></th>
                         <th scope="col"><b>장치명</b></th>
+                        <th scope="col"><b>원인</b></th>
                         <th scope="col"><b>토픽</b></th>
                         <th scope="col"><b>수치</b></th>
                         <th scope="col"><b>동작</b></th>
@@ -54,6 +55,7 @@
                         <td th:text="${errors.sensorErrorId}"></td>
                         <td th:text="${errors.createdAt}"></td>
                         <td th:text="${errors.brokerName}"></td>
+                        <td th:text="${errors.sensorErrorType}"></td>
                         <td th:text="${errors.topic}"></td>
                         <td th:text="${errors.value}"></td>
                         <td>
