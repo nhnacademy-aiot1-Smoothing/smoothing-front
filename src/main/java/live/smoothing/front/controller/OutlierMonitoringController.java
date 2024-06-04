@@ -4,7 +4,6 @@ import live.smoothing.front.device.dto.SensorErrorListResponse;
 import live.smoothing.front.device.service.SensorErrorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +20,7 @@ public class OutlierMonitoringController {
     private final SensorErrorService sensorErrorService;
 
     @GetMapping("/outlier-monitoring")
-    public String outlier(@PageableDefault(size = 1000) Pageable pageable,
+    public String outlier(Pageable pageable,
                           Model model) {
 
         SensorErrorListResponse sensorErrors = sensorErrorService.getSensorErrors(pageable);
