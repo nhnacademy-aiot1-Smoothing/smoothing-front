@@ -90,8 +90,9 @@ public class UserManagementController {
         return userService.getAllRoles();
     }
 
-    @PostMapping("/deleteUser")
-    public String deleteUser(String userId) {
+    @ResponseBody
+    @DeleteMapping("/deleteUser/{userId}")
+    public String deleteUser(@PathVariable String userId) {
 
         userService.deleteUser(userId);
 
