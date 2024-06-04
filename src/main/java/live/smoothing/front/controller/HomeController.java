@@ -20,7 +20,7 @@ public class HomeController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/api/device/goal")
+    @PostMapping("/api/sensor/goal")
     public void setGoal(@RequestBody GoalReqeust goalRequest) {
         goalService.setGoal(goalRequest);
     }
