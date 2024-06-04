@@ -58,6 +58,7 @@
                                                 <th:block th:each="role : ${roleList}">
                                                     <li class="list-group-item">
                                                         <input class="form-check-input me-1" type="checkbox"
+                                                               name="roleCheckbox"
                                                                th:value="${role.roleId}"
                                                                th:id="'checkbox_' + ${role.roleId} + '_'+ ${user.userId}">
                                                         <label class="form-check-label" th:text="${role.roleInfo == 'ROLE_ADMIN' ? '관리자' : role.roleInfo == 'ROLE_USER' ? '회원' : role.roleInfo}"></label>
@@ -76,12 +77,9 @@
                                 </div>
                             </div>
                             <td>
-                                <form action="/deleteUser" method="post">
                                 <button type="submit" class="btn btn-danger btn-sm btn-rounded deleteButton" >삭제
                                     <input type="hidden" name="userId" th:value="${user.userId}" />
                                 </button>
-                                
-                                </form>
                             </td>
                         </tr>
                         
