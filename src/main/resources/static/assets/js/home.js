@@ -103,3 +103,26 @@ document.getElementById('rightButton').addEventListener('click', function() {
         document.getElementById('container2-title').style.display = 'block';
     }, 500);
 });
+
+document.querySelector("#goalButton").addEventListener("click", function() {
+    let value = document.querySelector("#goalRange").value;
+    fetch("api/sensor/goal",{
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            goalAmount: value
+        })
+    }).then(response => {
+        if(response.ok){
+            alert("목표량이 설정되었습니다.");
+            location.reload();
+        }else {
+            alert("목표량 설정에 실패했습니다.");
+            location.reload();
+        }
+    }).catch(error => {
+        console.error('서버로부터 응답 오류:', error);
+    })
+});
