@@ -193,6 +193,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let userEmail = email + "@" + domain.value;
 
+            if (userId.length > 50) {
+                alert("아이디는 최대 50자 까지 입니다.");
+                return false;
+            } else if (userPassword.length < 10 || userPassword.length > 100) {
+                alert("비밀번호는 10 ~ 100 자리로 설정해주세요.");
+                return false;
+            } else if (userName.length > 30) {
+                alert("이름은 최대 30자 까지 입니다.");
+                return false;
+            }
+
             let userCreateRequest = JSON.stringify({
                 userId: userId,
                 userPassword: userPassword,
@@ -235,12 +246,11 @@ document.addEventListener('DOMContentLoaded', function () {
         let userId = document.getElementById("userId");
         let userPassword = document.getElementById("userPassword");
         let userName = document.getElementById("userName");
-        let userEmail = document.getElementById("userEmail");
 
         let idValidText = document.createElement('span');
         let passwordValidText = document.createElement('span');
         let nameValidText = document.createElement('span');
-        let emailValidText = document.createElement('span');
+
 
         function hasPreviousValidText(field) {
             let previousValidText = field.parentElement.querySelector('span');
@@ -268,7 +278,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let idValid = checkField(userId, idValidText, "아이디를 입력해주세요.");
         let passwordValid = checkField(userPassword, passwordValidText, "비밀번호를 입력해주세요.");
         let nameValid = checkField(userName, nameValidText, "이름을 입력해주세요.");
-        // let emailValid = checkField(userEmail, emailValidText, "이메일을 입력해주세요.");
 
         return idValid && passwordValid && nameValid;
     }
