@@ -20,4 +20,6 @@ public interface AuthService {
 
     MessageResponse verifyCertificationNumber(VerificationRequest request);
 
+    LoginResponse doOAuthLogin(String userId);
+
 }

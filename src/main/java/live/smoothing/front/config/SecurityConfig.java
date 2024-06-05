@@ -2,7 +2,9 @@ package live.smoothing.front.config;
 
 import live.smoothing.front.adapter.AuthAdapter;
 import live.smoothing.front.adapter.UserApiAdapter;
+import live.smoothing.front.auth.service.AuthService;
 import live.smoothing.front.security.*;
+import live.smoothing.front.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +37,8 @@ public class SecurityConfig {
     private final AuthAdapter authAdapter;
     private final ClientRegistrationRepository clientRegistrationRepository;
     private final UserApiAdapter userAdapter;
+    private final UserService userService;
+    private final AuthService authService;
 
     /**
      * SecurityFilterChain 빈 생성 메서드
@@ -80,7 +84,7 @@ public class SecurityConfig {
         http.oauth2Login()
 //                .userInfoEndpoint().userService(new CustomOAuth2Service())
 //                .and()
-                .successHandler(new CustomOAuth2AuthenticationSuccessHandler());
+                .successHandler(new CustomOAuth2AuthenticationSuccessHandler(userService,authService)).and().oauth2Login().loginPage("/login");
 //
         http.oauth2Login()
                 .authorizationEndpoint()

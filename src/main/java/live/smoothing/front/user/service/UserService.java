@@ -2,6 +2,7 @@ package live.smoothing.front.user.service;
 
 import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.UserInfoListResponse;
+import live.smoothing.front.user.dto.UserOAuthListDto;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.WaitingUserListResponse;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
@@ -78,4 +79,14 @@ public interface UserService {
     void modifyUserName(UserNameModifyRequest request);
 
     void modifyUserEmail(UserEmailModifyRequest request);
+
+    UserOAuthListDto getUserOAuthList();
+
+    boolean getUserOAuthByProviderKey_providerName(String providerKey, String providerName);
+
+    void saveUserOAuth(String providerKey, String providerId, String userId);
+
+    String getUserIdByProviderKey_providerName(String providerKey, String providerName);
+
+    void deleteUserOAuth(String providerName);
 }

@@ -47,10 +47,8 @@ public class CustomHttpSessionOAuth2AuthorizationRequestRepository implements Au
         }
 
         try {
-            String encryptedText = Aes256.encrypt(Arrays.toString(SerializationUtils.serialize(authorizationRequest)));
-            System.out.println(encryptedText);
-            System.out.println(Aes256.decrypt(encryptedText));
-            SerializationUtils.deserialize(URLDecoder.decode(encryptedText, StandardCharsets.UTF_8).getBytes());
+            byte[] bytes = SerializationUtils.serialize(authorizationRequest);
+            String encryptedText = Base64.getEncoder().encodeToString(bytes);
             CookieUtil.addCookie(response, OAUTH2_COOKIE_NAME + "1", encryptedText.substring(0, encryptedText.length() / 4), OAUTH_COOKIE_EXPIRY);
             CookieUtil.addCookie(response, OAUTH2_COOKIE_NAME + "2", encryptedText.substring(encryptedText.length() / 4, encryptedText.length() / 2), OAUTH_COOKIE_EXPIRY);
             CookieUtil.addCookie(response, OAUTH2_COOKIE_NAME + "3", encryptedText.substring(encryptedText.length() / 2, encryptedText.length() / 4 * 3), OAUTH_COOKIE_EXPIRY);
@@ -69,7 +67,10 @@ public class CustomHttpSessionOAuth2AuthorizationRequestRepository implements Au
     public OAuth2AuthorizationRequest removeAuthorizationRequest(HttpServletRequest request,
                                                                  HttpServletResponse response) {
         OAuth2AuthorizationRequest oAuth2AuthorizationRequest = getCookie(request);
-        CookieUtil.removeCookie(request, response, OAUTH2_COOKIE_NAME);
+        CookieUtil.removeCookie(request, response, OAUTH2_COOKIE_NAME + "1");
+        CookieUtil.removeCookie(request, response, OAUTH2_COOKIE_NAME + "2");
+        CookieUtil.removeCookie(request, response, OAUTH2_COOKIE_NAME + "3");
+        CookieUtil.removeCookie(request, response, OAUTH2_COOKIE_NAME + "4");
         return oAuth2AuthorizationRequest;
     }
 
@@ -80,8 +81,7 @@ public class CustomHttpSessionOAuth2AuthorizationRequestRepository implements Au
         Cookie cookie3 = CookieUtil.getCookie(request, OAUTH2_COOKIE_NAME + "3").orElse(null);
         Cookie cookie4 = CookieUtil.getCookie(request, OAUTH2_COOKIE_NAME + "4").orElse(null);
         String encryptedText = cookie1.getValue() + cookie2.getValue() + cookie3.getValue() + cookie4.getValue();
-        System.out.println(encryptedText);
-        return (OAuth2AuthorizationRequest) SerializationUtils.deserialize(URLDecoder.decode(encryptedText, StandardCharsets.UTF_8).getBytes());
+        return (OAuth2AuthorizationRequest) SerializationUtils.deserialize(Base64.getDecoder().decode(encryptedText));
     }
 
     private String encrypt(OAuth2AuthorizationRequest authorizationRequest) throws Exception {
@@ -128,7 +128,7 @@ public class CustomHttpSessionOAuth2AuthorizationRequestRepository implements Au
                                     .forEach(cookie -> {
                                         cookie.setValue(EMPTY);
                                         cookie.setPath("/");
-                                        cookie.setMaxAge(ZERO);
+                                        cookie.setMaxAge(0);
                                         response.addCookie(cookie);
                                     })
                     );
