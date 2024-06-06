@@ -1,10 +1,12 @@
 package live.smoothing.front.device.service;
 
 import live.smoothing.front.adapter.DeviceAdapter;
+import live.smoothing.front.adapter.SensorAdapter;
 import live.smoothing.front.device.dto.SensorListResponse;
 import live.smoothing.front.device.dto.SensorRegisterRequest;
 import live.smoothing.front.device.dto.SensorTypeListResponse;
 import live.smoothing.front.device.dto.SensorUpdateRequest;
+import live.smoothing.front.sensor.dto.GoalReqeust;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class SensorServiceImpl implements SensorService{
 
     private final DeviceAdapter deviceAdapter;
+    private final SensorAdapter sensorAdapter;
 
     @Override
     public void addSensor(SensorRegisterRequest sensorRegisterRequest) {
@@ -38,5 +41,10 @@ public class SensorServiceImpl implements SensorService{
     @Override
     public SensorTypeListResponse getSensorTypes() {
         return deviceAdapter.getSensorTypes();
+    }
+
+    @Override
+    public void modifyGoal(GoalReqeust goalRequest) {
+        sensorAdapter.modifyGoal(goalRequest);
     }
 }

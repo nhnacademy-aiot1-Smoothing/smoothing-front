@@ -3,6 +3,7 @@ package live.smoothing.front.controller;
 import live.smoothing.front.device.dto.*;
 import live.smoothing.front.device.service.SensorService;
 import live.smoothing.front.device.service.TagService;
+import live.smoothing.front.sensor.dto.GoalReqeust;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -106,5 +107,11 @@ public class SensorController {
     @GetMapping("/tags")
     public List<TagResponse> getTags() {
         return tagService.getTags().getTags();
+    }
+
+    @ResponseBody
+    @PostMapping("/api/sensor/goal")
+    public void setGoal(@RequestBody GoalReqeust goalRequest) {
+        sensorService.modifyGoal(goalRequest);
     }
 }
