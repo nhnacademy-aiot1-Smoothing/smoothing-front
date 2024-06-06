@@ -4,6 +4,7 @@ import live.smoothing.front.device.dto.SensorListResponse;
 import live.smoothing.front.device.dto.SensorRegisterRequest;
 import live.smoothing.front.device.dto.SensorTypeListResponse;
 import live.smoothing.front.device.dto.SensorUpdateRequest;
+import live.smoothing.front.sensor.dto.GoalReqeust;
 import org.springframework.data.domain.Pageable;
 
 public interface SensorService {
@@ -16,4 +17,6 @@ public interface SensorService {
     void deleteSensor(Integer sensorId);
 
     SensorTypeListResponse getSensorTypes();
+
+    void modifyGoal(GoalReqeust goalRequest);
 }
