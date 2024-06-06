@@ -52,9 +52,9 @@
                                         </script>
                                     </div>
                                     <div id="kakao-login">
-                                        <a href="/oauth2/authorization/kakao" class="btn-gradient-success fast-login-btn"
+                                        <a href="</a>" class="btn-gradient-success fast-login-btn"
                                            style="width: 100px" th:if="${!oauths.contains('kakao')}">카카오 oauth 추가</a>
-                                        <button href="/oauth?providerName=kakao" class="btn-gradient-success fast-login-btn"
+                                        <button href="/oauth2/authorization/kakao" class="btn-gradient-success fast-login-btn"
                                              style="width: 100px" th:unless="${!oauths.contains('kakao')}">카카오 oauth 삭제</button>
                                         <script>
                                             document.getElementById("kakao-login").addEventListener("click", function (e) {
