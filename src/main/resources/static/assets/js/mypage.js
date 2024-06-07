@@ -118,3 +118,17 @@ document.getElementById('pointButton').addEventListener('click', function() {
 document.getElementById('pointBalanceLink').addEventListener('click', function() {
     document.getElementById('pointButton').click();
 });
+
+document.getElementById('oAuthButton').addEventListener('click', function () {
+    this.classList.add('active');
+
+    document.getElementById('attendanceButton').classList.remove('active');
+    document.getElementById('pointButton').classList.remove('active');
+
+    fetch('/oAuth-page')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('content').innerHTML = data;
+        })
+        .catch(error => console.error('Error:', error));
+});
