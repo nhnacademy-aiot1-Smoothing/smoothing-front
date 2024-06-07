@@ -2,9 +2,11 @@ package live.smoothing.front.user.service.impl;
 
 
 import feign.FeignException;
+import live.smoothing.front.adapter.UserAdapter;
 import live.smoothing.front.adapter.UserApiAdapter;
 import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.UserInfoListResponse;
+import live.smoothing.front.user.dto.UserOAuthListDto;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.WaitingUserListResponse;
 import live.smoothing.front.user.dto.request.UserApproveRequest;
@@ -31,6 +33,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserApiAdapter userApiAdapter;
+    private final UserAdapter userAdapter;
 
     /**
      * {@inheritDoc}
@@ -203,4 +206,31 @@ public class UserServiceImpl implements UserService {
 
         userApiAdapter.modifyUserEmail(request);
     }
+
+    @Override
+    public UserOAuthListDto getUserOAuthList() {
+        return userApiAdapter.getUserOAuthList();
+    }
+
+    @Override
+    public boolean getUserOAuthByProviderKey_providerName(String providerKey, String providerName) {
+        return userAdapter.getUserOAuthByProviderKey_providerName(providerKey, providerName).isExist();
+    }
+
+    @Override
+    public void saveUserOAuth(String providerKey, String providerId, String userId) {
+        userAdapter.saveUserOAuth(providerKey, providerId, userId);
+    }
+
+    @Override
+    public String getUserIdByProviderKey_providerName(String providerKey, String providerName) {
+        return userAdapter.getUserIdByProviderKey_providerName(providerKey, providerName).getUserId();
+    }
+
+    @Override
+    public void deleteUserOAuth(String providerName) {
+        userApiAdapter.deleteUserOAuth(providerName);
+    }
+
+
 }

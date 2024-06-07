@@ -2,6 +2,7 @@ package live.smoothing.front.adapter;
 
 import live.smoothing.front.auth.dto.email.MessageResponse;
 import live.smoothing.front.user.dto.UserInfoListResponse;
+import live.smoothing.front.user.dto.UserOAuthListDto;
 import live.smoothing.front.user.dto.UserPointDetailResponse;
 import live.smoothing.front.user.dto.WaitingUserListResponse;
 import live.smoothing.front.user.dto.request.*;
@@ -111,4 +112,10 @@ public interface UserApiAdapter {
 
     @PutMapping("/api/user/modify/userEmail")
     MessageResponse modifyUserEmail(@RequestBody UserEmailModifyRequest request);
+
+    @GetMapping("/api/user/oauth")
+    UserOAuthListDto getUserOAuthList();
+
+    @DeleteMapping("/api/user/oauth")
+    void deleteUserOAuth(@RequestParam("providerName") String providerName);
 }
