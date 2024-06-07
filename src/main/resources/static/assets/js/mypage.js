@@ -129,6 +129,10 @@ document.getElementById('oAuthButton').addEventListener('click', function () {
         .then(response => response.text())
         .then(data => {
             document.getElementById('content').innerHTML = data;
+            const scriptElement = document.createElement('script');
+            scriptElement.src = '/assets/js/oAuth.js';
+            document.body.appendChild(scriptElement);
         })
         .catch(error => console.error('Error:', error));
+
 });
