@@ -28,6 +28,52 @@
                                             id="attendanceButton">출석</button>
                                     <button type="button" class="btn btn-outline-warning btn-icon-text btn-fw"
                                             id="pointButton">포인트</button>
+
+                                    <div id="github-login">
+                                        <a href="/oauth2/authorization/github" class="btn-gradient-success fast-login-btn"
+                                           style="width: 100px" th:if="${!oauths.contains('github')}">깃허브 oauth 추가</a>
+                                        <button href="/oauth?providerName=github" class="btn-gradient-success fast-login-btn"
+                                           style="width: 100px" th:unless="${!oauths.contains('github')}">깃허브 oauth 삭제</button>
+                                        <script>
+                                            document.getElementById("github-login").addEventListener("click", function (e) {
+                                                if (e.target.tagName === "BUTTON") {
+                                                    fetch("/oauth?providerName=github", {
+                                                        method: "DELETE",
+                                                        headers: {
+                                                            "Content-Type": "application/json"
+                                                        }
+                                                    }).then(response => {
+                                                        if (response.ok) {
+                                                            location.reload();
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        </script>
+                                    </div>
+                                    <div id="kakao-login">
+                                        <a href="</a>" class="btn-gradient-success fast-login-btn"
+                                           style="width: 100px" th:if="${!oauths.contains('kakao')}">카카오 oauth 추가</a>
+                                        <button href="/oauth2/authorization/kakao" class="btn-gradient-success fast-login-btn"
+                                             style="width: 100px" th:unless="${!oauths.contains('kakao')}">카카오 oauth 삭제</button>
+                                        <script>
+                                            document.getElementById("kakao-login").addEventListener("click", function (e) {
+                                                if (e.target.tagName === "BUTTON") {
+                                                    fetch("/oauth?providerName=kakao", {
+                                                        method: "DELETE",
+                                                        headers: {
+                                                            "Content-Type": "application/json"
+                                                        }
+                                                    }).then(response => {
+                                                        if (response.ok) {
+                                                            location.reload();
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        </script>
+
+
                                     <h1> </h1><p></p>
                                     <h1> </h1><p></p>
                                     <h1> </h1><p></p>

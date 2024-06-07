@@ -36,6 +36,8 @@ public class MyPageController {
         model.addAttribute("pointBalance", pointBalance);
         model.addAttribute("userName", userName);
 
+        model.addAttribute("oauths",userService.getUserOAuthList().getRegisteredOAuthList());
+
         return "pages/mypage";
     }
 

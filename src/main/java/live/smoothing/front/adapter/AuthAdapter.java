@@ -10,9 +10,7 @@ import live.smoothing.front.auth.dto.token.RefreshTokenRequest;
 import live.smoothing.front.auth.dto.token.ReissueResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 유저 인증 관련 FeignClient
@@ -74,4 +72,7 @@ public interface AuthAdapter {
 
     @PostMapping("/api/auth/email/verify")
     ResponseEntity<MessageResponse> verifyCertificationNumber(@RequestBody VerificationRequest verificationRequest);
+
+    @PostMapping("/api/auth/oauth")
+    ResponseEntity<LoginResponse> doOAuthLogin(@RequestParam("userId") String userId);
 }

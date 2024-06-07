@@ -2,7 +2,9 @@ package live.smoothing.front.config;
 
 import live.smoothing.front.adapter.AuthAdapter;
 import live.smoothing.front.adapter.UserApiAdapter;
+import live.smoothing.front.auth.service.AuthService;
 import live.smoothing.front.security.*;
+import live.smoothing.front.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -31,7 +35,10 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 public class SecurityConfig {
 
     private final AuthAdapter authAdapter;
+    private final ClientRegistrationRepository clientRegistrationRepository;
     private final UserApiAdapter userAdapter;
+    private final UserService userService;
+    private final AuthService authService;
 
     /**
      * SecurityFilterChain 빈 생성 메서드
@@ -58,8 +65,10 @@ public class SecurityConfig {
 //                .antMatchers("/error").permitAll()
 //                .antMatchers("/static/**").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/oauth").permitAll()
                 .antMatchers("/requestCertificationNumber").permitAll()
                 .antMatchers("/verifyCertificationNumber").permitAll()
+                .antMatchers("/login/**").permitAll()
                 .antMatchers("/existUser").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -72,6 +81,14 @@ public class SecurityConfig {
                 .addLogoutHandler(new CustomLogoutHandler(authAdapter));
 
 
+        http.oauth2Login()
+//                .userInfoEndpoint().userService(new CustomOAuth2Service())
+//                .and()
+                .successHandler(new CustomOAuth2AuthenticationSuccessHandler(userService,authService)).and().oauth2Login().loginPage("/login");
+//
+        http.oauth2Login()
+                .authorizationEndpoint()
+                .authorizationRequestRepository(new CustomHttpSessionOAuth2AuthorizationRequestRepository());
         return http.build();
     }
 

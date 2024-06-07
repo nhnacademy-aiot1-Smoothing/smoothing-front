@@ -57,4 +57,9 @@ public class AuthServiceImpl implements AuthService {
 
 
     }
+
+    @Override
+    public LoginResponse doOAuthLogin(String userId) {
+        return authAdapter.doOAuthLogin(userId).getBody();
+    }
 }
