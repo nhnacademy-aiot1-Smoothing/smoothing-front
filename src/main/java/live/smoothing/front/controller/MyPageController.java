@@ -36,8 +36,6 @@ public class MyPageController {
         model.addAttribute("pointBalance", pointBalance);
         model.addAttribute("userName", userName);
 
-        model.addAttribute("oauths",userService.getUserOAuthList().getRegisteredOAuthList());
-
         return "pages/mypage";
     }
 
@@ -50,10 +48,14 @@ public class MyPageController {
         return "pages/point";
     }
 
-    @GetMapping("/achievement")
-    public String achievementPage() {
 
-        return "pages/achievement";
+
+    @GetMapping("/oAuth-page")
+    public String oAuthPage(Model model) {
+
+        model.addAttribute("oauths",userService.getUserOAuthList().getRegisteredOAuthList());
+
+        return "pages/oAuth";
     }
 
     @GetMapping("/verify-pwd")
