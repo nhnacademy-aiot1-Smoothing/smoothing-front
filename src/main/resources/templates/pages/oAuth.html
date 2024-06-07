@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <style>
+            th {
+                font-weight: bold;
+            }
+            .container {
+                display: flex;
+                justify-content: left;
+                margin-top: 40px;
+            }
+            .login-box {
+                border-radius: 5px;
+                /*box-shadow: 0 2px 5px rgba(0,0,0,.25);*/
+                border: 1px #a39485 solid;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .login-box img {
+                /*margin-right: 10px;*/
+            }
+            .fast-login-btn {
+                text-decoration-line: none;
+                /*margin-left: 10px;*/
+            }
+        </style>
+        <link rel="shortcut icon" href="/assets/images/logo-mini.png">
+    </head>
+    <body>
+        <div class="container">
+            <div class="login-box" id="github-login">
+                <img th:src="@{/assets/images/github.png}" style="width: 60px; height: auto">
+                <a href="/oauth2/authorization/github" class="fast-login-btn" style="margin-top: 30px; font-weight: bold"
+                   th:if="${!oauths.contains('github')}">Github 연동</a>
+                <button href="/oauth?providerName=github" class="fast-login-btn" th:unless="${!oauths.contains('github')}">Github 연동 해제</button>
+            </div>
+            <div class="login-box" id="kakao-login" style="margin-left: 20px">
+                <img th:src="@{/assets/images/kakao.png}" style="width: 60px; height: auto">
+                <a href="/oauth2/authorization/kakao" class="fast-login-btn"
+                   style="margin-top: 30px; font-weight: bold" th:if="${!oauths.contains('kakao')}">카카오 연동</a>
+                <button href="/oauth2/authorization/kakao" class="fast-login-btn" th:unless="${!oauths.contains('kakao')}">카카오 연동 해제</button>
+            </div>
+        </div>
+        
+        <script>
+            document.getElementById("github-login").addEventListener("click", function (e) {
+                if (e.target.tagName === "BUTTON") {
+                    fetch("/oauth?providerName=github", {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+
+            document.getElementById("kakao-login").addEventListener("click", function (e) {
+                if (e.target.tagName === "BUTTON") {
+                    fetch("/oauth?providerName=kakao", {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>
