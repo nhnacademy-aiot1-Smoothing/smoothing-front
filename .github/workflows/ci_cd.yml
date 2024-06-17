@@ -27,14 +27,14 @@ jobs:
       if: ${{ success() }}
       run : ${{ secrets.SONAR_COMMAND }}
 
-# CD to server 1
+# CD
     - name: upload file
       if: ${{ success() }}
       uses: appleboy/scp-action@master
       with:
-        host: ${{ secrets.SSH_IP_1 }}
+        host: ${{ secrets.SSH_IP }}
         username: ${{ secrets.SSH_ID }}
-        key: ${{ secrets.SSH_KEY_1 }}
+        key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
         source: "target/*.jar"
         target: "~/"
@@ -44,38 +44,17 @@ jobs:
       if: ${{ success() }}
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.SSH_IP_1 }}
+        host: ${{ secrets.SSH_IP }}
         username: ${{ secrets.SSH_ID }}
-        key: ${{ secrets.SSH_KEY_1 }}
+        key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        script_stop: true
-        script: "./start.sh"
-
-# Wait for 30 sec
-    - name: Wait for 1 minute
-      if: ${{ success() }}
-      run: sleep 30
-
-# CD to server2
-    - name: upload file
-      if: ${{ success() }}
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.SSH_IP_2 }}
-        username: ${{ secrets.SSH_ID }}
-        key: ${{ secrets.SSH_KEY_2 }}
-        port: ${{ secrets.SSH_PORT }}
-        source: "target/*.jar"
-        target: "~/"
-        rm: false
-
-    - name: execute shell script
-      if: ${{ success() }}
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_IP_2 }}
-        username: ${{ secrets.SSH_ID }}
-        key: ${{ secrets.SSH_KEY_2 }}
-        port: ${{ secrets.SSH_PORT }}
-        script_stop: true
-        script: "./start.sh"
+        script: |
+          sudo docker build -t front:latest ./ --build-arg FILE=target/front-0.0.1-SNAPSHOT.jar
+          containers=$(sudo docker ps -a | grep front | awk '{print $1}')
+          if [ -n "$containers" ]; then
+            sudo docker stop $containers
+            sudo docker rm $containers
+          else
+            echo "No containers with 'front' found."
+          fi
+          sudo docker run -d --name front-service --network=smoothing --restart always front
