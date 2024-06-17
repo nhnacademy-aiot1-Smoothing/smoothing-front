@@ -57,4 +57,4 @@ jobs:
           else
             echo "No containers with 'front' found."
           fi
-          sudo docker run -d --name front-service --network=smoothing --restart always front
+          sudo docker run -d --name front-service --network=smoothing -p 8000:8000 --restart always front
